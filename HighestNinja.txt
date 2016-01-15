@@ -1,0 +1,96 @@
+http://www.learn-cocos2d.com/2013/08/physics-engine-platformer-terrible-idea/
+http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/
+
+
+class GameMachine
+
+class GameStateMachine
+
+class GameObject
+	-isAlive
+	-updater
+	-drawer
+	-collider
+	+load()
+	+update()
+	+draw()
+	+unload()
+
+class GroundObject extends GameObject
+	
+class GameItem extends GameObject (Visitor+Decorator)
+	-gameItem
+	-execute(GameHero)
+
+class Shuriken extends GameObject
+	
+class GameObstacles extends GameObject
+
+class GameHero extends GameObject
+	-playerId
+	-Color
+	-animationMap<enum, Animation>
+	-controller
+	-heroState
+	+handleInput(Input input)
+	+setState(HeroState)
+	-setItem(GameItem)
+	
+class HeroState
+	-previousState?
+	-maxSpeed
+	-canShoot
+	-canUseRope
+	-duration
+	-animation
+	-entry()
+	+handleInput(GameHero, Input input)
+	+updateHero(GameHero, updateTime): HeroState
+
+class HeroOnGroundState
+class HeroOnAirState
+class HeroOnRopeState
+class HeroOnWallState
+class HeroOnAcrobacyState
+	
+interface Updatable
+	+update()
+	
+class Drawable
+	+animation
+	+draw()
+	
+class AnimationFile (Value Object)
+	animationImageName, width, height, numberOfFrames, loop, pingPong
+	
+abstract class Animation(SFML) extends Drawable implements Updatable
+	-animationFile
+	-loadFromFile (XML)
+	
+abstract class Moveable implements Updatable
+	-accel
+	-maxSpeed
+	There’s got to be a speed limit on everything:
+There is and it’s modifiable in b2Settings
+	-adjustSpritePosition()
+	
+abstract class Collidable
+	-collisionMask
+	-Type
+	-Body
+	+handleCollision(Collidable)
+
+class TimeMaster
+	+factor
+	
+class GrapphicsWorld
+	+SCALE
+	+transformToWorldPosition(Vec2):Vec2
+	+transformToGraphicPosition(Vec2):Vec2
+
+class AudioService
+
+
+AnimationResourceManager
+	-animationProperties 
+	-getAnimation(String):Animation
