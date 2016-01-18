@@ -11,6 +11,7 @@ import org.jsfml.system.Vector2f;
 
 public class Animation implements UpdatableFromTime
 {
+
 	private short currentFrameNumber;
 	private float secondsSinceLastUpdate;
 	private Rectangle frameRect;
@@ -23,7 +24,7 @@ public class Animation implements UpdatableFromTime
 		this.animationDefinition = animationDefinition;
 		texture = new Texture();
 		texture.loadFromFile(new File(animationDefinition.textureFilename).toPath());
-		frameRect = new Rectangle(texture.getSize().x, texture.getSize().y);
+		frameRect = new Rectangle(texture.getSize().x / animationDefinition.numFrames, texture.getSize().y);
 		sprite = new Sprite(texture);
 		sprite.setOrigin(frameRect.width/2, frameRect.height/2);
 		
@@ -31,7 +32,7 @@ public class Animation implements UpdatableFromTime
 		currentFrameNumber = 0;		
 	}
 
-	public Animation createAnimation(AnimationDefinition animationDefinition)
+	public static Animation createAnimation(AnimationDefinition animationDefinition)
 	{
 		try {
 			Animation animation;
@@ -73,5 +74,9 @@ public class Animation implements UpdatableFromTime
 	public void setPosition(Vector2f graphicPosition)
 	{
 		sprite.setPosition(graphicPosition);
+	}
+
+	public short getCurrentFrameNumber() {
+		return currentFrameNumber;
 	}
 }

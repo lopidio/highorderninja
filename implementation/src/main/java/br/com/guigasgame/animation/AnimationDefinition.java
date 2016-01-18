@@ -34,28 +34,36 @@ public class AnimationDefinition
 	}
 	
 	public static void main(String[] args) throws JAXBException {
-		AnimationDefinition anim = new AnimationDefinition();
-		anim.framePerSecond = 12;
-		anim.frameWidth = 42;
-		anim.numEntranceFrames = 2;
-		anim.numFrames = 7;
-		anim.textureFilename = "C:iei";
-		
-        try {
-            JAXBContext context = JAXBContext.newInstance(AnimationDefinition.class);
-            Marshaller m = context.createMarshaller();
-            //for pretty-print XML in JAXB
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
- 
-            // Write to System.out for debugging
-             m.marshal(anim, System.out);
- 
-            // Write to File
-//            m.marshal(emp, new File(FILE_NAME));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }		
-        
+//		AnimationDefinition anim = new AnimationDefinition();
+//		anim.framePerSecond = 12;
+//		anim.frameWidth = 42;
+//		anim.numEntranceFrames = 2;
+//		anim.numFrames = 7;
+//		anim.textureFilename = "C:iei";
+//		
+//        try {
+//            JAXBContext context = JAXBContext.newInstance(AnimationDefinition.class);
+//            Marshaller m = context.createMarshaller();
+//            //for pretty-print XML in JAXB
+//            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+// 
+//            // Write to System.out for debugging
+//             m.marshal(anim, System.out);
+// 
+//            // Write to File
+////            m.marshal(emp, new File(FILE_NAME));
+//        } catch (JAXBException e) {
+//            e.printStackTrace();
+//        }		
+//        
         AnimationDefinition fromFile = AnimationDefinition.loadFromFile("AnimationDefinition.xml");
+        Animation animation = Animation.createAnimation(fromFile);
+        for (int i = 0; i < 20; i++) 
+        {
+        	animation.update((float) 0.05);
+        	System.out.println(animation.getCurrentFrameNumber());
+        	System.out.println(animation.getSprite().getTextureRect());
+		}
+        
 	}
 }
