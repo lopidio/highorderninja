@@ -1,17 +1,61 @@
 package br.com.guigasgame.animation;
 
-import java.nio.file.Path;
+import java.io.File;
 
-import org.jsfml.graphics.Image;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public abstract class AnimationDefinition 
+@XmlRootElement
+public class AnimationDefinition 
 {
-	public Image image;
+    @XmlElement
 	public short numFrames;
+    @XmlElement
 	public short numEntranceFrames;
+    @XmlElement
 	public short framePerSecond;
-	public short frameWidth;
-	public short frameHeight;
+    @XmlElement
+    public short frameWidth;
 	
-	public abstract boolean loadFromFile(Path pathToFile);
+    @XmlAttribute
+    public String textureFilename;
+	
+	public static AnimationDefinition loadFromFile(String filename) throws JAXBException
+	{
+		JAXBContext jaxbContext = JAXBContext.newInstance(AnimationDefinition.class);
+		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		AnimationDefinition animationDefinition = (AnimationDefinition) jaxbUnmarshaller.unmarshal(new File(filename));
+		return animationDefinition;
+	}
+	
+	public static void main(String[] args) throws JAXBException {
+		AnimationDefinition anim = new AnimationDefinition();
+		anim.framePerSecond = 12;
+		anim.frameWidth = 42;
+		anim.numEntranceFrames = 2;
+		anim.numFrames = 7;
+		anim.textureFilename = "C:iei";
+		
+        try {
+            JAXBContext context = JAXBContext.newInstance(AnimationDefinition.class);
+            Marshaller m = context.createMarshaller();
+            //for pretty-print XML in JAXB
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+ 
+            // Write to System.out for debugging
+             m.marshal(anim, System.out);
+ 
+            // Write to File
+//            m.marshal(emp, new File(FILE_NAME));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }		
+        
+        AnimationDefinition fromFile = AnimationDefinition.loadFromFile("AnimationDefinition.xml");
+	}
 }

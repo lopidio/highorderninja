@@ -1,13 +1,15 @@
 package br.com.guigasgame.box2d;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
+import org.jbox2d.callbacks.DebugDraw;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Color3f;
+import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -17,11 +19,15 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
+import org.jsfml.graphics.ConvexShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
+import org.jsfml.system.Vector2f;
+import org.jsfml.window.Keyboard;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.VideoMode;
+import org.jsfml.window.event.Event;
 
 /**
  * Hello world!
@@ -37,14 +43,61 @@ public class JsfmlBox2d {
 		DistanceJoint hookJoint = null;
 
 		/** Prepare the window */
-		RenderWindow window = new RenderWindow(new VideoMode(800, 600, 32), "Test");
+		final RenderWindow window = new RenderWindow(new VideoMode(800, 600, 32), "Test");
 		window.setFramerateLimit(60);
-
 
 		/** Prepare the world */
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 
 		World world = new World(gravity);
+		world.setDebugDraw(new DebugDraw(null) {
+
+			@Override
+			public void drawTransform(Transform xf) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void drawString(float x, float y, String s, Color3f color) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void drawSolidPolygon(Vec2[] vertices, int vertexCount, Color3f color) {
+				ConvexShape polygon = new ConvexShape();
+				for (int i = 0; i < vertexCount; i++) {
+					Vector2f vertex = new Vector2f(vertices[i].x, vertices[i].y);
+					polygon.setPoint(i, vertex);
+				}
+				window.draw(polygon);
+			}
+
+			@Override
+			public void drawSolidCircle(Vec2 center, float radius, Vec2 axis, Color3f color) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void drawSegment(Vec2 p1, Vec2 p2, Color3f color) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void drawPoint(Vec2 argPoint, float argRadiusOnScreen, Color3f argColor) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void drawCircle(Vec2 center, float radius, Color3f color) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		world.setContactListener(new ContactListener() {
 
 			public void preSolve(Contact contact, Manifold oldManifold) {
@@ -67,7 +120,7 @@ public class JsfmlBox2d {
 
 			}
 		});
-		
+
 		Body lastBody = null;
 
 		createGround(world, 400.f, 500.f);
@@ -79,17 +132,19 @@ public class JsfmlBox2d {
 		Texture boxTexture = new Texture();
 		boxTexture.loadFromFile(Paths.get("boxImage.jpg"));
 
-		while (window.isOpen()) {
+		while (window.isOpen())
+		{
+			handleEvents(window);
 			if (Mouse.isButtonPressed(Mouse.Button.LEFT)) {
 				int MouseX = Mouse.getPosition(window).x;
 				int MouseY = Mouse.getPosition(window).y;
 				lastBody = createBox(world, MouseX, MouseY);
 			}
-			
-//			if (Mouse.isButtonPressed(Mouse.Button.RIGHT)) {
-//				if (lastBody != null && gancho == null)
-//				addHook(lastBody, world, gancho);
-//			}			
+
+			// if (Mouse.isButtonPressed(Mouse.Button.RIGHT)) {
+			// if (lastBody != null && gancho == null)
+			// addHook(lastBody, world, gancho);
+			// }
 			world.step(1 / 60.f, 8, 3);
 
 			window.clear();
@@ -102,26 +157,47 @@ public class JsfmlBox2d {
 					sprite.setRotation((float) (bodyIterator.getAngle() * 180 / Math.PI));
 					window.draw(sprite);
 				} else {
-//					Sprite groundSprite = new Sprite();
-//					groundSprite.setTexture(groundTexture);
-//					groundSprite.setOrigin(400.f, 8.f);
-//
-//					groundSprite
-//							.setPosition(SCALE * bodyIterator.getPosition().x, SCALE * bodyIterator.getPosition().y);
-//					groundSprite.setRotation((float) (bodyIterator.getAngle() * 180 / Math.PI));
-//					window.draw(groundSprite);
-//					window.draw(groundSprite);
+					// Sprite groundSprite = new Sprite();
+					// groundSprite.setTexture(groundTexture);
+					// groundSprite.setOrigin(400.f, 8.f);
+					//
+					// groundSprite
+					// .setPosition(SCALE * bodyIterator.getPosition().x, SCALE
+					// * bodyIterator.getPosition().y);
+					// groundSprite.setRotation((float) (bodyIterator.getAngle()
+					// * 180 / Math.PI));
+					// window.draw(groundSprite);
+					// window.draw(groundSprite);
 				}
 			}
 
-//			// if there is a distance joint...
-//			if (hookJoint != null) {
-//				// shorten its distance
-//				hookJoint.setLength((float) (hookJoint.getLength() * 0.99));
-//			}
+			// // if there is a distance joint...
+			// if (hookJoint != null) {
+			// // shorten its distance
+			// hookJoint.setLength((float) (hookJoint.getLength() * 0.99));
+			// }
 			window.display();
 		}
 
+	}
+
+	static void handleEvents(RenderWindow renderWindow) {
+
+		Iterable<Event> events = renderWindow.pollEvents();
+		for (Event event : events) 
+		{
+
+			if (event.type == Event.Type.KEY_PRESSED)
+			{
+				if (event.asKeyEvent().key != Keyboard.Key.ESCAPE)
+					break;
+				renderWindow.close();
+			}
+			if (event.type == Event.Type.CLOSED)
+			{
+				renderWindow.close();
+			}
+		}
 	}
 
 	static DistanceJoint addHook(Body body, World world, Body gancho) {
@@ -154,7 +230,7 @@ public class JsfmlBox2d {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position = new Vec2(MouseX / SCALE, MouseY / SCALE);
 		bodyDef.type = BodyType.DYNAMIC;
-		bodyDef.fixedRotation=true;
+		bodyDef.fixedRotation = true;
 		Body body = world.createBody(bodyDef);
 		body.setUserData(null);
 

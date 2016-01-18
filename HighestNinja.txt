@@ -1,6 +1,6 @@
 http://www.learn-cocos2d.com/2013/08/physics-engine-platformer-terrible-idea/
 http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/
-
+http://download.eclipse.org/tools/cdt/releases/8.8
 
 class GameMachine
 
@@ -9,7 +9,6 @@ class GameStateMachine
 class GameObject
 	-isAlive
 	-updater
-	-drawer
 	-collider
 	+load()
 	+update()
@@ -22,14 +21,16 @@ class GameItem extends GameObject (Visitor+Decorator)
 	-gameItem
 	-execute(GameHero)
 
-class Shuriken extends GameObject
+class Projectile extends GameObject
+class Shuriken extends Projetile
+class HeroTrackerProjectile extends Projetile
+...
 	
 class GameObstacles extends GameObject
 
 class GameHero extends GameObject
 	-playerId
 	-Color
-	-animationMap<enum, Animation>
 	-controller
 	-heroState
 	+handleInput(Input input)
@@ -37,7 +38,7 @@ class GameHero extends GameObject
 	-setItem(GameItem)
 	
 class HeroState
-	-previousState?
+	-previousState
 	-maxSpeed
 	-canShoot
 	-canUseRope
@@ -54,11 +55,15 @@ class HeroOnWallState
 class HeroOnAcrobacyState
 	
 interface Updatable
-	+update()
+	+update(deltaTime)
 	
-class Drawable
-	+animation
+interface Drawable
+	+getImage(): Image
+	
+interface Image
 	+draw()
+	
+class SFMLImage extends SFMLSprite implements Image
 	
 class AnimationFile (Value Object)
 	animationImageName, width, height, numberOfFrames, loop, pingPong
