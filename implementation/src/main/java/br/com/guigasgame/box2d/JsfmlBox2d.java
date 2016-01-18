@@ -1,16 +1,13 @@
 package br.com.guigasgame.box2d;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
-import org.jbox2d.collision.RayCastInput;
 import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.common.Color3f;
-import org.jbox2d.common.RaycastResult;
-import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -20,12 +17,9 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
-import org.jbox2d.dynamics.joints.Joint;
-import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
-import org.jsfml.system.Vector2f;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.VideoMode;
 
@@ -92,13 +86,13 @@ public class JsfmlBox2d {
 				lastBody = createBox(world, MouseX, MouseY);
 			}
 			
-			if (Mouse.isButtonPressed(Mouse.Button.RIGHT)) {
-				if (lastBody != null && gancho == null)
-				addHook(lastBody, world, gancho);
-			}			
+//			if (Mouse.isButtonPressed(Mouse.Button.RIGHT)) {
+//				if (lastBody != null && gancho == null)
+//				addHook(lastBody, world, gancho);
+//			}			
 			world.step(1 / 60.f, 8, 3);
 
-			window.clear(Color.WHITE);
+			window.clear();
 			for (Body bodyIterator = world.getBodyList(); bodyIterator != null; bodyIterator = bodyIterator.getNext()) {
 				if (bodyIterator.getType() == BodyType.DYNAMIC) {
 					Sprite sprite = new Sprite();
@@ -108,23 +102,23 @@ public class JsfmlBox2d {
 					sprite.setRotation((float) (bodyIterator.getAngle() * 180 / Math.PI));
 					window.draw(sprite);
 				} else {
-					Sprite groundSprite = new Sprite();
-					groundSprite.setTexture(groundTexture);
-					groundSprite.setOrigin(400.f, 8.f);
-
-					groundSprite
-							.setPosition(SCALE * bodyIterator.getPosition().x, SCALE * bodyIterator.getPosition().y);
-					groundSprite.setRotation((float) (bodyIterator.getAngle() * 180 / Math.PI));
-					window.draw(groundSprite);
-					window.draw(groundSprite);
+//					Sprite groundSprite = new Sprite();
+//					groundSprite.setTexture(groundTexture);
+//					groundSprite.setOrigin(400.f, 8.f);
+//
+//					groundSprite
+//							.setPosition(SCALE * bodyIterator.getPosition().x, SCALE * bodyIterator.getPosition().y);
+//					groundSprite.setRotation((float) (bodyIterator.getAngle() * 180 / Math.PI));
+//					window.draw(groundSprite);
+//					window.draw(groundSprite);
 				}
 			}
 
-			// if there is a distance joint...
-			if (hookJoint != null) {
-				// shorten its distance
-				hookJoint.setLength((float) (hookJoint.getLength() * 0.99));
-			}
+//			// if there is a distance joint...
+//			if (hookJoint != null) {
+//				// shorten its distance
+//				hookJoint.setLength((float) (hookJoint.getLength() * 0.99));
+//			}
 			window.display();
 		}
 

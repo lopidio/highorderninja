@@ -70,8 +70,7 @@ abstract class Animation(SFML) extends Drawable implements Updatable
 abstract class Moveable implements Updatable
 	-accel
 	-maxSpeed
-	There’s got to be a speed limit on everything:
-There is and it’s modifiable in b2Settings
+	There’s got to be a speed limit on everything: There is and it’s modifiable in b2Settings
 	-adjustSpritePosition()
 	
 abstract class Collidable
