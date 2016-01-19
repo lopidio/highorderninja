@@ -8,8 +8,8 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
+import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.state.ForwardSide;
-import br.com.guigasgame.gameobject.hero.state.GameHero;
 
 public class HeroSensorsController
 {

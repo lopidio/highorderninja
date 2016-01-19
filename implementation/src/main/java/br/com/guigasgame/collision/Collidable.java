@@ -1,10 +1,10 @@
 package br.com.guigasgame.collision;
 
-import java.util.List;
+import org.jbox2d.dynamics.Body;
 
 public abstract class Collidable {
 	private Type type;
-	private List<Type> collidesWith;
+	protected Body body;
 	enum Type
 	{
 		GAME_HERO,
@@ -18,17 +18,6 @@ public abstract class Collidable {
 	public abstract void beginContact(Collidable collidable);
 	public Type getType() {
 		return type;
-	}
-	public boolean collidesWith(Type otherTypes) {
-		if (otherTypes == null)
-		{
-			return true;
-		}
-		for (Type type : collidesWith) {
-			if (type == otherTypes)
-				return true;
-		}
-		return false;
 	}
 
 }

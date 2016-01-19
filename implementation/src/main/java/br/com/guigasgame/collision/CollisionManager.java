@@ -15,8 +15,10 @@ public class CollisionManager implements ContactListener {
 			GameObject objectA = (GameObject) contact.getFixtureA().getBody().getUserData();
 			GameObject objectB = (GameObject) contact.getFixtureB().getBody().getUserData();
 
-			reportToFixtureListenersBeginCollision((FixtureContactListener) contact.getFixtureA().getUserData(), objectB);
-			reportToFixtureListenersBeginCollision((FixtureContactListener) contact.getFixtureB().getUserData(), objectA);
+			reportToFixtureListenersBeginCollision((FixtureContactListener) contact.getFixtureA().getUserData(),
+					objectB);
+			reportToFixtureListenersBeginCollision((FixtureContactListener) contact.getFixtureB().getUserData(),
+					objectA);
 			reportCollidableBeginCollision(objectA, objectB);
 			reportCollidableBeginCollision(objectB, objectA);
 		}
@@ -62,17 +64,13 @@ public class CollisionManager implements ContactListener {
 
 	private void reportCollidableBeginCollision(GameObject first, GameObject second) {
 		if (first != null) {
-			if (second == null || first.collidesWith(second.getType())) {
-				first.beginContact(second);
-			}
+			first.beginContact(second);
 		}
 	}
 
 	private void reportCollidableEndCollision(GameObject first, GameObject second) {
 		if (first != null) {
-			if (second == null || first.collidesWith(second.getType())) {
-				first.endContact(second);
-			}
+			first.endContact(second);
 		}
 	}
 }
