@@ -19,8 +19,6 @@ public class AnimationDefinition
 	public short numEntranceFrames;
     @XmlElement
 	public short framePerSecond;
-    @XmlElement
-    public short frameWidth;
 	
     @XmlAttribute
     public String textureFilename;

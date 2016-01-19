@@ -1,15 +1,17 @@
 package br.com.guigasgame.gamemachine;
 
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.window.event.Event;
 
 public interface GameStateMachine 
 {
-	public default void enterState()
+	public void update();
+	public void draw(RenderWindow renderWindow);
+
+	public default void enterState(RenderWindow renderWindow)
 	{
 		
 	}
-	public void update();
-	public void draw(RenderWindow renderWindow);
 	public default void exitState()
 	{
 		
@@ -19,6 +21,10 @@ public interface GameStateMachine
 		
 	}
 	public default void unload()
+	{
+		
+	}
+	public default void handleEvent(Event event)
 	{
 		
 	}

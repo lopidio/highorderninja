@@ -9,6 +9,7 @@ import org.jbox2d.callbacks.DebugDraw;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Color3f;
+import org.jbox2d.common.OBBViewportTransform;
 import org.jbox2d.common.Transform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -19,6 +20,7 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
+import org.jsfml.graphics.ConstView;
 import org.jsfml.graphics.ConvexShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
@@ -29,13 +31,17 @@ import org.jsfml.window.Mouse;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
+import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
+
 /**
  * Hello world!
  *
  */
 public class JsfmlBox2d {
 
-	/** We need this to easily convert between pixel and real-world coordinates */
+	/**
+	 * We need this to easily convert between pixel and real-world coordinates
+	 */
 	private static float SCALE = 30;
 
 	public static void main(String[] args) throws IOException {
@@ -50,54 +56,15 @@ public class JsfmlBox2d {
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 
 		World world = new World(gravity);
-		world.setDebugDraw(new DebugDraw(null) {
+		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(new OBBViewportTransform(), window);
+		world.setDebugDraw(sfmlDebugDraw);
+		sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
+		sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
+		sfmlDebugDraw.appendFlags(DebugDraw.e_dynamicTreeBit);
+		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
+		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
+		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
 
-			@Override
-			public void drawTransform(Transform xf) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void drawString(float x, float y, String s, Color3f color) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void drawSolidPolygon(Vec2[] vertices, int vertexCount, Color3f color) {
-				ConvexShape polygon = new ConvexShape();
-				for (int i = 0; i < vertexCount; i++) {
-					Vector2f vertex = new Vector2f(vertices[i].x, vertices[i].y);
-					polygon.setPoint(i, vertex);
-				}
-				window.draw(polygon);
-			}
-
-			@Override
-			public void drawSolidCircle(Vec2 center, float radius, Vec2 axis, Color3f color) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void drawSegment(Vec2 p1, Vec2 p2, Color3f color) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void drawPoint(Vec2 argPoint, float argRadiusOnScreen, Color3f argColor) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void drawCircle(Vec2 center, float radius, Color3f color) {
-				// TODO Auto-generated method stub
-
-			}
-		});
 		world.setContactListener(new ContactListener() {
 
 			public void preSolve(Contact contact, Manifold oldManifold) {
@@ -132,8 +99,7 @@ public class JsfmlBox2d {
 		Texture boxTexture = new Texture();
 		boxTexture.loadFromFile(Paths.get("boxImage.jpg"));
 
-		while (window.isOpen())
-		{
+		while (window.isOpen()) {
 			handleEvents(window);
 			if (Mouse.isButtonPressed(Mouse.Button.LEFT)) {
 				int MouseX = Mouse.getPosition(window).x;
@@ -176,6 +142,7 @@ public class JsfmlBox2d {
 			// // shorten its distance
 			// hookJoint.setLength((float) (hookJoint.getLength() * 0.99));
 			// }
+			world.drawDebugData();
 			window.display();
 		}
 
@@ -184,17 +151,14 @@ public class JsfmlBox2d {
 	static void handleEvents(RenderWindow renderWindow) {
 
 		Iterable<Event> events = renderWindow.pollEvents();
-		for (Event event : events) 
-		{
+		for (Event event : events) {
 
-			if (event.type == Event.Type.KEY_PRESSED)
-			{
+			if (event.type == Event.Type.KEY_PRESSED) {
 				if (event.asKeyEvent().key != Keyboard.Key.ESCAPE)
 					break;
 				renderWindow.close();
 			}
-			if (event.type == Event.Type.CLOSED)
-			{
+			if (event.type == Event.Type.CLOSED) {
 				renderWindow.close();
 			}
 		}

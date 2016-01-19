@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <animationDefinition textureFilename="Model.png">
-    <numFrames>7</numFrames>
-    <numEntranceFrames>2</numEntranceFrames>
+    <numFrames>5</numFrames>
+    <numEntranceFrames>1</numEntranceFrames>
     <framePerSecond>12</framePerSecond>
-    <frameWidth>42</frameWidth>
 </animationDefinition>

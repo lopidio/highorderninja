@@ -13,19 +13,32 @@ public class GameMachine {
 	private RenderWindow renderWindow;
 	private Vector<GameStateMachine> gameStates;
 
-	public GameMachine() {
-		super();
-		renderWindow = new RenderWindow(new VideoMode(800, 600, 32), "Test");
-		isRunning = true;
-		gameStates = new Stack<GameStateMachine>();
-	}
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		GameMachine gameMachine = new GameMachine();
 		MainGameState mainGameState = new MainGameState();
-		mainGameState.enterState();
-		gameMachine.gameStates.add(mainGameState);
+		gameMachine.popState();
+		gameMachine.addState(mainGameState);
 		gameMachine.execute();
+	}
+
+	private void popState() {
+		if (gameStates.size() > 0)
+			gameStates.remove(gameStates.lastElement());
+	}
+
+	private void addState(MainGameState gameState) {
+		gameState.load();
+		gameState.enterState(renderWindow);
+		gameStates.add(gameState);
+	}
+
+	public GameMachine() {
+		super();
+		renderWindow = new RenderWindow(new VideoMode(1000, 600, 32), "Test");
+		renderWindow.setFramerateLimit(60);
+
+		isRunning = true;
+		gameStates = new Stack<GameStateMachine>();
 	}
 
 	private void execute() {
@@ -44,13 +57,12 @@ public class GameMachine {
 			gameStates.lastElement().draw(renderWindow);
 			renderWindow.display();
 		}
-
 	}
 
 	private void handleEvents() {
 		Iterable<Event> events = renderWindow.pollEvents();
 		for (Event event : events) {
-
+			gameStates.lastElement().handleEvent(event);
 			if (event.type == Event.Type.KEY_PRESSED) {
 				if (event.asKeyEvent().key != Keyboard.Key.ESCAPE)
 					break;
