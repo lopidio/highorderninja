@@ -3,10 +3,11 @@ package br.com.guigasgame.gameobject.hero;
 import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.Sprite;
 
-import br.com.guigasgame.box2d.debug.WorldManager;
+import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gamehero.HeroSensorsController;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.state.ForwardSide;
+import br.com.guigasgame.gameobject.hero.state.ForwardSide.Side;
 
 public class GameHero extends GameObject {
 
@@ -17,7 +18,7 @@ public class GameHero extends GameObject {
 
 	public GameHero() {
 		super();
-		forwardSide = ForwardSide.LEFT;
+		forwardSide = new ForwardSide(ForwardSide.Side.LEFT);
 		sensorsController = new HeroSensorsController(this);
 		gameHeroLogic = new GameHeroLogic(this); 
 	}
@@ -26,8 +27,8 @@ public class GameHero extends GameObject {
 	public void update(float deltaTime) {
 		gameHeroLogic.update(deltaTime);
 		checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
-		gameHeroLogic.adjustSpritePosition(WorldManager.physicsCoordinatesToSfmlCoordinates(physicHeroLogic.getBodyPosition()),
-				(float) WorldManager.radiansToDegree(physicHeroLogic.getAngleRadians()));
+		gameHeroLogic.adjustSpritePosition(WorldConstants.physicsCoordinatesToSfmlCoordinates(physicHeroLogic.getBodyPosition()),
+				(float) WorldConstants.radiansToDegree(physicHeroLogic.getAngleRadians()));
 	}
 
 	@Override
@@ -36,15 +37,11 @@ public class GameHero extends GameObject {
 	}
 
 	public void flipSide() {
-		if (forwardSide == ForwardSide.LEFT)
-			forwardSide = ForwardSide.RIGHT;
-		else
-			// if (forwardSide == ForwardSide.LEFT)
-			forwardSide = ForwardSide.LEFT;
+		forwardSide.flip();
 	}
 
-	public ForwardSide getForwardSide() {
-		return forwardSide;
+	public Side getForwardSide() {
+		return forwardSide.getSide();
 	}
 
 	public final HeroSensorsController getSensorsController() {

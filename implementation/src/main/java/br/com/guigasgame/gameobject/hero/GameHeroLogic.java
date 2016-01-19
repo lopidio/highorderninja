@@ -1,14 +1,14 @@
 package br.com.guigasgame.gameobject.hero;
 
-import org.jbox2d.common.Vec2;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
-import br.com.guigasgame.box2d.debug.WorldManager;
+import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingState;
+import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class GameHeroLogic {
+public class GameHeroLogic implements UpdatableFromTime{
 
 	HeroState state;
 	Animation animation;
@@ -22,14 +22,15 @@ public class GameHeroLogic {
 		state = new StandingState();
 	}
 
+	@Override
 	public void update(float deltaTime) {
 		state.updateState(deltaTime);
 		animation.update(deltaTime);
 
 	}
 	public void adjustSpritePosition(Vector2f vector2f, float angleInDegrees) {
-		animation.getSprite().setPosition(WorldManager.SCALE * vector2f.x,
-				WorldManager.SCALE * vector2f.y);
+		animation.getSprite().setPosition(WorldConstants.SCALE * vector2f.x,
+				WorldConstants.SCALE * vector2f.y);
 		animation.getSprite().setRotation(angleInDegrees);
 	}
 

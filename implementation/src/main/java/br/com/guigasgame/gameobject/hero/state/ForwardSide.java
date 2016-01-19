@@ -1,14 +1,36 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-public enum ForwardSide {
-	LEFT(-1), RIGHT(1);
 
-	int value;
-	ForwardSide(int value) {
-		this.value = value;
+public class ForwardSide {
+	public enum Side {
+		LEFT, RIGHT;
 	}
 
-	public int getValue() {
-		return value;
+	private Side side;
+
+	public ForwardSide(Side value) {
+		this.side = value;
+	}
+
+	public Side getSide() {
+		return side;
+	}
+
+	public void flip() {
+		switch (side) {
+		case LEFT:
+			side = Side.RIGHT;
+			break;
+		case RIGHT:
+			side = Side.LEFT;
+			break;
+		default:
+		}	
+	}
+
+	public static void main(String[] args) {
+		ForwardSide fs = new ForwardSide(Side.LEFT);
+		fs.flip();
+		System.out.println(fs);
 	}
 }

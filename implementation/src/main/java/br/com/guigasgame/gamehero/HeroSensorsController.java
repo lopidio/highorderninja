@@ -9,7 +9,6 @@ import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.hero.state.ForwardSide;
 
 public class HeroSensorsController
 {
@@ -49,15 +48,15 @@ public class HeroSensorsController
 
 	public boolean isTouchingWallAhead()
 	{
-		if (gameHero.getForwardSide() == ForwardSide.LEFT)
-		{
+		switch (gameHero.getForwardSide()) {
+		case LEFT:
 			return sensorsControllerMap.get(SensorsID.LEFT_BOTTOM).isTouching() ||
 					sensorsControllerMap.get(SensorsID.LEFT_TOP).isTouching();
-		}
-		else // if (gameHero.getForwardSide() == ForwardSide.RIGHT)
-		{
+		case RIGHT:
 			return sensorsControllerMap.get(SensorsID.RIGHT_BOTTOM).isTouching() ||
 					sensorsControllerMap.get(SensorsID.RIGHT_TOP).isTouching();
+		default:
+			return false;
 		}
 	}
 }

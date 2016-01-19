@@ -32,7 +32,7 @@ public class SFMLDebugDraw extends DebugDraw {
 	@Override
 	public void drawCircle(Vec2 arg0, float arg1, Color3f arg2) {
 		CircleShape cs = new CircleShape();
-		cs.setPosition(WorldManager.physicsCoordinatesToSfmlCoordinates(arg0));
+		cs.setPosition(WorldConstants.physicsCoordinatesToSfmlCoordinates(arg0));
 		cs.setRadius(arg1);
 		cs.setFillColor(makeColor(arg2));
 		renderWindow.draw(cs);
@@ -47,8 +47,8 @@ public class SFMLDebugDraw extends DebugDraw {
 	@Override
 	public void drawSegment(Vec2 arg0, Vec2 arg1, Color3f arg2) {
 		VertexArray line = new VertexArray();
-		line.add(new Vertex(WorldManager.physicsCoordinatesToSfmlCoordinates(arg0), makeColor(arg2)));
-		line.add(new Vertex(WorldManager.physicsCoordinatesToSfmlCoordinates(arg1), makeColor(arg2)));
+		line.add(new Vertex(WorldConstants.physicsCoordinatesToSfmlCoordinates(arg0), makeColor(arg2)));
+		line.add(new Vertex(WorldConstants.physicsCoordinatesToSfmlCoordinates(arg1), makeColor(arg2)));
 		line.setPrimitiveType(PrimitiveType.LINES);
 
 		renderWindow.draw(line);
@@ -58,9 +58,9 @@ public class SFMLDebugDraw extends DebugDraw {
 	public void drawSolidCircle(Vec2 center, float radius, Vec2 axis, Color3f color) {
 		// no converion in cordinates of center and upper left corner, Circle in
 		// sfml is managed by default with the center
-		CircleShape circle = new CircleShape(radius * WorldManager.SCALE);
-		circle.setPosition(center.x * WorldManager.SCALE - radius * WorldManager.SCALE,
-				center.y * WorldManager.SCALE - radius * WorldManager.SCALE);
+		CircleShape circle = new CircleShape(radius * WorldConstants.SCALE);
+		circle.setPosition(center.x * WorldConstants.SCALE - radius * WorldConstants.SCALE,
+				center.y * WorldConstants.SCALE - radius * WorldConstants.SCALE);
 		circle.setFillColor(Color.mul(makeColor(color), Color.RED));
 		circle.setOutlineColor(makeColor(color));
 		circle.setOutlineThickness(1.f);
@@ -79,7 +79,7 @@ public class SFMLDebugDraw extends DebugDraw {
 			Vec2 vertex = vertices[i];
 			if (vertex.length() > 0)
 			{
-				polygon.setPoint(i, WorldManager.physicsCoordinatesToSfmlCoordinates(vertex));
+				polygon.setPoint(i, WorldConstants.physicsCoordinatesToSfmlCoordinates(vertex));
 			}
 		}
 		polygon.setFillColor(Color.mul(makeColor(color), Color.mul(Color.RED, Color.WHITE)));

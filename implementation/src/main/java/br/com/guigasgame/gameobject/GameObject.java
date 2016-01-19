@@ -1,8 +1,8 @@
 package br.com.guigasgame.gameobject;
 
 import br.com.guigasgame.animation.Drawable;
-import br.com.guigasgame.animation.UpdatableFromTime;
 import br.com.guigasgame.collision.Collidable;
+import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public abstract class GameObject extends Collidable implements UpdatableFromTime, Drawable
 {

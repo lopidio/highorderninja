@@ -9,6 +9,8 @@ import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
+import br.com.guigasgame.updatable.UpdatableFromTime;
+
 public class Animation implements UpdatableFromTime
 {
 
