@@ -1,22 +1,20 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.GameHero;
 
 public class OnGroundState extends HeroState {
 
 	private float acceleration;
 	private float jumpAcceleration;
-
 	@Override
-	public void entry(GameHero gameHero) {
-		gameHero.setAnimation(animation);
-	}
-
-	@Override
-	public void updateState(GameHero gameHero, float deltaTime) {
+	public void entry() {
 		// TODO Auto-generated method stub
-		gameHero.moveForward(acceleration);
-		gameHero.jump(jumpAcceleration);
+		
+	}
+	@Override
+	public void updateState(float deltaTime) {
+		
+//		gameHero.getBody().applyForce(force, point);(acceleration);
+//		gameHero.jump(jumpAcceleration);
 	}
 
 }

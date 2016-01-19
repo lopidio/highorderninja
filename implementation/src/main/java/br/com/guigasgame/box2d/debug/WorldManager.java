@@ -3,7 +3,7 @@ package br.com.guigasgame.box2d.debug;
 import org.jbox2d.common.Vec2;
 import org.jsfml.system.Vector2f;
 
-public class PhysicsConstants 
+public class WorldManager 
 {
 	public static final float SCALE = 30;
 	public static Vector2f physicsCoordinatesToSfmlCoordinates(Vec2 box2dVector)
