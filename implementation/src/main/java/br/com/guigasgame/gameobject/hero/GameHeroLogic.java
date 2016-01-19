@@ -4,12 +4,14 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInput;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingState;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class GameHeroLogic implements UpdatableFromTime{
 
+	GameHeroInput gameHeroInput;
 	HeroState state;
 	Animation animation;
 	GameHero gameHero;
@@ -19,7 +21,7 @@ public class GameHeroLogic implements UpdatableFromTime{
 
 	public GameHeroLogic(GameHero gameHero) {
 		this.gameHero = gameHero;
-		state = new StandingState();
+		setState(new StandingState());
 	}
 
 	@Override
@@ -69,7 +71,7 @@ public class GameHeroLogic implements UpdatableFromTime{
 
 	public void setState(HeroState newState) {
 		state = newState;
-		state.entry();
+		gameHeroInput.setInputListener(state);
 	}
 
 	public HeroState getState() {

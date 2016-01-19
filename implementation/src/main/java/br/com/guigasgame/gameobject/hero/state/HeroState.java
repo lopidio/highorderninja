@@ -4,8 +4,9 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.input.InputHeroListener;
 
-public abstract class HeroState {
+public abstract class HeroState  implements InputHeroListener{
 	private HeroState previousState;
 	private Vec2 maxSpeed;
 	private boolean canShoot;
