@@ -9,7 +9,6 @@ import br.com.guigasgame.gameobject.GameObject;
 
 public class CollisionManager implements ContactListener {
 
-	@Override
 	public void beginContact(Contact contact) {
 		if (contact.isTouching()) {
 			GameObject objectA = (GameObject) contact.getFixtureA().getBody().getUserData();
@@ -24,7 +23,6 @@ public class CollisionManager implements ContactListener {
 		}
 	}
 
-	@Override
 	public void endContact(Contact contact) {
 		if (contact.isTouching()) {
 			GameObject objectA = (GameObject) contact.getFixtureA().getUserData();
@@ -37,13 +35,11 @@ public class CollisionManager implements ContactListener {
 		}
 	}
 
-	@Override
 	public void preSolve(Contact contact, Manifold oldManifold) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void postSolve(Contact contact, ContactImpulse impulse) {
 		// TODO Auto-generated method stub
 
