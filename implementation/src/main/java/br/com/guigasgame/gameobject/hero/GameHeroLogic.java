@@ -11,10 +11,10 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class GameHeroLogic implements UpdatableFromTime{
 
+	GameHero gameHero;
 	GameHeroInput gameHeroInput;
 	HeroState state;
 	Animation animation;
-	GameHero gameHero;
 	int life;
 	int maxLife;
 	int numShurickens;

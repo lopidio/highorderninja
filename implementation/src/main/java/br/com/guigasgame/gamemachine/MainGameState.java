@@ -6,7 +6,6 @@ import org.jbox2d.callbacks.DebugDraw;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.OBBViewportTransform;
-import org.jbox2d.common.Settings;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -19,8 +18,9 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationDefinition;
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
+import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.state.ForwardSide.Side;
 import br.com.guigasgame.time.TimeMaster;
-import javafx.scene.shape.Circle;
 
 public class MainGameState implements GameStateMachine 
 {
@@ -40,6 +40,10 @@ public class MainGameState implements GameStateMachine
 		world = new World(gravity);
 		createGround(new Vec2(15, 20), new Vec2(10, 3));
 		createBox(new Vec2(15, 0));
+		
+		
+		GameHero gameHero = new GameHero(Side.LEFT, new Vec2(10, 3));
+		gameHero.attachBody(world.createBody(gameHero.getBodyDef()));
     }
 
     private void createGround(Vec2 position, Vec2 size) {

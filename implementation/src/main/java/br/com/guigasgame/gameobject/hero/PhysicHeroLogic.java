@@ -1,14 +1,24 @@
 package br.com.guigasgame.gameobject.hero;
 
+import java.util.Map;
+
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.Fixture;
+import org.jbox2d.dynamics.FixtureDef;
+
+import br.com.guigasgame.gamehero.HeroSensorsController;
+import br.com.guigasgame.gamehero.HeroSensorsController.FixtureSensorID;
 
 public class PhysicHeroLogic {
 
+	GameHero gameHero;
+	HeroSensorsController sensorsController;
 	Body body;
 
-	public Body getBody() {
-		return body;
+	public PhysicHeroLogic(GameHero gameHero, Vec2 position) {
+		this.gameHero = gameHero;
 	}
 
 	public void applyImpulse(Vec2 impulse) {
@@ -48,4 +58,45 @@ public class PhysicHeroLogic {
 	{
 		return body.getAngle();
 	}
+
+	public BodyDef getBodyDef(Vec2 position) {
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.fixedRotation = true;
+		bodyDef.position = position;
+		return bodyDef;
+	}
+
+	public void attachFixturesToBody(Body body) 
+	{
+		this.body = body;
+		GameHeroFixturesCreator gameHeroFixturesCreator = new GameHeroFixturesCreator();
+		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixturesCreator.getFixturesDef();
+		for (Map.Entry<FixtureSensorID, FixtureDef> fixturesDef : fixtureDefMap.entrySet()) {
+			Fixture fixture = body.createFixture(fixturesDef.getValue());
+			sensorsController.attachControllers(fixturesDef.getKey(), fixture);
+		}
+	}
+	
+	public boolean isTouchingGround() {
+		return sensorsController.getController(FixtureSensorID.BOTTOM).isTouching();
+	}
+	
+	public boolean isBodyFallingDown()
+	{
+		return body.getLinearVelocity().y < 0;
+	}
+
+	public boolean isTouchingWallAhead() {
+		switch (gameHero.getForwardSide()) {
+		case LEFT:
+			return sensorsController.getController(FixtureSensorID.LEFT_BOTTOM).isTouching()
+					|| sensorsController.getController(FixtureSensorID.LEFT_TOP).isTouching();
+		case RIGHT:
+			return sensorsController.getController(FixtureSensorID.RIGHT_BOTTOM).isTouching()
+					|| sensorsController.getController(FixtureSensorID.RIGHT_TOP).isTouching();
+		default:
+			return false;
+		}
+	}	
+
 }
