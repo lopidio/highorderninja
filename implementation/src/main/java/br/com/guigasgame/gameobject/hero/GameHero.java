@@ -16,16 +16,18 @@ public class GameHero extends GameObject {
 	GameHeroLogic gameHeroLogic;
 	PhysicHeroLogic physicHeroLogic;
 
-	public GameHero(ForwardSide.Side sideOrientation, Vec2 position) {
+	public GameHero() {
 		super();
-		forwardSide = new ForwardSide(sideOrientation);
+		forwardSide = new ForwardSide(Side.LEFT);
 		gameHeroLogic = new GameHeroLogic(this); 
-		physicHeroLogic = new PhysicHeroLogic(this, position);
+		physicHeroLogic = new PhysicHeroLogic(this);
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		gameHeroLogic.update(deltaTime);
+		physicHeroLogic.update(deltaTime);
+		
 		physicHeroLogic.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
 		gameHeroLogic.adjustSpritePosition(WorldConstants.physicsCoordinatesToSfmlCoordinates(physicHeroLogic.getBodyPosition()),
 				(float) WorldConstants.radiansToDegree(physicHeroLogic.getAngleRadians()));
@@ -63,4 +65,11 @@ public class GameHero extends GameObject {
 		physicHeroLogic.applyForce(force);
 	}
 
+	public GameHeroLogic getGameHeroLogic() {
+		return gameHeroLogic;
+	}
+
+	public PhysicHeroLogic getPhysicHeroLogic() {
+		return physicHeroLogic;
+	}
 }

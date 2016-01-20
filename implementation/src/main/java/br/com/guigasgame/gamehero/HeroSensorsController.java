@@ -21,7 +21,7 @@ public class HeroSensorsController {
 
 	}
 
-	public void attachControllers(FixtureSensorID sensorID, Fixture fixturesToAdd) {
+	public void attachController(FixtureSensorID sensorID, Fixture fixturesToAdd) {
 		SensorController sensor = sensorsControllerMap.get(sensorID);
 		fixturesToAdd.setUserData(sensor);
 	}

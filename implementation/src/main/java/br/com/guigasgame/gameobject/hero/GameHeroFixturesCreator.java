@@ -17,17 +17,24 @@ public class GameHeroFixturesCreator
 	public GameHeroFixturesCreator() 
 	{
 		fixtures = new HashMap<>();
-		for (FixtureSensorID id : FixtureSensorID.values()) {
-			fixtures.put(id, new FixtureDef());
-		}
+		fixtures.put(FixtureSensorID.UPPER, new FixtureDef());
+//		for (FixtureSensorID id : FixtureSensorID.values()) {
+//			fixtures.put(id, new FixtureDef());
+//		}
 		createUpperFixture();
+//		createFeetFixture();
+//		createLegsFixture();
 	}
 	
 	private void createUpperFixture()
 	{
+		FixtureDef def = fixtures.get(FixtureSensorID.UPPER); 
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(0.3f, 0.4f, new Vec2(0, -1.4f), 0);
-		fixtures.get(FixtureSensorID.UPPER).shape = shape;
+		def.density = 3;
+		def.friction = 0.7f;
+		def.restitution = 0.3f;
+		def.shape = shape;
 	}
 
 	private void createLegsFixture()
@@ -55,7 +62,7 @@ public class GameHeroFixturesCreator
 
 	}
 
-	public Map<FixtureSensorID, FixtureDef> getFixturesDef() {
+	public Map<FixtureSensorID, FixtureDef> getFixturesMap() {
 		return fixtures;
 	}
 }

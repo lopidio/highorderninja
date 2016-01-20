@@ -28,9 +28,4 @@ public class ForwardSide {
 		}	
 	}
 
-	public static void main(String[] args) {
-		ForwardSide fs = new ForwardSide(Side.LEFT);
-		fs.flip();
-		System.out.println(fs);
-	}
 }

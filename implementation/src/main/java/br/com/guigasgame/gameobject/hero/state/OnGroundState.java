@@ -1,36 +1,21 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.input.GameHeroInput.HeroKey;
+import org.jbox2d.common.Vec2;
+
+import br.com.guigasgame.animation.Animation;
+import br.com.guigasgame.gameobject.hero.GameHero;
 
 
-public class OnGroundState extends HeroState {
+public abstract class OnGroundState extends HeroState {
 
-	private float acceleration;
-	private float jumpAcceleration;
-	@Override
-	public void entry() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void updateState(float deltaTime) {
-		
-//		gameHero.getBody().applyForce(force, point);(acceleration);
-//		gameHero.jump(jumpAcceleration);
-	}
-	@Override
-	public void inputReleased(HeroKey key) {
-		if (key == HeroKey.JUMP)
-		{
-			
-		}
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void inputPressed(HeroKey key) {
-		// TODO Auto-generated method stub
-		
-	}
+	protected final float horizontalAcceleration;
+	protected final float jumpAcceleration;
 
+	protected OnGroundState(HeroState previousState, Vec2 maxSpeed, boolean canShoot, boolean canJump, boolean canUseRope,
+			Animation animation, GameHero gameHero, float horizontalAcceleration, float jumpAcceleration) 
+	{
+		super(previousState, maxSpeed, canShoot, canJump, canUseRope, animation, gameHero);
+		this.horizontalAcceleration = horizontalAcceleration;
+		this.jumpAcceleration = jumpAcceleration;
+	}
 }

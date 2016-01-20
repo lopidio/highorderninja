@@ -1,9 +1,11 @@
 package br.com.guigasgame.gameobject.hero;
 
+import javax.xml.bind.JAXBException;
+
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
-import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.animation.AnimationDefinition;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInput;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingState;
@@ -21,18 +23,26 @@ public class GameHeroLogic implements UpdatableFromTime{
 
 	public GameHeroLogic(GameHero gameHero) {
 		this.gameHero = gameHero;
-		setState(new StandingState());
+		gameHeroInput = new GameHeroInput();
+		
+		AnimationDefinition animationDefinition;
+		try {
+			animationDefinition = AnimationDefinition.loadFromFile("AnimationDefinition.xml");
+			setState(new StandingState(Animation.createAnimation(animationDefinition), gameHero));
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void update(float deltaTime) {
 		state.updateState(deltaTime);
 		animation.update(deltaTime);
-
+		gameHeroInput.update();
 	}
 	public void adjustSpritePosition(Vector2f vector2f, float angleInDegrees) {
-		animation.getSprite().setPosition(WorldConstants.SCALE * vector2f.x,
-				WorldConstants.SCALE * vector2f.y);
+		animation.getSprite().setPosition(vector2f);
 		animation.getSprite().setRotation(angleInDegrees);
 	}
 
@@ -71,6 +81,7 @@ public class GameHeroLogic implements UpdatableFromTime{
 
 	public void setState(HeroState newState) {
 		state = newState;
+		animation = state.getAnimation();
 		gameHeroInput.setInputListener(state);
 	}
 
