@@ -1,4 +1,4 @@
-package br.com.guigasgame.gameobject.hero.input;
+package br.com.guigasgame.gameobject.input;
 
 import javax.xml.bind.annotation.XmlEnum;
 

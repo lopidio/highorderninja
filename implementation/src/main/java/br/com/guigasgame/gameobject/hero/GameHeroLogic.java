@@ -6,15 +6,15 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationDefinition;
-import br.com.guigasgame.gameobject.hero.input.GameHeroInput;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingState;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class GameHeroLogic implements UpdatableFromTime {
 
 	GameHero gameHero;
-	GameHeroInput gameHeroInput;
+	GameHeroInputMap gameHeroInput;
 	HeroState state;
 	Animation animation;
 	int life;
@@ -35,7 +35,7 @@ public class GameHeroLogic implements UpdatableFromTime {
 		
 		//filename from id?
 		
-		gameHeroInput = GameHeroInput.loadFromConfigFile(state, "InputConfigFile.xml");
+		gameHeroInput = GameHeroInputMap.loadFromConfigFile(state, "InputConfigFile.xml");
 	}
 
 	@Override

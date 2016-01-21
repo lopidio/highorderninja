@@ -1,4 +1,4 @@
-package br.com.guigasgame.gameobject.hero.input;
+package br.com.guigasgame.gameobject.input.hero;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jsfml.window.Keyboard.Key;
 
-import br.com.guigasgame.gameobject.hero.input.GameHeroInput.HeroInputKey;
+import br.com.guigasgame.gameobject.input.InputMapController;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 @XmlRootElement
 public class HeroInputConfigFile {
@@ -21,7 +22,7 @@ public class HeroInputConfigFile {
 	public int playerID;
 
 	@XmlElement
-	public Map<HeroInputKey, InputMapController> map;
+	public Map<HeroInputKey, InputMapController<HeroInputKey>> map;
 
 	public HeroInputConfigFile() {
 		map = new HashMap<>();
@@ -29,7 +30,7 @@ public class HeroInputConfigFile {
 	
 	public static void main(String[] args) {
 		HeroInputConfigFile anim = new HeroInputConfigFile();
-		anim.map = new HashMap<HeroInputKey, InputMapController>();
+		anim.map = new HashMap<HeroInputKey, InputMapController<HeroInputKey>>();
 		anim.playerID = 5;
 		anim.map.put(HeroInputKey.LEFT, InputMapController.createKeyboardEvent(Key.SPACE, null, HeroInputKey.LEFT));
 		anim.map.put(HeroInputKey.JUMP, InputMapController.createKeyboardEvent(Key.UP, null, HeroInputKey.JUMP));

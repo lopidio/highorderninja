@@ -4,7 +4,7 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.hero.input.GameHeroInput.HeroInputKey;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 public class StandingState extends OnGroundState {
 

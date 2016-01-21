@@ -95,7 +95,9 @@ class GrapphicsWorld
 
 class AudioService
 
-
+Remover tipo do input de cada entry do arquivo..
+FileNameConstants
+ResourceManager<Resource>
 AnimationResourceManager
 	-animationProperties 
 	-getAnimation(String):Animation

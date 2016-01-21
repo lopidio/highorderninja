@@ -1,4 +1,4 @@
-package br.com.guigasgame.gameobject.hero.input;
+package br.com.guigasgame.gameobject.input.hero;
 
 import java.io.File;
 import java.util.Map;
@@ -9,69 +9,56 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlEnum;
 
-public class GameHeroInput implements InputHeroListener {
+import br.com.guigasgame.gameobject.input.InputListener;
+import br.com.guigasgame.gameobject.input.InputMapController;
+
+public class GameHeroInputMap {
 	@XmlEnum
 	public enum HeroInputKey {
-		LEFT, RIGHT, UP, DOWN, JUMP, ROPE, SHOOT, ACTION,
+		LEFT, 
+		RIGHT, 
+		UP, 
+		DOWN,
+		
+		JUMP, //X 
+		ROPE, //L1
+		SHOOT, //Quadrado
+		ACTION, // (SLIDE) R1 
+		STOP //R2
 	}
 
-	InputHeroListener inputHeroListener;
+	InputListener<HeroInputKey> inputHeroListener;
 
-	private Map<HeroInputKey, InputMapController> inputMap;
+	private Map<HeroInputKey, InputMapController<HeroInputKey>> inputMap;
 
-	public GameHeroInput(InputHeroListener listener, Map<HeroInputKey, InputMapController> inputMap) {
+	public GameHeroInputMap(InputListener<HeroInputKey> listener, Map<HeroInputKey, InputMapController<HeroInputKey>> inputMap) {
 		this.inputMap = inputMap;
 		this.inputHeroListener = listener;
 
-		for (Entry<GameHeroInput.HeroInputKey, InputMapController> map : inputMap.entrySet()) {
+		for (Entry<GameHeroInputMap.HeroInputKey, InputMapController<HeroInputKey>> map : inputMap.entrySet()) {
 			map.getValue().setInputListener(inputHeroListener);
 		}
-//		this.inputMap = inputMap;
 	}
 
 	public void update() {
-		for (Entry<GameHeroInput.HeroInputKey, InputMapController> map : inputMap.entrySet()) {
+		for (Entry<GameHeroInputMap.HeroInputKey, InputMapController<HeroInputKey>> map : inputMap.entrySet()) {
 			map.getValue().handleEvent();
 		}
 	}
 
-	public void setInputListener(InputHeroListener listener) {
+	public void setInputListener(InputListener<HeroInputKey> listener) {
 		this.inputHeroListener = listener;
 	}
 
-	@Override
-	public void isPressed(HeroInputKey key) {
-		if (null != inputHeroListener)
-			inputHeroListener.isPressed(key);
-	}
-	
-	@Override
-	public void isReleased(HeroInputKey key) {
-		if (null != inputHeroListener)
-			inputHeroListener.isReleased(key);
-	}
-	
-	@Override
-	public void inputReleased(HeroInputKey key) {
-		if (null != inputHeroListener)
-			inputHeroListener.inputReleased(key);
-	}
-
-	@Override
-	public void inputPressed(HeroInputKey key) {
-		if (null != inputHeroListener)
-			inputHeroListener.inputPressed(key);
-	}
-
-	public static GameHeroInput loadFromConfigFile(InputHeroListener listener, String pathToInputFile){
+	public static GameHeroInputMap loadFromConfigFile(InputListener<HeroInputKey> listener, String pathToInputFile){
 		JAXBContext jaxbContext;
 		try {
 			jaxbContext = JAXBContext.newInstance(HeroInputConfigFile.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			HeroInputConfigFile playerInputConfigFile = (HeroInputConfigFile) jaxbUnmarshaller.unmarshal(new File(pathToInputFile));
-			System.out.println(playerInputConfigFile.map.size());
+			HeroInputConfigFile heroInputConfigFile = (HeroInputConfigFile) jaxbUnmarshaller.unmarshal(new File(pathToInputFile));
+			System.out.println(heroInputConfigFile.map.size());
 
-			GameHeroInput gameHeroInput = new GameHeroInput(listener, playerInputConfigFile.map);
+			GameHeroInputMap gameHeroInput = new GameHeroInputMap(listener, heroInputConfigFile.map);
 			return gameHeroInput;
 		} catch (JAXBException e) {
 			// CREATES INPUT FILE
