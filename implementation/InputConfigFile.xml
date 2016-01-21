@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<heroInputConfigFile playerID="5">
+<heroInputConfigFile playerID="0">
     <map>
         <entry>
             <key>JUMP</key>
             <value>
-                <heroInputKey>JUMP</heroInputKey>
                 <inputType>KeyboardInput</inputType>
-                <keyCode>SPACE</keyCode>
-                <joystickButtonCode>-1</joystickButtonCode>
-                <joystickId>-1</joystickId>
+                <keysCodeList>SPACE</keysCodeList>
             </value>
         </entry>
         <entry>
-            <key>LEFT</key>
+            <key>ACTION</key>
             <value>
-                <heroInputKey>LEFT</heroInputKey>
-                <inputType>KeyboardInput</inputType>
-                <keyCode>LEFT</keyCode>
-                <joystickButtonCode>-1</joystickButtonCode>
-                <joystickId>-1</joystickId>
+                <inputType>JoystickInput</inputType>
+                <joystickButtonsCodeList>0</joystickButtonsCodeList>
+                <joystickId>2</joystickId>
             </value>
         </entry>
         <entry>
             <key>RIGHT</key>
             <value>
-                <heroInputKey>RIGHT</heroInputKey>
                 <inputType>KeyboardInput</inputType>
-                <keyCode>RIGHT</keyCode>
-                <joystickButtonCode>-1</joystickButtonCode>
-                <joystickId>-1</joystickId>
+                <keysCodeList>RIGHT</keysCodeList>
+                <keysCodeList>D</keysCodeList>
+            </value>
+        </entry>
+        <entry>
+            <key>LEFT</key>
+            <value>
+                <inputType>KeyboardInput</inputType>
+                <keysCodeList>LEFT</keysCodeList>
+                <keysCodeList>A</keysCodeList>
+            </value>
+        </entry>
+        <entry>
+            <key>UP</key>
+            <value>
+                <inputType>KeyboardInput</inputType>
+                <keysCodeList>UP</keysCodeList>
+                <keysCodeList>W</keysCodeList>
             </value>
         </entry>
     </map>

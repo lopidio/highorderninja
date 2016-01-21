@@ -14,11 +14,6 @@ public class InputMapController<T> {
 	// https://github.com/SFML/SFML/wiki/Tutorial:-Manage-dynamic-key-binding
 	private InputListener<T> inputListener;
 	
-	public void setInputListener(InputListener<T> inputListener) {
-		this.inputListener = inputListener;
-	}
-
-	@XmlElement
 	private T inputValue;
 
 	@javax.xml.bind.annotation.XmlElement
@@ -31,7 +26,7 @@ public class InputMapController<T> {
 	@XmlElement
 	private List<Integer>joystickButtonsCodeList;
 	@XmlElement
-	private int joystickId;
+	private Integer joystickId;
 
 	private boolean state;
 	private boolean prevState;
@@ -39,16 +34,14 @@ public class InputMapController<T> {
 	/**
 	 * DO NOT USE. Required jaxb feature
 	 */
-	public InputMapController()
+	InputMapController()
 	{
 		
 	}
 
-	private InputMapController(InputListener<T> keyListener, T inputValue, InputType inputType, List<Key> keysCodeList,
-			List<Button> mouseButtonsList, List<Integer> joystickButtonsCodeList, int joystickId) {
+	private InputMapController(InputType inputType, List<Key> keysCodeList,
+			List<Button> mouseButtonsList, List<Integer> joystickButtonsCodeList, Integer joystickId) {
 		super();
-		this.inputListener = keyListener;
-		this.inputValue = inputValue;
 		this.inputType = inputType;
 		this.keysCodeList = keysCodeList;
 		this.mouseButtonsList = mouseButtonsList;
@@ -122,27 +115,33 @@ public class InputMapController<T> {
 		return inputValue;
 	}
 
-	public static <T> InputMapController<T> createKeyboardEvent(List<Key> key, InputListener<T> listener, T inputValue) {
+	public void setInputValue(T inputValue) {
+		this.inputValue = inputValue;
+	}
+	
+	public void setInputListener(InputListener<T> inputListener) {
+		this.inputListener = inputListener;
+	}
+
+	public static <T> InputMapController<T> createKeyboardEvent(List<Key> key) {
 		InputType inputType = InputType.KeyboardInput;
 		// Event.Type pressedEventType = Type.KEY_PRESSED;
 		// Event.Type releasedEventType = Type.KEY_RELEASED;
-		return new InputMapController<T>(listener, inputValue, inputType, key, null, null, -1);
+		return new InputMapController<T>( inputType, key, null, null, null);
 	}
 
-	public static <T> InputMapController<T> createMouseClickEvent(List<Mouse.Button> button, InputListener<T> listener,
-			T inputValue) {
+	public static <T> InputMapController<T> createMouseClickEvent(List<Mouse.Button> button) {
 		InputType inputType = InputType.MouseInput;
 		// Event.Type pressedEventType = Type.MOUSE_BUTTON_PRESSED;
 		// Event.Type releasedEventType = Type.MOUSE_BUTTON_RELEASED;
-		return new InputMapController<T>(listener, inputValue, inputType, null, button, null, -1);
+		return new InputMapController<T>(inputType, null, button, null, null);
 	}
 
-	public static <T> InputMapController<T> createJoystickButtonEvent(List<Integer> joystickButtonCode, int joystickId,
-			InputListener<T> listener, T inputValue) {
+	public static <T> InputMapController<T> createJoystickButtonEvent(List<Integer> joystickButtonCode, int joystickId) {
 		InputType inputType = InputType.JoystickInput;
 		// Event.Type pressedEventType = Type.JOYSTICK_BUTTON_PRESSED;
 		// Event.Type releasedEventType = Type.JOYSTICK_BUTTON_RELEASED;
-		return new InputMapController<T>(listener, inputValue, inputType, null, null, joystickButtonCode, joystickId);
+		return new InputMapController<T>( inputType, null, null, joystickButtonCode, joystickId);
 	}
 
 }

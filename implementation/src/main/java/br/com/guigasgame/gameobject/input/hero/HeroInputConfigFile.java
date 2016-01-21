@@ -1,18 +1,22 @@
 package br.com.guigasgame.gameobject.input.hero;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jsfml.window.Keyboard.Key;
 
+import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.input.InputMapController;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
@@ -29,27 +33,64 @@ public class HeroInputConfigFile {
 		map = new HashMap<>();
 	}
 	
+	static GameHeroInputMap parseFile(int playerID) {
+		JAXBContext jaxbContext;
+		try {
+			jaxbContext = JAXBContext.newInstance(HeroInputConfigFile.class);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			HeroInputConfigFile heroInputConfigFile = (HeroInputConfigFile) jaxbUnmarshaller.unmarshal(new File(
+					FilenameConstants.getInputPlayerConfigFilename(playerID)));
+
+			// Insere as chaves no controlador de input
+			for (Entry<HeroInputKey, InputMapController<HeroInputKey>> inputConfig : heroInputConfigFile.map.entrySet()) {
+				inputConfig.getValue().setInputValue(inputConfig.getKey());
+			}
+
+			GameHeroInputMap gameHeroInput = new GameHeroInputMap(heroInputConfigFile.map);
+			return gameHeroInput;
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}	
+	
+	static void createDefaultFileFromPlayerID(int playerID) {
+
+		HeroInputConfigFile heroInputConfigFile = new HeroInputConfigFile();
+
+		heroInputConfigFile.map = new HashMap<HeroInputKey, InputMapController<HeroInputKey>>();
+		heroInputConfigFile.playerID = playerID;
+
+		heroInputConfigFile.map.put(HeroInputKey.LEFT,
+				InputMapController.createKeyboardEvent(Arrays.asList(Key.LEFT, Key.A)));
+		heroInputConfigFile.map.put(HeroInputKey.RIGHT,
+				InputMapController.createKeyboardEvent(Arrays.asList(Key.RIGHT, Key.D)));
+		heroInputConfigFile.map.put(HeroInputKey.UP,
+				InputMapController.createKeyboardEvent(Arrays.asList(Key.UP, Key.W)));
+		heroInputConfigFile.map.put(HeroInputKey.JUMP,
+				InputMapController.createKeyboardEvent(Arrays.asList(Key.SPACE)));
+		heroInputConfigFile.map.put(HeroInputKey.ACTION,
+				InputMapController.createJoystickButtonEvent(Arrays.asList(0), 2));
+
+		try {
+			JAXBContext context = JAXBContext.newInstance(HeroInputConfigFile.class);
+			Marshaller m = context.createMarshaller();
+			// for pretty-print XML in JAXB
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+			// Write to System.out for debugging
+			m.marshal(heroInputConfigFile, System.out);
+
+			// Write to File
+			m.marshal(heroInputConfigFile, new File(FilenameConstants.getInputPlayerConfigFilename(playerID)));
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
-		HeroInputConfigFile anim = new HeroInputConfigFile();
-		anim.map = new HashMap<HeroInputKey, InputMapController<HeroInputKey>>();
-		anim.playerID = 5;
-		anim.map.put(HeroInputKey.LEFT, InputMapController.createKeyboardEvent(Arrays.asList(Key.SPACE), null, HeroInputKey.LEFT));
-		anim.map.put(HeroInputKey.JUMP, InputMapController.createKeyboardEvent(Arrays.asList(Key.UP), null, HeroInputKey.JUMP));
-		
-        try {
-            JAXBContext context = JAXBContext.newInstance(HeroInputConfigFile.class);
-            Marshaller m = context.createMarshaller();
-            //for pretty-print XML in JAXB
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
- 
-            // Write to System.out for debugging
-             m.marshal(anim, System.out);
- 
-            // Write to File
-//            m.marshal(emp, new File(FILE_NAME));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }		
+		createDefaultFileFromPlayerID(0);
         
 	}
 	

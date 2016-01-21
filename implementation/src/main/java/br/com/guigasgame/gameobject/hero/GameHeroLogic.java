@@ -5,7 +5,8 @@ import javax.xml.bind.JAXBException;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
-import br.com.guigasgame.animation.AnimationDefinition;
+import br.com.guigasgame.animation.AnimationProperties;
+import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
@@ -24,18 +25,17 @@ public class GameHeroLogic implements UpdatableFromTime {
 	public GameHeroLogic(GameHero gameHero) {
 		this.gameHero = gameHero;
 
-		AnimationDefinition animationDefinition;
+		AnimationProperties animationDefinition;
 		try {
-			animationDefinition = AnimationDefinition.loadFromFile("AnimationDefinition.xml");
+			;
+			animationDefinition = AnimationProperties.loadFromFile(FilenameConstants.getInputPlayerAnimationFilename());
 			setState(new StandingState(Animation.createAnimation(animationDefinition), gameHero));
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		//filename from id?
-		
-		gameHeroInput = GameHeroInputMap.loadFromConfigFile(state, "InputConfigFile.xml");
+		gameHeroInput = GameHeroInputMap.loadFromConfigFile(state, gameHero.getPlayerID());
 	}
 
 	@Override

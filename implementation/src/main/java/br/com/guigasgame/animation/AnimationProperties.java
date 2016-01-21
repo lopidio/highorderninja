@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class AnimationDefinition 
+public class AnimationProperties 
 {
     @XmlElement
 	public short numFrames;
@@ -21,12 +21,15 @@ public class AnimationDefinition
 	
     @XmlAttribute
     public String textureFilename;
+
+    @XmlAttribute
+	public boolean horizontal;
 	
-	public static AnimationDefinition loadFromFile(String filename) throws JAXBException
+	public static AnimationProperties loadFromFile(String filename) throws JAXBException
 	{
-		JAXBContext jaxbContext = JAXBContext.newInstance(AnimationDefinition.class);
+		JAXBContext jaxbContext = JAXBContext.newInstance(AnimationProperties.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		AnimationDefinition animationDefinition = (AnimationDefinition) jaxbUnmarshaller.unmarshal(new File(filename));
+		AnimationProperties animationDefinition = (AnimationProperties) jaxbUnmarshaller.unmarshal(new File(filename));
 		return animationDefinition;
 	}
 	
@@ -53,7 +56,7 @@ public class AnimationDefinition
 //            e.printStackTrace();
 //        }		
 //        
-        AnimationDefinition fromFile = AnimationDefinition.loadFromFile("AnimationDefinition.xml");
+        AnimationProperties fromFile = AnimationProperties.loadFromFile("AnimationDefinition.xml");
         Animation animation = Animation.createAnimation(fromFile);
         for (int i = 0; i < 20; i++) 
         {

@@ -17,12 +17,12 @@ public class Animation implements UpdatableFromTime
 	private short currentFrameNumber;
 	private float secondsSinceLastUpdate;
 	private Rectangle frameRect;
-	private AnimationDefinition animationDefinition;
+	private AnimationProperties animationDefinition;
 	private Texture texture;
 	private Sprite sprite;
 	
 	//Private constructor
-	private Animation(AnimationDefinition animationDefinition) throws IOException {
+	private Animation(AnimationProperties animationDefinition) throws IOException {
 		this.animationDefinition = animationDefinition;
 		texture = new Texture();
 		texture.loadFromFile(new File(animationDefinition.textureFilename).toPath());
@@ -34,7 +34,7 @@ public class Animation implements UpdatableFromTime
 		currentFrameNumber = 0;		
 	}
 
-	public static Animation createAnimation(AnimationDefinition animationDefinition)
+	public static Animation createAnimation(AnimationProperties animationDefinition)
 	{
 		try {
 			Animation animation;
@@ -62,10 +62,21 @@ public class Animation implements UpdatableFromTime
 				currentFrameNumber -= animationDefinition.numFrames - animationDefinition.numEntranceFrames;
 			}
 
-			//mudo a posição do rect
-			frameRect.x = frameRect.width*currentFrameNumber;
-			sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y, frameRect.width, frameRect.height ));
+			updateFrameRect();
 		}		
+	}
+
+	private void updateFrameRect() {
+		//mudo a posição do rect
+		if (animationDefinition.horizontal)
+		{
+			frameRect.x = frameRect.width*currentFrameNumber;
+		}
+		else // if (!animationDefinition.horizontal)
+		{
+			frameRect.y = frameRect.height*currentFrameNumber;
+		}
+		sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y, frameRect.width, frameRect.height ));
 	}
 	
 	public final Sprite getSprite()
