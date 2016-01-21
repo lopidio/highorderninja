@@ -52,14 +52,14 @@ public class PhysicHeroLogic implements UpdatableFromTime {
 		float xDiff = Math.abs(speed.x) - Math.abs(maxSpeed.x);
 		float yDiff = Math.abs(speed.y) - Math.abs(maxSpeed.y);
 		if (xDiff > 0) {
-			speedToSubtract.x = -xDiff;
+			speedToSubtract.x = speed.x < 0? xDiff: -xDiff;
 		}
 		if (yDiff > 0) {
-			speedToSubtract.y = -xDiff;
+			speedToSubtract.y = speed.y < 0? yDiff: -yDiff;
 		}
 
 		// Se houve alteração
-		if (speed.length() > 0) {
+		if (speedToSubtract.length() > 0) {
 			body.setLinearVelocity(speed.add(speedToSubtract));
 		}
 

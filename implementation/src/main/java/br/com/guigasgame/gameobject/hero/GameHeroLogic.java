@@ -11,7 +11,7 @@ import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingState;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class GameHeroLogic implements UpdatableFromTime{
+public class GameHeroLogic implements UpdatableFromTime {
 
 	GameHero gameHero;
 	GameHeroInput gameHeroInput;
@@ -23,8 +23,7 @@ public class GameHeroLogic implements UpdatableFromTime{
 
 	public GameHeroLogic(GameHero gameHero) {
 		this.gameHero = gameHero;
-		gameHeroInput = new GameHeroInput();
-		
+
 		AnimationDefinition animationDefinition;
 		try {
 			animationDefinition = AnimationDefinition.loadFromFile("AnimationDefinition.xml");
@@ -33,6 +32,10 @@ public class GameHeroLogic implements UpdatableFromTime{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//filename from id?
+		
+		gameHeroInput = GameHeroInput.loadFromConfigFile(state, "InputConfigFile.xml");
 	}
 
 	@Override
@@ -41,6 +44,7 @@ public class GameHeroLogic implements UpdatableFromTime{
 		animation.update(deltaTime);
 		gameHeroInput.update();
 	}
+
 	public void adjustSpritePosition(Vector2f vector2f, float angleInDegrees) {
 		animation.getSprite().setPosition(vector2f);
 		animation.getSprite().setRotation(angleInDegrees);
@@ -57,19 +61,17 @@ public class GameHeroLogic implements UpdatableFromTime{
 	public int getLife() {
 		return life;
 	}
-	
-	public void addLife(int lifeToAdd)
-	{
+
+	public void addLife(int lifeToAdd) {
 		life += lifeToAdd;
 		if (life > maxLife)
 			life = maxLife;
 	}
 
-	public void hit(int lifeToSubtract)
-	{
+	public void hit(int lifeToSubtract) {
 		life = lifeToSubtract;
 	}
-	
+
 	public int getNumShurickens() {
 		return numShurickens;
 	}
@@ -82,7 +84,8 @@ public class GameHeroLogic implements UpdatableFromTime{
 	public void setState(HeroState newState) {
 		state = newState;
 		animation = state.getAnimation();
-		gameHeroInput.setInputListener(state);
+		if (gameHeroInput != null)
+			gameHeroInput.setInputListener(state);
 	}
 
 	public HeroState getState() {

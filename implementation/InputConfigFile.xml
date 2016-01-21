@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<heroInputConfigFile playerID="5">
+    <map>
+        <entry>
+            <key>JUMP</key>
+            <value>
+                <heroInputKey>JUMP</heroInputKey>
+                <inputType>KeyboardInput</inputType>
+                <keyCode>SPACE</keyCode>
+                <joystickButtonCode>-1</joystickButtonCode>
+                <joystickId>-1</joystickId>
+            </value>
+        </entry>
+        <entry>
+            <key>LEFT</key>
+            <value>
+                <heroInputKey>LEFT</heroInputKey>
+                <inputType>KeyboardInput</inputType>
+                <keyCode>LEFT</keyCode>
+                <joystickButtonCode>-1</joystickButtonCode>
+                <joystickId>-1</joystickId>
+            </value>
+        </entry>
+        <entry>
+            <key>RIGHT</key>
+            <value>
+                <heroInputKey>RIGHT</heroInputKey>
+                <inputType>KeyboardInput</inputType>
+                <keyCode>RIGHT</keyCode>
+                <joystickButtonCode>-1</joystickButtonCode>
+                <joystickId>-1</joystickId>
+            </value>
+        </entry>
+    </map>
+</heroInputConfigFile>

@@ -12,12 +12,15 @@ import br.com.guigasgame.gameobject.hero.state.ForwardSide.Side;
 
 public class GameHero extends GameObject {
 
+	private final int playerID;
+
 	ForwardSide forwardSide;
 	GameHeroLogic gameHeroLogic;
 	PhysicHeroLogic physicHeroLogic;
 
-	public GameHero() {
+	public GameHero(int playerID) {
 		super();
+		this.playerID = playerID;
 		forwardSide = new ForwardSide(Side.LEFT);
 		gameHeroLogic = new GameHeroLogic(this); 
 		physicHeroLogic = new PhysicHeroLogic(this);
@@ -72,4 +75,9 @@ public class GameHero extends GameObject {
 	public PhysicHeroLogic getPhysicHeroLogic() {
 		return physicHeroLogic;
 	}
+
+	public int getPlayerID() {
+		return playerID;
+	}
+
 }

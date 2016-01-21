@@ -16,7 +16,7 @@ public class StandingState extends OnGroundState {
 	public void inputPressed(HeroInputKey key) {
 		if (key == HeroInputKey.JUMP)
 		{
-			gameHero.applyImpulse(new Vec2(0, -jumpAcceleration));
+			jump();
 		}
 		else if (key == HeroInputKey.ACTION)
 		{
@@ -26,14 +26,15 @@ public class StandingState extends OnGroundState {
 
 	@Override
 	public void isPressed(HeroInputKey key) {
-		System.out.println("isPressed");
+
+		
 		if (key == HeroInputKey.LEFT)
 		{
-			gameHero.applyForce(new Vec2(-horizontalAcceleration, 0));
+			moveLeft();
 		}
 		else if (key == HeroInputKey.RIGHT)
 		{
-			gameHero.applyForce(new Vec2(horizontalAcceleration, 0));
+			moveRight();
 		}
 	}
 	
@@ -45,6 +46,8 @@ public class StandingState extends OnGroundState {
 
 	@Override
 	public void updateState(float deltaTime) {
-		animation.update(deltaTime);		
+		// TODO Auto-generated method stub
+		
 	}
+
 }

@@ -32,7 +32,7 @@ public class MainGameState implements GameStateMachine
 		createGround(new Vec2(15, 20), new Vec2(10, 3));
 		
 		
-		gameHero = new GameHero();
+		gameHero = new GameHero(1);
 		gameHero.attachBody(world.createBody(gameHero.getBodyDef(new Vec2(15, 0))));
     }
 
