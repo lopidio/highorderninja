@@ -1,5 +1,6 @@
 package br.com.guigasgame.gameobject.input.hero;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +33,8 @@ public class HeroInputConfigFile {
 		HeroInputConfigFile anim = new HeroInputConfigFile();
 		anim.map = new HashMap<HeroInputKey, InputMapController<HeroInputKey>>();
 		anim.playerID = 5;
-		anim.map.put(HeroInputKey.LEFT, InputMapController.createKeyboardEvent(Key.SPACE, null, HeroInputKey.LEFT));
-		anim.map.put(HeroInputKey.JUMP, InputMapController.createKeyboardEvent(Key.UP, null, HeroInputKey.JUMP));
+		anim.map.put(HeroInputKey.LEFT, InputMapController.createKeyboardEvent(Arrays.asList(Key.SPACE), null, HeroInputKey.LEFT));
+		anim.map.put(HeroInputKey.JUMP, InputMapController.createKeyboardEvent(Arrays.asList(Key.UP), null, HeroInputKey.JUMP));
 		
         try {
             JAXBContext context = JAXBContext.newInstance(HeroInputConfigFile.class);

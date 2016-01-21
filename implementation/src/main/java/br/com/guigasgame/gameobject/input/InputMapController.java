@@ -1,11 +1,14 @@
 package br.com.guigasgame.gameobject.input;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import org.jsfml.window.Joystick;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.Mouse;
+import org.jsfml.window.Mouse.Button;
 
 public class InputMapController<T> {
 	// https://github.com/SFML/SFML/wiki/Tutorial:-Manage-dynamic-key-binding
@@ -22,31 +25,34 @@ public class InputMapController<T> {
 	private InputType inputType;
 
 	@XmlElement
-	private Keyboard.Key keyCode;
+	private List<Keyboard.Key> keysCodeList;
 	@XmlElement
-	private Mouse.Button mouseButton;
+	private List<Mouse.Button> mouseButtonsList;
 	@XmlElement
-	private int joystickButtonCode;
+	private List<Integer>joystickButtonsCodeList;
 	@XmlElement
 	private int joystickId;
 
 	private boolean state;
 	private boolean prevState;
 	
+	/**
+	 * DO NOT USE. Required jaxb feature
+	 */
 	public InputMapController()
 	{
 		
 	}
 
-	private InputMapController(InputListener<T> keyListener, T inputValue, InputType inputType, Key keyCode,
-			Mouse.Button mouseButton, int joystickButtonCode, int joystickId) {
+	private InputMapController(InputListener<T> keyListener, T inputValue, InputType inputType, List<Key> keysCodeList,
+			List<Button> mouseButtonsList, List<Integer> joystickButtonsCodeList, int joystickId) {
 		super();
 		this.inputListener = keyListener;
 		this.inputValue = inputValue;
 		this.inputType = inputType;
-		this.keyCode = keyCode;
-		this.mouseButton = mouseButton;
-		this.joystickButtonCode = joystickButtonCode;
+		this.keysCodeList = keysCodeList;
+		this.mouseButtonsList = mouseButtonsList;
+		this.joystickButtonsCodeList = joystickButtonsCodeList;
 		this.joystickId = joystickId;
 		state = false;
 		prevState = false;
@@ -57,18 +63,45 @@ public class InputMapController<T> {
 
 		switch (inputType) {
 		case MouseInput:
-			state = (Mouse.isButtonPressed(mouseButton));
+			state = (handleMouseListButton());
 			break;
 		case KeyboardInput:
-			state = (Keyboard.isKeyPressed(keyCode));
+			state = (handleKeyboardKeysList());
 			break;
 		case JoystickInput:
-			state = (Joystick.isButtonPressed(joystickId, joystickButtonCode));
+			state = (handleJoystickButtonsList());
 			break;
 		default:
 		}
 
 		reportToListener();
+	}
+	
+	private boolean handleMouseListButton()
+	{
+		for (Button mouseCode : mouseButtonsList) {
+			if (Mouse.isButtonPressed(mouseCode))
+				return true;
+		}
+		return false;
+	}
+
+	private boolean handleKeyboardKeysList()
+	{
+		for (Key keyCode : keysCodeList) {
+			if (Keyboard.isKeyPressed(keyCode))
+				return true;
+		}
+		return false;
+	}
+
+	private boolean handleJoystickButtonsList()
+	{
+		for (Integer joystickButtonCode : joystickButtonsCodeList) {
+			if (Joystick.isButtonPressed(joystickId, joystickButtonCode))
+			return true;
+		}
+		return false;
 	}
 
 	private void reportToListener() {
@@ -89,23 +122,22 @@ public class InputMapController<T> {
 		return inputValue;
 	}
 
-	public static <T> InputMapController<T> createKeyboardEvent(Key key, InputListener<T> listener, T inputValue) {
+	public static <T> InputMapController<T> createKeyboardEvent(List<Key> key, InputListener<T> listener, T inputValue) {
 		InputType inputType = InputType.KeyboardInput;
 		// Event.Type pressedEventType = Type.KEY_PRESSED;
 		// Event.Type releasedEventType = Type.KEY_RELEASED;
-
-		return new InputMapController<T>(listener, inputValue, inputType, key, null, -1, -1);
+		return new InputMapController<T>(listener, inputValue, inputType, key, null, null, -1);
 	}
 
-	public static <T> InputMapController<T> createMouseClickEvent(Mouse.Button button, InputListener<T> listener,
+	public static <T> InputMapController<T> createMouseClickEvent(List<Mouse.Button> button, InputListener<T> listener,
 			T inputValue) {
 		InputType inputType = InputType.MouseInput;
 		// Event.Type pressedEventType = Type.MOUSE_BUTTON_PRESSED;
 		// Event.Type releasedEventType = Type.MOUSE_BUTTON_RELEASED;
-		return new InputMapController<T>(listener, inputValue, inputType, null, button, -1, -1);
+		return new InputMapController<T>(listener, inputValue, inputType, null, button, null, -1);
 	}
 
-	public static <T> InputMapController<T> createJoystickButtonEvent(int joystickButtonCode, int joystickId,
+	public static <T> InputMapController<T> createJoystickButtonEvent(List<Integer> joystickButtonCode, int joystickId,
 			InputListener<T> listener, T inputValue) {
 		InputType inputType = InputType.JoystickInput;
 		// Event.Type pressedEventType = Type.JOYSTICK_BUTTON_PRESSED;
