@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
+import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 
@@ -25,12 +26,12 @@ class HeroPhysics
 		this.gameHero = gameHero;
 		sensorsController = new HeroSensorsController();
 	}
-
-	public void attachFixturesToBody(Body body)
+	
+	public void loadAndAttachFixturesToBody(Body body)
 	{
 		this.body = body;
-		GameHeroFixturesCreator gameHeroFixturesCreator = new GameHeroFixturesCreator();
-		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixturesCreator
+		HeroFixtures gameHeroFixtures = HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
+		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixtures
 				.getFixturesMap();
 		for( Map.Entry<FixtureSensorID, FixtureDef> entry : fixtureDefMap
 				.entrySet() )
@@ -96,7 +97,7 @@ class HeroPhysics
 
 	public boolean isTouchingGround()
 	{
-		return sensorsController.getController(FixtureSensorID.BOTTOM)
+		return sensorsController.getController(FixtureSensorID.BOTTOM_SENSOR)
 				.isTouching();
 	}
 
@@ -110,16 +111,16 @@ class HeroPhysics
 		switch (gameHero.getForwardSide())
 		{
 		case LEFT:
-			return sensorsController.getController(FixtureSensorID.LEFT_BOTTOM)
+			return sensorsController.getController(FixtureSensorID.LEFT_BOTTOM_SENSOR)
 					.isTouching()
 					|| sensorsController
-							.getController(FixtureSensorID.LEFT_TOP)
+							.getController(FixtureSensorID.LEFT_TOP_SENSOR)
 							.isTouching();
 		case RIGHT:
 			return sensorsController
-					.getController(FixtureSensorID.RIGHT_BOTTOM).isTouching()
+					.getController(FixtureSensorID.RIGHT_BOTTOM_SENSOR).isTouching()
 					|| sensorsController.getController(
-							FixtureSensorID.RIGHT_TOP).isTouching();
+							FixtureSensorID.RIGHT_TOP_SENSOR).isTouching();
 		default:
 			return false;
 		}

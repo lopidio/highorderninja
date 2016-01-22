@@ -1,8 +1,8 @@
 package br.com.guigasgame.gameobject.hero;
 
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.Sprite;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
@@ -49,9 +49,9 @@ public class GameHero extends GameObject
 		physicHeroLogic
 				.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
 		gameHeroLogic.adjustSpritePosition(WorldConstants
-				.physicsCoordinatesToSfmlCoordinates(physicHeroLogic
+				.physicsToSfmlCoordinates(physicHeroLogic
 						.getBodyPosition()), (float) WorldConstants
-				.radiansToDegree(physicHeroLogic.getAngleRadians()));
+				.radiansToDegrees(physicHeroLogic.getAngleRadians()));
 	}
 
 	@Override
@@ -60,11 +60,10 @@ public class GameHero extends GameObject
 		return physicHeroLogic.getBodyDef(position);
 	}
 
-	@Override
-	public void attachBody(Body body)
+	public void attachBody(World world, Vec2 bodyPosition)
 	{
-		super.attachBody(body);
-		physicHeroLogic.attachFixturesToBody(body);
+		body = world.createBody(getBodyDef(bodyPosition));
+		physicHeroLogic.loadAndAttachFixturesToBody(body);
 	}
 
 	@Override

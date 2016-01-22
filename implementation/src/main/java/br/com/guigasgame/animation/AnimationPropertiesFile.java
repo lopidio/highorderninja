@@ -58,11 +58,13 @@ public class AnimationPropertiesFile<Enum>
 		JAXBContext jaxbContext = JAXBContext
 				.newInstance(AnimationPropertiesFile.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		AnimationPropertiesFile<?> animationPropertiesFile = ((AnimationPropertiesFile<?>) jaxbUnmarshaller
-				.unmarshal(new File(filename)));
-		animationPropertiesFile.sharedTexture = TextureResourceManager
-				.getInstance().getResource(
-						animationPropertiesFile.textureFilename);
+		AnimationPropertiesFile<?> animationPropertiesFile = ((AnimationPropertiesFile<?>) jaxbUnmarshaller.unmarshal(new File(filename)));
+		animationPropertiesFile.sharedTexture = TextureResourceManager.getInstance().getResource(animationPropertiesFile.textureFilename);
+		
+		for( AnimationProperties animation : animationPropertiesFile.animationsMap.values() )
+		{
+			animation.setTexture(animationPropertiesFile.sharedTexture);
+		}
 		return animationPropertiesFile;
 	}
 
@@ -85,7 +87,7 @@ public class AnimationPropertiesFile<Enum>
 	{
 
 		AnimationPropertiesFile<HeroAnimationsIndex> anim = new AnimationPropertiesFile<>(
-				"Model.png");
+				"ninja.bmp");
 		AnimationProperties animationProperties = new AnimationProperties(
 				(short) 2, (short) 3, (short) 12, (short) 0, (short) 4,
 				(short) 5, (short) 6, true);
@@ -109,7 +111,7 @@ public class AnimationPropertiesFile<Enum>
 			// Write to System.out for debugging m.marshal(anim, System.out);
 
 //			 Write to File 
-			 m.marshal(anim, new File("oi.txt"));
+			 m.marshal(anim, new File("ninjaProperties.xml"));
 		}
 		catch
 		(JAXBException e)
@@ -117,10 +119,10 @@ public class AnimationPropertiesFile<Enum>
 			e.printStackTrace();
 		}
 
-		@SuppressWarnings("unchecked")
-		AnimationPropertiesFile<HeroAnimationsIndex> fromFile = ((AnimationPropertiesFile<HeroAnimationsIndex>) AnimationPropertiesFile
-				.loadFromFile("oi.txt"));
-		System.out.println(fromFile.textureFilename);
+//		@SuppressWarnings("unchecked")
+//		AnimationPropertiesFile<HeroAnimationsIndex> fromFile = ((AnimationPropertiesFile<HeroAnimationsIndex>) AnimationPropertiesFile
+//				.loadFromFile("oi.txt"));
+//		System.out.println(fromFile.textureFilename);
 
 	}
 

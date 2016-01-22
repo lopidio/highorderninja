@@ -34,8 +34,6 @@ public class MainGameState implements GameState
 		createGround(new Vec2(15, 20), new Vec2(10, 3));
 
 		gameHero = new GameHero(1);
-		gameHero.attachBody(world.createBody(gameHero
-				.getBodyDef(new Vec2(15, 0))));
 	}
 
 	private void createGround(Vec2 position, Vec2 size)
@@ -55,6 +53,14 @@ public class MainGameState implements GameState
 	}
 
 	@Override
+	public void load()
+	{
+		gameHero.load();
+		gameHero.attachBody(world, new Vec2(10,5));
+	}
+	
+	
+	@Override
 	public void enterState(RenderWindow renderWindow)
 	{
 		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(
@@ -66,6 +72,7 @@ public class MainGameState implements GameState
 		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
+		
 	}
 
 	@Override

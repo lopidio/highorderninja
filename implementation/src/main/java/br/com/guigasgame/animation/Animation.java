@@ -13,7 +13,7 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 public class Animation implements UpdatableFromTime
 {
 
-	private final AnimationProperties animationDefinition;
+	private final AnimationProperties animationProperties;
 	private short currentFrameNumber;
 	private float secondsSinceLastUpdate;
 	private Rectangle frameRect;
@@ -23,22 +23,26 @@ public class Animation implements UpdatableFromTime
 	private Animation(AnimationProperties animationProperties)
 			throws IOException
 	{
-		this.animationDefinition = animationProperties;
+		this.animationProperties = animationProperties;
 		if (animationProperties.horizontal)
 		{
 			frameRect = new Rectangle(
-					animationDefinition.textureSpriteRectWidth
-							/ animationDefinition.numFrames,
-					animationDefinition.textureSpriteRectHeight);
+					(animationProperties.textureSpriteRectWidth - animationProperties.textureSpriteRectLeft)
+							/ animationProperties.numFrames,
+					(animationProperties.textureSpriteRectHeight - animationProperties.textureSpriteRectTop));
 		}
 		else
 		// if (animationProperties.vertical)
 		{
 			frameRect = new Rectangle(
-					animationDefinition.textureSpriteRectWidth,
-					animationDefinition.textureSpriteRectHeight
-							/ animationDefinition.numFrames);
+					animationProperties.textureSpriteRectWidth - animationProperties.textureSpriteRectLeft,
+					(animationProperties.textureSpriteRectHeight - animationProperties.textureSpriteRectTop)
+							/ animationProperties.numFrames);
 		}
+		frameRect.x = animationProperties.textureSpriteRectLeft;
+		frameRect.y = animationProperties.textureSpriteRectTop;	
+
+		
 		sprite = new Sprite(animationProperties.texture);
 		sprite.setOrigin(frameRect.width / 2, frameRect.height / 2);
 
@@ -51,9 +55,7 @@ public class Animation implements UpdatableFromTime
 	{
 		try
 		{
-			Animation animation;
-			animation = new Animation(animationDefinition);
-			return animation;
+			return new Animation(animationDefinition);
 		}
 		catch (IOException e)
 		{
@@ -68,16 +70,16 @@ public class Animation implements UpdatableFromTime
 		secondsSinceLastUpdate += deltaTime;
 		// timeFromLastUpdate > 1/ framePerSecond
 		float multiplicationValue = secondsSinceLastUpdate
-				* animationDefinition.framePerSecond;
+				* animationProperties.framePerSecond;
 		if (multiplicationValue >= 1)
 		{
 			secondsSinceLastUpdate = multiplicationValue - 1;
 			++currentFrameNumber;
 
-			if (currentFrameNumber >= animationDefinition.numFrames)
+			if (currentFrameNumber >= animationProperties.numFrames)
 			{
-				currentFrameNumber -= animationDefinition.numFrames
-						- animationDefinition.numEntranceFrames;
+				currentFrameNumber -= animationProperties.numFrames
+						- animationProperties.numEntranceFrames;
 			}
 
 			updateFrameRect();
@@ -87,15 +89,15 @@ public class Animation implements UpdatableFromTime
 	private void updateFrameRect()
 	{
 		// mudo a posição do rect
-		if (animationDefinition.horizontal)
+		if (animationProperties.horizontal)
 		{
-			frameRect.x = animationDefinition.textureSpriteRectLeft
+			frameRect.x = animationProperties.textureSpriteRectLeft
 					+ frameRect.width * currentFrameNumber;
 		}
 		else
 		// if (animationDefinition.vertical)
 		{
-			frameRect.y = animationDefinition.textureSpriteRectTop
+			frameRect.y = animationProperties.textureSpriteRectTop
 					+ frameRect.height * currentFrameNumber;
 		}
 		sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y,
@@ -109,7 +111,7 @@ public class Animation implements UpdatableFromTime
 
 	public void setPosition(Vector2f graphicPosition)
 	{
-		sprite.setPosition(graphicPosition.x - frameRect.width/2, graphicPosition.y - frameRect.height/2);
+		sprite.setPosition(graphicPosition.x + frameRect.width, graphicPosition.y + frameRect.height);
 	}
 
 	public short getCurrentFrameNumber()

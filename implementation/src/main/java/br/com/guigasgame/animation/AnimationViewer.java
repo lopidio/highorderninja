@@ -22,12 +22,12 @@ class AnimationViewer
 	static boolean isRunning = true;
 	public static void main(String[] args) throws JAXBException
 	{
-		String animationPropertiesFile = "animationProperties.xml";
+		String animationPropertiesFile = "ninjaProperties.xml";
 		renderWindow = new RenderWindow(new VideoMode(1000, 600, 32), "Test");
 		renderWindow.setFramerateLimit(60);
 
 		@SuppressWarnings("unchecked")
-		AnimationPropertiesFile<HeroAnimationsIndex> fromFile = ((AnimationPropertiesFile<HeroAnimationsIndex>) AnimationPropertiesFile
+		AnimationPropertiesFile<?> fromFile = ((AnimationPropertiesFile<?>) AnimationPropertiesFile
 				.loadFromFile(animationPropertiesFile));
 		
 		List<Animation> animationList = new ArrayList<Animation>();
@@ -51,7 +51,7 @@ class AnimationViewer
 			novaAnimacao.setPosition(new Vector2f(positionX, positionY));
 			
 			//Desloca horizontalmente
-			positionX += novaAnimacao.getWidth();
+			positionX += novaAnimacao.getWidth() + 20;
 			if (novaAnimacao.getHeight() > maxHeight)
 			{
 				maxHeight = novaAnimacao.getHeight();
@@ -71,6 +71,7 @@ class AnimationViewer
 			for( Animation animation : animationList )
 			{
 				animation.update(deltaTime);
+				renderWindow.draw(animation.getSprite());
 			}
 			
 			renderWindow.display();

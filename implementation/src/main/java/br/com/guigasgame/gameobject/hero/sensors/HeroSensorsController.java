@@ -3,15 +3,20 @@ package br.com.guigasgame.gameobject.hero.sensors;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlEnum;
+
 import org.jbox2d.dynamics.Fixture;
 
 
 public class HeroSensorsController
 {
 
+	@XmlEnum
 	public enum FixtureSensorID
 	{
-		HEAD, UPPER, LEGS, FEET, LEFT_TOP, RIGHT_TOP, LEFT_BOTTOM, RIGHT_BOTTOM, BOTTOM
+		HEAD, UPPER, LEGS, FEET,
+		// SENSORS
+		LEFT_TOP_SENSOR, RIGHT_TOP_SENSOR, LEFT_BOTTOM_SENSOR, RIGHT_BOTTOM_SENSOR, BOTTOM_SENSOR
 	}
 
 	Map<FixtureSensorID, SensorController> sensorsControllerMap;

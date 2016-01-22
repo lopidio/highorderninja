@@ -38,7 +38,7 @@ public class SFMLDebugDraw extends DebugDraw
 	public void drawCircle(Vec2 arg0, float arg1, Color3f arg2)
 	{
 		CircleShape cs = new CircleShape();
-		cs.setPosition(WorldConstants.physicsCoordinatesToSfmlCoordinates(arg0));
+		cs.setPosition(WorldConstants.physicsToSfmlCoordinates(arg0));
 		cs.setRadius(arg1);
 		cs.setFillColor(makeColor(arg2));
 		renderWindow.draw(cs);
@@ -56,9 +56,9 @@ public class SFMLDebugDraw extends DebugDraw
 	{
 		VertexArray line = new VertexArray();
 		line.add(new Vertex(WorldConstants
-				.physicsCoordinatesToSfmlCoordinates(arg0), makeColor(arg2)));
+				.physicsToSfmlCoordinates(arg0), makeColor(arg2)));
 		line.add(new Vertex(WorldConstants
-				.physicsCoordinatesToSfmlCoordinates(arg1), makeColor(arg2)));
+				.physicsToSfmlCoordinates(arg1), makeColor(arg2)));
 		line.setPrimitiveType(PrimitiveType.LINES);
 
 		renderWindow.draw(line);
@@ -95,7 +95,7 @@ public class SFMLDebugDraw extends DebugDraw
 			if (vertex.length() > 0)
 			{
 				polygon.setPoint(i, WorldConstants
-						.physicsCoordinatesToSfmlCoordinates(vertex));
+						.physicsToSfmlCoordinates(vertex));
 			}
 		}
 		polygon.setFillColor(Color.mul(makeColor(color),

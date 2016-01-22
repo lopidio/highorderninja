@@ -22,11 +22,6 @@ public abstract class Collidable
 
 	public abstract BodyDef getBodyDef(Vec2 position);
 
-	public void attachBody(Body body)
-	{
-		this.body = body;
-	}
-
 	public Type getType()
 	{
 		return type;
