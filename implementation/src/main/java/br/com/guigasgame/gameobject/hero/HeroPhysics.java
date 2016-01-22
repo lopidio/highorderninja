@@ -11,25 +11,19 @@ import org.jbox2d.dynamics.FixtureDef;
 
 import br.com.guigasgame.gamehero.HeroSensorsController;
 import br.com.guigasgame.gamehero.HeroSensorsController.FixtureSensorID;
-import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public class PhysicHeroLogic implements UpdatableFromTime
+public class HeroPhysics
 {
 
 	GameHero gameHero;
 	HeroSensorsController sensorsController;
 	Body body;
 
-	public PhysicHeroLogic(GameHero gameHero)
+	public HeroPhysics(GameHero gameHero)
 	{
 		this.gameHero = gameHero;
 		sensorsController = new HeroSensorsController();
-	}
-
-	@Override
-	public void update(float deltaTime)
-	{
 	}
 
 	public void attachFixturesToBody(Body body)

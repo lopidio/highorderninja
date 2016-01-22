@@ -23,11 +23,6 @@ public class GameHeroLogic implements UpdatableFromTime
 	public GameHeroLogic(GameHero gameHero)
 	{
 		this.gameHero = gameHero;
-		gameHeroInput = GameHeroInputMap.loadFromConfigFile(gameHero
-				.getPlayerID());
-
-		setState(new StandingState(gameHero));
-
 	}
 
 	@Override
@@ -91,6 +86,20 @@ public class GameHeroLogic implements UpdatableFromTime
 	public HeroState getState()
 	{
 		return state;
+	}
+
+	public void load()
+	{
+		gameHeroInput = GameHeroInputMap.loadFromConfigFile(gameHero
+				.getPlayerID());
+
+		setState(new StandingState(gameHero));
+	}
+
+	public void unload()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

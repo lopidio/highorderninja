@@ -109,11 +109,21 @@ public class Animation implements UpdatableFromTime
 
 	public void setPosition(Vector2f graphicPosition)
 	{
-		sprite.setPosition(graphicPosition);
+		sprite.setPosition(graphicPosition.x - frameRect.width/2, graphicPosition.y - frameRect.height/2);
 	}
 
 	public short getCurrentFrameNumber()
 	{
 		return currentFrameNumber;
+	}
+
+	public int getHeight()
+	{
+		return frameRect.height;
+	}
+
+	public int getWidth()
+	{
+		return frameRect.width;
 	}
 }

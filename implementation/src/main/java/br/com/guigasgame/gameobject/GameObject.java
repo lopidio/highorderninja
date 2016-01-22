@@ -32,4 +32,14 @@ public abstract class GameObject extends Collidable implements
 	{
 		// Default implementation
 	}
+	
+	public void load()
+	{
+		
+	}
+	
+	public void unload()
+	{
+		
+	}
 }

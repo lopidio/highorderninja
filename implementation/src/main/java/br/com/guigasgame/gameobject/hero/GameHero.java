@@ -18,7 +18,7 @@ public class GameHero extends GameObject
 
 	ForwardSide forwardSide;
 	GameHeroLogic gameHeroLogic;
-	PhysicHeroLogic physicHeroLogic;
+	HeroPhysics physicHeroLogic;
 
 	public GameHero(int playerID)
 	{
@@ -26,14 +26,25 @@ public class GameHero extends GameObject
 		this.playerID = playerID;
 		forwardSide = new ForwardSide(Side.LEFT);
 		gameHeroLogic = new GameHeroLogic(this);
-		physicHeroLogic = new PhysicHeroLogic(this);
+		physicHeroLogic = new HeroPhysics(this);
+	}
+	
+	@Override
+	public void load()
+	{
+		gameHeroLogic.load();
+	}
+
+	@Override
+	public void unload()
+	{
+		gameHeroLogic.unload();
 	}
 
 	@Override
 	public void update(float deltaTime)
 	{
 		gameHeroLogic.update(deltaTime);
-		physicHeroLogic.update(deltaTime);
 
 		physicHeroLogic
 				.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
@@ -87,7 +98,7 @@ public class GameHero extends GameObject
 		return gameHeroLogic;
 	}
 
-	public PhysicHeroLogic getPhysicHeroLogic()
+	public HeroPhysics getPhysicHeroLogic()
 	{
 		return physicHeroLogic;
 	}

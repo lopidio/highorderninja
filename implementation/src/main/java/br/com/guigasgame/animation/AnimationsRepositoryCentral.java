@@ -1,8 +1,5 @@
 package br.com.guigasgame.animation;
 
-import java.util.Collection;
-import java.util.Map.Entry;
-
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlEnum;
 
