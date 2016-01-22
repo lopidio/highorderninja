@@ -1,14 +1,13 @@
 package br.com.guigasgame.resourcemanager;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ResourceManager<Key, Value> {
 	private Map<Key, Value> resourcesMap;
 
-	public ResourceManager() {
-		resourcesMap = new HashMap<Key, Value>();
+	public ResourceManager(Map<Key, Value> resourcesMap) {
+		this.resourcesMap = resourcesMap;
 	}
 	
 	public final Value getResource(Key key)

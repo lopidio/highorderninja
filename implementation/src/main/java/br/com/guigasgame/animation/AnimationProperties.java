@@ -10,7 +10,7 @@ import org.jsfml.graphics.Texture;
 public class AnimationProperties 
 {
 	@XmlID
-	public final AnimationsIndex heroAnimation;
+	public final HeroAnimationsIndex heroAnimation;
     @XmlElement
 	public final  short numFrames;
     @XmlElement
@@ -24,7 +24,7 @@ public class AnimationProperties
 
     public final Texture texture;
 	
-	private AnimationProperties(AnimationsIndex heroAnimation, short numFrames, short numEntranceFrames, short framePerSecond,
+	private AnimationProperties(HeroAnimationsIndex heroAnimation, short numFrames, short numEntranceFrames, short framePerSecond,
 			IntRect textureSpriteRect, boolean horizontal, Texture texture) {
 		super();
 		this.heroAnimation = heroAnimation;

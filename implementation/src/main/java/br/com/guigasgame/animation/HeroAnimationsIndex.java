@@ -1,5 +1,5 @@
 package br.com.guigasgame.animation;
 
-public enum AnimationsIndex {
+public enum HeroAnimationsIndex {
 	HERO_STANDING
 }

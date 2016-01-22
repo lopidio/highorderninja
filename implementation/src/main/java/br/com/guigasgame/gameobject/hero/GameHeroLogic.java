@@ -1,12 +1,8 @@
 package br.com.guigasgame.gameobject.hero;
 
-import javax.xml.bind.JAXBException;
-
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
-import br.com.guigasgame.animation.AnimationProperties;
-import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
@@ -24,18 +20,10 @@ public class GameHeroLogic implements UpdatableFromTime {
 
 	public GameHeroLogic(GameHero gameHero) {
 		this.gameHero = gameHero;
+		gameHeroInput = GameHeroInputMap.loadFromConfigFile(gameHero.getPlayerID());
 
-		AnimationProperties animationDefinition;
-		try {
-			;
-			animationDefinition = AnimationProperties.loadFromFile(FilenameConstants.getInputPlayerAnimationFilename());
-			setState(new StandingState(Animation.createAnimation(animationDefinition), gameHero));
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		setState(new StandingState(gameHero));
 		
-		gameHeroInput = GameHeroInputMap.loadFromConfigFile(state, gameHero.getPlayerID());
 	}
 
 	@Override
@@ -84,8 +72,7 @@ public class GameHeroLogic implements UpdatableFromTime {
 	public void setState(HeroState newState) {
 		state = newState;
 		animation = state.getAnimation();
-		if (gameHeroInput != null)
-			gameHeroInput.setInputListener(state);
+		gameHeroInput.setInputListener(state);
 	}
 
 	public HeroState getState() {

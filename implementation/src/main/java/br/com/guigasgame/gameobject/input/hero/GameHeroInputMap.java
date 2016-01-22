@@ -39,7 +39,7 @@ public class GameHeroInputMap {
 		}
 	}
 
-	public static GameHeroInputMap loadFromConfigFile(InputListener<HeroInputKey> listener, int playerID) {
+	public static GameHeroInputMap loadFromConfigFile(int playerID) {
 		GameHeroInputMap retorno = null;
 		retorno = HeroInputConfigFile.parseFile(playerID);
 		if (null == retorno) {
@@ -47,10 +47,6 @@ public class GameHeroInputMap {
 			retorno = HeroInputConfigFile.parseFile(playerID);
 		}
 
-		if (null != retorno)
-		{
-			retorno.setInputListener(listener);
-		}
 		return retorno;
 	}
 

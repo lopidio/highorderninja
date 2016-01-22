@@ -9,7 +9,7 @@ public class FilenameConstants
 	{
 		return inputPlayerConfigFile;
 	}
-	public static String getInputPlayerAnimationFilename() {
+	public static String getHeroAnimationFilename() {
 		return heroAnimationFilename;
 	}
 

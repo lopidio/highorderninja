@@ -1,7 +1,7 @@
 package br.com.guigasgame.animation;
 
 import java.io.File;
-import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -11,25 +11,26 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class AnimationPropertiesFile {
+public class AnimationPropertiesFile<E extends Enum<E>> {
 	
 	@XmlAttribute
 	private String animationFilename;
 	
 	@XmlElement
-	private List<AnimationProperties> animationsList;
+	private Map<E, AnimationProperties> animationsMap;
 
-	private AnimationPropertiesFile(String animationFilename, List<AnimationProperties> animationsList) {
+	private AnimationPropertiesFile(String animationFilename, Map<E, AnimationProperties> animationsList) {
 		super();
 		this.animationFilename = animationFilename;
-		this.animationsList = animationsList;
+		this.animationsMap = animationsList;
 	}
 	
-	public static AnimationPropertiesFile loadFromFile(String filename) throws JAXBException
+	public static <E extends Enum<E>> AnimationPropertiesFile<E> loadFromFile(String filename) throws JAXBException
 	{
 		JAXBContext jaxbContext = JAXBContext.newInstance(AnimationPropertiesFile.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		AnimationPropertiesFile animationPropertiesFile = (AnimationPropertiesFile) jaxbUnmarshaller.unmarshal(new File(filename));
+		@SuppressWarnings("unchecked")
+		AnimationPropertiesFile<E> animationPropertiesFile = ((AnimationPropertiesFile<E>) jaxbUnmarshaller.unmarshal(new File(filename)));
 		return animationPropertiesFile;
 	}
 
@@ -37,10 +38,15 @@ public class AnimationPropertiesFile {
 		return animationFilename;
 	}
 
-	public List<AnimationProperties> getAnimationsList() {
-		return animationsList;
+	public AnimationProperties getAnimationsProperties(E index) {
+		return animationsMap.get(index);
 	}
 	
+	
+	public Map<E, AnimationProperties> getAnimationsMap() {
+		return animationsMap;
+	}
+
 	public static void main(String[] args) throws JAXBException {
 //		AnimationDefinition anim = new AnimationDefinition();
 //		anim.framePerSecond = 12;
