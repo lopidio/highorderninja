@@ -4,11 +4,15 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.input.InputListener;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public abstract class HeroState  implements InputListener<HeroInputKey>, UpdatableFromTime{
+
+public abstract class HeroState implements InputListener<HeroInputKey>,
+		UpdatableFromTime
+{
+
 	private HeroState previousState;
 	private final Vec2 maxSpeed;
 	private final boolean canShoot;
@@ -19,8 +23,11 @@ public abstract class HeroState  implements InputListener<HeroInputKey>, Updatab
 	private final float horizontalAcceleration;
 	private final float jumpAcceleration;
 
-	protected HeroState(HeroState previousState, Vec2 maxSpeed, boolean canShoot, boolean canJump, boolean canUseRope,
-			Animation animation, GameHero gameHero, float horizontalAcceleration, float jumpAcceleration) {
+	protected HeroState(HeroState previousState, Vec2 maxSpeed,
+			boolean canShoot, boolean canJump, boolean canUseRope,
+			Animation animation, GameHero gameHero,
+			float horizontalAcceleration, float jumpAcceleration)
+	{
 		super();
 		this.previousState = previousState;
 		this.maxSpeed = maxSpeed;
@@ -33,41 +40,45 @@ public abstract class HeroState  implements InputListener<HeroInputKey>, Updatab
 		this.jumpAcceleration = jumpAcceleration;
 	}
 
-	public void setPreviousState(HeroState state) {
+	public void setPreviousState(HeroState state)
+	{
 		previousState = state;
 	}
-
 
 	public abstract void entry();
 
 	public abstract void updateState(float deltaTime);
-	
+
 	@Override
-	public final void update(float deltaTime) {
+	public final void update(float deltaTime)
+	{
 		animation.update(deltaTime);
 		updateState(deltaTime);
 	}
 
-	public final Vec2 getMaxSpeed() {
+	public final Vec2 getMaxSpeed()
+	{
 		return maxSpeed;
 	}
 
-	public final Animation getAnimation() {
+	public final Animation getAnimation()
+	{
 		return animation;
 	}
 
 	protected void jump()
 	{
-		if (canJump)
-			gameHero.applyImpulse(new Vec2(0, -jumpAcceleration));
+		if (canJump) gameHero.applyImpulse(new Vec2(0, -jumpAcceleration));
 	}
 
-	protected void moveRight() {
+	protected void moveRight()
+	{
 		gameHero.applyForce(new Vec2(horizontalAcceleration, 0));
 	}
 
-	protected void moveLeft() {
+	protected void moveLeft()
+	{
 		gameHero.applyForce(new Vec2(-horizontalAcceleration, 0));
 	}
-	
+
 }

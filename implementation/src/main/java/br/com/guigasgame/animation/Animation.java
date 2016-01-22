@@ -9,7 +9,9 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class Animation implements UpdatableFromTime {
+
+public class Animation implements UpdatableFromTime
+{
 
 	private final AnimationProperties animationDefinition;
 	private short currentFrameNumber;
@@ -18,15 +20,24 @@ public class Animation implements UpdatableFromTime {
 	private Sprite sprite;
 
 	// Private constructor
-	private Animation(AnimationProperties animationProperties) throws IOException {
+	private Animation(AnimationProperties animationProperties)
+			throws IOException
+	{
 		this.animationDefinition = animationProperties;
-		if (animationProperties.horizontal) {
-			frameRect = new Rectangle(animationDefinition.textureSpriteRectWidth / animationDefinition.numFrames,
-					animationDefinition.textureSpriteRectHeight);
-		} else // if (animationProperties.vertical)
+		if (animationProperties.horizontal)
 		{
-			frameRect = new Rectangle(animationDefinition.textureSpriteRectWidth,
-					animationDefinition.textureSpriteRectHeight / animationDefinition.numFrames);
+			frameRect = new Rectangle(
+					animationDefinition.textureSpriteRectWidth
+							/ animationDefinition.numFrames,
+					animationDefinition.textureSpriteRectHeight);
+		}
+		else
+		// if (animationProperties.vertical)
+		{
+			frameRect = new Rectangle(
+					animationDefinition.textureSpriteRectWidth,
+					animationDefinition.textureSpriteRectHeight
+							/ animationDefinition.numFrames);
 		}
 		sprite = new Sprite(animationProperties.texture);
 		sprite.setOrigin(frameRect.width / 2, frameRect.height / 2);
@@ -35,55 +46,74 @@ public class Animation implements UpdatableFromTime {
 		currentFrameNumber = 0;
 	}
 
-	public static Animation createAnimation(AnimationProperties animationDefinition) {
-		try {
+	public static Animation createAnimation(
+			AnimationProperties animationDefinition)
+	{
+		try
+		{
 			Animation animation;
 			animation = new Animation(animationDefinition);
 			return animation;
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public void update(float deltaTime) {
+	public void update(float deltaTime)
+	{
 		secondsSinceLastUpdate += deltaTime;
 		// timeFromLastUpdate > 1/ framePerSecond
-		float multiplicationValue = secondsSinceLastUpdate * animationDefinition.framePerSecond;
-		if (multiplicationValue >= 1) {
+		float multiplicationValue = secondsSinceLastUpdate
+				* animationDefinition.framePerSecond;
+		if (multiplicationValue >= 1)
+		{
 			secondsSinceLastUpdate = multiplicationValue - 1;
 			++currentFrameNumber;
 
-			if (currentFrameNumber >= animationDefinition.numFrames) {
-				currentFrameNumber -= animationDefinition.numFrames - animationDefinition.numEntranceFrames;
+			if (currentFrameNumber >= animationDefinition.numFrames)
+			{
+				currentFrameNumber -= animationDefinition.numFrames
+						- animationDefinition.numEntranceFrames;
 			}
 
 			updateFrameRect();
 		}
 	}
 
-	private void updateFrameRect() {
+	private void updateFrameRect()
+	{
 		// mudo a posição do rect
-		if (animationDefinition.horizontal) 
+		if (animationDefinition.horizontal)
 		{
-			frameRect.x = animationDefinition.textureSpriteRectLeft + frameRect.width * currentFrameNumber;
-		} else // if (animationDefinition.vertical)
-		{
-			frameRect.y = animationDefinition.textureSpriteRectTop + frameRect.height * currentFrameNumber;
+			frameRect.x = animationDefinition.textureSpriteRectLeft
+					+ frameRect.width * currentFrameNumber;
 		}
-		sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y, frameRect.width, frameRect.height));
+		else
+		// if (animationDefinition.vertical)
+		{
+			frameRect.y = animationDefinition.textureSpriteRectTop
+					+ frameRect.height * currentFrameNumber;
+		}
+		sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y,
+				frameRect.width, frameRect.height));
 	}
 
-	public final Sprite getSprite() {
+	public final Sprite getSprite()
+	{
 		return sprite;
 	}
 
-	public void setPosition(Vector2f graphicPosition) {
+	public void setPosition(Vector2f graphicPosition)
+	{
 		sprite.setPosition(graphicPosition);
 	}
 
-	public short getCurrentFrameNumber() {
+	public short getCurrentFrameNumber()
+	{
 		return currentFrameNumber;
 	}
 }

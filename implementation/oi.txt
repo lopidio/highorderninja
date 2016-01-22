@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<animationPropertiesFile textureFilename="oi">
+<animationPropertiesFile textureFilename="Model.png">
     <animationsMap>
         <entry>
             <key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="heroAnimationsIndex">HERO_CAGANDO</key>
@@ -7,12 +7,10 @@
                 <numFrames>2</numFrames>
                 <numEntranceFrames>3</numEntranceFrames>
                 <framePerSecond>12</framePerSecond>
-                <textureSpriteRect>
-                    <left>0</left>
-                    <top>4</top>
-                    <width>5</width>
-                    <height>6</height>
-                </textureSpriteRect>
+                <textureSpriteRectTop>0</textureSpriteRectTop>
+                <textureSpriteRectLeft>4</textureSpriteRectLeft>
+                <textureSpriteRectWidth>5</textureSpriteRectWidth>
+                <textureSpriteRectHeight>6</textureSpriteRectHeight>
             </value>
         </entry>
         <entry>
@@ -21,12 +19,10 @@
                 <numFrames>2</numFrames>
                 <numEntranceFrames>3</numEntranceFrames>
                 <framePerSecond>12</framePerSecond>
-                <textureSpriteRect>
-                    <left>0</left>
-                    <top>4</top>
-                    <width>5</width>
-                    <height>6</height>
-                </textureSpriteRect>
+                <textureSpriteRectTop>0</textureSpriteRectTop>
+                <textureSpriteRectLeft>4</textureSpriteRectLeft>
+                <textureSpriteRectWidth>5</textureSpriteRectWidth>
+                <textureSpriteRectHeight>6</textureSpriteRectHeight>
             </value>
         </entry>
     </animationsMap>

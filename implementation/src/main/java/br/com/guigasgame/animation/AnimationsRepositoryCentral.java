@@ -1,51 +1,70 @@
 package br.com.guigasgame.animation;
 
+import java.util.Collection;
+import java.util.Map.Entry;
+
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlEnum;
+
+import br.com.guigasgame.file.FilenameConstants;
+
 
 public class AnimationsRepositoryCentral
 {
+
 	@XmlEnum
-	public enum HeroAnimationsIndex {
-		HERO_STANDING,
-		HERO_CAGANDO
+	public enum HeroAnimationsIndex
+	{
+		HERO_STANDING, HERO_CAGANDO
 	}
-//	private AnimationPropertiesFile<HeroAnimationsIndex> heroAnimations;
 
 	private static AnimationsRepositoryCentral singleton;
-	
+
+	private AnimationPropertiesFile<HeroAnimationsIndex> heroAnimations;
+
 	static
 	{
 		singleton = new AnimationsRepositoryCentral();
 	}
-	
-	private AnimationsRepositoryCentral() {
+
+	private AnimationsRepositoryCentral()
+	{
 		initializeHeroAnimations();
 	}
 
-//	public static AnimationPropertiesFile<HeroAnimationsIndex> getHeroAnimationRepository() {
-//		return getInstance().heroAnimations;
-//	}
-//	
 	private static AnimationsRepositoryCentral getInstance()
 	{
 		return singleton;
 	}
-	
 
-	private void initializeHeroAnimations() {
-//		this.heroAnimations = new AnimationPropertiesFile<HeroAnimationsIndex>(FilenameConstants.getHeroAnimationFilename());
-//		
-//		try {
-//			heroAnimations = AnimationPropertiesFile.loadFromFile(FilenameConstants.getHeroAnimationFilename());
-//			
-//			for (Entry<HeroAnimationsIndex, AnimationProperties> animation : heroAnimations.getAnimationsMap().entrySet()) {
-//				AnimationProperties animationProperties = animation.getValue();
-//				animationProperties.setTexture(heroAnimations.getTexture());
-//			}
-//		} catch (JAXBException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+	public static AnimationPropertiesFile<HeroAnimationsIndex> getHeroAnimationRepository()
+	{
+		return getInstance().heroAnimations;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void initializeHeroAnimations()
+	{
+		this.heroAnimations = new AnimationPropertiesFile<HeroAnimationsIndex>(
+				FilenameConstants.getHeroAnimationFilename());
+
+		try
+		{
+			heroAnimations = (AnimationPropertiesFile<HeroAnimationsIndex>) AnimationPropertiesFile
+					.loadFromFile(FilenameConstants.getHeroAnimationFilename());
+
+			// Seto a textura de todas as animações
+			for( AnimationProperties animation : heroAnimations
+					.getAnimationsMap() )
+			{
+				animation.setTexture(heroAnimations.getSharedTexture());
+			}
+		}
+		catch (JAXBException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

@@ -28,30 +28,35 @@ import org.jsfml.window.event.Event;
 
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 
+
 /**
  * Hello world!
  *
  */
-public class JsfmlBox2d {
+public class JsfmlBox2d
+{
 
 	/**
 	 * We need this to easily convert between pixel and real-world coordinates
 	 */
 	private static float SCALE = 30;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException
+	{
 		// the distance joint we are going to build on the fly during the game
 		DistanceJoint hookJoint = null;
 
 		/** Prepare the window */
-		final RenderWindow window = new RenderWindow(new VideoMode(800, 600, 32), "Test");
+		final RenderWindow window = new RenderWindow(
+				new VideoMode(800, 600, 32), "Test");
 		window.setFramerateLimit(60);
 
 		/** Prepare the world */
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 
 		World world = new World(gravity);
-		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(new OBBViewportTransform(), window);
+		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(
+				new OBBViewportTransform(), window);
 		world.setDebugDraw(sfmlDebugDraw);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
@@ -60,24 +65,29 @@ public class JsfmlBox2d {
 		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
 
-		world.setContactListener(new ContactListener() {
+		world.setContactListener(new ContactListener()
+		{
 
-			public void preSolve(Contact contact, Manifold oldManifold) {
+			public void preSolve(Contact contact, Manifold oldManifold)
+			{
 				// TODO Auto-generated method stub
 
 			}
 
-			public void postSolve(Contact contact, ContactImpulse impulse) {
+			public void postSolve(Contact contact, ContactImpulse impulse)
+			{
 				// TODO Auto-generated method stub
 
 			}
 
-			public void endContact(Contact contact) {
+			public void endContact(Contact contact)
+			{
 				// TODO Auto-generated method stub
 
 			}
 
-			public void beginContact(Contact contact) {
+			public void beginContact(Contact contact)
+			{
 				// TODO Auto-generated method stub
 
 			}
@@ -94,9 +104,11 @@ public class JsfmlBox2d {
 		Texture boxTexture = new Texture();
 		boxTexture.loadFromFile(Paths.get("boxImage.jpg"));
 
-		while (window.isOpen()) {
+		while (window.isOpen())
+		{
 			handleEvents(window);
-			if (Mouse.isButtonPressed(Mouse.Button.LEFT)) {
+			if (Mouse.isButtonPressed(Mouse.Button.LEFT))
+			{
 				int MouseX = Mouse.getPosition(window).x;
 				int MouseY = Mouse.getPosition(window).y;
 				lastBody = createBox(world, MouseX, MouseY);
@@ -109,15 +121,21 @@ public class JsfmlBox2d {
 			world.step(1 / 60.f, 8, 3);
 
 			window.clear();
-			for (Body bodyIterator = world.getBodyList(); bodyIterator != null; bodyIterator = bodyIterator.getNext()) {
-				if (bodyIterator.getType() == BodyType.DYNAMIC) {
+			for( Body bodyIterator = world.getBodyList(); bodyIterator != null; bodyIterator = bodyIterator
+					.getNext() )
+			{
+				if (bodyIterator.getType() == BodyType.DYNAMIC)
+				{
 					Sprite sprite = new Sprite();
 					sprite.setTexture(boxTexture);
 					sprite.setOrigin(16.f, 16.f);
-					sprite.setPosition(SCALE * bodyIterator.getPosition().x, SCALE * bodyIterator.getPosition().y);
+					sprite.setPosition(SCALE * bodyIterator.getPosition().x,
+							SCALE * bodyIterator.getPosition().y);
 					sprite.setRotation((float) (bodyIterator.getAngle() * 180 / Math.PI));
 					window.draw(sprite);
-				} else {
+				}
+				else
+				{
 					// Sprite groundSprite = new Sprite();
 					// groundSprite.setTexture(groundTexture);
 					// groundSprite.setOrigin(400.f, 8.f);
@@ -143,23 +161,27 @@ public class JsfmlBox2d {
 
 	}
 
-	static void handleEvents(RenderWindow renderWindow) {
+	static void handleEvents(RenderWindow renderWindow)
+	{
 
 		Iterable<Event> events = renderWindow.pollEvents();
-		for (Event event : events) {
+		for( Event event : events )
+		{
 
-			if (event.type == Event.Type.KEY_PRESSED) {
-				if (event.asKeyEvent().key != Keyboard.Key.ESCAPE)
-					break;
+			if (event.type == Event.Type.KEY_PRESSED)
+			{
+				if (event.asKeyEvent().key != Keyboard.Key.ESCAPE) break;
 				renderWindow.close();
 			}
-			if (event.type == Event.Type.CLOSED) {
+			if (event.type == Event.Type.CLOSED)
+			{
 				renderWindow.close();
 			}
 		}
 	}
 
-	static DistanceJoint addHook(Body body, World world, Body gancho) {
+	static DistanceJoint addHook(Body body, World world, Body gancho)
+	{
 		// if there's a collision and the colliding game object has been tagged
 		// as "Wall"...
 		// adding a distance joint to the player
@@ -181,11 +203,13 @@ public class JsfmlBox2d {
 		// objects connected by the joint can collide
 		hookJointDef.collideConnected = true;
 
-		DistanceJoint joint = (DistanceJoint) DistanceJoint.create(world, hookJointDef);
+		DistanceJoint joint = (DistanceJoint) DistanceJoint.create(world,
+				hookJointDef);
 		return joint;
 	}
 
-	static Body createBox(World world, int MouseX, int MouseY) {
+	static Body createBox(World world, int MouseX, int MouseY)
+	{
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position = new Vec2(MouseX / SCALE, MouseY / SCALE);
 		bodyDef.type = BodyType.DYNAMIC;
@@ -203,7 +227,8 @@ public class JsfmlBox2d {
 		return body;
 	}
 
-	static Body createGancho(World world) {
+	static Body createGancho(World world)
+	{
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position = new Vec2(0 / SCALE, 0 / SCALE);
 		bodyDef.type = BodyType.STATIC;
@@ -218,7 +243,8 @@ public class JsfmlBox2d {
 		return body;
 	}
 
-	static void createGround(World world, float X, float Y) {
+	static void createGround(World world, float X, float Y)
+	{
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position = new Vec2(X / SCALE, Y / SCALE);
 		bodyDef.type = BodyType.STATIC;

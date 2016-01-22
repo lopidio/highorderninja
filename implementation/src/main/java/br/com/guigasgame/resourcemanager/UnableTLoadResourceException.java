@@ -1,6 +1,7 @@
 package br.com.guigasgame.resourcemanager;
 
-public class UnableTLoadResourceException extends Exception {
+public class UnableTLoadResourceException extends Exception
+{
 
 	/**
 	 * 

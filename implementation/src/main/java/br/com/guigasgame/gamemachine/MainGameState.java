@@ -17,26 +17,29 @@ import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.time.TimeMaster;
 
-public class MainGameState implements GameStateMachine 
+
+public class MainGameState implements GameStateMachine
 {
+
 	World world;
 	TimeMaster timeMaster;
-    GameHero gameHero;
+	GameHero gameHero;
 
-    public MainGameState() throws JAXBException 
-    {
-    	timeMaster = new TimeMaster();
-    
+	public MainGameState() throws JAXBException
+	{
+		timeMaster = new TimeMaster();
+
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		createGround(new Vec2(15, 20), new Vec2(10, 3));
-		
-		
-		gameHero = new GameHero(1);
-		gameHero.attachBody(world.createBody(gameHero.getBodyDef(new Vec2(15, 0))));
-    }
 
-    private void createGround(Vec2 position, Vec2 size) {
+		gameHero = new GameHero(1);
+		gameHero.attachBody(world.createBody(gameHero
+				.getBodyDef(new Vec2(15, 0))));
+	}
+
+	private void createGround(Vec2 position, Vec2 size)
+	{
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position = position;
 		bodyDef.type = BodyType.STATIC;
@@ -48,13 +51,14 @@ public class MainGameState implements GameStateMachine
 		fixtureDef.density = 0;
 		fixtureDef.shape = shape;
 		body.createFixture(fixtureDef);
-		
+
 	}
 
-    @Override
-    public void enterState(RenderWindow renderWindow)
-    {
-		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(new OBBViewportTransform(), renderWindow);
+	@Override
+	public void enterState(RenderWindow renderWindow)
+	{
+		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(
+				new OBBViewportTransform(), renderWindow);
 		world.setDebugDraw(sfmlDebugDraw);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
@@ -62,10 +66,11 @@ public class MainGameState implements GameStateMachine
 		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
-    }
-    
+	}
+
 	@Override
-	public void update() {
+	public void update()
+	{
 		float deltaTime = timeMaster.getElapsedTime().asSeconds();
 		world.step(1 / 60.f, 8, 3);
 		world.clearForces();
@@ -74,7 +79,8 @@ public class MainGameState implements GameStateMachine
 	}
 
 	@Override
-	public void draw(RenderWindow renderWindow) {
+	public void draw(RenderWindow renderWindow)
+	{
 		world.drawDebugData();
 		renderWindow.draw(gameHero.getSprite());
 	}

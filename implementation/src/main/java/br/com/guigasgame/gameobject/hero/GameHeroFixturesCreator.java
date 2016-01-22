@@ -10,25 +10,27 @@ import org.jbox2d.dynamics.FixtureDef;
 
 import br.com.guigasgame.gamehero.HeroSensorsController.FixtureSensorID;
 
-public class GameHeroFixturesCreator 
+
+public class GameHeroFixturesCreator
 {
+
 	private Map<FixtureSensorID, FixtureDef> fixtures;
-	
-	public GameHeroFixturesCreator() 
+
+	public GameHeroFixturesCreator()
 	{
 		fixtures = new HashMap<>();
 		fixtures.put(FixtureSensorID.UPPER, new FixtureDef());
-//		for (FixtureSensorID id : FixtureSensorID.values()) {
-//			fixtures.put(id, new FixtureDef());
-//		}
+		// for (FixtureSensorID id : FixtureSensorID.values()) {
+		// fixtures.put(id, new FixtureDef());
+		// }
 		createUpperFixture();
-//		createFeetFixture();
-//		createLegsFixture();
+		// createFeetFixture();
+		// createLegsFixture();
 	}
-	
+
 	private void createUpperFixture()
 	{
-		FixtureDef def = fixtures.get(FixtureSensorID.UPPER); 
+		FixtureDef def = fixtures.get(FixtureSensorID.UPPER);
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(0.3f, 0.4f, new Vec2(0, -1.4f), 0);
 		def.density = 3;
@@ -43,7 +45,7 @@ public class GameHeroFixturesCreator
 		shape.setAsBox(0.4f, 0.5f, new Vec2(0, -0.5f), 0);
 		fixtures.get(FixtureSensorID.LEGS).shape = shape;
 	}
-	
+
 	private void createFeetFixture()
 	{
 		CircleShape feetShape = new CircleShape();
@@ -51,18 +53,20 @@ public class GameHeroFixturesCreator
 		fixtures.get(FixtureSensorID.FEET).restitution = 0.3f;
 		fixtures.get(FixtureSensorID.FEET).shape = feetShape;
 	}
-	
+
 	private void addCOisa()
 	{
 		PolygonShape bottomLeftShape = new PolygonShape();
-		bottomLeftShape.setAsBox(0.01f, 0.5f, new Vec2(-0.5f - 0.01f, -0.5f), 0);
+		bottomLeftShape
+				.setAsBox(0.01f, 0.5f, new Vec2(-0.5f - 0.01f, -0.5f), 0);
 		FixtureDef fixtureDef4 = new FixtureDef();
 		fixtureDef4.isSensor = true;
 		fixtureDef4.shape = bottomLeftShape;
 
 	}
 
-	public Map<FixtureSensorID, FixtureDef> getFixturesMap() {
+	public Map<FixtureSensorID, FixtureDef> getFixturesMap()
+	{
 		return fixtures;
 	}
 }

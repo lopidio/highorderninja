@@ -1,23 +1,29 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+public class ForwardSide
+{
 
-public class ForwardSide {
-	public enum Side {
+	public enum Side
+	{
 		LEFT, RIGHT;
 	}
 
 	private Side side;
 
-	public ForwardSide(Side value) {
+	public ForwardSide(Side value)
+	{
 		this.side = value;
 	}
 
-	public Side getSide() {
+	public Side getSide()
+	{
 		return side;
 	}
 
-	public void flip() {
-		switch (side) {
+	public void flip()
+	{
+		switch (side)
+		{
 		case LEFT:
 			side = Side.RIGHT;
 			break;
@@ -25,7 +31,7 @@ public class ForwardSide {
 			side = Side.LEFT;
 			break;
 		default:
-		}	
+		}
 	}
 
 }
