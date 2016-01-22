@@ -8,8 +8,7 @@ import br.com.guigasgame.gameobject.hero.state.StandingState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-
-public class GameHeroLogic implements UpdatableFromTime
+class GameHeroLogic implements UpdatableFromTime
 {
 
 	GameHero gameHero;

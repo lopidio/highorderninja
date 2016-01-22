@@ -15,7 +15,7 @@ import org.jsfml.window.event.Event;
 import br.com.guigasgame.animation.AnimationsRepositoryCentral.HeroAnimationsIndex;
 
 
-public class AnimationViewer
+class AnimationViewer
 {
 
 	static RenderWindow renderWindow;

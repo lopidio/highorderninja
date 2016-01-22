@@ -9,7 +9,7 @@ import org.jsfml.graphics.Texture;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AnimationProperties
+class AnimationProperties
 {
 
 	@XmlElement
@@ -34,6 +34,7 @@ public class AnimationProperties
 	/**
 	 * DO NOT USE
 	 */
+	@SuppressWarnings("unused")
 	private AnimationProperties()
 	{
 		this.numFrames = 0;

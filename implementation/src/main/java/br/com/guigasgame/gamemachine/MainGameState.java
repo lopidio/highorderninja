@@ -18,7 +18,7 @@ import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.time.TimeMaster;
 
 
-public class MainGameState implements GameStateMachine
+public class MainGameState implements GameState
 {
 
 	World world;

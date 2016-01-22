@@ -4,7 +4,7 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.event.Event;
 
 
-public interface GameStateMachine
+public interface GameState
 {
 
 	public void update();

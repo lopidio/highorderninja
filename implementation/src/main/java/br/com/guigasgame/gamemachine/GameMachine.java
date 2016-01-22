@@ -14,7 +14,7 @@ public class GameMachine
 
 	private boolean isRunning;
 	private RenderWindow renderWindow;
-	private Vector<GameStateMachine> gameStates;
+	private Vector<GameState> gameStates;
 
 	public static void main(String[] args) throws Exception
 	{
@@ -44,7 +44,7 @@ public class GameMachine
 		renderWindow.setFramerateLimit(60);
 
 		isRunning = true;
-		gameStates = new Stack<GameStateMachine>();
+		gameStates = new Stack<GameState>();
 	}
 
 	private void execute()

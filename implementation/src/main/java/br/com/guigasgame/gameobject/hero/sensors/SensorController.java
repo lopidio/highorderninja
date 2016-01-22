@@ -1,4 +1,4 @@
-package br.com.guigasgame.gamehero;
+package br.com.guigasgame.gameobject.hero.sensors;
 
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.FixtureContactListener;

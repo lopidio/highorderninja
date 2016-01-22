@@ -9,11 +9,11 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
-import br.com.guigasgame.gamehero.HeroSensorsController;
-import br.com.guigasgame.gamehero.HeroSensorsController.FixtureSensorID;
+import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController;
+import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 
 
-public class HeroPhysics
+class HeroPhysics
 {
 
 	GameHero gameHero;
