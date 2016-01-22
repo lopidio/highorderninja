@@ -2,17 +2,16 @@ package br.com.guigasgame.animation;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlID;
 
 import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Texture;
 
 public class AnimationProperties 
 {
-	@XmlID
-	public final HeroAnimationsIndex heroAnimation;
+	@XmlAttribute
+	public final short animationIndex;
     @XmlElement
-	public final  short numFrames;
+	public final short numFrames;
     @XmlElement
 	public final short numEntranceFrames;
     @XmlElement
@@ -22,17 +21,24 @@ public class AnimationProperties
     @XmlAttribute
 	public final boolean horizontal;
 
-    public final Texture texture;
+    public Texture texture;
 	
-	private AnimationProperties(HeroAnimationsIndex heroAnimation, short numFrames, short numEntranceFrames, short framePerSecond,
-			IntRect textureSpriteRect, boolean horizontal, Texture texture) {
+	AnimationProperties(short animationIndex, short numFrames, short numEntranceFrames, short framePerSecond,
+			IntRect textureSpriteRect, boolean horizontal) {
 		super();
-		this.heroAnimation = heroAnimation;
+		this.animationIndex = animationIndex;
 		this.numFrames = numFrames;
 		this.numEntranceFrames = numEntranceFrames;
 		this.framePerSecond = framePerSecond;
 		this.textureSpriteRect = textureSpriteRect;
 		this.horizontal = horizontal;
+	}
+
+	public Texture getTexture() {
+		return texture;
+	}
+
+	public void setTexture(Texture texture) {
 		this.texture = texture;
 	}
 

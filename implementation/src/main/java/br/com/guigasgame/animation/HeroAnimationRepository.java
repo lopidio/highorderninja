@@ -6,11 +6,16 @@ import java.util.Map.Entry;
 
 import javax.xml.bind.JAXBException;
 
+import br.com.guigasgame.animation.HeroAnimationRepository.HeroAnimationsIndex;
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.resourcemanager.ResourceManager;
 import br.com.guigasgame.resourcemanager.UnableTLoadResourceException;
 
 public class HeroAnimationRepository extends ResourceManager<HeroAnimationsIndex, AnimationProperties> {
+
+	public enum HeroAnimationsIndex {
+		HERO_STANDING
+	}
 
 	HeroAnimationRepository() {
 		super(new HashMap<HeroAnimationsIndex, AnimationProperties>());
@@ -19,7 +24,9 @@ public class HeroAnimationRepository extends ResourceManager<HeroAnimationsIndex
 			AnimationPropertiesFile<HeroAnimationsIndex> animationPropertiesFile = AnimationPropertiesFile
 					.loadFromFile(FilenameConstants.getHeroAnimationFilename());
 			for (Entry<HeroAnimationsIndex, AnimationProperties> animation : animationPropertiesFile.getAnimationsMap().entrySet()) {
-				addResource(animation.getKey(), animation.getValue());
+				AnimationProperties animationProperties = animation.getValue();
+				animationProperties.setTexture(animationPropertiesFile.getTexture());
+				addResource(animation.getKey(), animationProperties);
 			}
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block

@@ -1,4 +1,4 @@
-package br.com.guigasgame.animation;
+package br.com.guigasgame.drawable;
 
 import org.jsfml.graphics.Sprite;
 
