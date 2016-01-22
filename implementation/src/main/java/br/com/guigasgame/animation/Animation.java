@@ -21,12 +21,12 @@ public class Animation implements UpdatableFromTime {
 	private Animation(AnimationProperties animationProperties) throws IOException {
 		this.animationDefinition = animationProperties;
 		if (animationProperties.horizontal) {
-			frameRect = new Rectangle(animationDefinition.textureSpriteRect.width / animationDefinition.numFrames,
-					animationDefinition.textureSpriteRect.height);
+			frameRect = new Rectangle(animationDefinition.textureSpriteRectWidth / animationDefinition.numFrames,
+					animationDefinition.textureSpriteRectHeight);
 		} else // if (animationProperties.vertical)
 		{
-			frameRect = new Rectangle(animationDefinition.textureSpriteRect.width,
-					animationDefinition.textureSpriteRect.height / animationDefinition.numFrames);
+			frameRect = new Rectangle(animationDefinition.textureSpriteRectWidth,
+					animationDefinition.textureSpriteRectHeight / animationDefinition.numFrames);
 		}
 		sprite = new Sprite(animationProperties.texture);
 		sprite.setOrigin(frameRect.width / 2, frameRect.height / 2);
@@ -67,10 +67,10 @@ public class Animation implements UpdatableFromTime {
 		// mudo a posição do rect
 		if (animationDefinition.horizontal) 
 		{
-			frameRect.x = animationDefinition.textureSpriteRect.left + frameRect.width * currentFrameNumber;
+			frameRect.x = animationDefinition.textureSpriteRectLeft + frameRect.width * currentFrameNumber;
 		} else // if (animationDefinition.vertical)
 		{
-			frameRect.y = animationDefinition.textureSpriteRect.top + frameRect.height * currentFrameNumber;
+			frameRect.y = animationDefinition.textureSpriteRectTop + frameRect.height * currentFrameNumber;
 		}
 		sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y, frameRect.width, frameRect.height));
 	}

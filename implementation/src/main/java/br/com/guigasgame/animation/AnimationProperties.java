@@ -1,15 +1,15 @@
 package br.com.guigasgame.animation;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Texture;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class AnimationProperties 
 {
-	@XmlAttribute
-	public final short animationIndex;
     @XmlElement
 	public final short numFrames;
     @XmlElement
@@ -17,20 +17,41 @@ public class AnimationProperties
     @XmlElement
 	public final short framePerSecond;
     @XmlElement
-    public final IntRect textureSpriteRect;
+    public final short textureSpriteRectTop;
+    @XmlElement
+    public final short textureSpriteRectLeft;
+    @XmlElement
+    public final short textureSpriteRectWidth;
+    @XmlElement
+    public final short textureSpriteRectHeight;
     @XmlAttribute
 	public final boolean horizontal;
 
     public Texture texture;
-	
-	AnimationProperties(short animationIndex, short numFrames, short numEntranceFrames, short framePerSecond,
-			IntRect textureSpriteRect, boolean horizontal) {
+
+
+	private AnimationProperties() {
+		this.numFrames = 0;
+		this.numEntranceFrames = 0;
+		this.framePerSecond = 0;
+		this.textureSpriteRectTop = 0;
+		this.textureSpriteRectLeft = 0;
+		this.textureSpriteRectWidth = 0;
+		this.textureSpriteRectHeight = 0;
+		this.horizontal = true;		
+	}
+
+	private AnimationProperties(short numFrames, short numEntranceFrames, short framePerSecond,
+			short textureSpriteRectTop, short textureSpriteRectLeft, short textureSpriteRectWidth,
+			short textureSpriteRectHeight, boolean horizontal) {
 		super();
-		this.animationIndex = animationIndex;
 		this.numFrames = numFrames;
 		this.numEntranceFrames = numEntranceFrames;
 		this.framePerSecond = framePerSecond;
-		this.textureSpriteRect = textureSpriteRect;
+		this.textureSpriteRectTop = textureSpriteRectTop;
+		this.textureSpriteRectLeft = textureSpriteRectLeft;
+		this.textureSpriteRectWidth = textureSpriteRectWidth;
+		this.textureSpriteRectHeight = textureSpriteRectHeight;
 		this.horizontal = horizontal;
 	}
 

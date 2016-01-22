@@ -1,68 +1,85 @@
 package br.com.guigasgame.animation;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
-import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Texture;
 
+import br.com.guigasgame.animation.AnimationsRepositoryCentral.HeroAnimationsIndex;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
 
+@SuppressWarnings("hiding")
 @XmlRootElement
-public class AnimationPropertiesFile<E extends Enum<E>> {
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({HeroAnimationsIndex.class})
+public class AnimationPropertiesFile<Enum> {
 	
 	@XmlAttribute
 	private String textureFilename;
 	
 	@XmlElement
-	private Map<E, AnimationProperties> animationsMap;
+	private Map<Enum, AnimationProperties> animationsMap;
 
-	private Texture texture;
+	private Texture sharedTexture;
 	
-	AnimationPropertiesFile() {
+	AnimationPropertiesFile(String textureFilename) {
+		this.textureFilename = textureFilename;
 		animationsMap = new HashMap<>();
 	}
 	
-	public static <E extends Enum<E>> AnimationPropertiesFile<E> loadFromFile(String filename) throws JAXBException
+	/**
+	 * DO NOT USE
+	 */
+	AnimationPropertiesFile() {
+		animationsMap = new HashMap<>();
+	}	
+	
+	public static AnimationPropertiesFile<?> loadFromFile(String filename) throws JAXBException
 	{
 		JAXBContext jaxbContext = JAXBContext.newInstance(AnimationPropertiesFile.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		@SuppressWarnings("unchecked")
-		AnimationPropertiesFile<E> animationPropertiesFile = ((AnimationPropertiesFile<E>) jaxbUnmarshaller.unmarshal(new File(filename)));
-		animationPropertiesFile.texture = TextureResourceManager.getInstance().getResource(animationPropertiesFile.textureFilename);
+		AnimationPropertiesFile<?> animationPropertiesFile = ((AnimationPropertiesFile<?>) jaxbUnmarshaller.unmarshal(new File(filename)));
+		animationPropertiesFile.sharedTexture = TextureResourceManager.getInstance().getResource(animationPropertiesFile.textureFilename);
 		return animationPropertiesFile;
 	}
 
-	public AnimationProperties getAnimationsProperties(E index) {
+	public AnimationProperties getAnimationsProperties(HeroAnimationsIndex index) {
 		return animationsMap.get(index);
 	}
 	
 	
-	public Map<E, AnimationProperties> getAnimationsMap() {
-		return animationsMap;
+	public Collection<AnimationProperties> getAnimationsMap() {
+		return animationsMap.values();
 	}
 	
-	public Texture getTexture() {
-		return texture;
+	public Texture getSharedTexture() {
+		return sharedTexture;
 	}
 
 	public static void main(String[] args) throws JAXBException {
-		AnimationPropertiesFile anim = new AnimationPropertiesFile<>();
-		anim.textureFilename = "asd";
-		AnimationProperties animationProperties = new AnimationProperties(HeroAnimationsIndex.HERO_STANDING, (short)2, (short)3, (short)12,
-			new IntRect(0, 4, 5, 6),true);
+
+	/*	AnimationPropertiesFile<HeroAnimationsIndex> anim = new AnimationPropertiesFile<>("oi");
+		AnimationProperties animationProperties = new AnimationProperties((short)2, (short)3, (short)12,
+				new IntRect(0, 4, 5, 6),true);
+
+		AnimationProperties nova = new AnimationProperties((short)2, (short)3, (short)12,
+				new IntRect(0, 4, 5, 6),true);
 
 		
 		anim.animationsMap.put(HeroAnimationsIndex.HERO_STANDING, animationProperties);
+		anim.animationsMap.put(HeroAnimationsIndex.HERO_CAGANDO, nova);
 		
         try {
             JAXBContext context = JAXBContext.newInstance(AnimationPropertiesFile.class);
@@ -74,19 +91,15 @@ public class AnimationPropertiesFile<E extends Enum<E>> {
              m.marshal(anim, System.out);
  
             // Write to File
-//            m.marshal(emp, new File(FILE_NAME));
+            m.marshal(anim, new File("oi.txt"));
         } catch (JAXBException e) {
             e.printStackTrace();
-        }		
-//        
-//		AnimationPropertiesFile fromFile = AnimationPropertiesFile.loadFromFile("AnimationDefinition.xml");
-//		AnimationPropertiesFile animation = AnimationPropertiesFile.createAnimation(fromFile);
-//        for (int i = 0; i < 20; i++) 
-//        {
-//        	animation.update((float) 0.05);
-//        	System.out.println(animation.getCurrentFrameNumber());
-//        	System.out.println(animation.getSprite().getTextureRect());
-//		}
+        }		*/
+        
+        
+		@SuppressWarnings("unchecked")
+		AnimationPropertiesFile<HeroAnimationsIndex> fromFile = ((AnimationPropertiesFile<HeroAnimationsIndex>) AnimationPropertiesFile.loadFromFile("oi"));
+        System.out.println(fromFile.textureFilename);
         
 	}
 	
