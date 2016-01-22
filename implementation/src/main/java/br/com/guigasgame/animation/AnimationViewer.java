@@ -65,6 +65,7 @@ class AnimationViewer
 		while (isRunning)
 		{
 			float deltaTime = clock.getElapsedTime().asSeconds();
+			clock.restart();
 			renderWindow.clear();
 			handleEvents();
 

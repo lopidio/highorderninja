@@ -6,7 +6,7 @@
             <value horizontal="true">
                 <numFrames>4</numFrames>
                 <numEntranceFrames>0</numEntranceFrames>
-                <framePerSecond>1</framePerSecond>
+                <secondsPerFrame>0.1</secondsPerFrame>
                 <textureSpriteRectTop>0</textureSpriteRectTop>
                 <textureSpriteRectLeft>0</textureSpriteRectLeft>
                 <textureSpriteRectWidth>120</textureSpriteRectWidth>
@@ -18,7 +18,7 @@
             <value horizontal="true">
                 <numFrames>8</numFrames>
                 <numEntranceFrames>0</numEntranceFrames>
-                <framePerSecond>1</framePerSecond>
+                <secondsPerFrame>0.1</secondsPerFrame>
                 <textureSpriteRectTop>90</textureSpriteRectTop>
                 <textureSpriteRectLeft>0</textureSpriteRectLeft>
                 <textureSpriteRectWidth>400</textureSpriteRectWidth>

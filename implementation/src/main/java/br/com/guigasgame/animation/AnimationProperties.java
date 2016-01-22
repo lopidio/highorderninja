@@ -17,7 +17,7 @@ class AnimationProperties
 	@XmlElement
 	public final short numEntranceFrames;
 	@XmlElement
-	public final short framePerSecond;
+	public final float secondsPerFrame;
 	@XmlElement
 	public final short textureSpriteRectTop;
 	@XmlElement
@@ -39,7 +39,7 @@ class AnimationProperties
 	{
 		this.numFrames = 0;
 		this.numEntranceFrames = 0;
-		this.framePerSecond = 0;
+		this.secondsPerFrame = 0;
 		this.textureSpriteRectTop = 0;
 		this.textureSpriteRectLeft = 0;
 		this.textureSpriteRectWidth = 0;
@@ -48,14 +48,14 @@ class AnimationProperties
 	}
 
 	AnimationProperties(short numFrames, short numEntranceFrames,
-			short framePerSecond, short textureSpriteRectTop,
+			float secondsPerFrame, short textureSpriteRectTop,
 			short textureSpriteRectLeft, short textureSpriteRectWidth,
 			short textureSpriteRectHeight, boolean horizontal)
 	{
 		super();
 		this.numFrames = numFrames;
 		this.numEntranceFrames = numEntranceFrames;
-		this.framePerSecond = framePerSecond;
+		this.secondsPerFrame = secondsPerFrame;
 		this.textureSpriteRectTop = textureSpriteRectTop;
 		this.textureSpriteRectLeft = textureSpriteRectLeft;
 		this.textureSpriteRectWidth = textureSpriteRectWidth;

@@ -69,11 +69,11 @@ public class Animation implements UpdatableFromTime
 	{
 		secondsSinceLastUpdate += deltaTime;
 		// timeFromLastUpdate > 1/ framePerSecond
-		float multiplicationValue = secondsSinceLastUpdate
-				* animationProperties.framePerSecond;
-		if (multiplicationValue >= 1)
+//		float multiplicationValue = secondsSinceLastUpdate
+//				* animationProperties.framePerSecond;
+		if (secondsSinceLastUpdate >= animationProperties.secondsPerFrame)
 		{
-			secondsSinceLastUpdate = multiplicationValue - 1;
+			secondsSinceLastUpdate -= animationProperties.secondsPerFrame;
 			++currentFrameNumber;
 
 			if (currentFrameNumber >= animationProperties.numFrames)
