@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<animationPropertiesFile textureFilename="ninja.png"
-	smooth="true">
+<animationPropertiesFile textureFilename="ninja.png" smooth="true">
+<!-- 	HERO_STANDING,
+	HERO_RUNNING,
+	HERO_ASCENDING,
+	HERO_FALLING,
+	HERO_WALLRIDING,
+	HERO_WALLGRABBING,
+	HERO_SLIDING,
+ -->
 	<animationsMap>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -17,7 +24,7 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO</key>
+				xsi:type="heroAnimationsIndex">HERO_RUNNING</key>
 			<value horizontal="true">
 				<numFrames>8</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
@@ -26,6 +33,32 @@
 				<textureSpriteRectLeft>0</textureSpriteRectLeft>
 				<textureSpriteRectWidth>400</textureSpriteRectWidth>
 				<textureSpriteRectHeight>154</textureSpriteRectHeight>
+			</value>
+		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroAnimationsIndex">HERO_ASCENDING</key>
+			<value horizontal="true">
+				<numFrames>2</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+				<textureSpriteRectTop>270</textureSpriteRectTop>
+				<textureSpriteRectLeft>0</textureSpriteRectLeft>
+				<textureSpriteRectWidth>98</textureSpriteRectWidth>
+				<textureSpriteRectHeight>332</textureSpriteRectHeight>
+			</value>
+		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroAnimationsIndex">HERO_FALLING</key>
+			<value horizontal="true">
+				<numFrames>2</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+				<textureSpriteRectTop>360</textureSpriteRectTop>
+				<textureSpriteRectLeft>0</textureSpriteRectLeft>
+				<textureSpriteRectWidth>70</textureSpriteRectWidth>
+				<textureSpriteRectHeight>422</textureSpriteRectHeight>
 			</value>
 		</entry>
 	</animationsMap>

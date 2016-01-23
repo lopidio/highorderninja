@@ -110,7 +110,7 @@ public class Animation implements UpdatableFromTime
 		return sprite;
 	}
 
-	public final void setSide(Side side)
+	public final void flipAnimation(Side side)
 	{
 		if (side == Side.LEFT)
 		{

@@ -10,8 +10,8 @@ import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class HeroState implements InputListener<HeroInputKey>,
-		UpdatableFromTime
+public abstract class HeroState
+		implements InputListener<HeroInputKey>, UpdatableFromTime
 {
 
 	protected HeroState previousState;
@@ -48,17 +48,17 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 
 	public void onEnter()
 	{
-		//hook method		
+		// hook method
 	}
-	
+
 	public void onQuit()
 	{
-		//hook method		
+		// hook method
 	}
-	
+
 	public void updateState(float deltaTime)
 	{
-		//hook method
+		// hook method
 	}
 
 	@Override
@@ -67,15 +67,15 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		animation.update(deltaTime);
 		updateState(deltaTime);
 	}
-	
-	protected final void setForwardSide(Side side)
+
+	public final void flipAnimation(Side side)
 	{
-		animation.setSide(side);
-		gameHero.setForwardSide(side);
+		animation.flipAnimation(side);
 	}
-	
+
 	protected final void setState(HeroState heroState)
 	{
+		heroState.flipAnimation(gameHero.getForwardSide());
 		gameHero.setState(heroState);
 	}
 
@@ -89,20 +89,27 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		return animation;
 	}
 
-	protected void jump()
+	protected boolean jump()
 	{
-		if (canJump) gameHero.applyImpulse(new Vec2(0, -jumpAcceleration));
+		if (canJump)
+		{
+			gameHero.applyImpulse(new Vec2(0, -jumpAcceleration));
+			return true;
+		}
+		return false;
 	}
 
 	protected void moveRight()
 	{
-		setForwardSide(Side.RIGHT);
+		flipAnimation(Side.RIGHT);
+		gameHero.setForwardSide(Side.RIGHT);
 		gameHero.applyForce(new Vec2(horizontalAcceleration, 0));
 	}
 
 	protected void moveLeft()
 	{
-		setForwardSide(Side.LEFT);
+		flipAnimation(Side.LEFT);
+		gameHero.setForwardSide(Side.LEFT);
 		gameHero.applyForce(new Vec2(-horizontalAcceleration, 0));
 	}
 

@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import org.jsfml.graphics.Texture;
 
-import br.com.guigasgame.animation.AnimationsRepositoryCentral.HeroAnimationsIndex;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
 
 

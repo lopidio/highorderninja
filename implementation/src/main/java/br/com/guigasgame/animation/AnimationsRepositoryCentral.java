@@ -1,25 +1,12 @@
 package br.com.guigasgame.animation;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlEnum;
 
 import br.com.guigasgame.file.FilenameConstants;
 
 
 public class AnimationsRepositoryCentral
 {
-
-	@XmlEnum
-	public enum HeroAnimationsIndex
-	{
-		HERO_STANDING,
-		HERO_RUNNING,
-		HERO_ASCENDING,
-		HERO_FALLING,
-		HERO_WALLRIDING,
-		HERO_WALLGRABBING,
-		HERO_SLIDING,
-	}
 
 	private static AnimationsRepositoryCentral singleton;
 

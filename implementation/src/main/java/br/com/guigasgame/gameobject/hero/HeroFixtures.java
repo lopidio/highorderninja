@@ -88,10 +88,10 @@ class HeroFixtures {
 
 	private void createFeetFixture() {
 		CircleShape feetShape = new CircleShape();
-		feetShape.setRadius(0.45f);
+		feetShape.setRadius(0.4f);
 
 		FixtureDef def = new FixtureDef();
-		def.restitution = 0.3f;
+		def.restitution = 0.0f;
 
 		def.shape = feetShape;
 		fixtures.put(FixtureSensorID.FEET, def);

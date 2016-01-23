@@ -4,7 +4,7 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsRepositoryCentral;
-import br.com.guigasgame.animation.AnimationsRepositoryCentral.HeroAnimationsIndex;
+import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -36,5 +36,13 @@ public class DuckingState extends OnGroundState {
 			setState(new StandingState(gameHero));
 		}
 	}
-	
+
+	@Override
+	public void inputPressed(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.JUMP)
+		{
+			setState(new SuperJumpingHeroState(gameHero));
+		}
+	}
 }

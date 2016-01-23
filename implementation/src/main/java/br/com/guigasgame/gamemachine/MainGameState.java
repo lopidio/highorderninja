@@ -92,7 +92,7 @@ public class MainGameState implements GameState
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-		world.drawDebugData();
+//		world.drawDebugData();
 		renderWindow.draw(gameHero.getSprite());
 	}
 

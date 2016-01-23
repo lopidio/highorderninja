@@ -13,8 +13,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import br.com.guigasgame.animation.AnimationPropertiesFile;
-import br.com.guigasgame.animation.AnimationsRepositoryCentral.HeroAnimationsIndex;
+import br.com.guigasgame.animation.HeroAnimationsIndex;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

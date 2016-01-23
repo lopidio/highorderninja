@@ -8,8 +8,8 @@ import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 class OnAirHeroState extends HeroState{
 
-	protected OnAirHeroState(Vec2 maxSpeed, boolean canJump, Animation animation, GameHero gameHero, float jumpAcceleration) {
-		super(null, maxSpeed, true, canJump, true, animation, gameHero, 2,
+	protected OnAirHeroState(boolean canJump, Animation animation, GameHero gameHero, float jumpAcceleration) {
+		super(null, new Vec2(2, 10), true, canJump, true, animation, gameHero, 2,
 				jumpAcceleration);
 	}
 
@@ -20,6 +20,15 @@ class OnAirHeroState extends HeroState{
 			moveLeft();
 		} else if (key == HeroInputKey.RIGHT) {
 			moveRight();
+		}
+	}
+
+	@Override
+	public void updateState(float deltaTime)
+	{
+		if (gameHero.isFallingDown())
+		{
+			setState(new FallingHeroState(gameHero));
 		}
 	}
 
