@@ -8,13 +8,7 @@ import org.jbox2d.dynamics.BodyDef;
 public abstract class Collidable
 {
 
-	private Type type;
 	protected Body body;
-
-	enum Type
-	{
-		GAME_HERO, PROJECTILE, WALL, ROPE, ITEM,
-	}
 
 	public abstract void endContact(Collidable collidable);
 
@@ -22,9 +16,9 @@ public abstract class Collidable
 
 	public abstract BodyDef getBodyDef(Vec2 position);
 
-	public Type getType()
+	public final Body getBody()
 	{
-		return type;
+		return body;
 	}
 
 }

@@ -2,6 +2,9 @@ package br.com.guigasgame.time;
 
 import org.jsfml.system.Clock;
 import org.jsfml.system.Time;
+import org.jsfml.window.Keyboard.Key;
+import org.jsfml.window.event.Event;
+import org.jsfml.window.event.Event.Type;
 
 
 public class TimeMaster
@@ -58,8 +61,40 @@ public class TimeMaster
 		}
 	}
 
-	public void restart() {
+	public void restart()
+	{
 		clock.restart();
+	}
+
+	public void handleEvent(Event event)
+	{
+		if (event.type == Type.KEY_PRESSED)
+		{
+			if (event.asKeyEvent().key == Key.P)
+			{
+				try
+				{
+					setTimeFactor(0.1f);
+				}
+				catch (Exception e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (event.asKeyEvent().key == Key.O)
+			{
+				try
+				{
+					resetTimeFactor();
+				}
+				catch (Exception e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 }

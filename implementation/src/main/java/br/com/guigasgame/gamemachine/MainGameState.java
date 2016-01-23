@@ -11,7 +11,12 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.joints.DistanceJoint;
+import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.window.Keyboard.Key;
+import org.jsfml.window.event.Event;
+import org.jsfml.window.event.Event.Type;
 
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.collision.CollidersFilters;
@@ -27,6 +32,9 @@ public class MainGameState implements GameState
 	TimeMaster timeMaster;
 	GameHero gameHero;
 
+	Body singleBlockBody;
+	DistanceJoint joint;
+
 	public MainGameState() throws JAXBException
 	{
 		timeMaster = new TimeMaster();
@@ -37,12 +45,12 @@ public class MainGameState implements GameState
 		createGround(new Vec2(16, 22), new Vec2(15, 3));
 		createGround(new Vec2(2, 15), new Vec2(1, 10));
 		createGround(new Vec2(30, 15), new Vec2(1, 10));
-		createGround(new Vec2(15, 5), new Vec2(1, 1));
+		singleBlockBody = createGround(new Vec2(15, 5), new Vec2(1, 1));
 
 		gameHero = new GameHero(1);
 	}
 
-	private void createGround(Vec2 position, Vec2 size)
+	private Body createGround(Vec2 position, Vec2 size)
 	{
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position = position;
@@ -55,10 +63,11 @@ public class MainGameState implements GameState
 
 		fixtureDef.filter.categoryBits = CollidersFilters.CATEGORY_SCENERY;
 		fixtureDef.filter.maskBits = CollidersFilters.MASK_SCENERY;
-		
+
 		fixtureDef.density = 0;
 		fixtureDef.shape = shape;
 		body.createFixture(fixtureDef);
+		return body;
 
 	}
 
@@ -66,10 +75,9 @@ public class MainGameState implements GameState
 	public void load()
 	{
 		gameHero.load();
-		gameHero.attachBody(world, new Vec2(10,5));
+		gameHero.attachBody(world, new Vec2(10, 5));
 	}
-	
-	
+
 	@Override
 	public void enterState(RenderWindow renderWindow)
 	{
@@ -82,7 +90,39 @@ public class MainGameState implements GameState
 		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
-		
+
+	}
+
+	@Override
+	public void handleEvent(Event event)
+	{
+		if (timeMaster != null) timeMaster.handleEvent(event);
+		if (event.type == Type.KEY_PRESSED)
+		{
+			if (event.asKeyEvent().key == Key.LSHIFT)
+			{
+				if (joint == null)
+				{
+					
+					DistanceJointDef distDef = new DistanceJointDef();
+					
+					distDef.bodyA = gameHero.getBody();
+					distDef.bodyB = singleBlockBody;
+					distDef.collideConnected = false;
+					distDef.length = singleBlockBody.getPosition().sub(gameHero.getBody().getPosition()).length();
+					
+					System.out.println("Creates");
+					joint = (DistanceJoint) world.createJoint(distDef);
+				}
+			}
+		}
+		if (event.type == Type.KEY_RELEASED)
+			if (event.asKeyEvent().key == Key.LSHIFT)
+			{
+				System.out.println("Remove");
+				world.destroyJoint(joint);
+				joint = null;
+			}
 	}
 
 	@Override
@@ -93,6 +133,11 @@ public class MainGameState implements GameState
 		world.step(1 / 60.f, 8, 3);
 		world.clearForces();
 
+		if (joint != null)
+		{
+			joint.setLength(joint.getLength()*0.995f);
+		}
+		
 		gameHero.update(deltaTime);
 	}
 
