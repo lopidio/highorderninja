@@ -9,7 +9,6 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
-import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 
@@ -30,7 +29,8 @@ class HeroPhysics
 	public void loadAndAttachFixturesToBody(Body body)
 	{
 		this.body = body;
-		HeroFixtures gameHeroFixtures = HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
+//		HeroFixtures gameHeroFixtures = HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
+		HeroFixtures gameHeroFixtures = new HeroFixtures();
 		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixtures
 				.getFixturesMap();
 		for( Map.Entry<FixtureSensorID, FixtureDef> entry : fixtureDefMap
@@ -101,7 +101,12 @@ class HeroPhysics
 				.isTouching();
 	}
 
-	public boolean isBodyFallingDown()
+	public boolean isFallingDown()
+	{
+		return body.getLinearVelocity().y > 0;
+	}
+
+	public boolean isAscending()
 	{
 		return body.getLinearVelocity().y < 0;
 	}
@@ -113,13 +118,13 @@ class HeroPhysics
 		case LEFT:
 			return sensorsController.getController(FixtureSensorID.LEFT_BOTTOM_SENSOR)
 					.isTouching()
-					|| sensorsController
+					&& sensorsController
 							.getController(FixtureSensorID.LEFT_TOP_SENSOR)
 							.isTouching();
 		case RIGHT:
 			return sensorsController
 					.getController(FixtureSensorID.RIGHT_BOTTOM_SENSOR).isTouching()
-					|| sensorsController.getController(
+					&& sensorsController.getController(
 							FixtureSensorID.RIGHT_TOP_SENSOR).isTouching();
 		default:
 			return false;

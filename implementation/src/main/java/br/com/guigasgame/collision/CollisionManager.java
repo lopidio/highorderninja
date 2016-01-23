@@ -33,11 +33,11 @@ public class CollisionManager implements ContactListener
 
 	public void endContact(Contact contact)
 	{
-		if (contact.isTouching())
+//		if (contact.isTouching())
 		{
-			GameObject objectA = (GameObject) contact.getFixtureA()
+			GameObject objectA = (GameObject) contact.getFixtureA().getBody()
 					.getUserData();
-			GameObject objectB = (GameObject) contact.getFixtureB()
+			GameObject objectB = (GameObject) contact.getFixtureB().getBody()
 					.getUserData();
 
 			reportToFixtureListenersEndCollision(

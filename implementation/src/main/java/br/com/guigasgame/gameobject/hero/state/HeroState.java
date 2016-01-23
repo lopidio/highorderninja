@@ -4,6 +4,7 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.state.ForwardSide.Side;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.updatable.UpdatableFromTime;
@@ -13,15 +14,15 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		UpdatableFromTime
 {
 
-	private HeroState previousState;
-	private final Vec2 maxSpeed;
-	private final boolean canShoot;
-	private final boolean canJump;
-	private final boolean canUseRope;
-	private final Animation animation;
-	private final GameHero gameHero;
-	private final float horizontalAcceleration;
-	private final float jumpAcceleration;
+	protected HeroState previousState;
+	protected final Vec2 maxSpeed;
+	protected final boolean canShoot;
+	protected final boolean canJump;
+	protected final boolean canUseRope;
+	protected final Animation animation;
+	protected final GameHero gameHero;
+	protected final float horizontalAcceleration;
+	protected final float jumpAcceleration;
 
 	protected HeroState(HeroState previousState, Vec2 maxSpeed,
 			boolean canShoot, boolean canJump, boolean canUseRope,
@@ -55,6 +56,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		animation.update(deltaTime);
 		updateState(deltaTime);
 	}
+	
+	protected final void setForwardSide(Side side)
+	{
+		animation.setSide(side);
+		gameHero.setForwardSide(side);
+	}
 
 	public final Vec2 getMaxSpeed()
 	{
@@ -73,11 +80,13 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 
 	protected void moveRight()
 	{
+		setForwardSide(Side.RIGHT);
 		gameHero.applyForce(new Vec2(horizontalAcceleration, 0));
 	}
 
 	protected void moveLeft()
 	{
+		setForwardSide(Side.LEFT);
 		gameHero.applyForce(new Vec2(-horizontalAcceleration, 0));
 	}
 

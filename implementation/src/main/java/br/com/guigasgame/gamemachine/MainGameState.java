@@ -14,6 +14,7 @@ import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
+import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.time.TimeMaster;
 
@@ -31,7 +32,9 @@ public class MainGameState implements GameState
 
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
+		world.setContactListener(new CollisionManager());
 		createGround(new Vec2(15, 20), new Vec2(10, 3));
+		createGround(new Vec2(5, 15), new Vec2(3, 3));
 
 		gameHero = new GameHero(1);
 	}
@@ -79,6 +82,7 @@ public class MainGameState implements GameState
 	public void update()
 	{
 		float deltaTime = timeMaster.getElapsedTime().asSeconds();
+		timeMaster.restart();
 		world.step(1 / 60.f, 8, 3);
 		world.clearForces();
 

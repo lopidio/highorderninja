@@ -33,6 +33,9 @@ public class AnimationPropertiesFile<Enum>
 	@XmlAttribute
 	private String textureFilename;
 
+	@XmlAttribute
+	private boolean smooth;
+
 	@XmlElement
 	private Map<Enum, AnimationProperties> animationsMap;
 
@@ -60,14 +63,14 @@ public class AnimationPropertiesFile<Enum>
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		AnimationPropertiesFile<?> animationPropertiesFile = ((AnimationPropertiesFile<?>) jaxbUnmarshaller.unmarshal(new File(filename)));
 		animationPropertiesFile.sharedTexture = TextureResourceManager.getInstance().getResource(animationPropertiesFile.textureFilename);
-		
+		animationPropertiesFile.sharedTexture.setSmooth(animationPropertiesFile.smooth);
 		for( AnimationProperties animation : animationPropertiesFile.animationsMap.values() )
 		{
 			animation.setTexture(animationPropertiesFile.sharedTexture);
 		}
 		return animationPropertiesFile;
 	}
-
+	
 	public AnimationProperties getAnimationsProperties(HeroAnimationsIndex index)
 	{
 		return animationsMap.get(index);
@@ -88,6 +91,7 @@ public class AnimationPropertiesFile<Enum>
 
 		AnimationPropertiesFile<HeroAnimationsIndex> anim = new AnimationPropertiesFile<>(
 				"ninja.bmp");
+		
 		AnimationProperties animationProperties = new AnimationProperties(
 				(short) 2, (short) 3, (short) 12, (short) 0, (short) 4,
 				(short) 5, (short) 6, true);
@@ -111,7 +115,7 @@ public class AnimationPropertiesFile<Enum>
 			// Write to System.out for debugging m.marshal(anim, System.out);
 
 //			 Write to File 
-			 m.marshal(anim, new File("ninjaProperties.xml"));
+			 m.marshal(anim, new File("ninjaSmooth.xml"));
 		}
 		catch
 		(JAXBException e)
@@ -124,6 +128,15 @@ public class AnimationPropertiesFile<Enum>
 //				.loadFromFile("oi.txt"));
 //		System.out.println(fromFile.textureFilename);
 
+	}
+
+	public void setSmooth(boolean smooth) {
+		this.smooth = smooth;
+		sharedTexture.setSmooth(smooth);
+	}
+
+	public boolean isSmooth() {
+		return smooth;
 	}
 
 }

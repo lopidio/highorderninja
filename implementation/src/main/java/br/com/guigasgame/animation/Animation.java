@@ -7,6 +7,7 @@ import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 
+import br.com.guigasgame.gameobject.hero.state.ForwardSide.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
@@ -31,8 +32,7 @@ public class Animation implements UpdatableFromTime
 							/ animationProperties.numFrames,
 					(animationProperties.textureSpriteRectHeight - animationProperties.textureSpriteRectTop));
 		}
-		else
-		// if (animationProperties.vertical)
+		else // if (animationProperties.vertical)
 		{
 			frameRect = new Rectangle(
 					animationProperties.textureSpriteRectWidth - animationProperties.textureSpriteRectLeft,
@@ -44,8 +44,8 @@ public class Animation implements UpdatableFromTime
 
 		
 		sprite = new Sprite(animationProperties.texture);
-		sprite.setOrigin(frameRect.width / 2, frameRect.height / 2);
-
+		sprite.setOrigin(frameRect.width / 2, frameRect.height);
+		
 		secondsSinceLastUpdate = 0;
 		currentFrameNumber = 0;
 	}
@@ -109,6 +109,20 @@ public class Animation implements UpdatableFromTime
 		return sprite;
 	}
 
+	public final void setSide(Side side)
+	{
+		if (side == Side.LEFT)
+		{
+			// flip X
+			sprite.setScale(-1, 1);
+		}
+		else //if (side == Side.RIGHT)
+		{
+			// unflip X
+			sprite.setScale(1, 1);
+		}
+	}
+	
 	public void setPosition(Vector2f graphicPosition)
 	{
 		sprite.setPosition(graphicPosition.x + frameRect.width, graphicPosition.y + frameRect.height);

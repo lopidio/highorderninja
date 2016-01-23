@@ -7,7 +7,6 @@ import org.jsfml.graphics.Sprite;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.gameobject.hero.state.ForwardSide;
 import br.com.guigasgame.gameobject.hero.state.ForwardSide.Side;
 
 
@@ -16,7 +15,7 @@ public class GameHero extends GameObject
 
 	private final int playerID;
 
-	ForwardSide forwardSide;
+	Side forwardSide;
 	GameHeroLogic gameHeroLogic;
 	HeroPhysics physicHeroLogic;
 
@@ -24,7 +23,7 @@ public class GameHero extends GameObject
 	{
 		super();
 		this.playerID = playerID;
-		forwardSide = new ForwardSide(Side.LEFT);
+		forwardSide = Side.LEFT;
 		gameHeroLogic = new GameHeroLogic(this);
 		physicHeroLogic = new HeroPhysics(this);
 	}
@@ -46,6 +45,12 @@ public class GameHero extends GameObject
 	{
 		gameHeroLogic.update(deltaTime);
 
+		System.out.println("Touhing ahead:" + physicHeroLogic.isTouchingWallAhead());
+		System.out.println("Ascending:" + physicHeroLogic.isAscending());
+		System.out.println("Falling:" + physicHeroLogic.isFallingDown());
+		System.out.println("Touhing ground:" + physicHeroLogic.isTouchingGround());
+		System.out.println(forwardSide);
+		
 		physicHeroLogic
 				.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
 		gameHeroLogic.adjustSpritePosition(WorldConstants
@@ -72,14 +77,9 @@ public class GameHero extends GameObject
 		return gameHeroLogic.getAnimation().getSprite();
 	}
 
-	public void flipSide()
-	{
-		forwardSide.flip();
-	}
-
 	public Side getForwardSide()
 	{
-		return forwardSide.getSide();
+		return forwardSide;
 	}
 
 	public void applyImpulse(Vec2 impulse)
@@ -107,4 +107,27 @@ public class GameHero extends GameObject
 		return playerID;
 	}
 
+	public void setForwardSide(Side side) {
+		forwardSide = side;
+	}
+
+	public boolean isTouchingGround()
+	{
+		return physicHeroLogic.isTouchingGround();
+	}
+
+	public boolean isFallingDown()
+	{
+		return physicHeroLogic.isFallingDown();
+	}
+
+	public boolean isAscending()
+	{
+		return physicHeroLogic.isAscending();
+	}
+
+	public boolean isTouchingWallAhead()
+	{
+		return physicHeroLogic.isTouchingWallAhead();
+	}	
 }

@@ -13,14 +13,12 @@ public class SensorController implements FixtureContactListener
 	public void endContact(Collidable collidable)
 	{
 		--touchingContacts;
-
 	}
 
 	@Override
 	public void beginContact(Collidable collidable)
 	{
 		++touchingContacts;
-
 	}
 
 	public boolean isTouching()

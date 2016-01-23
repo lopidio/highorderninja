@@ -12,7 +12,13 @@ public class AnimationsRepositoryCentral
 	@XmlEnum
 	public enum HeroAnimationsIndex
 	{
-		HERO_STANDING, HERO_CAGANDO
+		HERO_STANDING,
+		HERO_RUNNING,
+		HERO_ASCENDING,
+		HERO_FALLING,
+		HERO_WALLRIDING,
+		HERO_WALLGRABBING,
+		HERO_SLIDING,
 	}
 
 	private static AnimationsRepositoryCentral singleton;
@@ -26,7 +32,7 @@ public class AnimationsRepositoryCentral
 
 	private AnimationsRepositoryCentral()
 	{
-		initializeHeroAnimations();
+		loadHeroAnimations();
 	}
 
 	private static AnimationsRepositoryCentral getInstance()
@@ -40,7 +46,7 @@ public class AnimationsRepositoryCentral
 	}
 
 	@SuppressWarnings("unchecked")
-	private void initializeHeroAnimations()
+	private void loadHeroAnimations()
 	{
 		this.heroAnimations = new AnimationPropertiesFile<HeroAnimationsIndex>(
 				FilenameConstants.getHeroAnimationFilename());

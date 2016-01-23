@@ -58,4 +58,8 @@ public class TimeMaster
 		}
 	}
 
+	public void restart() {
+		clock.restart();
+	}
+
 }

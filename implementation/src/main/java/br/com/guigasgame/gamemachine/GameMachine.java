@@ -32,7 +32,6 @@ public class GameMachine
 
 	private void addState(MainGameState gameState)
 	{
-		gameState.load();
 		gameState.enterState(renderWindow);
 		gameStates.add(gameState);
 	}
