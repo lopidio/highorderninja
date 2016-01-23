@@ -10,8 +10,7 @@ import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 public class StandingState extends OnGroundState {
 	public StandingState(GameHero gameHero) {
-		super(null,
-				new Vec2(10, 10), true, true, true, Animation.createAnimation(AnimationsRepositoryCentral
+		super(new Vec2(10, 10), true, true, Animation.createAnimation(AnimationsRepositoryCentral
 						.getHeroAnimationRepository().getAnimationsProperties(HeroAnimationsIndex.HERO_STANDING)),
 				gameHero, 20, 10);
 	}
@@ -36,18 +35,6 @@ public class StandingState extends OnGroundState {
 		} else if (key == HeroInputKey.RIGHT) {
 			moveRight();
 		}
-	}
-
-	@Override
-	public void entry() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updateState(float deltaTime) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

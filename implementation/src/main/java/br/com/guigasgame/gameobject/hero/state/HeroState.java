@@ -46,9 +46,20 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		previousState = state;
 	}
 
-	public abstract void entry();
-
-	public abstract void updateState(float deltaTime);
+	public void onEnter()
+	{
+		//hook method		
+	}
+	
+	public void onQuit()
+	{
+		//hook method		
+	}
+	
+	public void updateState(float deltaTime)
+	{
+		//hook method
+	}
 
 	@Override
 	public final void update(float deltaTime)

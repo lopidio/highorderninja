@@ -1,5 +1,6 @@
 package br.com.guigasgame.gameobject.hero;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.jbox2d.common.Vec2;
@@ -16,27 +17,30 @@ import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSe
 class HeroPhysics
 {
 
-	GameHero gameHero;
-	HeroSensorsController sensorsController;
-	Body body;
+	private Map<FixtureSensorID, Fixture> fixtureMap;
+	private GameHero gameHero;
+	private HeroSensorsController sensorsController;
+	private Body body;
 
 	public HeroPhysics(GameHero gameHero)
 	{
 		this.gameHero = gameHero;
 		sensorsController = new HeroSensorsController();
 	}
-	
+
 	public void loadAndAttachFixturesToBody(Body body)
 	{
 		this.body = body;
-//		HeroFixtures gameHeroFixtures = HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
+		// HeroFixtures gameHeroFixtures =
+		// HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
 		HeroFixtures gameHeroFixtures = new HeroFixtures();
-		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixtures
-				.getFixturesMap();
+		fixtureMap = new HashMap<>();
+		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixtures.getFixturesMap();
 		for( Map.Entry<FixtureSensorID, FixtureDef> entry : fixtureDefMap
 				.entrySet() )
 		{
 			Fixture fixture = body.createFixture(entry.getValue());
+			fixtureMap.put(entry.getKey(), fixture);
 			sensorsController.attachController(entry.getKey(), fixture);
 		}
 	}
@@ -116,19 +120,32 @@ class HeroPhysics
 		switch (gameHero.getForwardSide())
 		{
 		case LEFT:
-			return sensorsController.getController(FixtureSensorID.LEFT_BOTTOM_SENSOR)
+			return sensorsController
+					.getController(FixtureSensorID.LEFT_BOTTOM_SENSOR)
 					.isTouching()
 					&& sensorsController
 							.getController(FixtureSensorID.LEFT_TOP_SENSOR)
 							.isTouching();
 		case RIGHT:
 			return sensorsController
-					.getController(FixtureSensorID.RIGHT_BOTTOM_SENSOR).isTouching()
-					&& sensorsController.getController(
-							FixtureSensorID.RIGHT_TOP_SENSOR).isTouching();
+					.getController(FixtureSensorID.RIGHT_BOTTOM_SENSOR)
+					.isTouching()
+					&& sensorsController
+							.getController(FixtureSensorID.RIGHT_TOP_SENSOR)
+							.isTouching();
 		default:
 			return false;
 		}
+	}
+
+	public void disableCollision(FixtureSensorID sensorID)
+	{
+		fixtureMap.get(sensorID).setSensor(true);
+	}
+
+	public void enableCollision(FixtureSensorID sensorID)
+	{
+		fixtureMap.get(sensorID).setSensor(false);
 	}
 
 }

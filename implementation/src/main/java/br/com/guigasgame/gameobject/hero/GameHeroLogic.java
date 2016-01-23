@@ -3,10 +3,11 @@ package br.com.guigasgame.gameobject.hero;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
+import br.com.guigasgame.gameobject.hero.state.FallingHeroState;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
-import br.com.guigasgame.gameobject.hero.state.StandingState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.updatable.UpdatableFromTime;
+
 
 class GameHeroLogic implements UpdatableFromTime
 {
@@ -77,8 +78,10 @@ class GameHeroLogic implements UpdatableFromTime
 
 	public void setState(HeroState newState)
 	{
-		System.out.println("Current state: " + newState.getClass().getSimpleName());
+		if (null != state) state.onQuit();
+		System.out.println(	"Current state: " + newState.getClass().getSimpleName());
 		state = newState;
+		state.onEnter();
 		animation = state.getAnimation();
 		gameHeroInput.setInputListener(state);
 	}
@@ -90,16 +93,16 @@ class GameHeroLogic implements UpdatableFromTime
 
 	public void load()
 	{
-		gameHeroInput = GameHeroInputMap.loadFromConfigFile(gameHero
-				.getPlayerID());
+		gameHeroInput = GameHeroInputMap
+				.loadFromConfigFile(gameHero.getPlayerID());
 
-		setState(new StandingState(gameHero));
+		setState(new FallingHeroState(gameHero));
 	}
 
 	public void unload()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

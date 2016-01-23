@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<animationPropertiesFile textureFilename="ninja.png" smooth="true">
-    <animationsMap>
-        <entry>
-            <key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="heroAnimationsIndex">HERO_STANDING</key>
-            <value horizontal="true">
-                <numFrames>4</numFrames>
-                <numEntranceFrames>0</numEntranceFrames>
-                <secondsPerFrame>0.1</secondsPerFrame>
-                <textureSpriteRectTop>0</textureSpriteRectTop>
-                <textureSpriteRectLeft>0</textureSpriteRectLeft>
-                <textureSpriteRectWidth>120</textureSpriteRectWidth>
-                <textureSpriteRectHeight>64</textureSpriteRectHeight>
-            </value>
-        </entry>
-        <entry>
-            <key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="heroAnimationsIndex">HERO</key>
-            <value horizontal="true">
-                <numFrames>8</numFrames>
-                <numEntranceFrames>0</numEntranceFrames>
-                <secondsPerFrame>0.1</secondsPerFrame>
-                <textureSpriteRectTop>90</textureSpriteRectTop>
-                <textureSpriteRectLeft>0</textureSpriteRectLeft>
-                <textureSpriteRectWidth>400</textureSpriteRectWidth>
-                <textureSpriteRectHeight>154</textureSpriteRectHeight>
-            </value>
-        </entry>
-     </animationsMap>
+<animationPropertiesFile textureFilename="ninja.png"
+	smooth="true">
+	<animationsMap>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroAnimationsIndex">HERO_STANDING</key>
+			<value horizontal="true">
+				<numFrames>4</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+				<textureSpriteRectTop>0</textureSpriteRectTop>
+				<textureSpriteRectLeft>0</textureSpriteRectLeft>
+				<textureSpriteRectWidth>120</textureSpriteRectWidth>
+				<textureSpriteRectHeight>64</textureSpriteRectHeight>
+			</value>
+		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroAnimationsIndex">HERO</key>
+			<value horizontal="true">
+				<numFrames>8</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+				<textureSpriteRectTop>90</textureSpriteRectTop>
+				<textureSpriteRectLeft>0</textureSpriteRectLeft>
+				<textureSpriteRectWidth>400</textureSpriteRectWidth>
+				<textureSpriteRectHeight>154</textureSpriteRectHeight>
+			</value>
+		</entry>
+	</animationsMap>
 </animationPropertiesFile>

@@ -6,15 +6,24 @@ import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.gameobject.hero.GameHero;
 
 
-public abstract class OnGroundState extends HeroState
+abstract class OnGroundState extends HeroState
 {
 
-	protected OnGroundState(HeroState previousState, Vec2 maxSpeed,
-			boolean canShoot, boolean canJump, boolean canUseRope,
+	protected OnGroundState(Vec2 maxSpeed,
+			boolean canShoot, boolean canJump,
 			Animation animation, GameHero gameHero,
 			float horizontalAcceleration, float jumpAcceleration)
 	{
-		super(previousState, maxSpeed, canShoot, canJump, canUseRope,
+		super(null, maxSpeed, canShoot, canJump, false,
 				animation, gameHero, jumpAcceleration, jumpAcceleration);
 	}
+
+	@Override
+	public void updateState(float deltaTime) {
+		if (gameHero.isFallingDown())
+		{
+			setState(new FallingHeroState(gameHero));
+		}
+	}
+
 }
