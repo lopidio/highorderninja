@@ -4,8 +4,9 @@ public class FilenameConstants
 {
 
 	private static String inputPlayerConfigFile = "InputConfigFile.xml";
-	private static String heroAnimationFilename = "ninjaProperties.xml";
+	private static String heroAnimationFilename = "ninjaAnimationProperties.xml";
 	private static String heroFixturesFilename = "HeroFixtures.xml";
+	private static String heroStatesFilename = "heroStates.xml";
 
 	public static String getInputPlayerConfigFilename(int playerID)
 	{
@@ -20,6 +21,11 @@ public class FilenameConstants
 	public static String getHeroFixturesFilename()
 	{
 		return heroFixturesFilename;
+	}
+
+	public static String getHeroStatesFilename()
+	{
+		return heroStatesFilename;
 	}
 
 }

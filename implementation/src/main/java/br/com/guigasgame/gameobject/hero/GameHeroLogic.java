@@ -70,12 +70,6 @@ class GameHeroLogic implements UpdatableFromTime
 		return numShurickens;
 	}
 
-	public void addState(HeroState newState)
-	{
-		newState.setPreviousState(state);
-		setState(newState);
-	}
-
 	public void setState(HeroState newState)
 	{
 		if (null != state) state.onQuit();

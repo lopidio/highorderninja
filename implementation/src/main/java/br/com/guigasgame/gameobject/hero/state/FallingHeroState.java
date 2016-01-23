@@ -1,7 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jbox2d.common.Vec2;
-
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -10,8 +8,7 @@ import br.com.guigasgame.side.Side;
 public class FallingHeroState extends HeroState {
 
 	public FallingHeroState(GameHero gameHero) {
-		super(null, new Vec2(20, 10), true, false, true, HeroAnimationsIndex.HERO_FALLING,
-				gameHero, 2, 0);
+		super(gameHero, HeroAnimationsIndex.HERO_FALLING);
 	}
 	@Override
 	public void isPressed(HeroInputKey key)

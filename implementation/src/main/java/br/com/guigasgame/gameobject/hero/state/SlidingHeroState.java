@@ -1,7 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jbox2d.common.Vec2;
-
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -14,8 +12,7 @@ class SlidingHeroState extends HeroState
 
 	protected SlidingHeroState(GameHero gameHero)
 	{
-		super(null, new Vec2(40, 10), true, true, true,
-				HeroAnimationsIndex.HERO_SLIDING, gameHero, 50, 10);
+		super(gameHero, HeroAnimationsIndex.HERO_SLIDING);
 		secondsRemaining = 0.5f;
 	}
 
@@ -35,7 +32,7 @@ class SlidingHeroState extends HeroState
 	{
 		if (key == HeroInputKey.JUMP)
 		{
-			setState(new JumpingHeroState(true, gameHero));
+			setState(new JumpingHeroState(gameHero));
 		}
 	}
 	

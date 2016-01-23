@@ -18,34 +18,40 @@ import br.com.guigasgame.math.Vector2;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-class StatePropertiesFile {
+class HeroStatePropertiesFile {
 
 	@XmlElement
-	private Map<HeroAnimationsIndex, StateProperties> statesMap;
+	private Map<HeroAnimationsIndex, HeroStatesProperties> statesMap;
 
-	protected StatePropertiesFile() {
+	protected HeroStatePropertiesFile() {
 		statesMap = new HashMap<>();
 	}
 
-	public static StatePropertiesFile loadFromFile(String filename) throws JAXBException {
-		JAXBContext jaxbContext = JAXBContext.newInstance(StatePropertiesFile.class);
+	public static HeroStatePropertiesFile loadFromFile(String filename) throws JAXBException {
+		JAXBContext jaxbContext = JAXBContext.newInstance(HeroStatePropertiesFile.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		StatePropertiesFile statePropertiesFile = ((StatePropertiesFile) jaxbUnmarshaller
+		HeroStatePropertiesFile statePropertiesFile = ((HeroStatePropertiesFile) jaxbUnmarshaller
 				.unmarshal(new File(filename)));
 		return statePropertiesFile;
+	}
+
+	
+	public Map<HeroAnimationsIndex, HeroStatesProperties> getStatesMap()
+	{
+		return statesMap;
 	}
 
 	public static void main(String[] args) throws JAXBException {
 		
 		try
 		{
-			StatePropertiesFile states = new StatePropertiesFile();
-			StateProperties sp = new StateProperties(true, true, false, new Vector2(1,3), 3, 4);
-			StateProperties sp2 = new StateProperties(false, true, true, new Vector2(34,31), 53, 64);
+			HeroStatePropertiesFile states = new HeroStatePropertiesFile();
+			HeroStatesProperties sp = new HeroStatesProperties(true, true, false, new Vector2(1,3), 3, 4);
+			HeroStatesProperties sp2 = new HeroStatesProperties(false, true, true, new Vector2(34,31), 53, 64);
 			states.statesMap.put(HeroAnimationsIndex.HERO_SLIDING, sp);
-			states.statesMap.put(HeroAnimationsIndex.HERO_WALLGRABBING, sp);
+			states.statesMap.put(HeroAnimationsIndex.HERO_WALLGRABBING, sp2);
 			JAXBContext context = JAXBContext
-					.newInstance(StatePropertiesFile.class);
+					.newInstance(HeroStatePropertiesFile.class);
 			Marshaller m = context.createMarshaller(); // for pretty-print XML
 														// in JAXB
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

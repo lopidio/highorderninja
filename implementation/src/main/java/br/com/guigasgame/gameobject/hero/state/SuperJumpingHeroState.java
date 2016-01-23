@@ -10,10 +10,11 @@ import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 class SuperJumpingHeroState extends HeroState
 {
 
+	private boolean doubleJumpAllowed;
 	protected SuperJumpingHeroState(GameHero gameHero)
 	{
-		super(null, new Vec2(20, 10), true, true, true, HeroAnimationsIndex.HERO_ASCENDING,
-				gameHero, 2, 30);
+		super(gameHero, HeroAnimationsIndex.HERO_ASCENDING);
+		doubleJumpAllowed = true;
 	}
 
 	@Override
@@ -22,19 +23,18 @@ class SuperJumpingHeroState extends HeroState
 		//Jump three times higher
 		jump();
 		jump();
-		jump();
 	}
 	
 	@Override
 	public void inputPressed(HeroInputKey key)
 	{
-		if (key == HeroInputKey.JUMP)
+		if (doubleJumpAllowed && key == HeroInputKey.JUMP)
 		{
-			if (canJump && key == HeroInputKey.JUMP)
+			if (heroStatesProperties.canJump && key == HeroInputKey.JUMP)
 			{
 				System.out.println("Super Double jump!");
 				jump();
-				canJump = false;
+				doubleJumpAllowed = false;
 			}
 		}
 	}	

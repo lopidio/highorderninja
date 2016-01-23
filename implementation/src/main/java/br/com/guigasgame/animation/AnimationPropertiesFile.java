@@ -41,6 +41,10 @@ public class AnimationPropertiesFile<Enum>
 
 	private Texture sharedTexture;
 
+	/**
+	 * DO NOT USE
+	 * @param textureFilename
+	 */
 	AnimationPropertiesFile(String textureFilename)
 	{
 		this.textureFilename = textureFilename;

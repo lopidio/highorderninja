@@ -8,6 +8,7 @@ import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.input.InputListener;
+import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
@@ -16,36 +17,18 @@ public abstract class HeroState
 		implements InputListener<HeroInputKey>, UpdatableFromTime
 {
 
-	protected HeroState previousState;
-	protected boolean canJump;
-	protected final Vec2 maxSpeed;
-	protected final boolean canShoot;
-	protected final boolean canUseRope;
-	protected final Animation animation;
 	protected final GameHero gameHero;
-	protected final float horizontalAcceleration;
-	protected final float jumpAcceleration;
+	protected final HeroAnimationsIndex heroAnimationsIndex;
+	private Animation animation;
+	protected HeroStatesProperties heroStatesProperties;
 
-	protected HeroState(HeroState previousState, Vec2 maxSpeed,
-			boolean canShoot, boolean canJump, boolean canUseRope,
-			HeroAnimationsIndex heroAnimationsIndex, GameHero gameHero,
-			float horizontalAcceleration, float jumpAcceleration)
+	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
 	{
 		super();
-		this.previousState = previousState;
-		this.maxSpeed = maxSpeed;
-		this.canShoot = canShoot;
-		this.canJump = canJump;
-		this.canUseRope = canUseRope;
+		this.heroAnimationsIndex = heroAnimationsIndex;
+		this.heroStatesProperties = HeroStatesPropertiesRepository.getStateProperties(heroAnimationsIndex);
 		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getHeroAnimationRepository().getAnimationsProperties(heroAnimationsIndex));
 		this.gameHero = gameHero;
-		this.horizontalAcceleration = horizontalAcceleration;
-		this.jumpAcceleration = jumpAcceleration;
-	}
-
-	public void setPreviousState(HeroState state)
-	{
-		previousState = state;
 	}
 
 	public void onEnter()
@@ -81,9 +64,9 @@ public abstract class HeroState
 		gameHero.setState(heroState);
 	}
 
-	public final Vec2 getMaxSpeed()
+	public final Vector2 getMaxSpeed()
 	{
-		return maxSpeed;
+		return heroStatesProperties.maxSpeed;
 	}
 
 	public final Animation getAnimation()
@@ -93,9 +76,9 @@ public abstract class HeroState
 
 	protected boolean jump()
 	{
-		if (canJump)
+		if (heroStatesProperties.canJump)
 		{
-			gameHero.applyImpulse(new Vec2(0, -jumpAcceleration));
+			gameHero.applyImpulse(new Vec2(0, -heroStatesProperties.jumpImpulse));
 			return true;
 		}
 		return false;
@@ -129,14 +112,14 @@ public abstract class HeroState
 	{
 		flipAnimation(Side.RIGHT);
 		gameHero.setForwardSide(Side.RIGHT);
-		gameHero.applyForce(new Vec2(horizontalAcceleration, 0));
+		gameHero.applyForce(new Vec2(heroStatesProperties.horizontalAcceleration, 0));
 	}
 
 	protected void moveLeft()
 	{
 		flipAnimation(Side.LEFT);
 		gameHero.setForwardSide(Side.LEFT);
-		gameHero.applyForce(new Vec2(-horizontalAcceleration, 0));
+		gameHero.applyForce(new Vec2(-heroStatesProperties.horizontalAcceleration, 0));
 	}
 
 }

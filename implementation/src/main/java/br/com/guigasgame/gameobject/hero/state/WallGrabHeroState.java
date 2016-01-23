@@ -1,7 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jbox2d.common.Vec2;
-
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -15,8 +13,7 @@ public class WallGrabHeroState extends HeroState
 
 	protected WallGrabHeroState(GameHero gameHero)
 	{
-		super(null, new Vec2(0, 2), true, true, false,
-				HeroAnimationsIndex.HERO_WALLGRABBING, gameHero, 400, 10);
+		super(gameHero, HeroAnimationsIndex.HERO_WALLGRABBING);
 		wallSide = gameHero.getForwardSide();
 	}
 
@@ -36,7 +33,7 @@ public class WallGrabHeroState extends HeroState
 		{
 			moveBackward();
 
-			setState(new JumpingHeroState(true, gameHero));
+			setState(new JumpingHeroState(gameHero));
 		}
 		if (wallSide == Side.LEFT && key == HeroInputKey.RIGHT)
 		{

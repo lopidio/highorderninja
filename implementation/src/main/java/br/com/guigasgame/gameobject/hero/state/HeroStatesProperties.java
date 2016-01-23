@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import br.com.guigasgame.math.Vector2;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-final class StateProperties {
+final class HeroStatesProperties {
 	@XmlAttribute
 	public final boolean canShoot;
 	@XmlAttribute
@@ -22,7 +22,7 @@ final class StateProperties {
 	@XmlElement
 	public final float jumpImpulse;
 
-	public StateProperties(boolean canShoot, boolean canJump, boolean canUseRope, Vector2 maxSpeed,
+	public HeroStatesProperties(boolean canShoot, boolean canJump, boolean canUseRope, Vector2 maxSpeed,
 			float horizontalAcceleration, float jumpImpulse) {
 		super();
 		this.canShoot = canShoot;
@@ -33,7 +33,7 @@ final class StateProperties {
 		this.jumpImpulse = jumpImpulse;
 	}
 
-	public StateProperties() {
+	public HeroStatesProperties() {
 		this.canShoot = true;
 		this.canJump = true;
 		this.canUseRope = true;

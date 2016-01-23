@@ -35,8 +35,6 @@ public class AnimationsRepositoryCentral
 	@SuppressWarnings("unchecked")
 	private void loadHeroAnimations()
 	{
-		this.heroAnimations = new AnimationPropertiesFile<HeroAnimationsIndex>(
-				FilenameConstants.getHeroAnimationFilename());
 
 		try
 		{

@@ -14,6 +14,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
+import br.com.guigasgame.math.Vector2;
 
 
 class HeroPhysics
@@ -63,12 +64,12 @@ class HeroPhysics
 		body.applyForce(force, body.getWorldCenter());
 	}
 
-	public void checkSpeedLimits(Vec2 maxSpeed)
+	public void checkSpeedLimits(Vector2 vector2)
 	{
 		Vec2 speed = body.getLinearVelocity();
 		Vec2 speedToSubtract = new Vec2();
-		float xDiff = Math.abs(speed.x) - Math.abs(maxSpeed.x);
-		float yDiff = Math.abs(speed.y) - Math.abs(maxSpeed.y);
+		float xDiff = Math.abs(speed.x) - Math.abs(vector2.x);
+		float yDiff = Math.abs(speed.y) - Math.abs(vector2.y);
 		if (xDiff > 0)
 		{
 			speedToSubtract.x = speed.x < 0 ? xDiff : -xDiff;

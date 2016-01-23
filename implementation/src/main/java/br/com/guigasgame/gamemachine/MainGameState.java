@@ -45,10 +45,10 @@ public class MainGameState implements GameState
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
-		createGround(new Vec2(16, 22), new Vec2(15, 3));
-		createGround(new Vec2(2, 15), new Vec2(1, 10));
-		createGround(new Vec2(30, 15), new Vec2(1, 10));
-		singleBlockBody = createGround(new Vec2(15, 5), new Vec2(1, 1));
+		createGround(new Vec2(15, 30), new Vec2(35, 1));
+		createGround(new Vec2(1, 15), new Vec2(1, 20));
+		createGround(new Vec2(50, 10), new Vec2(1, 20));
+		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1));
 
 		gameHero = new GameHero(1);
 	}
