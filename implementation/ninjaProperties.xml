@@ -16,10 +16,12 @@
 				<numFrames>4</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
-				<textureSpriteRectTop>0</textureSpriteRectTop>
-				<textureSpriteRectLeft>0</textureSpriteRectLeft>
-				<textureSpriteRectWidth>120</textureSpriteRectWidth>
-				<textureSpriteRectHeight>64</textureSpriteRectHeight>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>120</width>
+                    <height>64</height>
+                </textureSpriteRect>				
 			</value>
 		</entry>
 		<entry>
@@ -29,10 +31,12 @@
 				<numFrames>8</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
-				<textureSpriteRectTop>90</textureSpriteRectTop>
-				<textureSpriteRectLeft>0</textureSpriteRectLeft>
-				<textureSpriteRectWidth>400</textureSpriteRectWidth>
-				<textureSpriteRectHeight>154</textureSpriteRectHeight>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>90</top>
+                    <width>400</width>
+                    <height>154</height>
+                </textureSpriteRect>				
 			</value>
 		</entry>
 		<entry>
@@ -42,10 +46,12 @@
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
-				<textureSpriteRectTop>270</textureSpriteRectTop>
-				<textureSpriteRectLeft>0</textureSpriteRectLeft>
-				<textureSpriteRectWidth>98</textureSpriteRectWidth>
-				<textureSpriteRectHeight>332</textureSpriteRectHeight>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>270</top>
+                    <width>98</width>
+                    <height>332</height>
+                </textureSpriteRect>				
 			</value>
 		</entry>
 		<entry>
@@ -55,10 +61,12 @@
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
-				<textureSpriteRectTop>360</textureSpriteRectTop>
-				<textureSpriteRectLeft>0</textureSpriteRectLeft>
-				<textureSpriteRectWidth>70</textureSpriteRectWidth>
-				<textureSpriteRectHeight>422</textureSpriteRectHeight>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>360</top>
+                    <width>70</width>
+                    <height>422</height>
+                </textureSpriteRect>				
 			</value>
 		</entry>
 		<entry>
@@ -68,10 +76,12 @@
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
-				<textureSpriteRectTop>180</textureSpriteRectTop>
-				<textureSpriteRectLeft>0</textureSpriteRectLeft>
-				<textureSpriteRectWidth>98</textureSpriteRectWidth>
-				<textureSpriteRectHeight>244</textureSpriteRectHeight>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>180</top>
+                    <width>98</width>
+                    <height>244</height>
+                </textureSpriteRect>				
 			</value>
 		</entry>
 		<entry>
@@ -81,10 +91,12 @@
 				<numFrames>1</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
-				<textureSpriteRectTop>450</textureSpriteRectTop>
-				<textureSpriteRectLeft>0</textureSpriteRectLeft>
-				<textureSpriteRectWidth>48</textureSpriteRectWidth>
-				<textureSpriteRectHeight>508</textureSpriteRectHeight>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>450</top>
+                    <width>48</width>
+                    <height>508</height>
+                </textureSpriteRect>				
 			</value>
 		</entry>
 	</animationsMap>

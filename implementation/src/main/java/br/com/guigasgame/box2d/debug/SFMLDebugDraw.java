@@ -74,9 +74,9 @@ public class SFMLDebugDraw extends DebugDraw
 		circle.setPosition(center.x * WorldConstants.SCALE - radius
 				* WorldConstants.SCALE, center.y * WorldConstants.SCALE
 				- radius * WorldConstants.SCALE);
-		circle.setFillColor(Color.mul(makeColor(color), Color.RED));
+		circle.setFillColor(Color.mul(makeColor(color), Color.BLUE));
 		circle.setOutlineColor(makeColor(color));
-		circle.setOutlineThickness(1.f);
+		circle.setOutlineThickness(4.f);
 
 		// line of the circle wich shows the angle
 		Vec2 p = center.add(axis.mul(radius));
@@ -99,7 +99,7 @@ public class SFMLDebugDraw extends DebugDraw
 			}
 		}
 		polygon.setFillColor(Color.mul(makeColor(color),
-				Color.mul(Color.RED, Color.WHITE)));
+				Color.mul(Color.YELLOW, Color.WHITE)));
 		polygon.setOutlineColor(makeColor(color));
 		polygon.setOutlineThickness(1.0f);
 		renderWindow.draw(polygon);

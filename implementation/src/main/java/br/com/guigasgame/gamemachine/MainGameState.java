@@ -14,6 +14,9 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Vector2i;
+import org.jsfml.window.Joystick;
+import org.jsfml.window.Joystick.Axis;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.Event.Type;
@@ -93,10 +96,18 @@ public class MainGameState implements GameState
 
 	}
 
+	
+	
 	@Override
 	public void handleEvent(Event event)
 	{
-		if (timeMaster != null) timeMaster.handleEvent(event);
+//		Vector2i speed = new Vector2i((int)Joystick.getAxisPosition(0, Axis.X)/100, (int)Joystick.getAxisPosition(0, Axis.Y)/100);
+//		if (timeMaster != null) timeMaster.handleEvent(event);
+//		System.out.println(Joystick.isButtonPressed(0, 6));
+//		if (event.type == Type.JOYSTICK_MOVED)
+//		{
+//			System.out.println(speed);
+//		}
 		if (event.type == Type.KEY_PRESSED)
 		{
 			if (event.asKeyEvent().key == Key.LSHIFT)

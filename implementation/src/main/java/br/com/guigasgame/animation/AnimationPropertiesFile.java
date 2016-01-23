@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import org.jsfml.graphics.Texture;
 
+import br.com.guigasgame.math.Rect;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
 
 
@@ -92,12 +93,10 @@ public class AnimationPropertiesFile<Enum>
 				"ninja.bmp");
 		
 		AnimationProperties animationProperties = new AnimationProperties(
-				(short) 2, (short) 3, (short) 12, (short) 0, (short) 4,
-				(short) 5, (short) 6, true);
+				(short) 2, (short) 3, (short) 12, new Rect(1,4,7,8), true);
 
 		AnimationProperties nova = new AnimationProperties((short) 2,
-				(short) 3, (short) 12, (short) 0, (short) 4, (short) 5,
-				(short) 6, true);
+				(short) 3, (short) 12, new Rect(1,4,7,8), true);
 
 		anim.animationsMap.put(HeroAnimationsIndex.HERO_STANDING,
 				animationProperties);
@@ -111,10 +110,11 @@ public class AnimationPropertiesFile<Enum>
 														// in JAXB
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-			// Write to System.out for debugging m.marshal(anim, System.out);
+			// Write to System.out for debugging 
+			m.marshal(anim, System.out);
 
 //			 Write to File 
-			 m.marshal(anim, new File("ninjaSmooth.xml"));
+//			 m.marshal(anim, new File("ninjaSmooth.xml"));
 		}
 		catch
 		(JAXBException e)

@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
+import br.com.guigasgame.math.Vector2;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -39,8 +40,8 @@ class StatePropertiesFile {
 		try
 		{
 			StatePropertiesFile states = new StatePropertiesFile();
-			StateProperties sp = new StateProperties(true, true, false, 1, 2, 3, 4);
-			StateProperties sp2 = new StateProperties(false, true, true, 11, 42, 53, 64);
+			StateProperties sp = new StateProperties(true, true, false, new Vector2(1,3), 3, 4);
+			StateProperties sp2 = new StateProperties(false, true, true, new Vector2(34,31), 53, 64);
 			states.statesMap.put(HeroAnimationsIndex.HERO_SLIDING, sp);
 			states.statesMap.put(HeroAnimationsIndex.HERO_WALLGRABBING, sp);
 			JAXBContext context = JAXBContext

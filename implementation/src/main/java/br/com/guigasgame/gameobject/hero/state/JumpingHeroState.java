@@ -1,15 +1,18 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import org.jbox2d.common.Vec2;
+
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 
-class JumpingHeroState extends OnAirHeroState
+class JumpingHeroState extends HeroState
 {
 	protected JumpingHeroState(boolean canJumpAgain, GameHero gameHero)
 	{
-		super(canJumpAgain, HeroAnimationsIndex.HERO_ASCENDING, gameHero, 30);
+		super(null, new Vec2(20, 10), true, true, true, HeroAnimationsIndex.HERO_ASCENDING,
+				gameHero, 2, 30);
 	}
 
 	@Override
@@ -46,7 +49,14 @@ class JumpingHeroState extends OnAirHeroState
 					setState(new DuckingState(gameHero));
 				}*/
 	}
-
 	
+	@Override
+	public void updateState(float deltaTime)
+	{
+		if (gameHero.isFallingDown())
+		{
+			setState(new FallingHeroState(gameHero));
+		}
+	}
 	
 }

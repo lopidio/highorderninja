@@ -7,12 +7,13 @@ import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 
-class SuperJumpingHeroState extends OnAirHeroState
+class SuperJumpingHeroState extends HeroState
 {
 
 	protected SuperJumpingHeroState(GameHero gameHero)
 	{
-		super(true, HeroAnimationsIndex.HERO_ASCENDING, gameHero, 20);
+		super(null, new Vec2(20, 10), true, true, true, HeroAnimationsIndex.HERO_ASCENDING,
+				gameHero, 2, 30);
 	}
 
 	@Override
@@ -23,11 +24,6 @@ class SuperJumpingHeroState extends OnAirHeroState
 		jump();
 		jump();
 	}
-	
-	public void updateState(float deltaTime) {
-		super.updateState(deltaTime);
-		gameHero.applyForce(new Vec2(0, -5));		
-	};
 	
 	@Override
 	public void inputPressed(HeroInputKey key)
@@ -42,5 +38,16 @@ class SuperJumpingHeroState extends OnAirHeroState
 			}
 		}
 	}	
+	
+	@Override
+	public void updateState(float deltaTime)
+	{
+		gameHero.applyForce(new Vec2(0, -5));		
+
+		if (gameHero.isFallingDown())
+		{
+			setState(new FallingHeroState(gameHero));
+		}
+	}
 	
 }

@@ -8,12 +8,12 @@ import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSe
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 
-class DuckingState extends OnGroundState
+class DuckingState extends HeroState
 {
 
 	protected DuckingState(GameHero gameHero)
 	{
-		super(new Vec2(0, 0), false, false, HeroAnimationsIndex.HERO_STANDING, gameHero, 0, 30);
+		super(null, new Vec2(0, 0), false, false, false, HeroAnimationsIndex.HERO_STANDING, gameHero, 0, 30);
 	}
 
 	@Override
@@ -26,6 +26,15 @@ class DuckingState extends OnGroundState
 	public void onQuit()
 	{
 		gameHero.enableCollision(FixtureSensorID.HEAD);
+	}
+	
+	@Override
+	public void updateState(float deltaTime)
+	{
+		if (gameHero.isFallingDown())
+		{
+			setState(new FallingHeroState(gameHero));
+		}
 	}
 
 	@Override

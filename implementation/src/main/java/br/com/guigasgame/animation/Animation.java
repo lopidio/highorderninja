@@ -28,19 +28,19 @@ public class Animation implements UpdatableFromTime
 		if (animationProperties.horizontal)
 		{
 			frameRect = new Rectangle(
-					(animationProperties.textureSpriteRectWidth - animationProperties.textureSpriteRectLeft)
+					(animationProperties.textureSpriteRect.width - animationProperties.textureSpriteRect.left)
 							/ animationProperties.numFrames,
-					(animationProperties.textureSpriteRectHeight - animationProperties.textureSpriteRectTop));
+					(animationProperties.textureSpriteRect.height - animationProperties.textureSpriteRect.top));
 		}
 		else // if (animationProperties.vertical)
 		{
 			frameRect = new Rectangle(
-					animationProperties.textureSpriteRectWidth - animationProperties.textureSpriteRectLeft,
-					(animationProperties.textureSpriteRectHeight - animationProperties.textureSpriteRectTop)
+					animationProperties.textureSpriteRect.width - animationProperties.textureSpriteRect.left,
+					(animationProperties.textureSpriteRect.height - animationProperties.textureSpriteRect.top)
 							/ animationProperties.numFrames);
 		}
-		frameRect.x = animationProperties.textureSpriteRectLeft;
-		frameRect.y = animationProperties.textureSpriteRectTop;	
+		frameRect.x = animationProperties.textureSpriteRect.left;
+		frameRect.y = animationProperties.textureSpriteRect.top;	
 
 		
 		sprite = new Sprite(animationProperties.texture);
@@ -92,13 +92,13 @@ public class Animation implements UpdatableFromTime
 		// mudo a posição do rect
 		if (animationProperties.horizontal)
 		{
-			frameRect.x = animationProperties.textureSpriteRectLeft
+			frameRect.x = animationProperties.textureSpriteRect.left
 					+ frameRect.width * currentFrameNumber;
 		}
 		else
 		// if (animationDefinition.vertical)
 		{
-			frameRect.y = animationProperties.textureSpriteRectTop
+			frameRect.y = animationProperties.textureSpriteRect.top
 					+ frameRect.height * currentFrameNumber;
 		}
 		sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y,

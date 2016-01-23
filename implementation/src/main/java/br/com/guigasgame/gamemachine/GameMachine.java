@@ -3,8 +3,8 @@ package br.com.guigasgame.gamemachine;
 import java.util.Stack;
 import java.util.Vector;
 
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
-import org.jsfml.window.ContextSettings;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
@@ -39,7 +39,6 @@ public class GameMachine
 
 	public GameMachine()
 	{
-		super();
 		renderWindow = new RenderWindow(new VideoMode(1000, 600, 32), "Test");
 		renderWindow.setFramerateLimit(60);
 
@@ -60,7 +59,7 @@ public class GameMachine
 	{
 		while (isRunning)
 		{
-			renderWindow.clear();
+			renderWindow.clear(Color.WHITE);
 			handleEvents();
 			gameStates.lastElement().update();
 			gameStates.lastElement().draw(renderWindow);

@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.jsfml.graphics.Texture;
 
+import br.com.guigasgame.math.Rect;
+
 
 @XmlAccessorType(XmlAccessType.FIELD)
 class AnimationProperties
@@ -19,13 +21,7 @@ class AnimationProperties
 	@XmlElement
 	public final float secondsPerFrame;
 	@XmlElement
-	public final short textureSpriteRectTop;
-	@XmlElement
-	public final short textureSpriteRectLeft;
-	@XmlElement
-	public final short textureSpriteRectWidth;
-	@XmlElement
-	public final short textureSpriteRectHeight;
+	public final Rect textureSpriteRect;
 	@XmlAttribute
 	public final boolean horizontal;
 
@@ -40,26 +36,18 @@ class AnimationProperties
 		this.numFrames = 0;
 		this.numEntranceFrames = 0;
 		this.secondsPerFrame = 0;
-		this.textureSpriteRectTop = 0;
-		this.textureSpriteRectLeft = 0;
-		this.textureSpriteRectWidth = 0;
-		this.textureSpriteRectHeight = 0;
+		this.textureSpriteRect = new Rect();
 		this.horizontal = true;
 	}
 
 	AnimationProperties(short numFrames, short numEntranceFrames,
-			float secondsPerFrame, short textureSpriteRectTop,
-			short textureSpriteRectLeft, short textureSpriteRectWidth,
-			short textureSpriteRectHeight, boolean horizontal)
+			float secondsPerFrame, Rect textureSpriteRect, boolean horizontal)
 	{
 		super();
 		this.numFrames = numFrames;
 		this.numEntranceFrames = numEntranceFrames;
 		this.secondsPerFrame = secondsPerFrame;
-		this.textureSpriteRectTop = textureSpriteRectTop;
-		this.textureSpriteRectLeft = textureSpriteRectLeft;
-		this.textureSpriteRectWidth = textureSpriteRectWidth;
-		this.textureSpriteRectHeight = textureSpriteRectHeight;
+		this.textureSpriteRect = textureSpriteRect;
 		this.horizontal = horizontal;
 	}
 

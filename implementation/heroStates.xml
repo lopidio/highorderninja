@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<statePropertiesFile>
+    <statesMap>
+        <entry>
+            <key>HERO_SLIDING</key>
+            <value canShoot="true" canJump="true" canUseRope="true">
+                <maxSpeed>
+                    <x>40</x>
+                    <y>20</y>
+                </maxSpeed>
+                <horizontalAcceleration>50.0</horizontalAcceleration>
+                <jumpImpulse>10.0</jumpImpulse>
+            </value>
+        </entry>
+        <entry>
+            <key>HERO_WALLGRABBING</key>
+            <value canShoot="true" canJump="true" canUseRope="true">
+                <maxSpeed>
+                    <x>0</x>
+                    <y>3</y>
+                </maxSpeed>
+                <horizontalAcceleration>100</horizontalAcceleration>
+                <jumpImpulse>5</jumpImpulse>
+            </value>
+        </entry>
+        <entry>
+            <key>HERO_STANDING</key>
+            <value canShoot="true" canJump="true" canUseRope="true">
+                <maxSpeed>
+                    <x>10</x>
+                    <y>10</y>
+                </maxSpeed>
+                <horizontalAcceleration>20</horizontalAcceleration>
+                <jumpImpulse>10</jumpImpulse>
+            </value>
+        </entry>
+        <entry>
+            <key>HERO_RUNNING</key>
+            <value canShoot="true" canJump="true" canUseRope="true">
+                <maxSpeed>
+                    <x>10</x>
+                    <y>10</y>
+                </maxSpeed>
+                <horizontalAcceleration>20</horizontalAcceleration>
+                <jumpImpulse>10</jumpImpulse>
+            </value>
+        </entry>		
+        <entry>
+            <key>HERO_ASCENDING</key>
+            <value canShoot="true" canJump="true" canUseRope="true">
+                <maxSpeed>
+                    <x>20</x>
+                    <y>20</y>
+                </maxSpeed>
+                <horizontalAcceleration>5</horizontalAcceleration>
+                <jumpImpulse>10</jumpImpulse>
+            </value>
+        </entry>
+        <entry>
+            <key>HERO_FALLING</key>
+            <value canShoot="true" canJump="false" canUseRope="true">
+                <maxSpeed>
+                    <x>20</x>
+                    <y>20</y>
+                </maxSpeed>
+                <horizontalAcceleration>5</horizontalAcceleration>
+                <jumpImpulse>0</jumpImpulse>
+            </value>
+        </entry>		
+    </statesMap>
+</statePropertiesFile>

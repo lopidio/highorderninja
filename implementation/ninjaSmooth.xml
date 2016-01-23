@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<animationPropertiesFile textureFilename="ninja.bmp" smooth="false">
+    <animationsMap>
+        <entry>
+            <key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="heroAnimationsIndex">HERO_RUNNING</key>
+            <value horizontal="true">
+                <numFrames>2</numFrames>
+                <numEntranceFrames>3</numEntranceFrames>
+                <secondsPerFrame>12.0</secondsPerFrame>
+                <textureSpriteRect>
+                    <left>1</left>
+                    <top>4</top>
+                    <width>7</width>
+                    <height>8</height>
+                </textureSpriteRect>
+            </value>
+        </entry>
+        <entry>
+            <key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="heroAnimationsIndex">HERO_STANDING</key>
+            <value horizontal="true">
+                <numFrames>2</numFrames>
+                <numEntranceFrames>3</numEntranceFrames>
+                <secondsPerFrame>12.0</secondsPerFrame>
+                <textureSpriteRect>
+                    <left>1</left>
+                    <top>4</top>
+                    <width>7</width>
+                    <height>8</height>
+                </textureSpriteRect>
+            </value>
+        </entry>
+    </animationsMap>
+</animationPropertiesFile>

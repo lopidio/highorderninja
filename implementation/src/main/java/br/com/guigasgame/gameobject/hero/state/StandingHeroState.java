@@ -7,12 +7,12 @@ import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 
-class StandingHeroState extends OnGroundState
+class StandingHeroState extends HeroState
 {
 
 	public StandingHeroState(GameHero gameHero)
 	{
-		super(new Vec2(10, 10), true, true, HeroAnimationsIndex.HERO_STANDING,
+		super(null, new Vec2(10, 10), true, true, true, HeroAnimationsIndex.HERO_STANDING,
 				gameHero, 20, 10);
 	}
 
@@ -43,7 +43,11 @@ class StandingHeroState extends OnGroundState
 	@Override
 	public void updateState(float deltaTime)
 	{
-		if (gameHero.isMoving())
+		if (gameHero.isFallingDown())
+		{
+			setState(new FallingHeroState(gameHero));
+		}
+		else if (gameHero.isMoving())
 		{
 			setState(new RunningHeroState(gameHero));
 		}
