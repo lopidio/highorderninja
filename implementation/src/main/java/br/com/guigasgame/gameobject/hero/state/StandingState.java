@@ -22,7 +22,10 @@ public class StandingState extends OnGroundState {
 			jump();
 		} else if (key == HeroInputKey.ACTION) {
 			System.out.println("Action");
+		} else if (gameHero.isTouchingGround() && key == HeroInputKey.DOWN) {
+			setState(new DuckingState(gameHero));
 		}
+
 	}
 
 	@Override

@@ -4,9 +4,9 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.hero.state.ForwardSide.Side;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.input.InputListener;
+import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
@@ -61,6 +61,11 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	{
 		animation.setSide(side);
 		gameHero.setForwardSide(side);
+	}
+	
+	protected final void setState(HeroState heroState)
+	{
+		gameHero.setState(heroState);
 	}
 
 	public final Vec2 getMaxSpeed()

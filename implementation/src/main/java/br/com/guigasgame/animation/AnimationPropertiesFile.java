@@ -102,7 +102,7 @@ public class AnimationPropertiesFile<Enum>
 
 		anim.animationsMap.put(HeroAnimationsIndex.HERO_STANDING,
 				animationProperties);
-		anim.animationsMap.put(HeroAnimationsIndex.HERO_CAGANDO, nova);
+		anim.animationsMap.put(HeroAnimationsIndex.HERO_RUNNING, nova);
 
 		try
 		{

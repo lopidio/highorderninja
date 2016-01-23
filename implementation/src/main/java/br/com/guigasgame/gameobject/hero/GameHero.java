@@ -7,7 +7,8 @@ import org.jsfml.graphics.Sprite;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.gameobject.hero.state.ForwardSide.Side;
+import br.com.guigasgame.gameobject.hero.state.HeroState;
+import br.com.guigasgame.side.Side;
 
 
 public class GameHero extends GameObject
@@ -45,11 +46,11 @@ public class GameHero extends GameObject
 	{
 		gameHeroLogic.update(deltaTime);
 
-		System.out.println("Touhing ahead:" + physicHeroLogic.isTouchingWallAhead());
-		System.out.println("Ascending:" + physicHeroLogic.isAscending());
-		System.out.println("Falling:" + physicHeroLogic.isFallingDown());
-		System.out.println("Touhing ground:" + physicHeroLogic.isTouchingGround());
-		System.out.println(forwardSide);
+//		System.out.println("Touhing ahead:" + physicHeroLogic.isTouchingWallAhead());
+//		System.out.println("Ascending:" + physicHeroLogic.isAscending());
+//		System.out.println("Falling:" + physicHeroLogic.isFallingDown());
+//		System.out.println("Touhing ground:" + physicHeroLogic.isTouchingGround());
+//		System.out.println(forwardSide);
 		
 		physicHeroLogic
 				.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
@@ -57,6 +58,11 @@ public class GameHero extends GameObject
 				.physicsToSfmlCoordinates(physicHeroLogic
 						.getBodyPosition()), (float) WorldConstants
 				.radiansToDegrees(physicHeroLogic.getAngleRadians()));
+	}
+	
+	public void setState(HeroState heroState)
+	{
+		gameHeroLogic.setState(heroState);
 	}
 
 	@Override

@@ -77,6 +77,7 @@ class GameHeroLogic implements UpdatableFromTime
 
 	public void setState(HeroState newState)
 	{
+		System.out.println("Current state: " + newState.getClass().getSimpleName());
 		state = newState;
 		animation = state.getAnimation();
 		gameHeroInput.setInputListener(state);

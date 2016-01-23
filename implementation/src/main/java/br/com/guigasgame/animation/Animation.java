@@ -7,7 +7,7 @@ import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 
-import br.com.guigasgame.gameobject.hero.state.ForwardSide.Side;
+import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
@@ -48,6 +48,7 @@ public class Animation implements UpdatableFromTime
 		
 		secondsSinceLastUpdate = 0;
 		currentFrameNumber = 0;
+		updateFrameRect();
 	}
 
 	public static Animation createAnimation(

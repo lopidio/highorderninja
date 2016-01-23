@@ -9,6 +9,13 @@
             </value>
         </entry>
         <entry>
+            <key>DOWN</key>
+            <value>
+                <inputType>KeyboardInput</inputType>
+                <keysCodeList>DOWN</keysCodeList>
+            </value>
+        </entry>
+        <entry>
             <key>ACTION</key>
             <value>
                 <inputType>JoystickInput</inputType>
