@@ -7,7 +7,6 @@ import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 class JumpingHeroState extends OnAirHeroState
 {
-
 	protected JumpingHeroState(boolean canJumpAgain, GameHero gameHero)
 	{
 		super(canJumpAgain, HeroAnimationsIndex.HERO_ASCENDING, gameHero, 30);
@@ -29,4 +28,25 @@ class JumpingHeroState extends OnAirHeroState
 		}
 	}
 
+	@Override
+	public void isPressed(HeroInputKey key)
+	{
+		if (key == HeroInputKey.LEFT)
+		{
+			moveLeft();
+		}
+		else
+			if (key == HeroInputKey.RIGHT)
+			{
+				moveRight();
+			}
+			/*else
+				if (gameHero.isTouchingGround() && key == HeroInputKey.DOWN)
+				{
+					setState(new DuckingState(gameHero));
+				}*/
+	}
+
+	
+	
 }

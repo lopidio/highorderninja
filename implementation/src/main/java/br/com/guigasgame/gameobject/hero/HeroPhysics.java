@@ -157,4 +157,9 @@ class HeroPhysics
 		fixtureMap.get(sensorID).setSensor(false);
 	}
 
+	public Vec2 getBodyLinearVelocity()
+	{
+		return body.getLinearVelocity();
+	}
+
 }

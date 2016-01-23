@@ -151,4 +151,9 @@ public class GameHero extends GameObject
 	{
 		physicHeroLogic.enableCollision(sensorID);
 	}
+
+	public boolean isMoving()
+	{
+		return physicHeroLogic.getBodyLinearVelocity().length() > WorldConstants.MOVING_TOLERANCE;
+	}
 }

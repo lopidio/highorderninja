@@ -4,6 +4,7 @@ import java.util.Stack;
 import java.util.Vector;
 
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.window.ContextSettings;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;

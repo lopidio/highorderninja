@@ -11,6 +11,7 @@ public class FallingHeroState extends OnAirHeroState {
 
 	@Override
 	public void updateState(float deltaTime) {
+//		super.updateState(deltaTime);
 		if (gameHero.isTouchingGround() && !gameHero.isFallingDown())
 		{
 			setState(new StandingHeroState(gameHero));

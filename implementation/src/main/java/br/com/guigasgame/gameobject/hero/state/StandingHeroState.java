@@ -6,6 +6,7 @@ import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
+
 class StandingHeroState extends OnGroundState
 {
 
@@ -22,17 +23,29 @@ class StandingHeroState extends OnGroundState
 		{
 			setState(new JumpingHeroState(true, gameHero));
 		}
-		else if (key == HeroInputKey.ACTION)
+		else
+			if (key == HeroInputKey.ACTION)
+			{
+				System.out.println("Action");
+			}
+			else
+				if (key == HeroInputKey.DOWN)
+				{
+					setState(new DuckingState(gameHero));
+				}
+				else
+					if (key == HeroInputKey.SLIDE)
+					{
+						setState(new SlidingHeroState(gameHero));
+					}
+	}
+
+	@Override
+	public void updateState(float deltaTime)
+	{
+		if (gameHero.isMoving())
 		{
-			System.out.println("Action");
-		}
-		else if (key == HeroInputKey.DOWN)
-		{
-			setState(new DuckingState(gameHero));
-		}
-		else if (key == HeroInputKey.SLIDE)
-		{
-			setState(new SlidingHeroState(gameHero));
+			setState(new RunningHeroState(gameHero));
 		}
 	}
 
@@ -40,18 +53,20 @@ class StandingHeroState extends OnGroundState
 	public void isPressed(HeroInputKey key)
 	{
 
-		if (key == HeroInputKey.LEFT)
-		{
-			moveLeft();
-		}
-		else if (key == HeroInputKey.RIGHT)
-		{
-			moveRight();
-		}
-		else if (gameHero.isTouchingGround() && key == HeroInputKey.DOWN)
+		if (/* gameHero.isTouchingGround() && */key == HeroInputKey.DOWN)
 		{
 			setState(new DuckingState(gameHero));
 		}
+		else
+			if (key == HeroInputKey.LEFT)
+			{
+				moveLeft();
+			}
+			else
+				if (key == HeroInputKey.RIGHT)
+				{
+					moveRight();
+				}
 	}
 
 }

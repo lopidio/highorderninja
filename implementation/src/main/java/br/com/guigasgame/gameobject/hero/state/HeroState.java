@@ -113,6 +113,18 @@ public abstract class HeroState
 		}
 	}
 
+	protected void moveBackward()
+	{
+		if (gameHero.getForwardSide() == Side.LEFT)
+		{
+			moveRight();
+		}
+		else // if (gameHero.getForwardSide() == Side.RIGHT)
+		{
+			moveLeft();
+		}
+	}
+
 	protected void moveRight()
 	{
 		flipAnimation(Side.RIGHT);
