@@ -12,7 +12,7 @@ import org.jbox2d.dynamics.FixtureDef;
 
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 
-class HeroFixtures {
+class HeroFixturesCreator {
 
 	@XmlElement
 	private Map<FixtureSensorID, FixtureDef> fixtures;
@@ -20,7 +20,7 @@ class HeroFixtures {
 	/**
 	 * DO NOT USE
 	 */
-	public HeroFixtures() {
+	public HeroFixturesCreator() {
 		fixtures = new HashMap<>();
 
 		createHeadFixture();

@@ -24,7 +24,6 @@ class AnimationViewer
 		renderWindow = new RenderWindow(new VideoMode(1000, 600, 32), "Test");
 		renderWindow.setFramerateLimit(60);
 
-		@SuppressWarnings("unchecked")
 		AnimationPropertiesFile<?> fromFile = ((AnimationPropertiesFile<?>) AnimationPropertiesFile
 				.loadFromFile(animationPropertiesFile));
 		

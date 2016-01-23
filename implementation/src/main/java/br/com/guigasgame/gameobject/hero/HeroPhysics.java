@@ -7,9 +7,11 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.Filter;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
+import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 
@@ -33,13 +35,18 @@ class HeroPhysics
 		this.body = body;
 		// HeroFixtures gameHeroFixtures =
 		// HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
-		HeroFixtures gameHeroFixtures = new HeroFixtures();
+		HeroFixturesCreator gameHeroFixtures = new HeroFixturesCreator();
 		fixtureMap = new HashMap<>();
 		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixtures.getFixturesMap();
 		for( Map.Entry<FixtureSensorID, FixtureDef> entry : fixtureDefMap
 				.entrySet() )
 		{
-			Fixture fixture = body.createFixture(entry.getValue());
+			FixtureDef def = entry.getValue();
+			
+			def.filter.categoryBits = CollidersFilters.CATEGORY_PLAYER;
+			def.filter.maskBits = CollidersFilters.MASK_PLAYER;
+			
+			Fixture fixture = body.createFixture(def);
 			fixtureMap.put(entry.getKey(), fixture);
 			sensorsController.attachController(entry.getKey(), fixture);
 		}
@@ -140,7 +147,9 @@ class HeroPhysics
 
 	public void disableCollision(FixtureSensorID sensorID)
 	{
-		fixtureMap.get(sensorID).setSensor(true);
+		Filter filter = fixtureMap.get(sensorID).getFilterData();
+		filter.maskBits = 0;// CollidersFilters.MASK_PLAYER;
+		fixtureMap.get(sensorID).setFilterData(filter);
 	}
 
 	public void enableCollision(FixtureSensorID sensorID)

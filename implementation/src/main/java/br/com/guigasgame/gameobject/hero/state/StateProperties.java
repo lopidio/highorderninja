@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public final class StateProperties {
+final class StateProperties {
 	@XmlAttribute
 	public final boolean canShoot;
 	@XmlAttribute

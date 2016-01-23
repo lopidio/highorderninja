@@ -3,6 +3,8 @@ package br.com.guigasgame.gameobject.hero.state;
 import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
+import br.com.guigasgame.animation.AnimationsRepositoryCentral;
+import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.input.InputListener;
@@ -15,9 +17,9 @@ public abstract class HeroState
 {
 
 	protected HeroState previousState;
+	protected boolean canJump;
 	protected final Vec2 maxSpeed;
 	protected final boolean canShoot;
-	protected final boolean canJump;
 	protected final boolean canUseRope;
 	protected final Animation animation;
 	protected final GameHero gameHero;
@@ -26,7 +28,7 @@ public abstract class HeroState
 
 	protected HeroState(HeroState previousState, Vec2 maxSpeed,
 			boolean canShoot, boolean canJump, boolean canUseRope,
-			Animation animation, GameHero gameHero,
+			HeroAnimationsIndex heroAnimationsIndex, GameHero gameHero,
 			float horizontalAcceleration, float jumpAcceleration)
 	{
 		super();
@@ -35,7 +37,7 @@ public abstract class HeroState
 		this.canShoot = canShoot;
 		this.canJump = canJump;
 		this.canUseRope = canUseRope;
-		this.animation = animation;
+		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getHeroAnimationRepository().getAnimationsProperties(heroAnimationsIndex));
 		this.gameHero = gameHero;
 		this.horizontalAcceleration = horizontalAcceleration;
 		this.jumpAcceleration = jumpAcceleration;
@@ -97,6 +99,18 @@ public abstract class HeroState
 			return true;
 		}
 		return false;
+	}
+
+	protected void moveForward()
+	{
+		if (gameHero.getForwardSide() == Side.LEFT)
+		{
+			moveLeft();
+		}
+		else // if (gameHero.getForwardSide() == Side.RIGHT)
+		{
+			moveRight();
+		}
 	}
 
 	protected void moveRight()

@@ -47,5 +47,13 @@
 				<keysCodeList>W</keysCodeList>
 			</value>
 		</entry>
+		<entry>
+			<key>SLIDE</key>
+			<value>
+				<inputType>KeyboardInput</inputType>
+				<keysCodeList>Z</keysCodeList>
+				<keysCodeList>X</keysCodeList>
+			</value>
+		</entry>
 	</map>
 </heroInputConfigFile>

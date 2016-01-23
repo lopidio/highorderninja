@@ -14,6 +14,7 @@ import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
+import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.time.TimeMaster;
@@ -33,8 +34,10 @@ public class MainGameState implements GameState
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
-		createGround(new Vec2(15, 20), new Vec2(10, 3));
-		createGround(new Vec2(5, 15), new Vec2(3, 3));
+		createGround(new Vec2(16, 22), new Vec2(15, 3));
+		createGround(new Vec2(2, 15), new Vec2(1, 10));
+		createGround(new Vec2(30, 15), new Vec2(1, 10));
+		createGround(new Vec2(15, 5), new Vec2(1, 1));
 
 		gameHero = new GameHero(1);
 	}
@@ -49,6 +52,10 @@ public class MainGameState implements GameState
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(size.x, size.y);
 		FixtureDef fixtureDef = new FixtureDef();
+
+		fixtureDef.filter.categoryBits = CollidersFilters.CATEGORY_SCENERY;
+		fixtureDef.filter.maskBits = CollidersFilters.MASK_SCENERY;
+		
 		fixtureDef.density = 0;
 		fixtureDef.shape = shape;
 		body.createFixture(fixtureDef);
@@ -92,7 +99,7 @@ public class MainGameState implements GameState
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-//		world.drawDebugData();
+		world.drawDebugData();
 		renderWindow.draw(gameHero.getSprite());
 	}
 

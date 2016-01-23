@@ -2,25 +2,25 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jbox2d.common.Vec2;
 
-import br.com.guigasgame.animation.Animation;
-import br.com.guigasgame.animation.AnimationsRepositoryCentral;
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 
-public class SuperJumpingHeroState extends OnAirHeroState
+class SuperJumpingHeroState extends OnAirHeroState
 {
 
 	protected SuperJumpingHeroState(GameHero gameHero)
 	{
-		super(true, Animation.createAnimation(AnimationsRepositoryCentral
-				.getHeroAnimationRepository().getAnimationsProperties(HeroAnimationsIndex.HERO_ASCENDING)), gameHero, 40);
+		super(true, HeroAnimationsIndex.HERO_ASCENDING, gameHero, 20);
 	}
 
 	@Override
 	public void onEnter()
 	{
+		//Jump three times higher
+		jump();
+		jump();
 		jump();
 	}
 	
@@ -34,10 +34,11 @@ public class SuperJumpingHeroState extends OnAirHeroState
 	{
 		if (key == HeroInputKey.JUMP)
 		{
-			if (jump())
+			if (canJump && key == HeroInputKey.JUMP)
 			{
 				System.out.println("Super Double jump!");
-				setState(new JumpingHeroState(false, gameHero));
+				jump();
+				canJump = false;
 			}
 		}
 	}	

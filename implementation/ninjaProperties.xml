@@ -61,5 +61,18 @@
 				<textureSpriteRectHeight>422</textureSpriteRectHeight>
 			</value>
 		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroAnimationsIndex">HERO_SLIDING</key>
+			<value horizontal="true">
+				<numFrames>2</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+				<textureSpriteRectTop>180</textureSpriteRectTop>
+				<textureSpriteRectLeft>0</textureSpriteRectLeft>
+				<textureSpriteRectWidth>98</textureSpriteRectWidth>
+				<textureSpriteRectHeight>244</textureSpriteRectHeight>
+			</value>
+		</entry>
 	</animationsMap>
 </animationPropertiesFile>

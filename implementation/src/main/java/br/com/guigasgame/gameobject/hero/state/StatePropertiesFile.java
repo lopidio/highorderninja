@@ -17,7 +17,7 @@ import br.com.guigasgame.animation.HeroAnimationsIndex;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class StatePropertiesFile {
+class StatePropertiesFile {
 
 	@XmlElement
 	private Map<HeroAnimationsIndex, StateProperties> statesMap;
