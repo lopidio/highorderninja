@@ -61,10 +61,10 @@
             <value canShoot="true" canJump="true" canUseRope="true">
                 <maxSpeed>
                     <x>20</x>
-                    <y>20</y>
+                    <y>30</y>
                 </maxSpeed>
                 <horizontalAcceleration>5</horizontalAcceleration>
-                <jumpImpulse>15</jumpImpulse>
+                <jumpImpulse>12</jumpImpulse>
             </value>
         </entry>
         <entry>

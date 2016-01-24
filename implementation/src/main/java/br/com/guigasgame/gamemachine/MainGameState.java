@@ -55,7 +55,7 @@ public class MainGameState implements GameState
 		createGround(new Vec2(67, 15), new Vec2(1, 22));
 		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1));
 
-		gameHero = new GameHero(1);
+		gameHero = new GameHero(1, new Vec2(10, 5));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size)
@@ -83,7 +83,8 @@ public class MainGameState implements GameState
 	public void load()
 	{
 		gameHero.load();
-		gameHero.attachBody(world, new Vec2(10, 5));
+		gameHero.attachBody(world);
+		gameHero.onEnter();		
 	}
 
 	@Override
@@ -132,8 +133,9 @@ public class MainGameState implements GameState
 			}
 			if (event.asKeyEvent().key == Key.Q)
 			{
-				Projectile projectile = new Projectile(ProjectileIndex.SHURIKEN, ProjectileDirection.DOWN_LEFT);
-				projectile.attachBody(world, gameHero.getBody().getPosition().add(new Vec2(1, 0)));
+				Projectile projectile = new Projectile(ProjectileIndex.SHURIKEN, ProjectileDirection.DOWN_LEFT, gameHero.getBody().getPosition().add(new Vec2(1, 0)));
+				projectile.attachBody(world);
+				projectile.onEnter();
 				projectiles.add(projectile);
 			}
 		}

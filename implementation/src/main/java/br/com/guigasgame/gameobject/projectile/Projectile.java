@@ -25,10 +25,11 @@ public class Projectile extends GameObject
 	protected final ProjectileDirection direction;
 	protected final ProjectileProperties properties;
 	private final Animation animation;
-	private Body body;
 
-	public Projectile(ProjectileIndex index, ProjectileDirection direction)
+	public Projectile(ProjectileIndex index, ProjectileDirection direction, Vec2 position)
 	{
+		super(position);
+		
 		this.index = index;
 		this.direction = direction;
 		this.properties = ProjectilesPropertiesRepository.getProjectileProperties(index);
@@ -51,16 +52,11 @@ public class Projectile extends GameObject
 	}
 
 	@Override
-	protected BodyDef getBodyDef(Vec2 position)
+	protected void editBodyDef(BodyDef bodyDef)
 	{
-		
-		BodyDef bodyDef = new BodyDef();
 		bodyDef.fixedRotation = true;
-		bodyDef.position = position;
 		bodyDef.type = BodyType.DYNAMIC;
 		bodyDef.bullet = true;
-
-		return bodyDef;
 	}
 
 	private FixtureDef createFixture()
@@ -84,9 +80,8 @@ public class Projectile extends GameObject
 	}
 
 	@Override
-	public void attachBody(World world, Vec2 bodyPosition)
+	public void onEnter()
 	{
-		body = world.createBody(getBodyDef(bodyPosition));
 		body.createFixture(createFixture());
 
 		Vec2 directionVec = new Vec2(direction.getX(), direction.getY());
@@ -95,6 +90,4 @@ public class Projectile extends GameObject
 		body.applyLinearImpulse(directionVec, body.getWorldCenter());
 	}
 	
-	
-
 }

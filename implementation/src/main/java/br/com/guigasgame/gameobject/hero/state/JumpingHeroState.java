@@ -33,15 +33,15 @@ class JumpingHeroState extends HeroState
 	@Override
 	public void isPressed(HeroInputKey key)
 	{
-		if (key == HeroInputKey.LEFT)
-		{
-			moveLeft();
-		}
-		else
-			if (key == HeroInputKey.RIGHT)
-			{
-				moveRight();
-			}
+//		if (key == HeroInputKey.LEFT)
+//		{
+//			moveLeft();
+//		}
+//		else
+//		if (key == HeroInputKey.RIGHT)
+//		{
+//			moveRight();
+//		}
 	}
 	
 	@Override

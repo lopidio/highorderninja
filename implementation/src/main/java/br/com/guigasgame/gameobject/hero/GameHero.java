@@ -1,8 +1,8 @@
 package br.com.guigasgame.gameobject.hero;
 
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.Sprite;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
@@ -21,9 +21,9 @@ public class GameHero extends GameObject
 	GameHeroLogic gameHeroLogic;
 	HeroPhysics physicHeroLogic;
 
-	public GameHero(int playerID)
+	public GameHero(int playerID, Vec2 position)
 	{
-		super();
+		super(position);
 		this.playerID = playerID;
 		forwardSide = Side.LEFT;
 		gameHeroLogic = new GameHeroLogic(this);
@@ -55,8 +55,7 @@ public class GameHero extends GameObject
 		// physicHeroLogic.isTouchingGround());
 		// System.out.println(forwardSide);
 
-		physicHeroLogic
-				.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
+		physicHeroLogic.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
 		gameHeroLogic.adjustSpritePosition(WorldConstants.physicsToSfmlCoordinates(physicHeroLogic.getBodyPosition()),
 				(float) WorldConstants.radiansToDegrees(physicHeroLogic.getAngleRadians()));
 	}
@@ -67,14 +66,13 @@ public class GameHero extends GameObject
 	}
 
 	@Override
-	protected BodyDef getBodyDef(Vec2 position)
+	protected void editBodyDef(BodyDef bodyDef)
 	{
-		return physicHeroLogic.getBodyDef(position);
+		physicHeroLogic.editBodyDef(bodyDef);
 	}
-
-	public void attachBody(World world, Vec2 bodyPosition)
+		
+	public void attachFixturesToBody(Body body)
 	{
-		body = world.createBody(getBodyDef(bodyPosition));
 		physicHeroLogic.loadAndAttachFixturesToBody(body);
 	}
 

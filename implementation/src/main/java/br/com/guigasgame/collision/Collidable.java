@@ -10,15 +10,36 @@ public abstract class Collidable
 {
 
 	protected Body body;
+	private BodyDef bodyDef;
+	
+	public Collidable(Vec2 position)
+	{
+		bodyDef = new BodyDef();
+		bodyDef.position = position;
+	}
+
+	protected abstract void editBodyDef(BodyDef bodyDef);
 
 	public abstract void endContact(Collidable collidable);
 
 	public abstract void beginContact(Collidable collidable);
 
-	protected abstract BodyDef getBodyDef(Vec2 position);
+	public final BodyDef getBodyDef()
+	{
+		return bodyDef;
+	}
 	
-	public abstract void attachBody(World world, Vec2 bodyPosition);
-
+	public final void attachBody(World world)
+	{
+		editBodyDef(bodyDef);
+		body = world.createBody(bodyDef);
+		attachFixturesToBody(body);
+	}
+	
+	protected void attachFixturesToBody(Body body)
+	{
+		
+	}
 
 	public final Body getBody()
 	{

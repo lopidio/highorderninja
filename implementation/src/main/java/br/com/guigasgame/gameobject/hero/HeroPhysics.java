@@ -96,11 +96,9 @@ class HeroPhysics
 		return body.getAngle();
 	}
 
-	public BodyDef getBodyDef(Vec2 position)
+	public BodyDef editBodyDef(BodyDef bodyDef)
 	{
-		BodyDef bodyDef = new BodyDef();
 		bodyDef.fixedRotation = true;
-		bodyDef.position = position;
 		bodyDef.type = BodyType.DYNAMIC;
 
 		return bodyDef;

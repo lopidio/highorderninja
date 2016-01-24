@@ -38,12 +38,24 @@ class SuperJumpingHeroState extends HeroState
 	@Override
 	public void updateState(float deltaTime)
 	{
-//		gameHero.applyForce(new Vec2(0, -5));		
-
 		if (gameHero.isFallingDown())
 		{
 			setState(new FallingHeroState(gameHero));
 		}
 	}
+	
+	@Override
+	public void isPressed(HeroInputKey key)
+	{
+//		if (key == HeroInputKey.LEFT)
+//		{
+//			moveLeft();
+//		}
+//		else
+//		if (key == HeroInputKey.RIGHT)
+//		{
+//			moveRight();
+//		}
+	}	
 	
 }
