@@ -20,7 +20,7 @@ class JumpingHeroState extends HeroState
 	@Override
 	public void onEnter()
 	{
-		jump();
+		jumper.jump();
 	}
 
 	@Override
@@ -28,7 +28,7 @@ class JumpingHeroState extends HeroState
 	{
 		if (doubleJumpAllowed && key == HeroInputKey.JUMP)
 		{
-			jump();
+			jumper.doubleJump();
 			doubleJumpAllowed = false;
 		}
 	}

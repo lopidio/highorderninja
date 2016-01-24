@@ -32,7 +32,6 @@ public class TimeMaster
 	public void resetTimeFactor()
 	{
 		timeFactor = 1;
-		;
 	}
 
 	public void multiplyTimeFactor(float factor) throws Exception
@@ -43,8 +42,7 @@ public class TimeMaster
 		}
 		else
 		{
-			throw new Exception(
-					"Impossível multiplicar fator do tempo por número menor ou igual a zero");
+			throw new Exception("Impossível multiplicar fator do tempo por número menor ou igual a zero");
 		}
 	}
 
@@ -56,8 +54,7 @@ public class TimeMaster
 		}
 		else
 		{
-			throw new Exception(
-					"Impossível alterar o fator do tempo por número menor ou igual a zero");
+			throw new Exception("Impossível alterar o fator do tempo por número menor ou igual a zero");
 		}
 	}
 
@@ -74,7 +71,7 @@ public class TimeMaster
 			{
 				try
 				{
-					setTimeFactor(0.1f);
+					setTimeFactor(0.3f);
 				}
 				catch (Exception e)
 				{

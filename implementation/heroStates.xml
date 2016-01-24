@@ -16,7 +16,7 @@
             <key>HERO_WALLGRABBING</key>
             <value canShoot="true" canJump="true" canUseRope="true">
                 <maxSpeed>
-                    <x>0</x>
+                    <x>10</x>
                     <y>3</y>
                 </maxSpeed>
                 <horizontalAcceleration>100</horizontalAcceleration>
@@ -27,11 +27,11 @@
             <key>HERO_STANDING</key>
             <value canShoot="true" canJump="true" canUseRope="true">
                 <maxSpeed>
-                    <x>10</x>
-                    <y>10</y>
+                    <x>20</x>
+                    <y>20</y>
                 </maxSpeed>
-                <horizontalAcceleration>20</horizontalAcceleration>
-                <jumpImpulse>10</jumpImpulse>
+                <horizontalAcceleration>50</horizontalAcceleration>
+                <jumpImpulse>1</jumpImpulse>
             </value>
         </entry>
         <entry>

@@ -7,7 +7,7 @@ import org.jsfml.window.event.Event;
 public interface GameState
 {
 
-	public void update();
+	public void update(float updateDelta);
 
 	public void draw(RenderWindow renderWindow);
 

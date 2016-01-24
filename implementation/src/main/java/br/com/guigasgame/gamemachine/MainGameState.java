@@ -1,7 +1,7 @@
 package br.com.guigasgame.gamemachine;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,35 +31,35 @@ import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileDirection;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
-import br.com.guigasgame.time.TimeMaster;
 
 
 public class MainGameState implements GameState
 {
 
 	World world;
-	TimeMaster timeMaster;
+	float timeFactor;
 	GameHero gameHero;
 
 	Body singleBlockBody;
 	DistanceJoint joint;
-	List<GameObject> gameObjects;
+	List<GameObject> gameObjectsList;
 
 	public MainGameState() throws JAXBException
 	{
-		timeMaster = new TimeMaster();
-		gameObjects = new ArrayList<>();
+		gameObjectsList = new ArrayList<>();
+		timeFactor = 1;
 
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
 		createGround(new Vec2(15, 38), new Vec2(52, 1));
 		createGround(new Vec2(1, 15), new Vec2(1, 22));
+		createGround(new Vec2(9, 15), new Vec2(1, 16));
 		createGround(new Vec2(67, 15), new Vec2(1, 22));
 		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1));
 
 		gameHero = new GameHero(1, new Vec2(10, 5));
-		gameObjects.add(gameHero);
+		initializeGameObject(Arrays.asList(gameHero));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size)
@@ -86,9 +86,6 @@ public class MainGameState implements GameState
 	@Override
 	public void load()
 	{
-		gameHero.load();
-		gameHero.attachBody(world);
-		gameHero.onEnter();
 	}
 
 	@Override
@@ -117,6 +114,14 @@ public class MainGameState implements GameState
 		// }
 		if (event.type == Type.KEY_PRESSED)
 		{
+			if (event.asKeyEvent().key == Key.P)
+			{
+				timeFactor = 0.3f;
+			}
+			if (event.asKeyEvent().key == Key.O)
+			{
+				timeFactor = 1;
+			}
 			if (event.asKeyEvent().key == Key.LSHIFT)
 			{
 				if (joint == null)
@@ -138,7 +143,7 @@ public class MainGameState implements GameState
 				Projectile projectile = new Projectile(ProjectileIndex.SHURIKEN, ProjectileDirection.DOWN_LEFT, gameHero.getBody().getPosition().add(new Vec2(1, 0)));
 				projectile.attachBody(world);
 				projectile.onEnter();
-				gameObjects.add(projectile);
+				gameObjectsList.add(projectile);
 			}
 		}
 		if (event.type == Type.KEY_RELEASED)
@@ -150,55 +155,41 @@ public class MainGameState implements GameState
 			}
 	}
 
-	@Override
-	public void update()
+	private void addNewGameObjectsToList()
 	{
-		List<GameObject> toAdd = new ArrayList<>();
-		float deltaTime = timeMaster.getElapsedTime().asSeconds();
-		timeMaster.restart();
-		world.step(1 / 60.f, 8, 3);
-		world.clearForces();
-
-		for( GameObject go : gameObjects )
+		for( GameObject gameObject : gameObjectsList )
 		{
-			go.update(deltaTime);
-			if (go.hasChildrenToAdd())
+			if (gameObject.hasChildrenToAdd())
 			{
-				toAdd.addAll(addGameObjects(go.getChildrenToAdd()));
+				initializeGameObject(gameObject.getChildrenToAdd());
 			}
-			go.clearChildrenToAdd();
+			gameObject.clearChildrenToAdd();
 		}
-
-		if (joint != null)
-		{
-			joint.setLength(joint.getLength() * 0.995f);
-		}
-
-		clearDeadObject();
-		gameObjects.addAll(toAdd);
 	}
 
-	private Collection<? extends GameObject> addGameObjects(List<GameObject> childrenToAdd)
+	private void initializeGameObject(List<GameObject> childrenToAdd)
 	{
-		List<GameObject> newObjects = new ArrayList<>();
 		for( GameObject child : childrenToAdd )
 		{
+			child.load();
 			child.attachBody(world);
 			child.onEnter();
-			newObjects.add(child);			
+			gameObjectsList.add(child);
 		}
-		return newObjects;
 	}
 
 	private void clearDeadObject()
 	{
-		Iterator<GameObject> iterator = gameObjects.iterator();
+		Iterator<GameObject> iterator = gameObjectsList.iterator();
 		while (iterator.hasNext())
 		{
 			GameObject toRemove = iterator.next(); // must be called before you
-													// can call iterator.remove()
+													// can call
+													// iterator.remove()
 			if (toRemove.isDead())
 			{
+				toRemove.unload();
+				toRemove.onDestoy();
 				world.destroyBody(toRemove.getBody());
 				iterator.remove();
 			}
@@ -207,15 +198,35 @@ public class MainGameState implements GameState
 	}
 
 	@Override
+	public void update(float deltaTime)
+	{
+		// float deltaTime = timeMaster.getElapsedTime().asSeconds();
+		world.step(deltaTime * timeFactor, 8, 3);
+		world.clearForces();
+
+		for( GameObject gameObject : gameObjectsList )
+		{
+			gameObject.update(deltaTime * timeFactor);
+		}
+
+		if (joint != null)
+		{
+			joint.setLength(joint.getLength() * 0.995f);
+		}
+
+		addNewGameObjectsToList();
+		clearDeadObject();
+	}
+
+	@Override
 	public void draw(RenderWindow renderWindow)
 	{
 		world.drawDebugData();
 
-		for( GameObject go : gameObjects )
+		for( GameObject go : gameObjectsList )
 		{
 			renderWindow.draw(go.getSprite());
 		}
-		// renderWindow.draw(gameHero.getSprite());
 	}
 
 }

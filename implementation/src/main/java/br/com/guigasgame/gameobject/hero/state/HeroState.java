@@ -25,6 +25,7 @@ public abstract class HeroState
 	protected final HeroStatesProperties heroStatesProperties;
 	protected Map<HeroInputKey, Boolean> inputMap;
 	private final Animation animation;
+	protected final HeroJumper jumper;
 
 	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
 	{
@@ -34,6 +35,7 @@ public abstract class HeroState
 		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getHeroAnimationRepository().getAnimationsProperties(heroAnimationsIndex));
 		this.gameHero = gameHero;
 		inputMap = new HashMap<>();
+		jumper = heroStatesProperties.canJump ? new HeroJumper(heroStatesProperties, gameHero) : null;
 	}
 
 	public void onEnter()
@@ -79,15 +81,57 @@ public abstract class HeroState
 		gameHero.shoot();
 	}
 
-	protected boolean jump()
-	{
-		if (heroStatesProperties.canJump)
-		{
-			gameHero.applyImpulse(new Vec2(0, -heroStatesProperties.jumpImpulse));
-			return true;
-		}
-		return false;
-	}
+//	protected boolean jump()
+//	{
+//		return jumper.jump(heroStatesProperties, gameHero);
+//		// if (heroStatesProperties.canJump)
+//		// {
+//		// gameHero.applyImpulse(new Vec2(0,
+//		// -heroStatesProperties.jumpImpulse));
+//		// return true;
+//		// }
+//		// return false;
+//	}
+//
+//	protected boolean doubleJump()
+//	{
+//		HeroJumper jumper = new HeroJumper();
+//		return jumper.doubleJump(heroStatesProperties, gameHero);
+		// if (heroStatesProperties.canJump)
+		// {
+		// gameHero.applyImpulse(new Vec2(0,
+		// -heroStatesProperties.jumpImpulse/2));
+		// return true;
+		// }
+		// return false;
+//	}
+//
+//	protected boolean diagonalJump(Side side)
+//	{
+//		HeroJumper jumper = new HeroJumper();
+//		return jumper.diagonalJump(heroStatesProperties, gameHero, side);
+		// if (heroStatesProperties.canJump)
+		// {
+		// Vec2 jumpDirection = new Vec2(0, -1);
+		// if (side == Side.LEFT)
+		// {
+		// jumpDirection.x = -1;
+		// }
+		// else // if (gameHero.getForwardSide() == Side.RIGHT)
+		// {
+		// jumpDirection.x = 1;
+		// }
+		//
+		// jumpDirection.normalize();
+		// jumpDirection.mulLocal(heroStatesProperties.jumpImpulse);
+		//
+		// System.out.println(jumpDirection);
+		// System.out.println(jumpDirection.length());
+		// gameHero.applyImpulse(jumpDirection);
+		// return true;
+		// }
+		// return false;
+//	}
 
 	protected void moveForward()
 	{

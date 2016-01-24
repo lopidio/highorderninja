@@ -24,6 +24,10 @@ public class WallGrabHeroState extends HeroState
 		{
 			setState(new StandingHeroState(gameHero));
 		}
+		if (!gameHero.isTouchingWallAhead())
+		{
+			setState(new FallingHeroState(gameHero));
+		}
 	}
 
 	@Override
@@ -31,7 +35,7 @@ public class WallGrabHeroState extends HeroState
 	{
 		if (key == HeroInputKey.JUMP)
 		{
-			moveBackward();
+			jumper.diagonalJump(wallSide.opposite());
 
 			setState(new JumpingHeroState(gameHero));
 		}

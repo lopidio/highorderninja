@@ -10,13 +10,12 @@ import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class GameObject extends Collidable implements
-		UpdatableFromTime, Drawable
+public abstract class GameObject extends Collidable
+		implements UpdatableFromTime, Drawable
 {
 
 	protected boolean alive;
 	private List<GameObject> childrenToAdd;
-	
 
 	public GameObject(Vec2 position)
 	{
@@ -30,7 +29,7 @@ public abstract class GameObject extends Collidable implements
 		return !alive;
 	}
 
-	public void markToDestroy()
+	public final void markToDestroy()
 	{
 		alive = false;
 	}
@@ -46,39 +45,45 @@ public abstract class GameObject extends Collidable implements
 	{
 		// Default implementation
 	}
-	
+
 	public void load()
 	{
-		
+		// Default implementation
 	}
-	
+
 	public void unload()
 	{
-		
+		// Default implementation
 	}
-	
+
 	public void onEnter()
 	{
-		
+		// Default implementation
 	}
-	
+
+	public void onDestoy()
+	{
+		// Default implementation
+	}
+
 	public final void clearChildrenToAdd()
 	{
 		childrenToAdd.clear();
 	}
-	
+
 	public final List<GameObject> getChildrenToAdd()
 	{
 		return childrenToAdd;
 	}
-	
+
 	public final boolean hasChildrenToAdd()
 	{
 		return !childrenToAdd.isEmpty();
 	}
-	
+
 	protected final void addChild(GameObject child)
 	{
 		childrenToAdd.add(child);
 	}
+
 }

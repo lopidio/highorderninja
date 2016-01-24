@@ -20,7 +20,7 @@ class SuperJumpingHeroState extends HeroState
 	@Override
 	public void onEnter()
 	{
-		jump();
+		jumper.jump();
 	}
 
 	@Override
@@ -31,7 +31,7 @@ class SuperJumpingHeroState extends HeroState
 			if (heroStatesProperties.canJump && key == HeroInputKey.JUMP)
 			{
 				System.out.println("Super Double jump!");
-				jump();
+				jumper.doubleJump();
 				doubleJumpAllowed = false;
 			}
 		}
