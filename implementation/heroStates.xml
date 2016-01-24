@@ -5,7 +5,7 @@
             <key>HERO_SLIDING</key>
             <value canShoot="true" canJump="true" canUseRope="true">
                 <maxSpeed>
-                    <x>40</x>
+                    <x>50</x>
                     <y>20</y>
                 </maxSpeed>
                 <horizontalAcceleration>50.0</horizontalAcceleration>

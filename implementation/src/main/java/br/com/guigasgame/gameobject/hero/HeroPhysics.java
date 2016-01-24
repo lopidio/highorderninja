@@ -38,8 +38,7 @@ class HeroPhysics
 		HeroFixturesCreator gameHeroFixtures = new HeroFixturesCreator();
 		fixtureMap = new HashMap<>();
 		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixtures.getFixturesMap();
-		for( Map.Entry<FixtureSensorID, FixtureDef> entry : fixtureDefMap
-				.entrySet() )
+		for( Map.Entry<FixtureSensorID, FixtureDef> entry : fixtureDefMap.entrySet() )
 		{
 			FixtureDef def = entry.getValue();
 			

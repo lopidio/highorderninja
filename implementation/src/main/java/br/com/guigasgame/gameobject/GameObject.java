@@ -14,7 +14,7 @@ public abstract class GameObject extends Collidable implements
 		UpdatableFromTime, Drawable
 {
 
-	boolean alive;
+	protected boolean alive;
 	private List<GameObject> childrenToAdd;
 	
 
@@ -22,12 +22,12 @@ public abstract class GameObject extends Collidable implements
 	{
 		super(position);
 		childrenToAdd = new ArrayList<>();
-		alive = false;
+		alive = true;
 	}
 
-	public final boolean isAlive()
+	public final boolean isDead()
 	{
-		return alive;
+		return !alive;
 	}
 
 	public void markToDestroy()
@@ -70,6 +70,11 @@ public abstract class GameObject extends Collidable implements
 	public final List<GameObject> getChildrenToAdd()
 	{
 		return childrenToAdd;
+	}
+	
+	public final boolean hasChildrenToAdd()
+	{
+		return !childrenToAdd.isEmpty();
 	}
 	
 	protected final void addChild(GameObject child)

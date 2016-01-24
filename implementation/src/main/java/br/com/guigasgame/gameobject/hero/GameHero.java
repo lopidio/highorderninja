@@ -9,6 +9,9 @@ import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
+import br.com.guigasgame.gameobject.projectile.Projectile;
+import br.com.guigasgame.gameobject.projectile.ProjectileDirection;
+import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 import br.com.guigasgame.side.Side;
 
 
@@ -71,7 +74,7 @@ public class GameHero extends GameObject
 		physicHeroLogic.editBodyDef(bodyDef);
 	}
 		
-	public void attachFixturesToBody(Body body)
+	public void editBody(Body body)
 	{
 		physicHeroLogic.loadAndAttachFixturesToBody(body);
 	}
@@ -150,5 +153,10 @@ public class GameHero extends GameObject
 	public boolean isMoving()
 	{
 		return physicHeroLogic.getBodyLinearVelocity().length() > WorldConstants.MOVING_TOLERANCE;
+	}
+
+	public void shoot()
+	{
+		addChild(new Projectile(ProjectileIndex.SHURIKEN, ProjectileDirection.DOWN_LEFT, physicHeroLogic.getBodyPosition().add(new Vec2(1, 0))));
 	}
 }

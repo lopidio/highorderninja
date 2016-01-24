@@ -4,12 +4,12 @@
         <entry>
             <key>SHURIKEN</key>
             <value>
-                <numBounces>0</numBounces>
+                <numBounces>3</numBounces>
                 <initialSpeed>1.0</initialSpeed>
                 <mass>1.0</mass>
                 <radius>0.1</radius>
                 <curling>1.0</curling>
-                <restitution>0.2</restitution>
+                <restitution>0.8</restitution>
             </value>
         </entry>
     </projectilesPropertiesMap>

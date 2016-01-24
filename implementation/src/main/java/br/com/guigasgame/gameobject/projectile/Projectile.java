@@ -6,7 +6,6 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
-import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Sprite;
 
@@ -25,17 +24,20 @@ public class Projectile extends GameObject
 	protected final ProjectileDirection direction;
 	protected final ProjectileProperties properties;
 	private final Animation animation;
+	private Body body;
+	private int collisionCounter;
 
 	public Projectile(ProjectileIndex index, ProjectileDirection direction, Vec2 position)
 	{
 		super(position);
-		
+
 		this.index = index;
 		this.direction = direction;
 		this.properties = ProjectilesPropertiesRepository.getProjectileProperties(index);
 		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getProjectileAnimationRepository().getAnimationsProperties(index));
 		animation.getSprite().setColor(Color.mul(Color.BLACK, Color.BLUE));
 		this.body = null;
+		collisionCounter = 0;
 	}
 
 	@Override
@@ -76,7 +78,11 @@ public class Projectile extends GameObject
 	@Override
 	public void beginContact(Collidable collidable)
 	{
-		System.out.println("Colidiu");
+		++collisionCounter;
+		if (collisionCounter >= properties.numBounces)
+		{
+			markToDestroy();
+		}
 	}
 
 	@Override
@@ -89,5 +95,10 @@ public class Projectile extends GameObject
 		directionVec.mul(properties.initialSpeed);
 		body.applyLinearImpulse(directionVec, body.getWorldCenter());
 	}
-	
+
+	@Override
+	protected void editBody(Body body)
+	{
+		this.body = body;
+	}
 }

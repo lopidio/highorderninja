@@ -1,5 +1,8 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
@@ -20,6 +23,7 @@ public abstract class HeroState
 	protected final GameHero gameHero;
 	protected final HeroAnimationsIndex heroAnimationsIndex;
 	protected final HeroStatesProperties heroStatesProperties;
+	protected Map<HeroInputKey, Boolean> inputMap;
 	private final Animation animation;
 
 	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
@@ -29,6 +33,7 @@ public abstract class HeroState
 		this.heroStatesProperties = HeroStatesPropertiesRepository.getStateProperties(heroAnimationsIndex);
 		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getHeroAnimationRepository().getAnimationsProperties(heroAnimationsIndex));
 		this.gameHero = gameHero;
+		inputMap = new HashMap<>();
 	}
 
 	public void onEnter()
@@ -53,15 +58,10 @@ public abstract class HeroState
 		updateState(deltaTime);
 	}
 
-	public final void flipAnimation(Side side)
-	{
-		animation.flipAnimation(side);
-	}
-
 	protected final void setState(HeroState heroState)
 	{
-		heroState.flipAnimation(gameHero.getForwardSide());
 		gameHero.setState(heroState);
+		heroState.animation.flipAnimation(gameHero.getForwardSide());
 	}
 
 	public final Vector2 getMaxSpeed()
@@ -72,6 +72,11 @@ public abstract class HeroState
 	public final Animation getAnimation()
 	{
 		return animation;
+	}
+
+	protected void shoot()
+	{
+		gameHero.shoot();
 	}
 
 	protected boolean jump()
@@ -108,17 +113,23 @@ public abstract class HeroState
 		}
 	}
 
+	protected void setHeroForwardSide(Side side)
+	{
+		animation.flipAnimation(side);
+		gameHero.setForwardSide(side);
+	}
+
 	protected void moveRight()
 	{
-		flipAnimation(Side.RIGHT);
-		gameHero.setForwardSide(Side.RIGHT);
+		if (gameHero.getForwardSide() == Side.LEFT)
+			setHeroForwardSide(Side.RIGHT);
 		gameHero.applyForce(new Vec2(heroStatesProperties.horizontalAcceleration, 0));
 	}
 
 	protected void moveLeft()
 	{
-		flipAnimation(Side.LEFT);
-		gameHero.setForwardSide(Side.LEFT);
+		if (gameHero.getForwardSide() == Side.RIGHT)
+			setHeroForwardSide(Side.LEFT);
 		gameHero.applyForce(new Vec2(-heroStatesProperties.horizontalAcceleration, 0));
 	}
 

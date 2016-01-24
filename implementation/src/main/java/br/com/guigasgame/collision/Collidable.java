@@ -8,8 +8,7 @@ import org.jbox2d.dynamics.World;
 
 public abstract class Collidable
 {
-
-	protected Body body;
+	private Body body;
 	private BodyDef bodyDef;
 	
 	public Collidable(Vec2 position)
@@ -24,6 +23,8 @@ public abstract class Collidable
 
 	public abstract void beginContact(Collidable collidable);
 
+	protected abstract void editBody(Body body);
+
 	public final BodyDef getBodyDef()
 	{
 		return bodyDef;
@@ -33,13 +34,10 @@ public abstract class Collidable
 	{
 		editBodyDef(bodyDef);
 		body = world.createBody(bodyDef);
-		attachFixturesToBody(body);
+		body.setUserData(this);
+		editBody(body);
 	}
 	
-	protected void attachFixturesToBody(Body body)
-	{
-		
-	}
 
 	public final Body getBody()
 	{

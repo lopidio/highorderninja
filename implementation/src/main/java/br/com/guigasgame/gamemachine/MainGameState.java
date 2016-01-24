@@ -1,6 +1,8 @@
 package br.com.guigasgame.gamemachine;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
@@ -24,6 +26,7 @@ import org.jsfml.window.event.Event.Type;
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.collision.CollisionManager;
+import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileDirection;
@@ -40,12 +43,12 @@ public class MainGameState implements GameState
 
 	Body singleBlockBody;
 	DistanceJoint joint;
-	List<Projectile> projectiles;
+	List<GameObject> gameObjects;
 
 	public MainGameState() throws JAXBException
 	{
 		timeMaster = new TimeMaster();
-		projectiles = new ArrayList<>();
+		gameObjects = new ArrayList<>();
 
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
@@ -56,6 +59,7 @@ public class MainGameState implements GameState
 		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1));
 
 		gameHero = new GameHero(1, new Vec2(10, 5));
+		gameObjects.add(gameHero);
 	}
 
 	private Body createGround(Vec2 position, Vec2 size)
@@ -84,14 +88,13 @@ public class MainGameState implements GameState
 	{
 		gameHero.load();
 		gameHero.attachBody(world);
-		gameHero.onEnter();		
+		gameHero.onEnter();
 	}
 
 	@Override
 	public void enterState(RenderWindow renderWindow)
 	{
-		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(
-				new OBBViewportTransform(), renderWindow);
+		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(new OBBViewportTransform(), renderWindow);
 		world.setDebugDraw(sfmlDebugDraw);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
@@ -101,32 +104,31 @@ public class MainGameState implements GameState
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
 	}
 
-	
-	
 	@Override
 	public void handleEvent(Event event)
 	{
-//		Vector2i speed = new Vector2i((int)Joystick.getAxisPosition(0, Axis.X)/100, (int)Joystick.getAxisPosition(0, Axis.Y)/100);
-//		if (timeMaster != null) timeMaster.handleEvent(event);
-//		System.out.println(Joystick.isButtonPressed(0, 6));
-//		if (event.type == Type.JOYSTICK_MOVED)
-//		{
-//			System.out.println(speed);
-//		}
+		// Vector2i speed = new Vector2i((int)Joystick.getAxisPosition(0,
+		// Axis.X)/100, (int)Joystick.getAxisPosition(0, Axis.Y)/100);
+		// if (timeMaster != null) timeMaster.handleEvent(event);
+		// System.out.println(Joystick.isButtonPressed(0, 6));
+		// if (event.type == Type.JOYSTICK_MOVED)
+		// {
+		// System.out.println(speed);
+		// }
 		if (event.type == Type.KEY_PRESSED)
 		{
 			if (event.asKeyEvent().key == Key.LSHIFT)
 			{
 				if (joint == null)
 				{
-					
+
 					DistanceJointDef distDef = new DistanceJointDef();
-					
+
 					distDef.bodyA = gameHero.getBody();
 					distDef.bodyB = singleBlockBody;
 					distDef.collideConnected = false;
 					distDef.length = singleBlockBody.getPosition().sub(gameHero.getBody().getPosition()).length();
-					
+
 					System.out.println("Creates");
 					joint = (DistanceJoint) world.createJoint(distDef);
 				}
@@ -136,7 +138,7 @@ public class MainGameState implements GameState
 				Projectile projectile = new Projectile(ProjectileIndex.SHURIKEN, ProjectileDirection.DOWN_LEFT, gameHero.getBody().getPosition().add(new Vec2(1, 0)));
 				projectile.attachBody(world);
 				projectile.onEnter();
-				projectiles.add(projectile);
+				gameObjects.add(projectile);
 			}
 		}
 		if (event.type == Type.KEY_RELEASED)
@@ -151,22 +153,57 @@ public class MainGameState implements GameState
 	@Override
 	public void update()
 	{
+		List<GameObject> toAdd = new ArrayList<>();
 		float deltaTime = timeMaster.getElapsedTime().asSeconds();
 		timeMaster.restart();
 		world.step(1 / 60.f, 8, 3);
 		world.clearForces();
 
-		for( Projectile projectile : projectiles )
+		for( GameObject go : gameObjects )
 		{
-			projectile.update(deltaTime);
+			go.update(deltaTime);
+			if (go.hasChildrenToAdd())
+			{
+				toAdd.addAll(addGameObjects(go.getChildrenToAdd()));
+			}
+			go.clearChildrenToAdd();
 		}
-		
+
 		if (joint != null)
 		{
-			joint.setLength(joint.getLength()*0.995f);
+			joint.setLength(joint.getLength() * 0.995f);
 		}
-		
-		gameHero.update(deltaTime);
+
+		clearDeadObject();
+		gameObjects.addAll(toAdd);
+	}
+
+	private Collection<? extends GameObject> addGameObjects(List<GameObject> childrenToAdd)
+	{
+		List<GameObject> newObjects = new ArrayList<>();
+		for( GameObject child : childrenToAdd )
+		{
+			child.attachBody(world);
+			child.onEnter();
+			newObjects.add(child);			
+		}
+		return newObjects;
+	}
+
+	private void clearDeadObject()
+	{
+		Iterator<GameObject> iterator = gameObjects.iterator();
+		while (iterator.hasNext())
+		{
+			GameObject toRemove = iterator.next(); // must be called before you
+													// can call iterator.remove()
+			if (toRemove.isDead())
+			{
+				world.destroyBody(toRemove.getBody());
+				iterator.remove();
+			}
+		}
+
 	}
 
 	@Override
@@ -174,11 +211,11 @@ public class MainGameState implements GameState
 	{
 		world.drawDebugData();
 
-		for( Projectile projectile : projectiles )
+		for( GameObject go : gameObjects )
 		{
-			renderWindow.draw(projectile.getSprite());
-		}		
-		renderWindow.draw(gameHero.getSprite());
+			renderWindow.draw(go.getSprite());
+		}
+		// renderWindow.draw(gameHero.getSprite());
 	}
 
 }

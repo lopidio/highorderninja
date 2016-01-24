@@ -18,23 +18,26 @@ public class FallingHeroState extends HeroState
 	public void isPressed(HeroInputKey key)
 	{
 
-		// if (key == HeroInputKey.LEFT)
-		// {
-		// moveLeft();
-		// }
-		// else
-		// if (key == HeroInputKey.RIGHT)
-		// {
-		// moveRight();
-		// }
+		if (key == HeroInputKey.LEFT)
+		{
+			setHeroForwardSide(Side.LEFT);
+//			moveLeft();
+		}
+		else if (key == HeroInputKey.RIGHT)
+		{
+			setHeroForwardSide(Side.RIGHT);
+//			moveRight();
+		}
 		if (gameHero.isTouchingWallAhead())
 		{
-			if (key == HeroInputKey.LEFT
-					&& gameHero.getForwardSide() == Side.LEFT)
+			if (key == HeroInputKey.LEFT && gameHero.getForwardSide() == Side.LEFT)
+			{
 				setState(new WallGrabHeroState(gameHero));
-			else if (key == HeroInputKey.RIGHT
-					&& gameHero.getForwardSide() == Side.RIGHT)
+			}
+			else if (key == HeroInputKey.RIGHT && gameHero.getForwardSide() == Side.RIGHT)
+			{
 				setState(new WallGrabHeroState(gameHero));
+			}
 		}
 	}
 
