@@ -57,11 +57,22 @@
             </value>
         </entry>
         <entry>
+            <key>HERO_SUPERJUMP</key>
+            <value canShoot="true" canJump="true" canUseRope="true">
+                <maxSpeed>
+                    <x>20</x>
+                    <y>20</y>
+                </maxSpeed>
+                <horizontalAcceleration>5</horizontalAcceleration>
+                <jumpImpulse>15</jumpImpulse>
+            </value>
+        </entry>
+        <entry>
             <key>HERO_FALLING</key>
             <value canShoot="true" canJump="false" canUseRope="true">
                 <maxSpeed>
                     <x>20</x>
-                    <y>20</y>
+                    <y>40</y>
                 </maxSpeed>
                 <horizontalAcceleration>5</horizontalAcceleration>
                 <jumpImpulse>0</jumpImpulse>

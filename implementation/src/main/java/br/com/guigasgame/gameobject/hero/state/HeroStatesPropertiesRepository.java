@@ -18,7 +18,7 @@ public class HeroStatesPropertiesRepository
 	}
 	
 	
-	public HeroStatesPropertiesRepository()
+	private HeroStatesPropertiesRepository()
 	{
 		loadHeroStates();
 	}

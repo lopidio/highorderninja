@@ -7,6 +7,7 @@ import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
+import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
 
 
@@ -39,9 +40,18 @@ public class GameMachine
 
 	public GameMachine()
 	{
-		renderWindow = new RenderWindow(new VideoMode(1000, 600, 32), "Test");
+		
+		VideoMode vm = new VideoMode(1366,  768, 32);
+		for (VideoMode list: vm.getFullscreenModes())
+		{
+			System.out.println(list.toString());
+		}
+		
+		
+		renderWindow = new RenderWindow(vm, "Test", Window.FULLSCREEN); //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(60);
-
+		renderWindow.setVerticalSyncEnabled(true);
+		
 		isRunning = true;
 		gameStates = new Stack<GameState>();
 	}

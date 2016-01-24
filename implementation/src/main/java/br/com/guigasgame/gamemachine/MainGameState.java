@@ -14,9 +14,6 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jsfml.graphics.RenderWindow;
-import org.jsfml.system.Vector2i;
-import org.jsfml.window.Joystick;
-import org.jsfml.window.Joystick.Axis;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.Event.Type;
@@ -25,6 +22,9 @@ import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.projectile.Projectile;
+import br.com.guigasgame.gameobject.projectile.ProjectileDirection;
+import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 import br.com.guigasgame.time.TimeMaster;
 
 
@@ -45,9 +45,9 @@ public class MainGameState implements GameState
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
-		createGround(new Vec2(15, 30), new Vec2(35, 1));
-		createGround(new Vec2(1, 15), new Vec2(1, 20));
-		createGround(new Vec2(50, 10), new Vec2(1, 20));
+		createGround(new Vec2(15, 38), new Vec2(52, 1));
+		createGround(new Vec2(1, 15), new Vec2(1, 22));
+		createGround(new Vec2(67, 15), new Vec2(1, 22));
 		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1));
 
 		gameHero = new GameHero(1);
@@ -93,7 +93,6 @@ public class MainGameState implements GameState
 		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
-
 	}
 
 	
@@ -125,6 +124,11 @@ public class MainGameState implements GameState
 					System.out.println("Creates");
 					joint = (DistanceJoint) world.createJoint(distDef);
 				}
+			}
+			if (event.asKeyEvent().key == Key.Q)
+			{
+				Projectile projectile = new Projectile(ProjectileIndex.SHURIKEN, ProjectileDirection.DOWN_LEFT);
+				projectile.attachBody(world, gameHero.getBody().getPosition().add(new Vec2(1, 0)));
 			}
 		}
 		if (event.type == Type.KEY_RELEASED)

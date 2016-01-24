@@ -1,7 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jbox2d.common.Vec2;
-
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -13,15 +11,13 @@ class SuperJumpingHeroState extends HeroState
 	private boolean doubleJumpAllowed;
 	protected SuperJumpingHeroState(GameHero gameHero)
 	{
-		super(gameHero, HeroAnimationsIndex.HERO_ASCENDING);
+		super(gameHero, HeroAnimationsIndex.HERO_SUPERJUMP);
 		doubleJumpAllowed = true;
 	}
 
 	@Override
 	public void onEnter()
 	{
-		//Jump three times higher
-		jump();
 		jump();
 	}
 	
@@ -42,7 +38,7 @@ class SuperJumpingHeroState extends HeroState
 	@Override
 	public void updateState(float deltaTime)
 	{
-		gameHero.applyForce(new Vec2(0, -5));		
+//		gameHero.applyForce(new Vec2(0, -5));		
 
 		if (gameHero.isFallingDown())
 		{

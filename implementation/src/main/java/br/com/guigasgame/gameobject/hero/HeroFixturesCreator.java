@@ -61,7 +61,7 @@ class HeroFixturesCreator {
 
 	private void createHeadFixture() {
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(0.2f, 0.2f, new Vec2(0, -2.0f), 0);
+		shape.setAsBox(0.5f, 0.4f, new Vec2(0, -2.2f), 0);
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
@@ -70,7 +70,7 @@ class HeroFixturesCreator {
 
 	private void createUpperFixture() {
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(0.3f, 0.4f, new Vec2(0, -1.4f), 0);
+		shape.setAsBox(0.4f, 0.4f, new Vec2(0, -1.4f), 0);
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
@@ -95,6 +95,7 @@ class HeroFixturesCreator {
 		def.friction = 0.7f;
 
 		def.shape = feetShape;
+		def.density = 10;
 		fixtures.put(FixtureSensorID.FEET, def);
 	}
 
@@ -110,7 +111,7 @@ class HeroFixturesCreator {
 
 	private void createBottomLeftSensor() {
 		PolygonShape bottomLeftShape = new PolygonShape();
-		bottomLeftShape.setAsBox(0.1f, 0.5f, new Vec2(-0.5f - 0.01f, -0.5f), 0);
+		bottomLeftShape.setAsBox(0.2f, 0.5f, new Vec2(-0.5f - 0.1f, -1f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
@@ -120,7 +121,7 @@ class HeroFixturesCreator {
 
 	private void createBottomRightSensor() {
 		PolygonShape rightLeftShape = new PolygonShape();
-		rightLeftShape.setAsBox(0.1f, 0.5f, new Vec2(0.5f + 0.01f, -0.5f), 0);
+		rightLeftShape.setAsBox(0.2f, 0.5f, new Vec2(0.5f + 0.1f, -1f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
@@ -130,7 +131,7 @@ class HeroFixturesCreator {
 	
 	private void createTopLeftSensor() {
 		PolygonShape topLeftShape = new PolygonShape();
-		topLeftShape.setAsBox(0.1f, 0.5f, new Vec2(-0.5f - 0.01f, -1.5f), 0);
+		topLeftShape.setAsBox(0.2f, 0.5f, new Vec2(-0.5f - 0.1f, -2f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
@@ -140,7 +141,7 @@ class HeroFixturesCreator {
 
 	private void createTopRightSensor() {
 		PolygonShape topRightShape = new PolygonShape();
-		topRightShape.setAsBox(0.1f, 0.5f, new Vec2(0.5f + 0.01f, -1.5f), 0);
+		topRightShape.setAsBox(0.2f, 0.5f, new Vec2(0.5f + 0.1f, -2f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;

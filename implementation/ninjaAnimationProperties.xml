@@ -56,6 +56,21 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroAnimationsIndex">HERO_SUPERJUMP</key>
+			<value horizontal="true">
+				<numFrames>2</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>270</top>
+                    <width>98</width>
+                    <height>332</height>
+                </textureSpriteRect>				
+			</value>
+		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroAnimationsIndex">HERO_FALLING</key>
 			<value horizontal="true">
 				<numFrames>2</numFrames>

@@ -34,8 +34,7 @@ class HeroPhysics
 	public void loadAndAttachFixturesToBody(Body body)
 	{
 		this.body = body;
-		// HeroFixtures gameHeroFixtures =
-		// HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
+		// HeroFixtures gameHeroFixtures = HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
 		HeroFixturesCreator gameHeroFixtures = new HeroFixturesCreator();
 		fixtureMap = new HashMap<>();
 		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixtures.getFixturesMap();

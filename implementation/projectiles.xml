@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<projectilePropertiesFile>
+    <projectilesPropertiesMap>
+        <entry>
+            <key>SHURIKEN</key>
+            <value>
+                <numBounces>0</numBounces>
+                <initialSpeed>1.0</initialSpeed>
+                <mass>1.0</mass>
+                <radius>0.1</radius>
+                <curling>1.0</curling>
+                <restitution>0.2</restitution>
+            </value>
+        </entry>
+    </projectilesPropertiesMap>
+</projectilePropertiesFile>

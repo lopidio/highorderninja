@@ -70,7 +70,7 @@ public class GameHero extends GameObject
 	}
 
 	@Override
-	public BodyDef getBodyDef(Vec2 position)
+	protected BodyDef getBodyDef(Vec2 position)
 	{
 		return physicHeroLogic.getBodyDef(position);
 	}
