@@ -7,7 +7,6 @@ import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
-import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
 
 
@@ -48,7 +47,7 @@ public class GameMachine
 		}
 		
 		
-		renderWindow = new RenderWindow(vm, "Test", Window.FULLSCREEN); //Window.TRANSPARENT
+		renderWindow = new RenderWindow(vm, "Test");//, Window.FULLSCREEN); //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(60);
 		renderWindow.setVerticalSyncEnabled(true);
 		
@@ -69,7 +68,7 @@ public class GameMachine
 	{
 		while (isRunning)
 		{
-			renderWindow.clear(Color.WHITE);
+			renderWindow.clear(new Color(128,  128, 128));
 			handleEvents();
 			gameStates.lastElement().update();
 			gameStates.lastElement().draw(renderWindow);

@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import org.jsfml.graphics.Texture;
 
+import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 import br.com.guigasgame.math.Rect;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
 
@@ -26,7 +27,7 @@ import br.com.guigasgame.resourcemanager.TextureResourceManager;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso(
-{ HeroAnimationsIndex.class })
+{ HeroAnimationsIndex.class, ProjectileIndex.class })
 public class AnimationPropertiesFile<Enum>
 {
 
@@ -43,6 +44,7 @@ public class AnimationPropertiesFile<Enum>
 
 	/**
 	 * DO NOT USE
+	 * 
 	 * @param textureFilename
 	 */
 	AnimationPropertiesFile(String textureFilename)
@@ -62,9 +64,9 @@ public class AnimationPropertiesFile<Enum>
 	public static AnimationPropertiesFile<?> loadFromFile(String filename)
 			throws JAXBException
 	{
-		JAXBContext jaxbContext = JAXBContext
-				.newInstance(AnimationPropertiesFile.class);
+		JAXBContext jaxbContext = JAXBContext.newInstance(AnimationPropertiesFile.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		
 		AnimationPropertiesFile<?> animationPropertiesFile = ((AnimationPropertiesFile<?>) jaxbUnmarshaller.unmarshal(new File(filename)));
 		animationPropertiesFile.sharedTexture = TextureResourceManager.getInstance().getResource(animationPropertiesFile.textureFilename);
 		animationPropertiesFile.sharedTexture.setSmooth(animationPropertiesFile.smooth);
@@ -74,8 +76,8 @@ public class AnimationPropertiesFile<Enum>
 		}
 		return animationPropertiesFile;
 	}
-	
-	public AnimationProperties getAnimationsProperties(HeroAnimationsIndex index)
+
+	public AnimationProperties getAnimationsProperties(Enum index)
 	{
 		return animationsMap.get(index);
 	}
@@ -93,17 +95,13 @@ public class AnimationPropertiesFile<Enum>
 	public static void main(String[] args) throws JAXBException
 	{
 
-		AnimationPropertiesFile<HeroAnimationsIndex> anim = new AnimationPropertiesFile<>(
-				"ninja.bmp");
-		
-		AnimationProperties animationProperties = new AnimationProperties(
-				(short) 2, (short) 3, (short) 12, new Rect(1,4,7,8), true);
+		AnimationPropertiesFile<HeroAnimationsIndex> anim = new AnimationPropertiesFile<>("ninja.bmp");
 
-		AnimationProperties nova = new AnimationProperties((short) 2,
-				(short) 3, (short) 12, new Rect(1,4,7,8), true);
+		AnimationProperties animationProperties = new AnimationProperties((short) 2, (short) 3, (short) 12, new Rect(1, 4, 7, 8), true);
 
-		anim.animationsMap.put(HeroAnimationsIndex.HERO_STANDING,
-				animationProperties);
+		AnimationProperties nova = new AnimationProperties((short) 2, (short) 3,(short) 12, new Rect(1, 4, 7, 8), true);
+
+		anim.animationsMap.put(HeroAnimationsIndex.HERO_STANDING,animationProperties);
 		anim.animationsMap.put(HeroAnimationsIndex.HERO_RUNNING, nova);
 
 		try
@@ -114,31 +112,34 @@ public class AnimationPropertiesFile<Enum>
 														// in JAXB
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-			// Write to System.out for debugging 
+			// Write to System.out for debugging
 			m.marshal(anim, System.out);
 
-//			 Write to File 
-//			 m.marshal(anim, new File("ninjaSmooth.xml"));
+			// Write to File
+			// m.marshal(anim, new File("ninjaSmooth.xml"));
 		}
-		catch
-		(JAXBException e)
+		catch (JAXBException e)
 		{
 			e.printStackTrace();
 		}
 
-//		@SuppressWarnings("unchecked")
-//		AnimationPropertiesFile<HeroAnimationsIndex> fromFile = ((AnimationPropertiesFile<HeroAnimationsIndex>) AnimationPropertiesFile
-//				.loadFromFile("oi.txt"));
-//		System.out.println(fromFile.textureFilename);
+		// @SuppressWarnings("unchecked")
+		// AnimationPropertiesFile<HeroAnimationsIndex> fromFile =
+		// ((AnimationPropertiesFile<HeroAnimationsIndex>)
+		// AnimationPropertiesFile
+		// .loadFromFile("oi.txt"));
+		// System.out.println(fromFile.textureFilename);
 
 	}
 
-	public void setSmooth(boolean smooth) {
+	public void setSmooth(boolean smooth)
+	{
 		this.smooth = smooth;
 		sharedTexture.setSmooth(smooth);
 	}
 
-	public boolean isSmooth() {
+	public boolean isSmooth()
+	{
 		return smooth;
 	}
 

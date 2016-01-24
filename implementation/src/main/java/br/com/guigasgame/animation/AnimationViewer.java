@@ -20,7 +20,7 @@ class AnimationViewer
 	static boolean isRunning = true;
 	public static void main(String[] args) throws JAXBException
 	{
-		String animationPropertiesFile = "ninjaProperties.xml";
+		String animationPropertiesFile = "shurikenAnimation.xml";
 		renderWindow = new RenderWindow(new VideoMode(1000, 600, 32), "Test");
 		renderWindow.setFramerateLimit(60);
 

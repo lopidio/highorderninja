@@ -57,11 +57,8 @@ public class GameHero extends GameObject
 
 		physicHeroLogic
 				.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
-		gameHeroLogic.adjustSpritePosition(
-				WorldConstants.physicsToSfmlCoordinates(
-						physicHeroLogic.getBodyPosition()),
-				(float) WorldConstants
-						.radiansToDegrees(physicHeroLogic.getAngleRadians()));
+		gameHeroLogic.adjustSpritePosition(WorldConstants.physicsToSfmlCoordinates(physicHeroLogic.getBodyPosition()),
+				(float) WorldConstants.radiansToDegrees(physicHeroLogic.getAngleRadians()));
 	}
 
 	public void setState(HeroState heroState)

@@ -1,5 +1,8 @@
 package br.com.guigasgame.gamemachine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.JAXBException;
 
 import org.jbox2d.callbacks.DebugDraw;
@@ -37,10 +40,12 @@ public class MainGameState implements GameState
 
 	Body singleBlockBody;
 	DistanceJoint joint;
+	List<Projectile> projectiles;
 
 	public MainGameState() throws JAXBException
 	{
 		timeMaster = new TimeMaster();
+		projectiles = new ArrayList<>();
 
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
@@ -129,6 +134,7 @@ public class MainGameState implements GameState
 			{
 				Projectile projectile = new Projectile(ProjectileIndex.SHURIKEN, ProjectileDirection.DOWN_LEFT);
 				projectile.attachBody(world, gameHero.getBody().getPosition().add(new Vec2(1, 0)));
+				projectiles.add(projectile);
 			}
 		}
 		if (event.type == Type.KEY_RELEASED)
@@ -148,6 +154,11 @@ public class MainGameState implements GameState
 		world.step(1 / 60.f, 8, 3);
 		world.clearForces();
 
+		for( Projectile projectile : projectiles )
+		{
+			projectile.update(deltaTime);
+		}
+		
 		if (joint != null)
 		{
 			joint.setLength(joint.getLength()*0.995f);
@@ -160,6 +171,11 @@ public class MainGameState implements GameState
 	public void draw(RenderWindow renderWindow)
 	{
 		world.drawDebugData();
+
+		for( Projectile projectile : projectiles )
+		{
+			renderWindow.draw(projectile.getSprite());
+		}		
 		renderWindow.draw(gameHero.getSprite());
 	}
 

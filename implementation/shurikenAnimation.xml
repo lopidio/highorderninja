@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<animationPropertiesFile textureFilename="shuriken.png"
+	smooth="true">
+	<animationsMap>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="projectileIndex">SHURIKEN</key>
+			<value horizontal="true">
+				<numFrames>4</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>0</top>
+					<width>16</width>
+					<height>4</height>
+				</textureSpriteRect>
+			</value>
+		</entry>
+	</animationsMap>
+</animationPropertiesFile>

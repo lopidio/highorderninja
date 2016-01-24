@@ -7,22 +7,24 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Sprite;
 
 import br.com.guigasgame.animation.Animation;
+import br.com.guigasgame.animation.AnimationsRepositoryCentral;
+import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.gameobject.hero.state.HeroStatesPropertiesRepository;
 
 
 public class Projectile extends GameObject
 {
 
-	private final ProjectileIndex index;
-	private ProjectileDirection direction;
-	private final ProjectileProperties properties;
-	private Animation animation;
+	protected final ProjectileIndex index;
+	protected final ProjectileDirection direction;
+	protected final ProjectileProperties properties;
+	private final Animation animation;
 	private Body body;
 
 	public Projectile(ProjectileIndex index, ProjectileDirection direction)
@@ -30,13 +32,15 @@ public class Projectile extends GameObject
 		this.index = index;
 		this.direction = direction;
 		this.properties = ProjectilesPropertiesRepository.getProjectileProperties(index);
-		animation = null;
-		body = null;
+		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getProjectileAnimationRepository().getAnimationsProperties(index));
+		animation.getSprite().setColor(Color.mul(Color.BLACK, Color.BLUE));
+		this.body = null;
 	}
 
 	@Override
 	public void update(float deltaTime)
 	{
+		animation.getSprite().setPosition(WorldConstants.physicsToSfmlCoordinates(body.getPosition()));
 		animation.update(deltaTime);
 	}
 

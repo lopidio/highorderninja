@@ -19,8 +19,8 @@ public abstract class HeroState
 
 	protected final GameHero gameHero;
 	protected final HeroAnimationsIndex heroAnimationsIndex;
-	private Animation animation;
-	protected HeroStatesProperties heroStatesProperties;
+	protected final HeroStatesProperties heroStatesProperties;
+	private final Animation animation;
 
 	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
 	{
