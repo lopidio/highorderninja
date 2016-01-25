@@ -14,17 +14,21 @@ class RunningHeroState extends HeroState
 	}
 
 	@Override
-	public void inputPressed(HeroInputKey key)
+	public void stateInputPressed(HeroInputKey key)
 	{
 		if (key == HeroInputKey.JUMP)
 		{
 			setState(new JumpingHeroState(gameHero));
 		}
-		else
-			if (key == HeroInputKey.SLIDE)
-			{
-				setState(new SlidingHeroState(gameHero));
-			}
+		else if (key == HeroInputKey.SLIDE)
+		{
+			setState(new SlidingHeroState(gameHero));
+		}
+		else if (key == HeroInputKey.SHOOT)
+		{
+			shoot();
+		}
+
 	}
 
 	@Override
@@ -48,16 +52,14 @@ class RunningHeroState extends HeroState
 		{
 			moveLeft();
 		}
-		else
-			if (key == HeroInputKey.RIGHT)
-			{
-				moveRight();
-			}
-			/*else
-				if (gameHero.isTouchingGround() && key == HeroInputKey.DOWN)
-				{
-					setState(new DuckingState(gameHero));
-				}*/
+		else if (key == HeroInputKey.RIGHT)
+		{
+			moveRight();
+		}
+		/*
+		 * else if (gameHero.isTouchingGround() && key == HeroInputKey.DOWN) {
+		 * setState(new DuckingState(gameHero)); }
+		 */
 	}
 
 }

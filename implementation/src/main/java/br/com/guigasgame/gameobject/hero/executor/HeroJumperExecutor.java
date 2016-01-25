@@ -1,24 +1,24 @@
-package br.com.guigasgame.gameobject.hero.state;
+package br.com.guigasgame.gameobject.hero.executor;
 
 import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.state.HeroStatesProperties;
 import br.com.guigasgame.side.Side;
 
 
-public class HeroJumper
+public class HeroJumperExecutor
 {
-
 	private final HeroStatesProperties heroStatesProperties;
 	private final GameHero gameHero;
 
-	public HeroJumper(HeroStatesProperties heroStatesProperties, GameHero gameHero)
+	public HeroJumperExecutor(HeroStatesProperties heroStatesProperties, GameHero gameHero)
 	{
 		this.heroStatesProperties = heroStatesProperties;
 		this.gameHero = gameHero;
 	}
 
-	protected boolean jump()
+	public boolean jump()
 	{
 		if (heroStatesProperties.canJump)
 		{
@@ -28,7 +28,7 @@ public class HeroJumper
 		return false;
 	}
 
-	protected boolean doubleJump()
+	public boolean doubleJump()
 	{
 		if (heroStatesProperties.canJump)
 		{
@@ -39,7 +39,7 @@ public class HeroJumper
 		return false;
 	}
 
-	protected boolean diagonalJump(Side side)
+	public boolean diagonalJump(Side side)
 	{
 		if (heroStatesProperties.canJump)
 		{

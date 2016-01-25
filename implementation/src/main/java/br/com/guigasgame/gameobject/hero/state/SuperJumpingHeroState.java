@@ -24,7 +24,7 @@ class SuperJumpingHeroState extends HeroState
 	}
 
 	@Override
-	public void inputPressed(HeroInputKey key)
+	public void stateInputPressed(HeroInputKey key)
 	{
 		if (doubleJumpAllowed && key == HeroInputKey.JUMP)
 		{
@@ -35,6 +35,11 @@ class SuperJumpingHeroState extends HeroState
 				doubleJumpAllowed = false;
 			}
 		}
+		else if (key == HeroInputKey.SHOOT)
+		{
+			shoot();
+		}
+
 	}
 
 	@Override

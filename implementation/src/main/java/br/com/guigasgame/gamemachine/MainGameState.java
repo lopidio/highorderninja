@@ -28,9 +28,6 @@ import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.projectile.Projectile;
-import br.com.guigasgame.gameobject.projectile.ProjectileDirection;
-import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 
 
 public class MainGameState implements GameState
@@ -138,26 +135,31 @@ public class MainGameState implements GameState
 					joint = (DistanceJoint) world.createJoint(distDef);
 				}
 			}
-			if (event.asKeyEvent().key == Key.Q)
-			{
-				Projectile projectile = new Projectile(ProjectileIndex.SHURIKEN, ProjectileDirection.DOWN_LEFT, gameHero.getBody().getPosition().add(new Vec2(1, 0)));
-				projectile.attachBody(world);
-				projectile.onEnter();
-				gameObjectsList.add(projectile);
-			}
+			// if (event.asKeyEvent().key == Key.Q)
+			// {
+			// Projectile projectile = new Projectile(ProjectileIndex.SHURIKEN,
+			// ProjectileDirection.DOWN_LEFT,
+			// gameHero.getBody().getPosition().add(new Vec2(1, 0)));
+			// projectile.attachBody(world);
+			// projectile.onEnter();
+			// gameObjectsList.add(projectile);
+			// }
 		}
 		if (event.type == Type.KEY_RELEASED)
 			if (event.asKeyEvent().key == Key.LSHIFT)
 			{
 				System.out.println("Remove");
-				world.destroyJoint(joint);
+				if (joint != null)
+					world.destroyJoint(joint);
 				joint = null;
 			}
 	}
 
 	private void addNewGameObjectsToList()
 	{
-		for( GameObject gameObject : gameObjectsList )
+		List<GameObject> objsToAdd = new ArrayList<>();
+		objsToAdd.addAll(gameObjectsList);
+		for( GameObject gameObject : objsToAdd )
 		{
 			if (gameObject.hasChildrenToAdd())
 			{

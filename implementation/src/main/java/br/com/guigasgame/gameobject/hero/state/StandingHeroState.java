@@ -14,27 +14,28 @@ class StandingHeroState extends HeroState
 	}
 
 	@Override
-	public void inputPressed(HeroInputKey key)
+	public void stateInputPressed(HeroInputKey key)
 	{
 		if (key == HeroInputKey.JUMP)
 		{
 			setState(new JumpingHeroState(gameHero));
 		}
-		else
-			if (key == HeroInputKey.ACTION)
-			{
-				System.out.println("Action");
-			}
-			else
-				if (key == HeroInputKey.DOWN)
-				{
-					setState(new DuckingState(gameHero));
-				}
-				else
-					if (key == HeroInputKey.SLIDE)
-					{
-						setState(new SlidingHeroState(gameHero));
-					}
+		else if (key == HeroInputKey.ACTION)
+		{
+			System.out.println("Action");
+		}
+		else if (key == HeroInputKey.DOWN)
+		{
+			setState(new DuckingState(gameHero));
+		}
+		else if (key == HeroInputKey.SLIDE)
+		{
+			setState(new SlidingHeroState(gameHero));
+		}
+		else if (key == HeroInputKey.SHOOT)
+		{
+			shoot();
+		}
 	}
 
 	@Override
@@ -58,16 +59,14 @@ class StandingHeroState extends HeroState
 		{
 			setState(new DuckingState(gameHero));
 		}
-		else
-			if (key == HeroInputKey.LEFT)
-			{
-				moveLeft();
-			}
-			else
-				if (key == HeroInputKey.RIGHT)
-				{
-					moveRight();
-				}
+		else if (key == HeroInputKey.LEFT)
+		{
+			moveLeft();
+		}
+		else if (key == HeroInputKey.RIGHT)
+		{
+			moveRight();
+		}
 	}
 
 }

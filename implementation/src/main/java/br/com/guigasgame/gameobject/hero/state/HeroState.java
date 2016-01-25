@@ -9,7 +9,10 @@ import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsRepositoryCentral;
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.executor.HeroJumperExecutor;
+import br.com.guigasgame.gameobject.hero.executor.HeroShooterExecutor;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.side.Side;
@@ -23,9 +26,10 @@ public abstract class HeroState
 	protected final GameHero gameHero;
 	protected final HeroAnimationsIndex heroAnimationsIndex;
 	protected final HeroStatesProperties heroStatesProperties;
-	protected Map<HeroInputKey, Boolean> inputMap;
+	private Map<HeroInputKey, Boolean> inputMap;
 	private final Animation animation;
-	protected final HeroJumper jumper;
+	protected final HeroJumperExecutor jumper;
+	protected final HeroShooterExecutor shooter;
 
 	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
 	{
@@ -35,7 +39,15 @@ public abstract class HeroState
 		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getHeroAnimationRepository().getAnimationsProperties(heroAnimationsIndex));
 		this.gameHero = gameHero;
 		inputMap = new HashMap<>();
-		jumper = heroStatesProperties.canJump ? new HeroJumper(heroStatesProperties, gameHero) : null;
+		for( HeroInputKey key : HeroInputKey.values() )
+		{
+			inputMap.put(key, false);
+		}
+		jumper = heroStatesProperties.canJump
+				? new HeroJumperExecutor(heroStatesProperties, gameHero) : null;
+		shooter = heroStatesProperties.canShoot
+				? new HeroShooterExecutor(heroStatesProperties, gameHero)
+				: null;
 	}
 
 	public void onEnter()
@@ -53,6 +65,30 @@ public abstract class HeroState
 		// hook method
 	}
 
+	protected void stateInputPressed(HeroInputKey inputValue)
+	{
+		// hook method
+	}
+
+	protected void stateInputReleased(HeroInputKey inputValue)
+	{
+		// hook method
+	}
+
+	@Override
+	public final void inputPressed(HeroInputKey inputValue)
+	{
+		inputMap.put(inputValue, true);
+		stateInputPressed(inputValue);
+	}
+
+	@Override
+	public final void inputReleased(HeroInputKey inputValue)
+	{
+		inputMap.put(inputValue, false);
+		stateInputReleased(inputValue);
+	}
+
 	@Override
 	public final void update(float deltaTime)
 	{
@@ -64,6 +100,7 @@ public abstract class HeroState
 	{
 		gameHero.setState(heroState);
 		heroState.animation.flipAnimation(gameHero.getForwardSide());
+		heroState.inputMap = inputMap;
 	}
 
 	public final Vector2 getMaxSpeed()
@@ -78,60 +115,62 @@ public abstract class HeroState
 
 	protected void shoot()
 	{
-		gameHero.shoot();
+		shooter.shoot(gameHero.getBody().getPosition(), ProjectileIndex.SHURIKEN, HeroShooterExecutor.createDirection(
+						inputMap.get(HeroInputKey.UP), inputMap.get(HeroInputKey.RIGHT), 
+						inputMap.get(HeroInputKey.DOWN), inputMap.get(HeroInputKey.LEFT)));
 	}
 
-//	protected boolean jump()
-//	{
-//		return jumper.jump(heroStatesProperties, gameHero);
-//		// if (heroStatesProperties.canJump)
-//		// {
-//		// gameHero.applyImpulse(new Vec2(0,
-//		// -heroStatesProperties.jumpImpulse));
-//		// return true;
-//		// }
-//		// return false;
-//	}
-//
-//	protected boolean doubleJump()
-//	{
-//		HeroJumper jumper = new HeroJumper();
-//		return jumper.doubleJump(heroStatesProperties, gameHero);
-		// if (heroStatesProperties.canJump)
-		// {
-		// gameHero.applyImpulse(new Vec2(0,
-		// -heroStatesProperties.jumpImpulse/2));
-		// return true;
-		// }
-		// return false;
-//	}
-//
-//	protected boolean diagonalJump(Side side)
-//	{
-//		HeroJumper jumper = new HeroJumper();
-//		return jumper.diagonalJump(heroStatesProperties, gameHero, side);
-		// if (heroStatesProperties.canJump)
-		// {
-		// Vec2 jumpDirection = new Vec2(0, -1);
-		// if (side == Side.LEFT)
-		// {
-		// jumpDirection.x = -1;
-		// }
-		// else // if (gameHero.getForwardSide() == Side.RIGHT)
-		// {
-		// jumpDirection.x = 1;
-		// }
-		//
-		// jumpDirection.normalize();
-		// jumpDirection.mulLocal(heroStatesProperties.jumpImpulse);
-		//
-		// System.out.println(jumpDirection);
-		// System.out.println(jumpDirection.length());
-		// gameHero.applyImpulse(jumpDirection);
-		// return true;
-		// }
-		// return false;
-//	}
+	// protected boolean jump()
+	// {
+	// return jumper.jump(heroStatesProperties, gameHero);
+	// // if (heroStatesProperties.canJump)
+	// // {
+	// // gameHero.applyImpulse(new Vec2(0,
+	// // -heroStatesProperties.jumpImpulse));
+	// // return true;
+	// // }
+	// // return false;
+	// }
+	//
+	// protected boolean doubleJump()
+	// {
+	// HeroJumper jumper = new HeroJumper();
+	// return jumper.doubleJump(heroStatesProperties, gameHero);
+	// if (heroStatesProperties.canJump)
+	// {
+	// gameHero.applyImpulse(new Vec2(0,
+	// -heroStatesProperties.jumpImpulse/2));
+	// return true;
+	// }
+	// return false;
+	// }
+	//
+	// protected boolean diagonalJump(Side side)
+	// {
+	// HeroJumper jumper = new HeroJumper();
+	// return jumper.diagonalJump(heroStatesProperties, gameHero, side);
+	// if (heroStatesProperties.canJump)
+	// {
+	// Vec2 jumpDirection = new Vec2(0, -1);
+	// if (side == Side.LEFT)
+	// {
+	// jumpDirection.x = -1;
+	// }
+	// else // if (gameHero.getForwardSide() == Side.RIGHT)
+	// {
+	// jumpDirection.x = 1;
+	// }
+	//
+	// jumpDirection.normalize();
+	// jumpDirection.mulLocal(heroStatesProperties.jumpImpulse);
+	//
+	// System.out.println(jumpDirection);
+	// System.out.println(jumpDirection.length());
+	// gameHero.applyImpulse(jumpDirection);
+	// return true;
+	// }
+	// return false;
+	// }
 
 	protected void moveForward()
 	{

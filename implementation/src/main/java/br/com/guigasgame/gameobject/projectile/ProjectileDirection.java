@@ -3,6 +3,7 @@ package br.com.guigasgame.gameobject.projectile;
 
 public enum ProjectileDirection
 {
+	NONE(0, 0),
 	UP(0, -1),
 	UP_LEFT(-1, -1),
 	UP_RIGHT(1, -1),

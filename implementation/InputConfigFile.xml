@@ -55,5 +55,12 @@
 				<keysCodeList>X</keysCodeList>
 			</value>
 		</entry>
+		<entry>
+			<key>SHOOT</key>
+			<value>
+				<inputType>KeyboardInput</inputType>
+				<keysCodeList>Q</keysCodeList>
+			</value>
+		</entry>
 	</map>
 </heroInputConfigFile>

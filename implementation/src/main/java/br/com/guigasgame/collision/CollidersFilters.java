@@ -10,6 +10,6 @@ public class CollidersFilters
 	
 	///WHAT I COLLIDE WITH
 	public final static short MASK_PLAYER = CATEGORY_BULLET | CATEGORY_SCENERY; // or ~CATEGORY_PLAYER
-	public final static short MASK_BULLET = CATEGORY_PLAYER | CATEGORY_SCENERY; // or ~CATEGORY_MONSTER
+	public final static short MASK_BULLET = CATEGORY_SCENERY;// | CATEGORY_PLAYER; // or ~CATEGORY_MONSTER
 	public final static short MASK_SCENERY = -1; //also equals to 0xFFFF	
 }

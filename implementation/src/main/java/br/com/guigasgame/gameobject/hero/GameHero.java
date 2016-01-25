@@ -10,8 +10,6 @@ import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.projectile.Projectile;
-import br.com.guigasgame.gameobject.projectile.ProjectileDirection;
-import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 import br.com.guigasgame.side.Side;
 
 
@@ -155,8 +153,9 @@ public class GameHero extends GameObject
 		return physicHeroLogic.getBodyLinearVelocity().length() > WorldConstants.MOVING_TOLERANCE;
 	}
 
-	public void shoot()
+	public void shoot(Projectile projectile)
 	{
-		addChild(new Projectile(ProjectileIndex.SHURIKEN, ProjectileDirection.DOWN_LEFT, physicHeroLogic.getBodyPosition().add(new Vec2(1, 0))));
+		addChild(projectile);
 	}
+
 }

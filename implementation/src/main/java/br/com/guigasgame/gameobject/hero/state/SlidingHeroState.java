@@ -28,7 +28,7 @@ class SlidingHeroState extends HeroState
 	}
 	
 	@Override
-	public void inputPressed(HeroInputKey key)
+	public void stateInputPressed(HeroInputKey key)
 	{
 		if (key == HeroInputKey.JUMP)
 		{

@@ -25,7 +25,7 @@ class DuckingState extends HeroState
 	{
 		gameHero.enableCollision(FixtureSensorID.HEAD);
 	}
-	
+
 	@Override
 	public void updateState(float deltaTime)
 	{
@@ -36,7 +36,7 @@ class DuckingState extends HeroState
 	}
 
 	@Override
-	public void inputReleased(HeroInputKey inputValue)
+	public void stateInputReleased(HeroInputKey inputValue)
 	{
 		if (inputValue == HeroInputKey.DOWN)
 		{
@@ -45,11 +45,15 @@ class DuckingState extends HeroState
 	}
 
 	@Override
-	public void inputPressed(HeroInputKey inputValue)
+	public void stateInputPressed(HeroInputKey inputValue)
 	{
 		if (inputValue == HeroInputKey.JUMP)
 		{
 			setState(new SuperJumpingHeroState(gameHero));
+		}
+		else if (inputValue == HeroInputKey.SHOOT)
+		{
+			shoot();
 		}
 	}
 }

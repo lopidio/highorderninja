@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import br.com.guigasgame.math.Vector2;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-final class HeroStatesProperties {
+public final class HeroStatesProperties {
 	@XmlAttribute
 	public final boolean canShoot;
 	@XmlAttribute

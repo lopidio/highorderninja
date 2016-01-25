@@ -24,12 +24,16 @@ class JumpingHeroState extends HeroState
 	}
 
 	@Override
-	public void inputPressed(HeroInputKey key)
+	public void stateInputPressed(HeroInputKey key)
 	{
 		if (doubleJumpAllowed && key == HeroInputKey.JUMP)
 		{
 			jumper.doubleJump();
 			doubleJumpAllowed = false;
+		}
+		else if (key == HeroInputKey.SHOOT)
+		{
+			shoot();
 		}
 	}
 

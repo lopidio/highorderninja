@@ -40,6 +40,13 @@ public class FallingHeroState extends HeroState
 			}
 		}
 	}
+	public void stateInputPressed(HeroInputKey key)
+	{
+		if (key == HeroInputKey.SHOOT)
+		{
+			shoot();
+		}
+	}
 
 	@Override
 	public void updateState(float deltaTime)
