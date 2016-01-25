@@ -67,30 +67,6 @@ public class GameMachine
 	private void gameLoop()
 	{
 		// http://gafferongames.com/game-physics/fix-your-timestep/
-/*
-double t = 0.0;
-double dt = 0.01;
-
-double currentTime = hires_time_in_seconds();
-double accumulator = 0.0;
-
-while ( !quit )
-{
-    double newTime = time();
-    double frameTime = newTime - currentTime;
-    if ( frameTime > 0.25 )
-        frameTime = 0.25;
-
-    accumulator += frameTime;
-
-    while ( accumulator >= dt )
-    {
-        integrate( currentState, t, dt );
-        accumulator -= dt;
-    }
-
-    render( state );
-} */
 		Clock clock = new Clock();
 		float remainingAcumulator = 0f;
 		final float updateDelta = (float)1/FRAME_RATE;

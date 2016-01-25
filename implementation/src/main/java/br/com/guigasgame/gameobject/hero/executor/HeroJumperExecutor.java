@@ -32,8 +32,7 @@ public class HeroJumperExecutor
 	{
 		if (heroStatesProperties.canJump)
 		{
-			gameHero.applyImpulse(new Vec2(0, -heroStatesProperties.jumpImpulse
-					/ 2));
+			gameHero.applyImpulse(new Vec2(0, -heroStatesProperties.jumpImpulse / 2));
 			return true;
 		}
 		return false;
@@ -43,18 +42,9 @@ public class HeroJumperExecutor
 	{
 		if (heroStatesProperties.canJump)
 		{
-			Vec2 jumpDirection = new Vec2(0, -1);
-			if (side == Side.LEFT)
-			{
-				jumpDirection.x = -1;
-			}
-			else // if (gameHero.getForwardSide() == Side.RIGHT)
-			{
-				jumpDirection.x = 1;
-			}
-
-			//Aponta para o local correto
+			Vec2 jumpDirection = new Vec2(side.getHorizontalValue(), -1);
 			jumpDirection.normalize();
+			// Aponta para o local correto
 			jumpDirection.mulLocal(heroStatesProperties.jumpImpulse);
 
 			gameHero.applyImpulse(jumpDirection);

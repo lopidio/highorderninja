@@ -21,23 +21,31 @@ public class Projectile extends GameObject
 {
 
 	protected final ProjectileIndex index;
-	protected final ProjectileDirection direction;
 	protected final ProjectileProperties properties;
 	private final Animation animation;
 	private Body body;
 	private int collisionCounter;
+	protected Vec2 direction;
+	private final float sightDistance;
+	private boolean activate;
 
-	public Projectile(ProjectileIndex index, ProjectileDirection direction, Vec2 position)
+	public Projectile(ProjectileIndex index, Vec2 direction, Vec2 position)
 	{
-		super(position);
 
+		super(position.add(direction));
+
+		this.sightDistance = 200;
 		this.index = index;
-		this.direction = direction;
-		this.properties = ProjectilesPropertiesRepository.getProjectileProperties(index);
+
 		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getProjectileAnimationRepository().getAnimationsProperties(index));
 		animation.getSprite().setColor(Color.mul(Color.BLACK, Color.BLUE));
+
+		this.properties = ProjectilesPropertiesRepository.getProjectileProperties(index);
+		this.direction = direction.clone();
 		this.body = null;
 		collisionCounter = 0;
+		activate = false;
+		
 	}
 
 	@Override
@@ -76,12 +84,26 @@ public class Projectile extends GameObject
 	}
 
 	@Override
+	public void endContact(Collidable collidable)
+	{
+//		if (!activate)
+		{
+
+			
+		}
+	}
+
+	@Override
 	public void beginContact(Collidable collidable)
 	{
-		++collisionCounter;
-		if (collisionCounter >= properties.numBounces)
+		// Works when owner hero is far enough
+		if (activate)
 		{
-			markToDestroy();
+			++collisionCounter;
+			if (collisionCounter >= properties.numBounces)
+			{
+				markToDestroy();
+			}
 		}
 	}
 
@@ -90,10 +112,13 @@ public class Projectile extends GameObject
 	{
 		body.createFixture(createFixture());
 
-		Vec2 directionVec = new Vec2(direction.getX(), direction.getY());
-		directionVec.normalize();
-		directionVec.mul(properties.initialSpeed);
-		body.applyLinearImpulse(directionVec, body.getWorldCenter());
+		activate = true;
+		ProjectileAimer pa = new ProjectileAimer(sightDistance, 12, direction, (float) (Math.PI/8), body);
+		direction = pa.getFinalDirection();
+
+		direction.normalize();
+		direction.mulLocal(properties.initialSpeed*3);
+		body.applyLinearImpulse(direction, body.getWorldCenter());		
 	}
 
 	@Override
@@ -101,4 +126,5 @@ public class Projectile extends GameObject
 	{
 		this.body = body;
 	}
+
 }

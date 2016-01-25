@@ -2,14 +2,31 @@ package br.com.guigasgame.side;
 
 public enum Side
 {
-	LEFT,
-	RIGHT;
+	LEFT(-1) {
 
-	public Side opposite()
-	{
-		if (this == LEFT)
+		@Override
+		public Side opposite()
+		{
 			return RIGHT;
-		else // if (this == RIGHT)
+		}
+	},
+	RIGHT(1) {
+		@Override
+		public Side opposite()
+		{
 			return LEFT;
+		}
+	};
+	
+	private int horizontalValue;
+	Side(int horizontalValue)
+	{
+		this.horizontalValue = horizontalValue;
 	}
+
+	public int getHorizontalValue()
+	{
+		return horizontalValue;
+	}
+	public abstract Side opposite();
 }

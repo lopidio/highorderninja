@@ -8,7 +8,6 @@
                 <initialSpeed>1.0</initialSpeed>
                 <mass>1.0</mass>
                 <radius>0.1</radius>
-                <curling>1.0</curling>
                 <restitution>0.8</restitution>
             </value>
         </entry>

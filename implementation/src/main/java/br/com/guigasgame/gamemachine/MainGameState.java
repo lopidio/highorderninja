@@ -14,6 +14,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.Filter;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.DistanceJoint;
@@ -49,17 +50,17 @@ public class MainGameState implements GameState
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
-		createGround(new Vec2(15, 38), new Vec2(52, 1));
-		createGround(new Vec2(1, 15), new Vec2(1, 22));
-		createGround(new Vec2(9, 15), new Vec2(1, 16));
-		createGround(new Vec2(67, 15), new Vec2(1, 22));
-		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1));
+		createGround(new Vec2(15, 38), new Vec2(52, 1), false);
+		createGround(new Vec2(1, 15), new Vec2(1, 22), false);
+		createGround(new Vec2(9, 15), new Vec2(1, 16), false);
+		createGround(new Vec2(67, 15), new Vec2(1, 22), false);
+		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1), true);
 
 		gameHero = new GameHero(1, new Vec2(10, 5));
 		initializeGameObject(Arrays.asList(gameHero));
 	}
 
-	private Body createGround(Vec2 position, Vec2 size)
+	private Body createGround(Vec2 position, Vec2 size, boolean mask)
 	{
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position = position;
@@ -70,7 +71,14 @@ public class MainGameState implements GameState
 		shape.setAsBox(size.x, size.y);
 		FixtureDef fixtureDef = new FixtureDef();
 
-		fixtureDef.filter.categoryBits = CollidersFilters.CATEGORY_SCENERY;
+		if (!mask)
+		{
+			fixtureDef.filter.categoryBits = CollidersFilters.CATEGORY_SCENERY;
+		}
+		else
+		{
+			fixtureDef.filter.categoryBits = CollidersFilters.CATEGORY_SINGLE_BLOCK;
+		}
 		fixtureDef.filter.maskBits = CollidersFilters.MASK_SCENERY;
 
 		fixtureDef.density = 0;
@@ -135,15 +143,6 @@ public class MainGameState implements GameState
 					joint = (DistanceJoint) world.createJoint(distDef);
 				}
 			}
-			// if (event.asKeyEvent().key == Key.Q)
-			// {
-			// Projectile projectile = new Projectile(ProjectileIndex.SHURIKEN,
-			// ProjectileDirection.DOWN_LEFT,
-			// gameHero.getBody().getPosition().add(new Vec2(1, 0)));
-			// projectile.attachBody(world);
-			// projectile.onEnter();
-			// gameObjectsList.add(projectile);
-			// }
 		}
 		if (event.type == Type.KEY_RELEASED)
 			if (event.asKeyEvent().key == Key.LSHIFT)

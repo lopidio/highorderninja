@@ -19,8 +19,8 @@ import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class HeroState
-		implements InputListener<HeroInputKey>, UpdatableFromTime
+public abstract class HeroState implements InputListener<HeroInputKey>,
+		UpdatableFromTime
 {
 
 	protected final GameHero gameHero;
@@ -43,10 +43,9 @@ public abstract class HeroState
 		{
 			inputMap.put(key, false);
 		}
-		jumper = heroStatesProperties.canJump
-				? new HeroJumperExecutor(heroStatesProperties, gameHero) : null;
-		shooter = heroStatesProperties.canShoot
-				? new HeroShooterExecutor(heroStatesProperties, gameHero)
+		jumper = heroStatesProperties.canJump ? new HeroJumperExecutor(heroStatesProperties, gameHero)
+				: null;
+		shooter = heroStatesProperties.canShoot ? new HeroShooterExecutor(heroStatesProperties, gameHero)
 				: null;
 	}
 
@@ -115,62 +114,38 @@ public abstract class HeroState
 
 	protected void shoot()
 	{
-		shooter.shoot(gameHero.getBody().getPosition(), ProjectileIndex.SHURIKEN, HeroShooterExecutor.createDirection(
-						inputMap.get(HeroInputKey.UP), inputMap.get(HeroInputKey.RIGHT), 
-						inputMap.get(HeroInputKey.DOWN), inputMap.get(HeroInputKey.LEFT)));
+		shooter.shoot(gameHero.getBody().getPosition(), ProjectileIndex.SHURIKEN, pointingDirection());
 	}
 
-	// protected boolean jump()
-	// {
-	// return jumper.jump(heroStatesProperties, gameHero);
-	// // if (heroStatesProperties.canJump)
-	// // {
-	// // gameHero.applyImpulse(new Vec2(0,
-	// // -heroStatesProperties.jumpImpulse));
-	// // return true;
-	// // }
-	// // return false;
-	// }
-	//
-	// protected boolean doubleJump()
-	// {
-	// HeroJumper jumper = new HeroJumper();
-	// return jumper.doubleJump(heroStatesProperties, gameHero);
-	// if (heroStatesProperties.canJump)
-	// {
-	// gameHero.applyImpulse(new Vec2(0,
-	// -heroStatesProperties.jumpImpulse/2));
-	// return true;
-	// }
-	// return false;
-	// }
-	//
-	// protected boolean diagonalJump(Side side)
-	// {
-	// HeroJumper jumper = new HeroJumper();
-	// return jumper.diagonalJump(heroStatesProperties, gameHero, side);
-	// if (heroStatesProperties.canJump)
-	// {
-	// Vec2 jumpDirection = new Vec2(0, -1);
-	// if (side == Side.LEFT)
-	// {
-	// jumpDirection.x = -1;
-	// }
-	// else // if (gameHero.getForwardSide() == Side.RIGHT)
-	// {
-	// jumpDirection.x = 1;
-	// }
-	//
-	// jumpDirection.normalize();
-	// jumpDirection.mulLocal(heroStatesProperties.jumpImpulse);
-	//
-	// System.out.println(jumpDirection);
-	// System.out.println(jumpDirection.length());
-	// gameHero.applyImpulse(jumpDirection);
-	// return true;
-	// }
-	// return false;
-	// }
+	protected final Vec2 pointingDirection()
+	{
+		Vec2 retorno = new Vec2();
+
+		if (inputMap.get(HeroInputKey.UP))
+		{
+			retorno.y = -1;
+		}
+		else if (inputMap.get(HeroInputKey.DOWN))
+		{
+			retorno.y = 1;
+		}
+
+		if (inputMap.get(HeroInputKey.RIGHT))
+		{
+			retorno.x = 1;
+		}
+		else if (inputMap.get(HeroInputKey.LEFT))
+		{
+			retorno.x = -1;
+		}
+
+		if (retorno.length() == 0) //Default
+		{
+			retorno.x = gameHero.getForwardSide().getHorizontalValue();
+		}
+
+		return retorno;
+	}
 
 	protected void moveForward()
 	{
@@ -178,7 +153,8 @@ public abstract class HeroState
 		{
 			moveLeft();
 		}
-		else // if (gameHero.getForwardSide() == Side.RIGHT)
+		else
+		// if (gameHero.getForwardSide() == Side.RIGHT)
 		{
 			moveRight();
 		}
@@ -190,7 +166,8 @@ public abstract class HeroState
 		{
 			moveRight();
 		}
-		else // if (gameHero.getForwardSide() == Side.RIGHT)
+		else
+		// if (gameHero.getForwardSide() == Side.RIGHT)
 		{
 			moveLeft();
 		}

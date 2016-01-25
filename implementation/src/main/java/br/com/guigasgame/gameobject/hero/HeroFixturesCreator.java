@@ -92,10 +92,10 @@ class HeroFixturesCreator {
 
 		FixtureDef def = new FixtureDef();
 		def.restitution = 0.0f;
-		def.friction = 0.7f;
+		def.friction = 0.8f;
 
 		def.shape = feetShape;
-		def.density = 10;
+		def.density = 6;
 		fixtures.put(FixtureSensorID.FEET, def);
 	}
 

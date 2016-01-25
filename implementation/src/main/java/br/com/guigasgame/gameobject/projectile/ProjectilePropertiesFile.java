@@ -44,7 +44,7 @@ public class ProjectilePropertiesFile
 		try
 		{
 			ProjectilePropertiesFile states = new ProjectilePropertiesFile();
-			ProjectileProperties properties = new ProjectileProperties((short)0, 1.f, 1f, 0.1f, 1.f, 0.2f);
+			ProjectileProperties properties = new ProjectileProperties((short)0, 1.f, 1f, 0.1f, 1.f);
 
 			states.projectilesPropertiesMap.put(ProjectileIndex.SHURIKEN, properties);
 

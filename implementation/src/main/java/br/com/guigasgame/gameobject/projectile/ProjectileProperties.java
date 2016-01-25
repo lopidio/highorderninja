@@ -15,8 +15,6 @@ class ProjectileProperties
 	@XmlElement
 	public final float radius;
 	@XmlElement
-	public final float curling;
-	@XmlElement
 	public final float restitution;
 
 	public ProjectileProperties()
@@ -25,18 +23,16 @@ class ProjectileProperties
 		initialSpeed = 0;
 		mass = 0;
 		radius = 0;
-		curling = 0;
 		restitution = 0;
 	}
 
 	public ProjectileProperties(short numBounces, float initialSpeed,
-			float mass, float radius, float curling, float restitution)
+			float mass, float radius, float restitution)
 	{
 		this.numBounces = numBounces;
 		this.initialSpeed = initialSpeed;
 		this.mass = mass;
 		this.radius = radius;
-		this.curling = curling;
 		this.restitution = restitution;
 	}
 	
