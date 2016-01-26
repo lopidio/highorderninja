@@ -3,7 +3,8 @@ package br.com.guigasgame.file;
 public class FilenameConstants
 {
 
-	private static String inputPlayerConfigFile = "InputConfigFile.xml";
+	private static String inputPlayerConfigFile0 = "InputConfigFile0.xml";
+	private static String inputPlayerConfigFile1 = "InputConfigFile1.xml";
 	private static String heroAnimationFilename = "ninjaAnimationProperties.xml";
 	private static String heroFixturesFilename = "HeroFixtures.xml";
 	private static String heroStatesFilename = "heroStates.xml";
@@ -19,7 +20,10 @@ public class FilenameConstants
 
 	public static String getInputPlayerConfigFilename(int playerID)
 	{
-		return inputPlayerConfigFile;
+		if (playerID == 0)
+			return inputPlayerConfigFile0;
+		else //if (playerID == 0)
+			return inputPlayerConfigFile1;
 	}
 
 	public static String getHeroAnimationFilename()

@@ -5,7 +5,7 @@
             <key>SHURIKEN</key>
             <value>
                 <numBounces>3</numBounces>
-                <initialSpeed>1.0</initialSpeed>
+                <initialSpeed>3.0</initialSpeed>
                 <mass>1.0</mass>
                 <radius>0.1</radius>
                 <restitution>0.8</restitution>

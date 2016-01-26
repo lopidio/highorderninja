@@ -14,7 +14,6 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.Filter;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.DistanceJoint;
@@ -51,13 +50,16 @@ public class MainGameState implements GameState
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
 		createGround(new Vec2(15, 38), new Vec2(52, 1), false);
+		createGround(new Vec2(15, 0), new Vec2(52, 1), false);
 		createGround(new Vec2(1, 15), new Vec2(1, 22), false);
-		createGround(new Vec2(9, 15), new Vec2(1, 16), false);
+		createGround(new Vec2(9, 22), new Vec2(1, 10), false);
 		createGround(new Vec2(67, 15), new Vec2(1, 22), false);
+		createGround(new Vec2(50, 8), new Vec2(1, 1), true);
 		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1), true);
 
-		gameHero = new GameHero(1, new Vec2(10, 5));
+		gameHero = new GameHero(0, new Vec2(10, 5));
 		initializeGameObject(Arrays.asList(gameHero));
+		initializeGameObject(Arrays.asList(new GameHero(1, new Vec2(40, 5))));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size, boolean mask)

@@ -34,7 +34,7 @@ public class Projectile extends GameObject
 
 		super(position.add(direction));
 
-		this.sightDistance = 200;
+		this.sightDistance = 100;
 		this.index = index;
 
 		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getProjectileAnimationRepository().getAnimationsProperties(index));
@@ -113,11 +113,11 @@ public class Projectile extends GameObject
 		body.createFixture(createFixture());
 
 		activate = true;
-		ProjectileAimer pa = new ProjectileAimer(sightDistance, 12, direction, (float) (Math.PI/8), body);
+		ProjectileAimer pa = new ProjectileAimer(sightDistance, direction, body);
 		direction = pa.getFinalDirection();
 
 		direction.normalize();
-		direction.mulLocal(properties.initialSpeed*3);
+		direction.mulLocal(properties.initialSpeed);
 		body.applyLinearImpulse(direction, body.getWorldCenter());		
 	}
 
