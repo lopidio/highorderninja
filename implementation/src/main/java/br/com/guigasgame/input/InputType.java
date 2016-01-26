@@ -6,5 +6,8 @@ import javax.xml.bind.annotation.XmlEnum;
 @XmlEnum
 public enum InputType
 {
-	KeyboardInput, MouseInput, JoystickInput
+	KeyboardInput,
+	MouseInput,
+	JoystickButtonInput,
+	JoystickAxisInput
 }

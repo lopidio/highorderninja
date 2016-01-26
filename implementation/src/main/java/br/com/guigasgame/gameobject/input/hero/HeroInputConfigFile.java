@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jsfml.window.Joystick;
 import org.jsfml.window.Keyboard.Key;
 
 import br.com.guigasgame.file.FilenameConstants;
@@ -76,6 +77,8 @@ public class HeroInputConfigFile
 
 		heroInputConfigFile.map.put(HeroInputKey.LEFT, InputMapController
 				.createKeyboardEvent(Arrays.asList(Key.LEFT, Key.A)));
+		 heroInputConfigFile.map.put(HeroInputKey.ROPE, InputMapController
+				.createJoystickAxisEvent(Arrays.asList(new InputMapController.JoystickAxisStruct(Joystick.Axis.POV_Y, true))));
 		heroInputConfigFile.map.put(HeroInputKey.RIGHT, InputMapController
 				.createKeyboardEvent(Arrays.asList(Key.RIGHT, Key.D)));
 		heroInputConfigFile.map.put(HeroInputKey.UP, InputMapController
@@ -83,7 +86,7 @@ public class HeroInputConfigFile
 		heroInputConfigFile.map.put(HeroInputKey.JUMP, InputMapController
 				.createKeyboardEvent(Arrays.asList(Key.SPACE)));
 		heroInputConfigFile.map.put(HeroInputKey.ACTION, InputMapController
-				.createJoystickButtonEvent(Arrays.asList(0), 2));
+				.createJoystickButtonEvent(Arrays.asList(0)));
 
 		try
 		{
@@ -99,8 +102,7 @@ public class HeroInputConfigFile
 			// Write to File
 			m.marshal(
 					heroInputConfigFile,
-					new File(FilenameConstants
-							.getInputPlayerConfigFilename(playerID)));
+					new File("joystickInput.xml"));
 		}
 		catch (JAXBException e)
 		{
