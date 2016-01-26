@@ -42,7 +42,7 @@ class HeroPhysics
 		{
 			FixtureDef def = entry.getValue();
 			
-			def.filter.categoryBits = CollidersFilters.CATEGORY_PLAYER;
+			def.filter.categoryBits = gameHero.getPlayerID();
 			def.filter.maskBits = CollidersFilters.MASK_PLAYER;
 			
 			Fixture fixture = body.createFixture(def);

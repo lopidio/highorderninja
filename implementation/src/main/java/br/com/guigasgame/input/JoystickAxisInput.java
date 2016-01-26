@@ -51,7 +51,7 @@ public class JoystickAxisInput extends InputHandler
 		{
 			return axisSignal == AxisSignal.POSITIVE;
 		}
-		else if (axisValue < TOLLERANCE)
+		else if (axisValue < -TOLLERANCE)
 		{
 			return axisSignal == AxisSignal.NEGATIVE;
 		}

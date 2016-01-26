@@ -125,7 +125,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 
 	protected void shoot()
 	{
-		shooter.shoot(gameHero.getBody().getPosition(), ProjectileIndex.SHURIKEN, pointingDirection());
+		shooter.shoot(gameHero.getBody().getWorldCenter(), ProjectileIndex.SHURIKEN, pointingDirection());
 	}
 
 	protected final Vec2 pointingDirection()
@@ -154,7 +154,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		{
 			retorno.x = gameHero.getForwardSide().getHorizontalValue();
 		}
-
+		System.out.println(retorno);
 		return retorno;
 	}
 

@@ -87,8 +87,7 @@ class GameHeroLogic implements UpdatableFromTime
 
 	public void load()
 	{
-		gameHeroInput = GameHeroInputMap
-				.loadFromConfigFile(gameHero.getPlayerID());
+		gameHeroInput = GameHeroInputMap.loadFromConfigFile(gameHero.getPlayerID());
 
 		setState(new FallingHeroState(gameHero));
 	}

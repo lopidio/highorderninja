@@ -19,7 +19,6 @@ import br.com.guigasgame.gameobject.GameObject;
 
 public class Projectile extends GameObject
 {
-
 	protected final ProjectileIndex index;
 	protected final ProjectileProperties properties;
 	private final Animation animation;
@@ -27,13 +26,13 @@ public class Projectile extends GameObject
 	private int collisionCounter;
 	protected Vec2 direction;
 	private final float sightDistance;
-	private boolean activate;
+	private int playerID;
 
-	public Projectile(ProjectileIndex index, Vec2 direction, Vec2 position)
+	public Projectile(ProjectileIndex index, Vec2 direction, Vec2 position, int playerID)
 	{
-
 		super(position.add(direction));
 
+		this.playerID = playerID;
 		this.sightDistance = 100;
 		this.index = index;
 
@@ -44,8 +43,6 @@ public class Projectile extends GameObject
 		this.direction = direction.clone();
 		this.body = null;
 		collisionCounter = 0;
-		activate = false;
-		
 	}
 
 	@Override
@@ -79,46 +76,35 @@ public class Projectile extends GameObject
 		def.shape = projectileShape;
 		def.density = properties.mass;
 		def.filter.categoryBits = CollidersFilters.CATEGORY_BULLET;
+
 		def.filter.maskBits = CollidersFilters.MASK_BULLET;
+		def.filter.maskBits &= ~playerID; //Disable hero owner collision
+
 		return def;
-	}
-
-	@Override
-	public void endContact(Collidable collidable)
-	{
-//		if (!activate)
-		{
-
-			
-		}
 	}
 
 	@Override
 	public void beginContact(Collidable collidable)
 	{
-		// Works when owner hero is far enough
-		if (activate)
+		++collisionCounter;
+		if (collisionCounter >= properties.numBounces)
 		{
-			++collisionCounter;
-			if (collisionCounter >= properties.numBounces)
-			{
-				markToDestroy();
-			}
+			markToDestroy();
 		}
 	}
 
 	@Override
 	public void onEnter()
 	{
-		body.createFixture(createFixture());
+		FixtureDef def = createFixture();
+		body.createFixture(def);
 
-		activate = true;
-		ProjectileAimer pa = new ProjectileAimer(sightDistance, direction, body);
-		direction = pa.getFinalDirection();
+		ProjectileAimer aimer = new ProjectileAimer(sightDistance, direction, body, CollidersFilters.CATEGORY_PLAYER_MASK & ~playerID);
+		direction = aimer.getFinalDirection();
 
 		direction.normalize();
 		direction.mulLocal(properties.initialSpeed);
-		body.applyLinearImpulse(direction, body.getWorldCenter());		
+		body.applyLinearImpulse(direction, body.getWorldCenter());
 	}
 
 	@Override

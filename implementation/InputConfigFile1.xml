@@ -5,14 +5,14 @@
 			<key>JUMP</key>
 			<value>
 				<inputType>KeyboardInput</inputType>
-				<keysCodeList>B</keysCodeList>
+				<keysCodeList>A</keysCodeList>
 			</value>
 		</entry>
 		<entry>
 			<key>DOWN</key>
 			<value>
 				<inputType>KeyboardInput</inputType>
-				<keysCodeList>DOWN</keysCodeList>
+				<keysCodeList>J</keysCodeList>
 			</value>
 		</entry>
 		<entry>
@@ -27,35 +27,36 @@
 			<key>RIGHT</key>
 			<value>
 				<inputType>KeyboardInput</inputType>
-				<keysCodeList>RIGHT</keysCodeList>
+				<keysCodeList>K</keysCodeList>
 			</value>
 		</entry>
 		<entry>
 			<key>LEFT</key>
 			<value>
 				<inputType>KeyboardInput</inputType>
-				<keysCodeList>LEFT</keysCodeList>
+				<keysCodeList>H</keysCodeList>
 			</value>
 		</entry>
 		<entry>
 			<key>UP</key>
 			<value>
 				<inputType>KeyboardInput</inputType>
-				<keysCodeList>UP</keysCodeList>
+				<keysCodeList>U</keysCodeList>
 			</value>
 		</entry>
 		<entry>
 			<key>SLIDE</key>
 			<value>
 				<inputType>KeyboardInput</inputType>
-				<keysCodeList>N</keysCodeList>
+				<keysCodeList>S</keysCodeList>
 			</value>
 		</entry>
 		<entry>
 			<key>SHOOT</key>
 			<value>
 				<inputType>KeyboardInput</inputType>
-				<keysCodeList>M</keysCodeList>
+				<keysCodeList>Q</keysCodeList>
+				<keysCodeList>D</keysCodeList>
 			</value>
 		</entry>
 	</map>

@@ -60,9 +60,9 @@ public class MainGameState implements GameState
 		createGround(new Vec2(50, 8), new Vec2(1, 1), true);
 		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1), true);
 
-		gameHero = new GameHero(0, new Vec2(10, 5));
+		gameHero = new GameHero(1, new Vec2(10, 5));
 		initializeGameObject(Arrays.asList(gameHero));
-		initializeGameObject(Arrays.asList(new GameHero(1, new Vec2(40, 5))));
+		initializeGameObject(Arrays.asList(new GameHero(2, new Vec2(40, 5))));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size, boolean mask)

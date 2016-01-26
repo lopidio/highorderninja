@@ -3,27 +3,26 @@ package br.com.guigasgame.file;
 public class FilenameConstants
 {
 
-	private static String inputPlayerConfigFile0 = "newInputHandlers.xml";
-	private static String inputPlayerConfigFile1 = "InputConfigFile1.xml";
+	private static String inputPlayerConfigFile1 = "newInputHandlers.xml";
+	private static String inputPlayerConfigFile2 = "InputConfigFile1.xml";
 	private static String heroAnimationFilename = "ninjaAnimationProperties.xml";
 	private static String heroFixturesFilename = "HeroFixtures.xml";
 	private static String heroStatesFilename = "heroStates.xml";
 	private static String projectilePropertiesFilename = "projectiles.xml";
 	private static String projectileAnimationFilename = "shurikenAnimation.xml";
+	private static String projectileTextureFilename = "shuriken.png";
 	
 	public static String getProjectileAnimationFilename()
 	{
 		return projectileAnimationFilename;
 	}
 
-	private static String projectileTextureFilename = "shuriken.png";
-
 	public static String getInputPlayerConfigFilename(int playerID)
 	{
-		if (playerID == 0)
-			return inputPlayerConfigFile0;
-		else //if (playerID == 0)
+		if (playerID == 1)
 			return inputPlayerConfigFile1;
+		else //if (playerID == 0)
+			return inputPlayerConfigFile2;
 	}
 
 	public static String getHeroAnimationFilename()
