@@ -13,7 +13,7 @@ class SlidingHeroState extends HeroState
 	protected SlidingHeroState(GameHero gameHero)
 	{
 		super(gameHero, HeroAnimationsIndex.HERO_SLIDING);
-		secondsRemaining = 1f;
+		secondsRemaining = 0.5f;
 	}
 
 	@Override

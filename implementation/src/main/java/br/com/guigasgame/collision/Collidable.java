@@ -8,6 +8,7 @@ import org.jbox2d.dynamics.World;
 
 public abstract class Collidable
 {
+	
 	private Body body;
 	private BodyDef bodyDef;
 	

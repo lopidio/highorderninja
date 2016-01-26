@@ -61,8 +61,7 @@ public class MainGameState implements GameState
 		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1), true);
 
 		gameHero = new GameHero(1, new Vec2(10, 5));
-		initializeGameObject(Arrays.asList(gameHero));
-		initializeGameObject(Arrays.asList(new GameHero(2, new Vec2(40, 5))));
+		initializeGameObject(Arrays.asList(gameHero, new GameHero(2, new Vec2(40, 5))));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size, boolean mask)
@@ -103,11 +102,11 @@ public class MainGameState implements GameState
 	{
 		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(new OBBViewportTransform(), renderWindow);
 		world.setDebugDraw(sfmlDebugDraw);
-		sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
-		sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
-		sfmlDebugDraw.appendFlags(DebugDraw.e_dynamicTreeBit);
+//		sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
+//		sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
+//		sfmlDebugDraw.appendFlags(DebugDraw.e_dynamicTreeBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
-		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
+//		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
 	}
 

@@ -86,6 +86,11 @@ public class Projectile extends GameObject
 	@Override
 	public void beginContact(Collidable collidable)
 	{
+		System.out.println(collidable);
+		if (collidable != null)
+		{
+			System.out.println("Hit player!");
+		}
 		++collisionCounter;
 		if (collisionCounter >= properties.numBounces)
 		{

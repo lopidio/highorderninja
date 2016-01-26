@@ -65,6 +65,7 @@ class HeroFixturesCreator {
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
+		def.density = 0.2f;
 		fixtures.put(FixtureSensorID.HEAD, def);
 	}
 
@@ -74,6 +75,7 @@ class HeroFixturesCreator {
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
+		def.density = 0.2f;		
 		fixtures.put(FixtureSensorID.UPPER, def);
 	}
 
@@ -83,6 +85,7 @@ class HeroFixturesCreator {
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
+		def.density = 0.2f;		
 		fixtures.put(FixtureSensorID.LEGS, def);
 	}
 
@@ -95,7 +98,7 @@ class HeroFixturesCreator {
 		def.friction = 0.8f;
 
 		def.shape = feetShape;
-		def.density = 6;
+		def.density = 0.2f;
 		fixtures.put(FixtureSensorID.FEET, def);
 	}
 
@@ -106,6 +109,7 @@ class HeroFixturesCreator {
 		FixtureDef def = new FixtureDef();
 		def.isSensor = true;
 		def.shape = bottomShape;
+		def.density = 0;		
 		fixtures.put(FixtureSensorID.BOTTOM_SENSOR, def);
 	}
 
@@ -116,6 +120,7 @@ class HeroFixturesCreator {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
 		fixtureDef.shape = bottomLeftShape;
+		fixtureDef.density = 0;		
 		fixtures.put(FixtureSensorID.LEFT_BOTTOM_SENSOR, fixtureDef);
 	}
 
@@ -126,6 +131,7 @@ class HeroFixturesCreator {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
 		fixtureDef.shape = rightLeftShape;
+		fixtureDef.density = 0;		
 		fixtures.put(FixtureSensorID.RIGHT_BOTTOM_SENSOR, fixtureDef);
 	}
 	
@@ -136,6 +142,7 @@ class HeroFixturesCreator {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
 		fixtureDef.shape = topLeftShape;
+		fixtureDef.density = 0;		
 		fixtures.put(FixtureSensorID.LEFT_TOP_SENSOR, fixtureDef);
 	}
 
@@ -146,6 +153,7 @@ class HeroFixturesCreator {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
 		fixtureDef.shape = topRightShape;
+		fixtureDef.density = 0;		
 		fixtures.put(FixtureSensorID.RIGHT_TOP_SENSOR, fixtureDef);
 	}
 

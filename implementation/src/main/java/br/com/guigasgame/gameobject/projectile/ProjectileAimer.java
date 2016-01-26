@@ -13,7 +13,7 @@ public class ProjectileAimer implements RayCastCallback
 	private final float sightDistance;
 	private final Vec2 initialDirection;
 	private static final int rayCastNumber = 16;
-	private static final float angleRangeInRadians = (float) (Math.PI / (8 * rayCastNumber));
+	private static final float angleRangeInRadians = (float) (Math.PI / (10 * rayCastNumber));
 	private static final float sinAngle = (float) Math.sin(angleRangeInRadians);
 	private static final float cosAngle = (float) Math.cos(angleRangeInRadians);
 	private final Body body;

@@ -83,7 +83,7 @@
                     <keysCode>Z</keysCode>
                 </handlers>
                 <handlers xsi:type="mouseInput">
-                    <mouseButton>LEFT</mouseButton>
+                    <mouseButton>RIGHT</mouseButton>
                 </handlers>
                 <handlers xsi:type="joystickButtonInput">
                     <joystickButtonCode>1</joystickButtonCode>
