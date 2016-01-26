@@ -22,15 +22,12 @@ public class InputController<T>
 	@XmlElement		
 	private List<InputHandler> handlers;
 
-	private List<JoystickInputHandler> joystickHandlers;
-
 	private boolean state;
 	private boolean prevState;
 
 	public InputController()
 	{
 		handlers = new ArrayList<InputHandler>();
-		joystickHandlers = new ArrayList<JoystickInputHandler>();
 		state = false;
 		prevState = false;
 	}
@@ -77,11 +74,11 @@ public class InputController<T>
 		this.userData = userData;
 	}
 
-	public void setJoystickId(Integer joystickId)
+	public void setDeviceId(Integer deviceId)
 	{
-		for( JoystickInputHandler joystick : joystickHandlers )
+		for( InputHandler inputHandler : handlers )
 		{
-			joystick.setJoystickId(joystickId);
+			inputHandler.setDeviceId(deviceId);
 		}
 	}
 
@@ -90,22 +87,9 @@ public class InputController<T>
 		this.inputListener = inputListener;
 	}
 
-	public InputController<T> addKeyboardHandler(KeyboardInput keyboardInput)
+	public InputController<T> addInputHandler(InputHandler inputHandler)
 	{
-		handlers.add(keyboardInput);
+		handlers.add(inputHandler);
 		return this;
 	}
-	public InputController<T> addMouseHandler(MouseInput mouseInput)
-	{
-		handlers.add(mouseInput);
-		return this;
-	}
-
-	public InputController<T> addJoystickHandler(JoystickInputHandler joystickInputHandler)
-	{
-		joystickHandlers.add(joystickInputHandler);
-		handlers.add(joystickInputHandler);
-		return this;
-	}
-
 }

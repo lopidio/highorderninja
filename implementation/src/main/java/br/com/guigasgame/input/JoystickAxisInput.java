@@ -10,7 +10,7 @@ import org.jsfml.window.Joystick.Axis;
 
 
 @XmlAccessorType(XmlAccessType.NONE)
-public class JoystickAxisInput extends JoystickInputHandler
+public class JoystickAxisInput extends InputHandler
 {
 	private static final float TOLLERANCE = 60f;
 	@XmlElement
@@ -44,9 +44,9 @@ public class JoystickAxisInput extends JoystickInputHandler
 	@Override
 	public boolean handleInput()
 	{
-		if (getJoystickId() == -1)
+		if (getDeviceId() == null)
 			return false;
-		float axisValue = Joystick.getAxisPosition(getJoystickId(), axis);
+		float axisValue = Joystick.getAxisPosition(getDeviceId(), axis);
 		if (axisValue > TOLLERANCE)
 		{
 			return axisSignal == AxisSignal.POSITIVE;

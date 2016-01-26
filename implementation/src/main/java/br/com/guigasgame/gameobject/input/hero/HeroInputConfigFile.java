@@ -56,9 +56,9 @@ public class HeroInputConfigFile
 							.getInputPlayerConfigFilename(playerID)));
 
 			// Insere as chaves no controlador de input
-			for( Entry<HeroInputKey, InputController<HeroInputKey>> inputConfig : heroInputConfigFile.map
-					.entrySet() )
+			for( Entry<HeroInputKey, InputController<HeroInputKey>> inputConfig : heroInputConfigFile.map.entrySet() )
 			{
+				inputConfig.getValue().setDeviceId(playerID);
 				inputConfig.getValue().setUserData(inputConfig.getKey());
 			}
 
@@ -68,7 +68,6 @@ public class HeroInputConfigFile
 		}
 		catch (JAXBException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -84,41 +83,41 @@ public class HeroInputConfigFile
 		heroInputConfigFile.playerID = playerID;
 
 		heroInputConfigFile.map.put(HeroInputKey.LEFT, new InputController<HeroInputKey>().
-				addKeyboardHandler(new KeyboardInput(Key.LEFT)).
-				addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.NEGATIVE)).
-				addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.NEGATIVE)));
+				addInputHandler(new KeyboardInput(Key.LEFT)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.NEGATIVE)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.NEGATIVE)));
 				
 		heroInputConfigFile.map.put(HeroInputKey.RIGHT, new InputController<HeroInputKey>().
-				addKeyboardHandler(new KeyboardInput(Key.RIGHT)).
-				addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.POSITIVE)).
-				addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.POSITIVE)));
+				addInputHandler(new KeyboardInput(Key.RIGHT)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.POSITIVE)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.POSITIVE)));
 
 		heroInputConfigFile.map.put(HeroInputKey.UP, new InputController<HeroInputKey>().
-				addKeyboardHandler(new KeyboardInput(Key.UP)).
-				addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.NEGATIVE)).
-				addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.NEGATIVE)));
+				addInputHandler(new KeyboardInput(Key.UP)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.NEGATIVE)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.NEGATIVE)));
 				
 		heroInputConfigFile.map.put(HeroInputKey.DOWN, new InputController<HeroInputKey>().
-				addKeyboardHandler(new KeyboardInput(Key.DOWN)).
-				addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.POSITIVE)).
-				addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.POSITIVE)));
+				addInputHandler(new KeyboardInput(Key.DOWN)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.POSITIVE)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.POSITIVE)));
 
 		heroInputConfigFile.map.put(HeroInputKey.JUMP, new InputController<HeroInputKey>().
-				addKeyboardHandler(new KeyboardInput(Key.X)).
-				addJoystickHandler(new JoystickButtonInput(0)));
+				addInputHandler(new KeyboardInput(Key.X)).
+				addInputHandler(new JoystickButtonInput(0)));
 
 		heroInputConfigFile.map.put(HeroInputKey.SHOOT, new InputController<HeroInputKey>().
-				addKeyboardHandler(new KeyboardInput(Key.Z)).
-				addMouseHandler(new MouseInput(Button.LEFT)).
-				addJoystickHandler(new JoystickButtonInput(1)));
+				addInputHandler(new KeyboardInput(Key.Z)).
+				addInputHandler(new MouseInput(Button.LEFT)).
+				addInputHandler(new JoystickButtonInput(1)));
 
 		heroInputConfigFile.map.put(HeroInputKey.SLIDE, new InputController<HeroInputKey>().
-				addKeyboardHandler(new KeyboardInput(Key.C)).
-				addJoystickHandler(new JoystickButtonInput(2)));
+				addInputHandler(new KeyboardInput(Key.C)).
+				addInputHandler(new JoystickButtonInput(2)));
 
 		heroInputConfigFile.map.put(HeroInputKey.ACTION, new InputController<HeroInputKey>().
-				addKeyboardHandler(new KeyboardInput(Key.V)).
-				addJoystickHandler(new JoystickButtonInput(3)));
+				addInputHandler(new KeyboardInput(Key.V)).
+				addInputHandler(new JoystickButtonInput(3)));
 
 		try
 		{

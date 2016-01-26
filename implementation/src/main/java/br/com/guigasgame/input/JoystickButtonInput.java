@@ -8,11 +8,10 @@ import org.jsfml.window.Joystick;
 
 
 @XmlAccessorType(XmlAccessType.NONE)
-public class JoystickButtonInput extends JoystickInputHandler
+public class JoystickButtonInput extends InputHandler
 {
 	@XmlElement
 	private int joystickButtonCode;
-
 	
 	/**
 	 * DO NOT USE
@@ -31,10 +30,10 @@ public class JoystickButtonInput extends JoystickInputHandler
 	@Override
 	public boolean handleInput()
 	{
-		if (getJoystickId() == -1)
+		if (getDeviceId() == null)
 			return false;
 		
-		if (Joystick.isButtonPressed(getJoystickId(), joystickButtonCode))
+		if (Joystick.isButtonPressed(getDeviceId(), joystickButtonCode))
 			return true;
 		return false;
 	}
