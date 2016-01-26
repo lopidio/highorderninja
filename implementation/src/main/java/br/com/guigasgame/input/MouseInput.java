@@ -14,7 +14,14 @@ public class MouseInput extends InputHandler
 	@XmlElement
 	private Mouse.Button mouseButton;
 
-
+	/**
+	 * DO NOT USE
+	 */
+	public MouseInput()
+	{
+		this.mouseButton = null;
+	}	
+	
 	public MouseInput(Button mouseButton)
 	{
 		super();

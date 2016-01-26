@@ -3,6 +3,7 @@ package br.com.guigasgame.input;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
 
 import org.jsfml.window.Joystick;
 import org.jsfml.window.Joystick.Axis;
@@ -14,13 +15,30 @@ public class JoystickAxisInput extends JoystickInputHandler
 	private static final float TOLLERANCE = 60f;
 	@XmlElement
 	private Joystick.Axis axis;
-	@XmlElement
-	private boolean positive;
 	
-	public JoystickAxisInput(Axis axis, boolean positive)
+	@XmlEnum
+	public enum AxisSignal
+	{
+		POSITIVE,
+		NEGATIVE
+	}
+
+	@XmlElement
+	private AxisSignal axisSignal;
+
+	/**
+	 * DO NOT USE
+	 */
+	public JoystickAxisInput()
+	{
+		this.axis = null;
+		this.axisSignal = null;
+	}	
+	
+	public JoystickAxisInput(Axis axis, AxisSignal axisSignal)
 	{
 		this.axis = axis;
-		this.positive = positive;
+		this.axisSignal = axisSignal;
 	}
 
 	@Override
@@ -31,11 +49,11 @@ public class JoystickAxisInput extends JoystickInputHandler
 		float axisValue = Joystick.getAxisPosition(getJoystickId(), axis);
 		if (axisValue > TOLLERANCE)
 		{
-			return positive;
+			return axisSignal == AxisSignal.POSITIVE;
 		}
 		else if (axisValue < TOLLERANCE)
 		{
-			return !positive;
+			return axisSignal == AxisSignal.NEGATIVE;
 		}
 		return false;
 	}

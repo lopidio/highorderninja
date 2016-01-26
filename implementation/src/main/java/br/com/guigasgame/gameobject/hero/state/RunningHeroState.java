@@ -24,11 +24,6 @@ class RunningHeroState extends HeroState
 		{
 			setState(new SlidingHeroState(gameHero));
 		}
-		else if (key == HeroInputKey.SHOOT)
-		{
-			shoot();
-		}
-
 	}
 
 	@Override

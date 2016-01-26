@@ -45,6 +45,7 @@ public class MainGameState implements GameState
 
 	public MainGameState() throws JAXBException
 	{
+		Joystick.update();
 		gameObjectsList = new ArrayList<>();
 		timeFactor = 1;
 

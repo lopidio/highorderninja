@@ -72,8 +72,8 @@ public class GameMachine
 		final float updateDelta = (float)1/FRAME_RATE;
 		while (isRunning)
 		{
-			float iterationTime = clock.getElapsedTime().asSeconds();
-			clock.restart();
+			float iterationTime = clock.restart().asSeconds();
+			
 		   // max frame time to avoid spiral of death
 		    if ( iterationTime > 0.25f )
 		    	iterationTime = 0.25f;    

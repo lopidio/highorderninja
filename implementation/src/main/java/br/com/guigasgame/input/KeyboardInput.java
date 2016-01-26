@@ -14,6 +14,15 @@ public class KeyboardInput extends InputHandler
 	@XmlElement
 	private Keyboard.Key keysCode;
 
+	/**
+	 * DO NOT USE
+	 */
+	public KeyboardInput()
+	{
+		super();
+		this.keysCode = null;
+	}	
+	
 	public KeyboardInput(Key keysCode)
 	{
 		super();

@@ -3,7 +3,7 @@ package br.com.guigasgame.file;
 public class FilenameConstants
 {
 
-	private static String inputPlayerConfigFile0 = "InputConfigFile0.xml";
+	private static String inputPlayerConfigFile0 = "newInputHandlers.xml";
 	private static String inputPlayerConfigFile1 = "InputConfigFile1.xml";
 	private static String heroAnimationFilename = "ninjaAnimationProperties.xml";
 	private static String heroFixturesFilename = "HeroFixtures.xml";

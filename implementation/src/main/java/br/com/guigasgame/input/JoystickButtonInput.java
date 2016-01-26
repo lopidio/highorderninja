@@ -13,6 +13,15 @@ public class JoystickButtonInput extends JoystickInputHandler
 	@XmlElement
 	private int joystickButtonCode;
 
+	
+	/**
+	 * DO NOT USE
+	 */
+	public JoystickButtonInput()
+	{
+		this.joystickButtonCode = -1;
+	}	
+	
 	public JoystickButtonInput(int joystickButtonCode)
 	{
 		super();

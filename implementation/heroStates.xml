@@ -3,7 +3,7 @@
     <statesMap>
         <entry>
             <key>HERO_SLIDING</key>
-            <value canShoot="true" canJump="true" canUseRope="true">
+            <value canShoot="false" canJump="true" canUseRope="false">
                 <maxSpeed>
                     <x>50</x>
                     <y>20</y>
@@ -14,7 +14,7 @@
         </entry>
         <entry>
             <key>HERO_WALLGRABBING</key>
-            <value canShoot="true" canJump="true" canUseRope="true">
+            <value canShoot="false" canJump="true" canUseRope="false">
                 <maxSpeed>
                     <x>10</x>
                     <y>3</y>

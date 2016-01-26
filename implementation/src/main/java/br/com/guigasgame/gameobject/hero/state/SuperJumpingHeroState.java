@@ -35,11 +35,6 @@ class SuperJumpingHeroState extends HeroState
 				doubleJumpAllowed = false;
 			}
 		}
-		else if (key == HeroInputKey.SHOOT)
-		{
-			shoot();
-		}
-
 	}
 
 	@Override

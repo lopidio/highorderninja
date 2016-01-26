@@ -51,9 +51,5 @@ class DuckingState extends HeroState
 		{
 			setState(new SuperJumpingHeroState(gameHero));
 		}
-		else if (inputValue == HeroInputKey.SHOOT)
-		{
-			shoot();
-		}
 	}
 }

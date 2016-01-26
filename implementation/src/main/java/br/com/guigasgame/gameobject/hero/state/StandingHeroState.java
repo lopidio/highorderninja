@@ -20,10 +20,6 @@ class StandingHeroState extends HeroState
 		{
 			setState(new JumpingHeroState(gameHero));
 		}
-		else if (key == HeroInputKey.ACTION)
-		{
-			System.out.println("Action");
-		}
 		else if (key == HeroInputKey.DOWN)
 		{
 			setState(new DuckingState(gameHero));
@@ -31,10 +27,6 @@ class StandingHeroState extends HeroState
 		else if (key == HeroInputKey.SLIDE)
 		{
 			setState(new SlidingHeroState(gameHero));
-		}
-		else if (key == HeroInputKey.SHOOT)
-		{
-			shoot();
 		}
 	}
 

@@ -31,10 +31,6 @@ class JumpingHeroState extends HeroState
 			jumper.doubleJump();
 			doubleJumpAllowed = false;
 		}
-		else if (key == HeroInputKey.SHOOT)
-		{
-			shoot();
-		}
 	}
 
 	@Override

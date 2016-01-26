@@ -43,10 +43,8 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		{
 			inputMap.put(key, false);
 		}
-		jumper = heroStatesProperties.canJump ? new HeroJumperExecutor(heroStatesProperties, gameHero)
-				: null;
-		shooter = heroStatesProperties.canShoot ? new HeroShooterExecutor(heroStatesProperties, gameHero)
-				: null;
+		jumper = new HeroJumperExecutor(heroStatesProperties, gameHero);
+		shooter = new HeroShooterExecutor(heroStatesProperties, gameHero);
 	}
 
 	public void onEnter()
@@ -78,7 +76,20 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	public final void inputPressed(HeroInputKey inputValue)
 	{
 		inputMap.put(inputValue, true);
+		if (inputValue == HeroInputKey.SHOOT)
+		{
+			shoot();
+		}		
+		if (inputValue == HeroInputKey.STOP)
+		{
+			stopMovement();
+		}		
 		stateInputPressed(inputValue);
+	}
+
+	private void stopMovement()
+	{
+		System.out.println("STOP!");
 	}
 
 	@Override

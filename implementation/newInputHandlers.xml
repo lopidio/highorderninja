@@ -1,30 +1,114 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<heroInputConfigFile playerID="0">
+<heroInputConfigFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" playerID="0" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
     <map>
         <entry>
-            <key>RIGHT</key>
+            <key>LEFT</key>
             <value>
-                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="keyboardInput">
-                    <keysCode>RIGHT</keysCode>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>LEFT</keysCode>
                 </handlers>
-                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="joystickAxisInput">
+                <handlers xsi:type="joystickAxisInput">
                     <axis>POV_Y</axis>
-                    <positive>true</positive>
+                    <axisSignal>NEGATIVE</axisSignal>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_X</axis>
+                    <axisSignal>NEGATIVE</axisSignal>
                 </handlers>
             </value>
         </entry>
         <entry>
-            <key>LEFT</key>
+            <key>RIGHT</key>
             <value>
-                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="keyboardInput">
-                    <keysCode>LEFT</keysCode>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>RIGHT</keysCode>
                 </handlers>
-                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="keyboardInput">
-                    <keysCode>A</keysCode>
-                </handlers>
-                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="joystickAxisInput">
+                <handlers xsi:type="joystickAxisInput">
                     <axis>POV_Y</axis>
-                    <positive>false</positive>
+                    <axisSignal>POSITIVE</axisSignal>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_X</axis>
+                    <axisSignal>POSITIVE</axisSignal>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>UP</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>UP</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_X</axis>
+                    <axisSignal>NEGATIVE</axisSignal>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_Y</axis>
+                    <axisSignal>NEGATIVE</axisSignal>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>DOWN</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>DOWN</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_X</axis>
+                    <axisSignal>POSITIVE</axisSignal>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_Y</axis>
+                    <axisSignal>POSITIVE</axisSignal>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>JUMP</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>X</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>0</joystickButtonCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>SHOOT</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>Z</keysCode>
+                </handlers>
+                <handlers xsi:type="mouseInput">
+                    <mouseButton>LEFT</mouseButton>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>1</joystickButtonCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>SLIDE</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>C</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>2</joystickButtonCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>ACTION</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>V</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>3</joystickButtonCode>
                 </handlers>
             </value>
         </entry>
