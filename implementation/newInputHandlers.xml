@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<heroInputConfigFile playerID="0">
+    <map>
+        <entry>
+            <key>RIGHT</key>
+            <value>
+                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="keyboardInput">
+                    <keysCode>RIGHT</keysCode>
+                </handlers>
+                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="joystickAxisInput">
+                    <axis>POV_Y</axis>
+                    <positive>true</positive>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>LEFT</key>
+            <value>
+                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="keyboardInput">
+                    <keysCode>LEFT</keysCode>
+                </handlers>
+                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="keyboardInput">
+                    <keysCode>A</keysCode>
+                </handlers>
+                <handlers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="joystickAxisInput">
+                    <axis>POV_Y</axis>
+                    <positive>false</positive>
+                </handlers>
+            </value>
+        </entry>
+    </map>
+</heroInputConfigFile>

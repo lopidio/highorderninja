@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import javax.xml.bind.annotation.XmlEnum;
 
 import br.com.guigasgame.input.InputListener;
-import br.com.guigasgame.input.InputMapController;
+import br.com.guigasgame.input.InputController;
 
 
 public class GameHeroInputMap
@@ -24,10 +24,10 @@ public class GameHeroInputMap
 		SLIDE, // circle
 	}
 
-	private Map<HeroInputKey, InputMapController<HeroInputKey>> inputMap;
+	private Map<HeroInputKey, InputController<HeroInputKey>> inputMap;
 
 	public GameHeroInputMap(
-			Map<HeroInputKey, InputMapController<HeroInputKey>> inputMap)
+			Map<HeroInputKey, InputController<HeroInputKey>> inputMap)
 	{
 		this.inputMap = inputMap;
 
@@ -35,7 +35,7 @@ public class GameHeroInputMap
 
 	public void update()
 	{
-		for( Entry<GameHeroInputMap.HeroInputKey, InputMapController<HeroInputKey>> map : inputMap
+		for( Entry<GameHeroInputMap.HeroInputKey, InputController<HeroInputKey>> map : inputMap
 				.entrySet() )
 		{
 			map.getValue().handleEvent();
@@ -44,7 +44,7 @@ public class GameHeroInputMap
 
 	public void setInputListener(InputListener<HeroInputKey> listener)
 	{
-		for( Entry<GameHeroInputMap.HeroInputKey, InputMapController<HeroInputKey>> map : inputMap
+		for( Entry<GameHeroInputMap.HeroInputKey, InputController<HeroInputKey>> map : inputMap
 				.entrySet() )
 		{
 			map.getValue().setInputListener(listener);

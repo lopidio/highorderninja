@@ -1,7 +1,6 @@
 package br.com.guigasgame.gameobject.input.hero;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,6 +9,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,10 +20,14 @@ import org.jsfml.window.Keyboard.Key;
 
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
-import br.com.guigasgame.input.InputMapController;
-
+import br.com.guigasgame.input.InputController;
+import br.com.guigasgame.input.JoystickAxisInput;
+import br.com.guigasgame.input.JoystickButtonInput;
+import br.com.guigasgame.input.KeyboardInput;
+import br.com.guigasgame.input.MouseInput;
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class HeroInputConfigFile
 {
 
@@ -30,7 +35,7 @@ public class HeroInputConfigFile
 	public int playerID;
 
 	@XmlElement
-	public Map<HeroInputKey, InputMapController<HeroInputKey>> map;
+	public Map<HeroInputKey, InputController<HeroInputKey>> map;
 
 	public HeroInputConfigFile()
 	{
@@ -49,10 +54,10 @@ public class HeroInputConfigFile
 							.getInputPlayerConfigFilename(playerID)));
 
 			// Insere as chaves no controlador de input
-			for( Entry<HeroInputKey, InputMapController<HeroInputKey>> inputConfig : heroInputConfigFile.map
+			for( Entry<HeroInputKey, InputController<HeroInputKey>> inputConfig : heroInputConfigFile.map
 					.entrySet() )
 			{
-				inputConfig.getValue().setInputValue(inputConfig.getKey());
+				inputConfig.getValue().setKey(inputConfig.getKey());
 			}
 
 			GameHeroInputMap gameHeroInput = new GameHeroInputMap(
@@ -72,26 +77,31 @@ public class HeroInputConfigFile
 
 		HeroInputConfigFile heroInputConfigFile = new HeroInputConfigFile();
 
-		heroInputConfigFile.map = new HashMap<HeroInputKey, InputMapController<HeroInputKey>>();
+		heroInputConfigFile.map = new HashMap<HeroInputKey, InputController<HeroInputKey>>();
 		heroInputConfigFile.playerID = playerID;
 
-		heroInputConfigFile.map.put(HeroInputKey.LEFT, InputMapController
-				.createKeyboardEvent(Arrays.asList(Key.LEFT, Key.A)));
-		 heroInputConfigFile.map.put(HeroInputKey.ROPE, InputMapController
-				.createJoystickAxisEvent(Arrays.asList(new InputMapController.JoystickAxisStruct(Joystick.Axis.POV_Y, true))));
-		heroInputConfigFile.map.put(HeroInputKey.RIGHT, InputMapController
-				.createKeyboardEvent(Arrays.asList(Key.RIGHT, Key.D)));
-		heroInputConfigFile.map.put(HeroInputKey.UP, InputMapController
-				.createKeyboardEvent(Arrays.asList(Key.UP, Key.W)));
-		heroInputConfigFile.map.put(HeroInputKey.JUMP, InputMapController
-				.createKeyboardEvent(Arrays.asList(Key.SPACE)));
-		heroInputConfigFile.map.put(HeroInputKey.ACTION, InputMapController
-				.createJoystickButtonEvent(Arrays.asList(0)));
-
+		heroInputConfigFile.map.put(HeroInputKey.LEFT, new InputController<HeroInputKey>().addInputHandler(new KeyboardInput(Key.LEFT))
+																							.addInputHandler(new KeyboardInput(Key.A))
+																							.addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, false))
+																						);
+		heroInputConfigFile.map.put(HeroInputKey.RIGHT, new InputController<HeroInputKey>().addInputHandler(new KeyboardInput(Key.RIGHT)).addJoystickHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, true)));
+		
+//		
+//		 heroInputConfigFile.map.put(HeroInputKey.ROPE, InputController
+//				.createJoystickAxisEvent(Arrays.asList(new InputController.JoystickAxisStruct(Joystick.Axis.POV_Y, true))));
+//		heroInputConfigFile.map.put(HeroInputKey.RIGHT, InputController
+//				.createKeyboardEvent(Arrays.asList(Key.RIGHT, Key.D)));
+//		heroInputConfigFile.map.put(HeroInputKey.UP, InputController
+//				.createKeyboardEvent(Arrays.asList(Key.UP, Key.W)));
+//		heroInputConfigFile.map.put(HeroInputKey.JUMP, InputController
+//				.createKeyboardEvent(Arrays.asList(Key.SPACE)));
+//		heroInputConfigFile.map.put(HeroInputKey.ACTION, InputController
+//				.createJoystickButtonEvent(Arrays.asList(0)));
+//
 		try
 		{
 			JAXBContext context = JAXBContext
-					.newInstance(HeroInputConfigFile.class);
+					.newInstance(HeroInputConfigFile.class, JoystickAxisInput.class, JoystickButtonInput.class, MouseInput.class, KeyboardInput.class);
 			Marshaller m = context.createMarshaller();
 			// for pretty-print XML in JAXB
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -102,7 +112,7 @@ public class HeroInputConfigFile
 			// Write to File
 			m.marshal(
 					heroInputConfigFile,
-					new File("joystickInput.xml"));
+					new File("newInputHandlers.xml"));
 		}
 		catch (JAXBException e)
 		{
