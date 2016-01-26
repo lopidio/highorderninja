@@ -19,6 +19,8 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.window.Joystick;
+import org.jsfml.window.Joystick.Axis;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.Event.Type;
@@ -111,14 +113,58 @@ public class MainGameState implements GameState
 	@Override
 	public void handleEvent(Event event)
 	{
-		// Vector2i speed = new Vector2i((int)Joystick.getAxisPosition(0,
-		// Axis.X)/100, (int)Joystick.getAxisPosition(0, Axis.Y)/100);
-		// if (timeMaster != null) timeMaster.handleEvent(event);
-		// System.out.println(Joystick.isButtonPressed(0, 6));
-		// if (event.type == Type.JOYSTICK_MOVED)
-		// {
-		// System.out.println(speed);
-		// }
+		int z;
+		int y;
+		int w;
+		int t;
+		int u;
+		int x = y = z = w = t= u = 0;
+		if (Joystick.getAxisPosition(0, Axis.X) > 60 //L3x
+				|| Joystick.getAxisPosition(0, Axis.X) < -60)
+		{
+			x = Joystick.getAxisPosition(0, Axis.X) > 0 ? 1 : -1;
+		}
+		if (Joystick.getAxisPosition(0, Axis.Y) > 60 //L3y
+				|| Joystick.getAxisPosition(0, Axis.Y) < -60)
+		{
+			y = Joystick.getAxisPosition(0, Axis.Y) > 0 ? 1 : -1;
+		}
+
+		if (Joystick.getAxisPosition(0, Axis.Z) > 60 //R2/L2
+				|| Joystick.getAxisPosition(0, Axis.Z) < -60)
+		{
+			z = Joystick.getAxisPosition(0, Axis.Z) > 0 ? 1 : -1;
+		}
+
+		if (Joystick.getAxisPosition(0, Axis.U) > 60 //R3x
+				|| Joystick.getAxisPosition(0, Axis.U) < -60)
+		{
+			w = Joystick.getAxisPosition(0, Axis.U) > 0 ? 1 : -1;
+		}
+		
+		if (Joystick.getAxisPosition(0, Axis.R) > 60 //R3y
+				|| Joystick.getAxisPosition(0, Axis.R) < -60)
+		{
+			t = Joystick.getAxisPosition(0, Axis.R) > 0 ? 1 : -1;
+		}
+		
+		if (Joystick.getAxisPosition(0, Axis.POV_X) > 60 //Cima/Baixo
+				|| Joystick.getAxisPosition(0, Axis.POV_X) < -60)
+		{
+			u = Joystick.getAxisPosition(0, Axis.POV_X) > 0 ? 1 : -1;
+		}
+		
+		//POV_Y = esq/dir
+		
+		
+		if (x != 0 || y != 0 || z != 0 || w != 0 || t != 0 || u != 0) 
+			System.out.println(x + ", " + y + ", " + z + ", " + w + ", " + t + ", " + u);
+		
+		if (event.type == Type.JOYSTICK_BUTTON_PRESSED)
+		{
+			System.out.println(event.asJoystickButtonEvent().button);
+		}
+
 		if (event.type == Type.KEY_PRESSED)
 		{
 			if (event.asKeyEvent().key == Key.P)
