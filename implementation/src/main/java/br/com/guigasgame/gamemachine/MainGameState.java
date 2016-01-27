@@ -140,6 +140,18 @@ public class MainGameState implements GameState
 		
 		if (event.type == Type.JOYSTICK_BUTTON_PRESSED)
 		{
+			if (event.asJoystickButtonEvent().button == 4)
+			{
+				createJoint();
+			}
+			System.out.println(event.asJoystickButtonEvent().button);
+		}
+		if (event.type == Type.JOYSTICK_BUTTON_RELEASED)
+		{
+			if (event.asJoystickButtonEvent().button == 4)
+			{
+				removeJoint();
+			}
 			System.out.println(event.asJoystickButtonEvent().button);
 		}
 
@@ -157,27 +169,36 @@ public class MainGameState implements GameState
 			{
 				if (joint == null)
 				{
-
-					DistanceJointDef distDef = new DistanceJointDef();
-
-					distDef.bodyA = gameHero.getBody();
-					distDef.bodyB = singleBlockBody;
-					distDef.collideConnected = false;
-					distDef.length = singleBlockBody.getPosition().sub(gameHero.getBody().getPosition()).length();
-
-					System.out.println("Creates");
-					joint = (DistanceJoint) world.createJoint(distDef);
+					createJoint();
 				}
 			}
 		}
 		if (event.type == Type.KEY_RELEASED)
 			if (event.asKeyEvent().key == Key.LSHIFT)
 			{
-				System.out.println("Remove");
-				if (joint != null)
-					world.destroyJoint(joint);
-				joint = null;
+				removeJoint();
 			}
+	}
+	
+	private void removeJoint()
+	{
+		System.out.println("Remove");
+		if (joint != null)
+			world.destroyJoint(joint);
+		joint = null;
+	}
+
+	private void createJoint()
+	{
+		DistanceJointDef distDef = new DistanceJointDef();
+
+		distDef.bodyA = gameHero.getBody();
+		distDef.bodyB = singleBlockBody;
+		distDef.collideConnected = false;
+		distDef.length = singleBlockBody.getPosition().sub(gameHero.getBody().getPosition()).length();
+
+		System.out.println("Creates");
+		joint = (DistanceJoint) world.createJoint(distDef);
 	}
 
 	private void addNewGameObjectsToList()
