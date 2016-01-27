@@ -13,7 +13,8 @@ public class ProjectileAimer implements RayCastCallback
 	private final float sightDistance;
 	private final Vec2 initialDirection;
 	private static final int rayCastNumber = 16;
-	private static final float angleRangeInRadians = (float) (Math.PI / (10 * rayCastNumber));
+	private static final float angleRangeInRadians = (float) (Math.PI
+			/ (10 * rayCastNumber));
 	private static final float sinAngle = (float) Math.sin(angleRangeInRadians);
 	private static final float cosAngle = (float) Math.cos(angleRangeInRadians);
 	private final Body body;
@@ -36,7 +37,8 @@ public class ProjectileAimer implements RayCastCallback
 	private void generateRayCasts()
 	{
 		/*
-		 * x' = x \cos \theta - y \sin \theta\,, y' = x \sin \theta + y \cos \theta\,.
+		 * x' = x \cos \theta - y \sin \theta\,, y' = x \sin \theta + y \cos
+		 * \theta\,.
 		 */
 
 		World bodysWorld = body.getWorld();
@@ -48,17 +50,17 @@ public class ProjectileAimer implements RayCastCallback
 		for( int i = 1; i <= rayCastNumber - 1; ++i )
 		{
 			Vec2 tempCC = pointsToCounterClock.clone();
-			pointsToCounterClock.x = (float) (tempCC.x * cosAngle - tempCC.y
-					* sinAngle);
-			pointsToCounterClock.y = (float) (tempCC.x * sinAngle + tempCC.y
-					* cosAngle);
+			pointsToCounterClock.x = (float) (tempCC.x * cosAngle
+					- tempCC.y * sinAngle);
+			pointsToCounterClock.y = (float) (tempCC.x * sinAngle
+					+ tempCC.y * cosAngle);
 			bodysWorld.raycast(this, initialPosition, initialPosition.add(tempCC));
 
 			Vec2 tempCW = pointsToClockWise.clone();
-			pointsToClockWise.x = (float) (tempCW.x * cosAngle + tempCW.y
-					* sinAngle);
-			pointsToClockWise.y = (float) (tempCW.y * cosAngle - tempCW.x
-					* sinAngle);
+			pointsToClockWise.x = (float) (tempCW.x * cosAngle
+					+ tempCW.y * sinAngle);
+			pointsToClockWise.y = (float) (tempCW.y * cosAngle
+					- tempCW.x * sinAngle);
 			bodysWorld.raycast(this, initialPosition, initialPosition.add(tempCW));
 		}
 		bodysWorld.raycast(this, initialPosition, initialPosition.add(initialDirection));
@@ -70,7 +72,8 @@ public class ProjectileAimer implements RayCastCallback
 		if ((fixture.getFilterData().categoryBits & maskBits) > 0)
 		{
 			float newDistance = point.sub(body.getPosition()).length();
-			if (newDistance <= sightDistance && newDistance < finalDirection.length())
+			if (newDistance <= sightDistance
+					&& newDistance < finalDirection.length())
 			{
 				finalDirection = point.sub(body.getPosition());
 			}

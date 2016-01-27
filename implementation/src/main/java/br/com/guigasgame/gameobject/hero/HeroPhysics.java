@@ -43,6 +43,7 @@ class HeroPhysics
 			FixtureDef def = entry.getValue();
 			
 			def.filter.categoryBits = 1 << (gameHero.getPlayerID() - 1);
+			System.out.println("Player category:" + Integer.toBinaryString(def.filter.categoryBits));
 			def.filter.maskBits = CollidersFilters.MASK_PLAYER;
 			
 			Fixture fixture = body.createFixture(def);

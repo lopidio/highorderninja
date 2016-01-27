@@ -20,7 +20,7 @@
                     <y>3</y>
                 </maxSpeed>
                 <horizontalAcceleration>100</horizontalAcceleration>
-                <jumpImpulse>5</jumpImpulse>
+                <jumpImpulse>7</jumpImpulse>
             </value>
         </entry>
         <entry>

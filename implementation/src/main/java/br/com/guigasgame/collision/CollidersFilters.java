@@ -16,7 +16,7 @@ public class CollidersFilters
 	public final static short CATEGORY_SINGLE_BLOCK = 0x0080;
 	
 	///WHAT I COLLIDE WITH
-	public final static short MASK_PLAYER = CATEGORY_SCENERY | CATEGORY_PLAYER_MASK; // or ~CATEGORY_PLAYER
-	public final static short MASK_BULLET = CATEGORY_SCENERY | CATEGORY_PLAYER_MASK; // or ~CATEGORY_MONSTER
+	public final static short MASK_PLAYER = CATEGORY_SCENERY | CATEGORY_PLAYER_MASK | CATEGORY_BULLET; // or ~CATEGORY_PLAYER
+	public final static short MASK_BULLET = CATEGORY_PLAYER_MASK | CATEGORY_SCENERY | CATEGORY_SINGLE_BLOCK; // or ~CATEGORY_MONSTER
 	public final static short MASK_SCENERY = -1; //also equals to 0xFFFF	
 }

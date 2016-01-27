@@ -44,7 +44,7 @@ public class GameMachine
 		
 		for (VideoMode list: VideoMode.getFullscreenModes())
 		{
-			System.out.println(list.toString());
+//			System.out.println(list.toString());
 		}
 		
 		renderWindow = new RenderWindow(new VideoMode(1366,  768, 32), "Test");//, Window.FULLSCREEN); //Window.TRANSPARENT

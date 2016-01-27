@@ -144,7 +144,6 @@ public class MainGameState implements GameState
 			{
 				createJoint();
 			}
-			System.out.println(event.asJoystickButtonEvent().button);
 		}
 		if (event.type == Type.JOYSTICK_BUTTON_RELEASED)
 		{
@@ -152,7 +151,6 @@ public class MainGameState implements GameState
 			{
 				removeJoint();
 			}
-			System.out.println(event.asJoystickButtonEvent().button);
 		}
 
 		if (event.type == Type.KEY_PRESSED)

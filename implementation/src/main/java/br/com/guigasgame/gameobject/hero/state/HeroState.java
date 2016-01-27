@@ -154,7 +154,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		{
 			retorno.x = gameHero.getForwardSide().getHorizontalValue();
 		}
-		System.out.println(retorno);
 		return retorno;
 	}
 
