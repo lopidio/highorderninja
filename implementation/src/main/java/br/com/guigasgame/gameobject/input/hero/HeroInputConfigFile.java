@@ -58,7 +58,7 @@ public class HeroInputConfigFile
 			// Insere as chaves no controlador de input
 			for( Entry<HeroInputKey, InputController<HeroInputKey>> inputConfig : heroInputConfigFile.map.entrySet() )
 			{
-				inputConfig.getValue().setDeviceId(playerID);
+				inputConfig.getValue().setDeviceId(playerID-1);
 				inputConfig.getValue().setUserData(inputConfig.getKey());
 			}
 
@@ -84,23 +84,25 @@ public class HeroInputConfigFile
 
 		heroInputConfigFile.map.put(HeroInputKey.LEFT, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.LEFT)).
-				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.NEGATIVE)).
-				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.NEGATIVE)));
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.X, JoystickAxisInput.AxisSignal.NEGATIVE)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.NEGATIVE)));
 				
 		heroInputConfigFile.map.put(HeroInputKey.RIGHT, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.RIGHT)).
-				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.POSITIVE)).
-				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.POSITIVE)));
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.X, JoystickAxisInput.AxisSignal.POSITIVE)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.POSITIVE)));
+
 
 		heroInputConfigFile.map.put(HeroInputKey.UP, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.UP)).
-				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.NEGATIVE)).
-				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.NEGATIVE)));
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.Y, JoystickAxisInput.AxisSignal.NEGATIVE)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.POSITIVE)));
+
 				
 		heroInputConfigFile.map.put(HeroInputKey.DOWN, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.DOWN)).
-				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.POSITIVE)).
-				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_Y, JoystickAxisInput.AxisSignal.POSITIVE)));
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.Y, JoystickAxisInput.AxisSignal.POSITIVE)).
+				addInputHandler(new JoystickAxisInput(Joystick.Axis.POV_X, JoystickAxisInput.AxisSignal.NEGATIVE)));
 
 		heroInputConfigFile.map.put(HeroInputKey.JUMP, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.X)).
@@ -109,11 +111,11 @@ public class HeroInputConfigFile
 		heroInputConfigFile.map.put(HeroInputKey.SHOOT, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.Z)).
 				addInputHandler(new MouseInput(Button.LEFT)).
-				addInputHandler(new JoystickButtonInput(1)));
+				addInputHandler(new JoystickButtonInput(5)));
 
 		heroInputConfigFile.map.put(HeroInputKey.SLIDE, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.C)).
-				addInputHandler(new JoystickButtonInput(2)));
+				addInputHandler(new JoystickButtonInput(1)));
 
 		heroInputConfigFile.map.put(HeroInputKey.ACTION, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.V)).
@@ -143,8 +145,8 @@ public class HeroInputConfigFile
 
 	public static void main(String[] args)
 	{
-		parseFile(0);
-//		createDefaultFileFromPlayerID(0);
+//		parseFile(0);
+		createDefaultFileFromPlayerID(0);
 	}
 
 }

@@ -45,7 +45,6 @@ public class MainGameState implements GameState
 
 	public MainGameState() throws JAXBException
 	{
-		Joystick.update();
 		gameObjectsList = new ArrayList<>();
 		timeFactor = 1;
 
@@ -114,21 +113,9 @@ public class MainGameState implements GameState
 	public void handleEvent(Event event)
 	{
 		int z;
-		int y;
 		int w;
 		int t;
-		int u;
-		int x = y = z = w = t= u = 0;
-		if (Joystick.getAxisPosition(0, Axis.X) > 60 //L3x
-				|| Joystick.getAxisPosition(0, Axis.X) < -60)
-		{
-			x = Joystick.getAxisPosition(0, Axis.X) > 0 ? 1 : -1;
-		}
-		if (Joystick.getAxisPosition(0, Axis.Y) > 60 //L3y
-				|| Joystick.getAxisPosition(0, Axis.Y) < -60)
-		{
-			y = Joystick.getAxisPosition(0, Axis.Y) > 0 ? 1 : -1;
-		}
+		z = w = t = 0;
 
 		if (Joystick.getAxisPosition(0, Axis.Z) > 60 //R2/L2
 				|| Joystick.getAxisPosition(0, Axis.Z) < -60)
@@ -148,17 +135,8 @@ public class MainGameState implements GameState
 			t = Joystick.getAxisPosition(0, Axis.R) > 0 ? 1 : -1;
 		}
 		
-		if (Joystick.getAxisPosition(0, Axis.POV_X) > 60 //Cima/Baixo
-				|| Joystick.getAxisPosition(0, Axis.POV_X) < -60)
-		{
-			u = Joystick.getAxisPosition(0, Axis.POV_X) > 0 ? 1 : -1;
-		}
-		
-		//POV_Y = esq/dir
-		
-		
-		if (x != 0 || y != 0 || z != 0 || w != 0 || t != 0 || u != 0) 
-			System.out.println(x + ", " + y + ", " + z + ", " + w + ", " + t + ", " + u);
+		if (z != 0 || w != 0 || t != 0) 
+			System.out.println(z + ", " + w + ", " + t);
 		
 		if (event.type == Type.JOYSTICK_BUTTON_PRESSED)
 		{

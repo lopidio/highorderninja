@@ -8,11 +8,11 @@
                     <keysCode>LEFT</keysCode>
                 </handlers>
                 <handlers xsi:type="joystickAxisInput">
-                    <axis>POV_Y</axis>
+                    <axis>X</axis>
                     <axisSignal>NEGATIVE</axisSignal>
                 </handlers>
                 <handlers xsi:type="joystickAxisInput">
-                    <axis>POV_X</axis>
+                    <axis>POV_Y</axis>
                     <axisSignal>NEGATIVE</axisSignal>
                 </handlers>
             </value>
@@ -24,11 +24,11 @@
                     <keysCode>RIGHT</keysCode>
                 </handlers>
                 <handlers xsi:type="joystickAxisInput">
-                    <axis>POV_Y</axis>
+                    <axis>X</axis>
                     <axisSignal>POSITIVE</axisSignal>
                 </handlers>
                 <handlers xsi:type="joystickAxisInput">
-                    <axis>POV_X</axis>
+                    <axis>POV_Y</axis>
                     <axisSignal>POSITIVE</axisSignal>
                 </handlers>
             </value>
@@ -40,12 +40,12 @@
                     <keysCode>UP</keysCode>
                 </handlers>
                 <handlers xsi:type="joystickAxisInput">
-                    <axis>POV_X</axis>
+                    <axis>Y</axis>
                     <axisSignal>NEGATIVE</axisSignal>
                 </handlers>
                 <handlers xsi:type="joystickAxisInput">
-                    <axis>POV_Y</axis>
-                    <axisSignal>NEGATIVE</axisSignal>
+                    <axis>POV_X</axis>
+                    <axisSignal>POSITIVE</axisSignal>
                 </handlers>
             </value>
         </entry>
@@ -56,12 +56,12 @@
                     <keysCode>DOWN</keysCode>
                 </handlers>
                 <handlers xsi:type="joystickAxisInput">
-                    <axis>POV_X</axis>
+                    <axis>Y</axis>
                     <axisSignal>POSITIVE</axisSignal>
                 </handlers>
                 <handlers xsi:type="joystickAxisInput">
-                    <axis>POV_Y</axis>
-                    <axisSignal>POSITIVE</axisSignal>
+                    <axis>POV_X</axis>
+                    <axisSignal>NEGATIVE</axisSignal>
                 </handlers>
             </value>
         </entry>
@@ -83,10 +83,10 @@
                     <keysCode>Z</keysCode>
                 </handlers>
                 <handlers xsi:type="mouseInput">
-                    <mouseButton>RIGHT</mouseButton>
+                    <mouseButton>LEFT</mouseButton>
                 </handlers>
                 <handlers xsi:type="joystickButtonInput">
-                    <joystickButtonCode>1</joystickButtonCode>
+                    <joystickButtonCode>5</joystickButtonCode>
                 </handlers>
             </value>
         </entry>
@@ -97,7 +97,7 @@
                     <keysCode>C</keysCode>
                 </handlers>
                 <handlers xsi:type="joystickButtonInput">
-                    <joystickButtonCode>2</joystickButtonCode>
+                    <joystickButtonCode>1</joystickButtonCode>
                 </handlers>
             </value>
         </entry>
