@@ -6,6 +6,7 @@ import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStatesProperties;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
+import br.com.guigasgame.gameobject.projectile.Shuriken;
 
 
 public class HeroShooterExecutor
@@ -20,10 +21,10 @@ public class HeroShooterExecutor
 		this.gameHero = gameHero;
 	}
 
-	public void shoot(Vec2 position, ProjectileIndex projectile, Vec2 direction)
+	public void shoot(Shuriken shuriken)
 	{
 		if (heroStatesProperties.canShoot)
-			gameHero.shoot(new Projectile(projectile, direction, position, gameHero.getPlayerID()));
+			gameHero.shoot(shuriken);
 	}
 
 }

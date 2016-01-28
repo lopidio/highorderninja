@@ -12,7 +12,7 @@ import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.executor.HeroJumperExecutor;
 import br.com.guigasgame.gameobject.hero.executor.HeroShooterExecutor;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
-import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
+import br.com.guigasgame.gameobject.projectile.Shuriken;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.updatable.UpdatableFromTime;
@@ -116,7 +116,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 
 	protected void shoot()
 	{
-		shooter.shoot(gameHero.getBody().getWorldCenter(), ProjectileIndex.SHURIKEN, pointingDirection());
+		shooter.shoot(new Shuriken(pointingDirection(), gameHero.getBody().getWorldCenter(), gameHero.getPlayerID()));
 	}
 
 	protected final Vec2 pointingDirection()
