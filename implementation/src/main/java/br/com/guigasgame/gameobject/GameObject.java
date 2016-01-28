@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.drawable.Drawable;
@@ -35,13 +36,13 @@ public abstract class GameObject extends Collidable
 	}
 
 	@Override
-	public void beginContact(Collidable collidable)
+	public void beginContact(Collidable collidable, Contact contact)
 	{
 		// Default implementation
 	}
 
 	@Override
-	public void endContact(Collidable collidable)
+	public void endContact(Collidable collidable, Contact contact)
 	{
 		// Default implementation
 	}

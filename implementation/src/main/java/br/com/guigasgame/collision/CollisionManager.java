@@ -5,8 +5,6 @@ import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.dynamics.contacts.Contact;
 
-import br.com.guigasgame.gameobject.GameObject;
-
 
 public class CollisionManager implements ContactListener
 {
@@ -15,39 +13,27 @@ public class CollisionManager implements ContactListener
 	{
 		if (contact.isTouching())
 		{
-			GameObject objectA = (GameObject) contact.getFixtureA().getBody()
-					.getUserData();
-			GameObject objectB = (GameObject) contact.getFixtureB().getBody()
-					.getUserData();
+			Collidable objectA = (Collidable) contact.getFixtureA().getBody().getUserData();
+			Collidable objectB = (Collidable) contact.getFixtureB().getBody().getUserData();
 
-			reportToFixtureListenersBeginCollision(
-					(FixtureContactListener) contact.getFixtureA()
-							.getUserData(), objectB);
-			reportToFixtureListenersBeginCollision(
-					(FixtureContactListener) contact.getFixtureB()
-							.getUserData(), objectA);
-			reportCollidableBeginCollision(objectA, objectB);
-			reportCollidableBeginCollision(objectB, objectA);
+			reportToFixtureListenersBeginCollision((FixtureContactListener) contact.getFixtureA().getUserData(), objectB);
+			reportToFixtureListenersBeginCollision((FixtureContactListener) contact.getFixtureB().getUserData(), objectA);
+			reportCollidableBeginCollision(objectA, objectB, contact);
+			reportCollidableBeginCollision(objectB, objectA, contact);
 		}
 	}
 
 	public void endContact(Contact contact)
 	{
-//		if (contact.isTouching())
+		// if (contact.isTouching())
 		{
-			GameObject objectA = (GameObject) contact.getFixtureA().getBody()
-					.getUserData();
-			GameObject objectB = (GameObject) contact.getFixtureB().getBody()
-					.getUserData();
+			Collidable objectA = (Collidable) contact.getFixtureA().getBody().getUserData();
+			Collidable objectB = (Collidable) contact.getFixtureB().getBody().getUserData();
 
-			reportToFixtureListenersEndCollision(
-					(FixtureContactListener) contact.getFixtureA()
-							.getUserData(), objectB);
-			reportToFixtureListenersEndCollision(
-					(FixtureContactListener) contact.getFixtureB()
-							.getUserData(), objectA);
-			reportCollidableEndCollision(objectA, objectB);
-			reportCollidableEndCollision(objectB, objectA);
+			reportToFixtureListenersEndCollision((FixtureContactListener) contact.getFixtureA().getUserData(), objectB);
+			reportToFixtureListenersEndCollision((FixtureContactListener) contact.getFixtureB().getUserData(), objectA);
+			reportCollidableEndCollision(objectA, objectB, contact);
+			reportCollidableEndCollision(objectB, objectA, contact);
 		}
 	}
 
@@ -60,20 +46,17 @@ public class CollisionManager implements ContactListener
 	public void postSolve(Contact contact, ContactImpulse impulse)
 	{
 		// TODO Auto-generated method stub
-
 	}
 
-	private void reportToFixtureListenersBeginCollision(
-			FixtureContactListener fixtureContactListener, GameObject collider)
+	private void reportToFixtureListenersBeginCollision(FixtureContactListener fixtureContactListener, Collidable objectB)
 	{
 		if (fixtureContactListener != null)
 		{
-			fixtureContactListener.beginContact(collider);
+			fixtureContactListener.beginContact(objectB);
 		}
 	}
 
-	private void reportToFixtureListenersEndCollision(
-			FixtureContactListener fixtureContactListener, GameObject collider)
+	private void reportToFixtureListenersEndCollision(FixtureContactListener fixtureContactListener, Collidable collider)
 	{
 		if (fixtureContactListener != null)
 		{
@@ -81,21 +64,19 @@ public class CollisionManager implements ContactListener
 		}
 	}
 
-	private void reportCollidableBeginCollision(GameObject first,
-			GameObject second)
+	private void reportCollidableBeginCollision(Collidable objectA, Collidable objectB, Contact contact)
 	{
-		if (first != null)
+		if (objectA != null)
 		{
-			first.beginContact(second);
+			objectA.beginContact(objectB, contact);
 		}
 	}
 
-	private void reportCollidableEndCollision(GameObject first,
-			GameObject second)
+	private void reportCollidableEndCollision(Collidable first, Collidable second, Contact contact)
 	{
 		if (first != null)
 		{
-			first.endContact(second);
+			first.endContact(second, contact);
 		}
 	}
 }

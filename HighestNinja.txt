@@ -101,3 +101,20 @@ ResourceManager<Resource>
 AnimationResourceManager
 	-animationProperties 
 	-getAnimation(String):Animation
+
+class Composite<T>
+{
+	List<T> list;
+
+	#addChild(T)
+	+hasChildToAdd():bool
+	+getChildToAdd():List<T>
+	+clear();
+}
+
+Alterar método draw, recebe a janela de renderização ao invés de retornar um sprite
+class Collidable extends Composite<Collidable>
+	Body
+	BodyDef
+	attachToWorld(World): Body
+
