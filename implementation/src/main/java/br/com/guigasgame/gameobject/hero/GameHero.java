@@ -8,6 +8,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jsfml.graphics.Sprite;
+import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
@@ -55,18 +56,27 @@ public class GameHero extends GameObject
 	@Override
 	public void update(float deltaTime)
 	{
+		animation.update(deltaTime);
+		
 		gameHeroLogic.update(deltaTime);
 		updateActionList();
 
 		physicHeroLogic.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
-		gameHeroLogic.adjustSpritePosition(WorldConstants.physicsToSfmlCoordinates(physicHeroLogic.getBodyPosition()),
+		adjustSpritePosition(WorldConstants.physicsToSfmlCoordinates(physicHeroLogic.getBodyPosition()),
 				(float) WorldConstants.radiansToDegrees(physicHeroLogic.getAngleRadians()));
 	}
 
+
+	public void adjustSpritePosition(Vector2f vector2f, float angleInDegrees)
+	{
+		animation.getSprite().setPosition(vector2f);
+		animation.getSprite().setRotation(angleInDegrees);
+	}	
+	
 	private void updateActionList()
 	{
 		Iterator<GameHeroAction> iterator = actionList.iterator();
-		while (iterator != null)
+		while (iterator.hasNext())
 		{
 			GameHeroAction gameHeroAction = iterator.next();
 			System.out.println(gameHeroAction.getClass().getSimpleName());			
@@ -82,6 +92,7 @@ public class GameHero extends GameObject
 
 	public void setState(HeroState heroState)
 	{
+		animation.flipAnimation(forwardSide);		
 		gameHeroLogic.setState(heroState);
 	}
 
@@ -104,7 +115,7 @@ public class GameHero extends GameObject
 	@Override
 	public Sprite getSprite()
 	{
-		return gameHeroLogic.getAnimation().getSprite();
+		return animation.getSprite();
 	}
 
 	public Side getForwardSide()
@@ -139,6 +150,7 @@ public class GameHero extends GameObject
 
 	public void setForwardSide(Side side)
 	{
+		animation.flipAnimation(side);
 		forwardSide = side;
 	}
 
@@ -180,6 +192,11 @@ public class GameHero extends GameObject
 	public void shoot(Projectile projectile)
 	{
 		addChild(projectile);
+	}
+
+	public void addAction(GameHeroAction gameHeroAction)
+	{
+		actionList.add(gameHeroAction);
 	}
 
 }

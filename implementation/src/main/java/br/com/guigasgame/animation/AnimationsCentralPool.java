@@ -6,26 +6,26 @@ import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 
 
-public class AnimationsRepositoryCentral
+public class AnimationsCentralPool
 {
 
-	private static AnimationsRepositoryCentral singleton;
+	private static AnimationsCentralPool singleton;
 
 	private AnimationPropertiesFile<HeroAnimationsIndex> heroAnimations;
 	private AnimationPropertiesFile<ProjectileIndex> projectilesAnimations;
 
 	static
 	{
-		singleton = new AnimationsRepositoryCentral();
+		singleton = new AnimationsCentralPool();
 	}
 
-	private AnimationsRepositoryCentral()
+	private AnimationsCentralPool()
 	{
 		loadHeroAnimations();
 		loadProjectileAnimations();
 	}
 
-	private static AnimationsRepositoryCentral getInstance()
+	private static AnimationsCentralPool getInstance()
 	{
 		return singleton;
 	}

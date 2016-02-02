@@ -51,13 +51,11 @@ class SuperJumpingHeroState extends HeroState
 	{
 		if (key == HeroInputKey.LEFT)
 		{
-			setHeroForwardSide(Side.LEFT);
-			// moveLeft();
+			gameHero.setForwardSide(Side.LEFT);
 		}
 		else if (key == HeroInputKey.RIGHT)
 		{
-			setHeroForwardSide(Side.RIGHT);
-			// moveRight();
+			gameHero.setForwardSide(Side.RIGHT);
 		}
 	}
 

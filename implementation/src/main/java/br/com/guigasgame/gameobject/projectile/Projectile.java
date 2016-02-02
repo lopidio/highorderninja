@@ -11,7 +11,7 @@ import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Sprite;
 
 import br.com.guigasgame.animation.Animation;
-import br.com.guigasgame.animation.AnimationsRepositoryCentral;
+import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidersFilters;
@@ -37,10 +37,10 @@ public class Projectile extends GameObject
 		this.sightDistance = 100;
 		this.index = index;
 
-		this.animation = Animation.createAnimation(AnimationsRepositoryCentral.getProjectileAnimationRepository().getAnimationsProperties(index));
+		this.animation = Animation.createAnimation(AnimationsCentralPool.getProjectileAnimationRepository().getAnimationsProperties(index));
 		animation.getSprite().setColor(Color.mul(Color.BLACK, Color.BLUE));
 
-		this.properties = ProjectilesPropertiesRepository.getProjectileProperties(index);
+		this.properties = ProjectilesPropertiesPool.getProjectileProperties(index);
 		this.direction = direction.clone();
 		this.body = null;
 		collisionCounter = 0;

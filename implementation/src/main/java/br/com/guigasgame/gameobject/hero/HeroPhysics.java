@@ -43,13 +43,13 @@ class HeroPhysics
 			FixtureDef def = entry.getValue();
 			
 			def.filter.categoryBits = 1 << (gameHero.getPlayerID() - 1);
-			System.out.println("Player category:" + Integer.toBinaryString(def.filter.categoryBits));
 			def.filter.maskBits = CollidersFilters.MASK_PLAYER;
 			
 			Fixture fixture = body.createFixture(def);
 			fixtureMap.put(entry.getKey(), fixture);
 			sensorsController.attachController(entry.getKey(), fixture);
 		}
+		System.out.println("Player category:" + Integer.toBinaryString(1 << (gameHero.getPlayerID() - 1)));
 	}
 
 	public void applyImpulse(Vec2 impulse)

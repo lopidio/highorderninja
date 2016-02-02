@@ -2,6 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.MoveForwardHeroAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 
@@ -20,7 +21,7 @@ class SlidingHeroState extends HeroState
 	public void updateState(float deltaTime)
 	{
 		secondsRemaining -= deltaTime;
-		moveForward();
+		gameHero.addAction(new MoveForwardHeroAction(gameHero, heroStatesProperties));
 		if (secondsRemaining <= 0)
 		{
 			setState(new StandingHeroState(gameHero));

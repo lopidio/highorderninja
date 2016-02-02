@@ -1,8 +1,5 @@
 package br.com.guigasgame.gameobject.hero;
 
-import org.jsfml.system.Vector2f;
-
-import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.gameobject.hero.state.FallingHeroState;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
@@ -15,7 +12,6 @@ class GameHeroLogic implements UpdatableFromTime
 	GameHero gameHero;
 	GameHeroInputMap gameHeroInput;
 	HeroState state;
-	Animation animation;
 	int life;
 	int maxLife;
 	int numShurickens;
@@ -29,25 +25,9 @@ class GameHeroLogic implements UpdatableFromTime
 	public void update(float deltaTime)
 	{
 		state.updateState(deltaTime);
-		animation.update(deltaTime);
 		gameHeroInput.update();
 	}
 
-	public void adjustSpritePosition(Vector2f vector2f, float angleInDegrees)
-	{
-		animation.getSprite().setPosition(vector2f);
-		animation.getSprite().setRotation(angleInDegrees);
-	}
-
-	public void setAnimation(Animation animation)
-	{
-		this.animation = animation;
-	}
-
-	public Animation getAnimation()
-	{
-		return animation;
-	}
 
 	public int getLife()
 	{
@@ -76,7 +56,7 @@ class GameHeroLogic implements UpdatableFromTime
 		System.out.println(	"Current state: " + newState.getClass().getSimpleName());
 		state = newState;
 		state.onEnter();
-		animation = state.getAnimation();
+		//animation = state.getAnimation();
 		gameHeroInput.setInputListener(state);
 	}
 

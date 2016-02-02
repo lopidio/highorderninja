@@ -7,18 +7,18 @@ import javax.xml.bind.JAXBException;
 import br.com.guigasgame.file.FilenameConstants;
 
 
-public class ProjectilesPropertiesRepository
+public class ProjectilesPropertiesPool
 {
 
 	private Map<ProjectileIndex, ProjectileProperties> projectilePropertiesMap;
-	private static ProjectilesPropertiesRepository singleton;
+	private static ProjectilesPropertiesPool singleton;
 
 	static
 	{
-		singleton = new ProjectilesPropertiesRepository();
+		singleton = new ProjectilesPropertiesPool();
 	}
 
-	private ProjectilesPropertiesRepository()
+	private ProjectilesPropertiesPool()
 	{
 		loadProjectilesPropertiesStates();
 	}

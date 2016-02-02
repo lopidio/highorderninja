@@ -7,18 +7,18 @@ import javax.xml.bind.JAXBException;
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.file.FilenameConstants;
 
-public class HeroStatesPropertiesRepository
+public class HeroStatesPropertiesPool
 {
-	private static HeroStatesPropertiesRepository singleton;
+	private static HeroStatesPropertiesPool singleton;
 	private Map<HeroAnimationsIndex, HeroStatesProperties> statesMap;
 	
 	static
 	{
-		singleton = new HeroStatesPropertiesRepository();
+		singleton = new HeroStatesPropertiesPool();
 	}
 	
 	
-	private HeroStatesPropertiesRepository()
+	private HeroStatesPropertiesPool()
 	{
 		loadHeroStates();
 	}

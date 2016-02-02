@@ -2,7 +2,9 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.side.Side;
 
 
 class StandingHeroState extends HeroState
@@ -53,11 +55,11 @@ class StandingHeroState extends HeroState
 		}
 		else if (key == HeroInputKey.LEFT)
 		{
-			moveLeft();
+			gameHero.addAction(new MoveHeroAction(gameHero, Side.LEFT, heroStatesProperties));
 		}
 		else if (key == HeroInputKey.RIGHT)
 		{
-			moveRight();
+			gameHero.addAction(new MoveHeroAction(gameHero, Side.RIGHT, heroStatesProperties));
 		}
 	}
 
