@@ -1,6 +1,7 @@
 package br.com.guigasgame.gameobject.hero;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.jbox2d.common.Vec2;
@@ -8,6 +9,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jsfml.graphics.Sprite;
 
+import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
@@ -20,12 +22,13 @@ import br.com.guigasgame.side.Side;
 public class GameHero extends GameObject
 {
 
-	private final int playerID;
+	private final int playerID; //1 to 4
 
 	Side forwardSide;
 	List<GameHeroAction> actionList;
 	GameHeroLogic gameHeroLogic;
 	HeroPhysics physicHeroLogic;
+	Animation animation;
 
 	public GameHero(int playerID, Vec2 position)
 	{
@@ -53,18 +56,28 @@ public class GameHero extends GameObject
 	public void update(float deltaTime)
 	{
 		gameHeroLogic.update(deltaTime);
-
-		// System.out.println("Touhing ahead:" +
-		// physicHeroLogic.isTouchingWallAhead());
-		// System.out.println("Ascending:" + physicHeroLogic.isAscending());
-		// System.out.println("Falling:" + physicHeroLogic.isFallingDown());
-		// System.out.println("Touhing ground:" +
-		// physicHeroLogic.isTouchingGround());
-		// System.out.println(forwardSide);
+		updateActionList();
 
 		physicHeroLogic.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
 		gameHeroLogic.adjustSpritePosition(WorldConstants.physicsToSfmlCoordinates(physicHeroLogic.getBodyPosition()),
 				(float) WorldConstants.radiansToDegrees(physicHeroLogic.getAngleRadians()));
+	}
+
+	private void updateActionList()
+	{
+		Iterator<GameHeroAction> iterator = actionList.iterator();
+		while (iterator != null)
+		{
+			GameHeroAction gameHeroAction = iterator.next();
+			System.out.println(gameHeroAction.getClass().getSimpleName());			
+			if (gameHeroAction.canExecute())
+			{
+				gameHeroAction.preExecute();
+				gameHeroAction.execute();
+				gameHeroAction.postExecute();
+			}
+			iterator.remove();
+		}
 	}
 
 	public void setState(HeroState heroState)
@@ -72,6 +85,11 @@ public class GameHero extends GameObject
 		gameHeroLogic.setState(heroState);
 	}
 
+	public void setAnimation(Animation animation)
+	{
+		this.animation = animation;
+	}
+	
 	@Override
 	protected void editBodyDef(BodyDef bodyDef)
 	{

@@ -125,5 +125,6 @@ class GameHeroAction
 	execute()
 	undo()
 	
-GameHero possuir uma fila (actionPool) de ações para executar
+GameHero possuir uma fila (actionQueue) de ações para executar
+GameHero possuir uma animation
 Repositories becomes Pools
