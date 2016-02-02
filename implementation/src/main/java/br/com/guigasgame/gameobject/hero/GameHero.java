@@ -1,5 +1,8 @@
 package br.com.guigasgame.gameobject.hero;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
@@ -7,6 +10,7 @@ import org.jsfml.graphics.Sprite;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
+import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.projectile.Projectile;
@@ -19,6 +23,7 @@ public class GameHero extends GameObject
 	private final int playerID;
 
 	Side forwardSide;
+	List<GameHeroAction> actionList;
 	GameHeroLogic gameHeroLogic;
 	HeroPhysics physicHeroLogic;
 
@@ -27,6 +32,7 @@ public class GameHero extends GameObject
 		super(position);
 		this.playerID = playerID;
 		forwardSide = Side.LEFT;
+		actionList = new ArrayList<GameHeroAction>();
 		gameHeroLogic = new GameHeroLogic(this);
 		physicHeroLogic = new HeroPhysics(this);
 	}

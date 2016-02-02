@@ -117,4 +117,13 @@ class Collidable extends Composite<Collidable>
 	Body
 	BodyDef
 	attachToWorld(World): Body
-
+	
+GameObject ser composta de um collidable
+Cada ação do player vai herdar de GameHeroAction (moveLeft, moveRight, jump, diagonalJump, ropeSwing, ...)
+class GameHeroAction
+	GameHeroAction(GameHero)
+	execute()
+	undo()
+	
+GameHero possuir uma fila (actionPool) de ações para executar
+Repositories becomes Pools
