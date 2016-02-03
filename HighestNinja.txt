@@ -117,6 +117,10 @@ class Collidable extends Composite<Collidable>
 	Body
 	BodyDef
 	attachToWorld(World): Body
+
+Refactor of CollidersFilters
+Refactor of playerInput
+Refactor of player's actions (Command pattern). Queue of commands to execute
 	
 GameObject ser composta de um collidable
 Cada ação do player vai herdar de GameHeroAction (moveLeft, moveRight, jump, diagonalJump, ropeSwing, ...)

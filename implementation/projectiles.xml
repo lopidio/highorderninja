@@ -11,5 +11,15 @@
                 <restitution>0.8</restitution>
             </value>
         </entry>
+        <entry>
+            <key>ROPE</key>
+            <value>
+                <numBounces>0</numBounces>
+                <initialSpeed>3.0</initialSpeed>
+                <mass>1.0</mass>
+                <radius>0.1</radius>
+                <restitution>0.8</restitution>
+            </value>
+        </entry>
     </projectilesPropertiesMap>
 </projectilePropertiesFile>
