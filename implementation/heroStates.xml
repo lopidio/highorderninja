@@ -78,5 +78,16 @@
                 <jumpImpulse>0</jumpImpulse>
             </value>
         </entry>		
+        <entry>
+            <key>HERO_DIVING</key>
+            <value canShoot="false" canJump="false" canUseRope="false">
+                <maxSpeed>
+                    <x>20</x>
+                    <y>80</y>
+                </maxSpeed>
+                <horizontalAcceleration>5</horizontalAcceleration>
+                <jumpImpulse>20</jumpImpulse>
+            </value>
+        </entry>		
     </statesMap>
 </heroStatePropertiesFile>

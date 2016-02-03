@@ -13,6 +13,15 @@ public class FallingHeroState extends HeroState
 	{
 		super(gameHero, HeroAnimationsIndex.HERO_FALLING);
 	}
+	
+	@Override
+	protected void stateInputPressed(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.ACTION)
+		{
+			setState(new DivingState(gameHero));
+		}
+	}
 
 	@Override
 	public void isPressed(HeroInputKey key)
@@ -28,11 +37,13 @@ public class FallingHeroState extends HeroState
 		}
 		if (gameHero.isTouchingWallAhead())
 		{
-			if (key == HeroInputKey.LEFT && gameHero.getForwardSide() == Side.LEFT)
+			if (key == HeroInputKey.LEFT
+					&& gameHero.getForwardSide() == Side.LEFT)
 			{
 				setState(new WallGrabHeroState(gameHero));
 			}
-			else if (key == HeroInputKey.RIGHT && gameHero.getForwardSide() == Side.RIGHT)
+			else if (key == HeroInputKey.RIGHT
+					&& gameHero.getForwardSide() == Side.RIGHT)
 			{
 				setState(new WallGrabHeroState(gameHero));
 			}

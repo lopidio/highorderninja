@@ -49,7 +49,7 @@ class HeroPhysics
 			fixtureMap.put(entry.getKey(), fixture);
 			sensorsController.attachController(entry.getKey(), fixture);
 		}
-		System.out.println("Player category:" + Integer.toBinaryString(1 << (gameHero.getPlayerID() - 1)));
+		System.out.println("Player category: " + Integer.toBinaryString(1 << (gameHero.getPlayerID() - 1)));
 	}
 
 	public void applyImpulse(Vec2 impulse)
@@ -158,6 +158,11 @@ class HeroPhysics
 	public Vec2 getBodyLinearVelocity()
 	{
 		return body.getLinearVelocity();
+	}
+
+	public void stopMovement()
+	{
+		body.setLinearVelocity(new Vec2());
 	}
 
 }

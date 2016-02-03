@@ -86,6 +86,21 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroAnimationsIndex">HERO_DIVING</key>
+			<value horizontal="true">
+				<numFrames>2</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>360</top>
+                    <width>70</width>
+                    <height>422</height>
+                </textureSpriteRect>				
+			</value>
+		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroAnimationsIndex">HERO_SLIDING</key>
 			<value horizontal="true">
 				<numFrames>2</numFrames>

@@ -199,4 +199,9 @@ public class GameHero extends GameObject
 		actionList.add(gameHeroAction);
 	}
 
+	public void stopMovement()
+	{
+		physicHeroLogic.stopMovement();
+	}
+
 }
