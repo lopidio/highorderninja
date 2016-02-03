@@ -14,7 +14,7 @@ class GameHeroLogic implements UpdatableFromTime
 	HeroState state;
 	int life;
 	int maxLife;
-	int numShurickens;
+	int numShurikens;
 
 	public GameHeroLogic(GameHero gameHero)
 	{
@@ -42,12 +42,12 @@ class GameHeroLogic implements UpdatableFromTime
 
 	public void hit(int lifeToSubtract)
 	{
-		life = lifeToSubtract;
+		life -= lifeToSubtract;
 	}
 
-	public int getNumShurickens()
+	public int getNumShurikens()
 	{
-		return numShurickens;
+		return numShurikens;
 	}
 
 	public void setState(HeroState newState)

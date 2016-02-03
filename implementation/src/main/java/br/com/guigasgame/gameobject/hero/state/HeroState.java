@@ -9,7 +9,6 @@ import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.hero.executor.HeroJumperExecutor;
 import br.com.guigasgame.gameobject.hero.executor.HeroShooterExecutor;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.projectile.Shuriken;
@@ -26,7 +25,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	protected final HeroAnimationsIndex heroAnimationsIndex;
 	protected final HeroStatesProperties heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
-	protected final HeroJumperExecutor jumper;
 	protected final HeroShooterExecutor shooter;
 
 	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
@@ -41,7 +39,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		{
 			inputMap.put(key, false);
 		}
-		jumper = new HeroJumperExecutor(heroStatesProperties, gameHero);
 		shooter = new HeroShooterExecutor(heroStatesProperties, gameHero);
 	}
 

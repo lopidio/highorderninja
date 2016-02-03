@@ -2,6 +2,8 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.DoubleJumpAction;
+import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
 
@@ -20,7 +22,7 @@ class SuperJumpingHeroState extends HeroState
 	@Override
 	public void onEnter()
 	{
-		jumper.jump();
+		gameHero.addAction(new JumpAction(gameHero, heroStatesProperties));
 	}
 
 	@Override
@@ -31,7 +33,7 @@ class SuperJumpingHeroState extends HeroState
 			if (heroStatesProperties.canJump && key == HeroInputKey.JUMP)
 			{
 				System.out.println("Super Double jump!");
-				jumper.doubleJump();
+				gameHero.addAction(new DoubleJumpAction(gameHero, heroStatesProperties));
 				doubleJumpAllowed = false;
 			}
 		}

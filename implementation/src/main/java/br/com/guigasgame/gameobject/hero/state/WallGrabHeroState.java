@@ -2,6 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.DiagonalJumpAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
 
@@ -35,7 +36,7 @@ public class WallGrabHeroState extends HeroState
 	{
 		if (key == HeroInputKey.JUMP)
 		{
-			jumper.diagonalJump(wallSide.opposite());
+			gameHero.addAction(new DiagonalJumpAction(gameHero, wallSide.opposite(), heroStatesProperties));
 
 			setState(new JumpingHeroState(gameHero));
 		}

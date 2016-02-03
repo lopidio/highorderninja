@@ -132,3 +132,9 @@ class GameHeroAction
 GameHero possuir uma fila (actionQueue) de ações para executar
 GameHero possuir uma animation
 Repositories becomes Pools
+
+Jump becomes action
+SetState becomes action
+setHeroOrientation becomes action
+State must not have gameHero
+Projectiles shall have damage as propertie
