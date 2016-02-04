@@ -9,7 +9,9 @@ import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.hero.executor.HeroShooterExecutor;
+import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
+import br.com.guigasgame.gameobject.hero.action.JumpAction;
+import br.com.guigasgame.gameobject.hero.action.ShootAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.projectile.Shuriken;
 import br.com.guigasgame.input.InputListener;
@@ -22,15 +24,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 {
 
 	protected final GameHero gameHero;
-	protected final HeroAnimationsIndex heroAnimationsIndex;
 	protected final HeroStatesProperties heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
-	protected final HeroShooterExecutor shooter;
 
 	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
 	{
 		super();
-		this.heroAnimationsIndex = heroAnimationsIndex;
 		this.heroStatesProperties = HeroStatesPropertiesPool.getStateProperties(heroAnimationsIndex);
 		gameHero.setAnimation(Animation.createAnimation(AnimationsCentralPool.getHeroAnimationRepository().getAnimationsProperties(heroAnimationsIndex)));
 		this.gameHero = gameHero;
@@ -39,7 +38,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		{
 			inputMap.put(key, false);
 		}
-		shooter = new HeroShooterExecutor(heroStatesProperties, gameHero);
 	}
 
 	public void onEnter()
@@ -67,6 +65,28 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		// hook method
 	}
 
+	protected void rope()
+	{
+		//do nothing
+	}
+	
+	protected void jump()
+	{
+		if (heroStatesProperties.canJump)
+		{
+			gameHero.addAction(new JumpAction(gameHero, new Vec2(0, -heroStatesProperties.jumpImpulse)));
+		}
+	}
+	
+	protected void shoot()
+	{
+		if (heroStatesProperties.canShoot)
+		{
+			gameHero.addAction(new ShootAction(gameHero, new Shuriken(pointingDirection(), gameHero.getBody().getWorldCenter(), gameHero.getPlayerID())));
+		}
+		
+	}
+
 	@Override
 	public final void inputPressed(HeroInputKey inputValue)
 	{
@@ -75,17 +95,17 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		{
 			shoot();
 		}
-		if (inputValue == HeroInputKey.STOP)
+		if (inputValue == HeroInputKey.JUMP)
 		{
-			stopMovement();
+			jump();
+		}
+		if (inputValue == HeroInputKey.ROPE)
+		{
+			rope();
 		}
 		stateInputPressed(inputValue);
 	}
-
-	private void stopMovement()
-	{
-		System.out.println("STOP!");
-	}
+	
 
 	@Override
 	public final void inputReleased(HeroInputKey inputValue)
@@ -102,18 +122,13 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 
 	protected final void setState(HeroState heroState)
 	{
-		gameHero.setState(heroState);
 		heroState.inputMap = inputMap;
+		gameHero.addAction(new HeroStateSetterAction(gameHero, heroState));
 	}
 
 	public final Vector2 getMaxSpeed()
 	{
 		return heroStatesProperties.maxSpeed;
-	}
-
-	protected void shoot()
-	{
-		shooter.shoot(new Shuriken(pointingDirection(), gameHero.getBody().getWorldCenter(), gameHero.getPlayerID()));
 	}
 
 	protected final Vec2 pointingDirection()

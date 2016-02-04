@@ -21,8 +21,7 @@ public class HeroStateSetterAction implements GameHeroAction
 	@Override
 	public void execute()
 	{
-		// TODO Auto-generated method stub
-
+		gameHero.setState(newState);
 	}
 
 }

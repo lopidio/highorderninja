@@ -45,11 +45,10 @@ class DuckingState extends HeroState
 	}
 
 	@Override
-	public void stateInputPressed(HeroInputKey inputValue)
+	protected void jump()
 	{
-		if (inputValue == HeroInputKey.JUMP)
-		{
-			setState(new SuperJumpingHeroState(gameHero));
-		}
+		super.jump();
+		setState(new JumpingHeroState(gameHero));
 	}
+	
 }

@@ -30,16 +30,20 @@ public class WallGrabHeroState extends HeroState
 			setState(new FallingHeroState(gameHero));
 		}
 	}
+	
+	@Override
+	protected void jump()
+	{
+		if (heroStatesProperties.canJump)
+		{
+			gameHero.addAction(new DiagonalJumpAction(gameHero, -heroStatesProperties.jumpImpulse, wallSide.opposite()));
+			setState(new JumpingHeroState(gameHero));
+		}			
+	}
 
 	@Override
 	public void stateInputPressed(HeroInputKey key)
 	{
-		if (key == HeroInputKey.JUMP)
-		{
-			gameHero.addAction(new DiagonalJumpAction(gameHero, wallSide.opposite(), heroStatesProperties));
-
-			setState(new JumpingHeroState(gameHero));
-		}
 		if (wallSide == Side.LEFT && key == HeroInputKey.RIGHT)
 		{
 			setState(new FallingHeroState(gameHero));

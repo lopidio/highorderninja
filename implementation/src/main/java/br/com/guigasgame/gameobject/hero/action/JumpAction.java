@@ -3,28 +3,24 @@ package br.com.guigasgame.gameobject.hero.action;
 import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.hero.state.HeroStatesProperties;
 
 
 public class JumpAction implements GameHeroAction
 {
 
 	GameHero gameHero;
-	HeroStatesProperties heroStatesProperties;
+	Vec2 impulse;	
 
-	public JumpAction(GameHero gameHero, HeroStatesProperties heroStatesProperties)
+	public JumpAction(GameHero gameHero, Vec2 impulse)
 	{
 		this.gameHero = gameHero;
-		this.heroStatesProperties = heroStatesProperties;
+		this.impulse = impulse;
 	}
 	
 	@Override
 	public void execute()
 	{
-		if (heroStatesProperties.canJump)
-		{
-			gameHero.applyImpulse(new Vec2(0, -heroStatesProperties.jumpImpulse));
-		}
+		gameHero.applyImpulse(impulse);
 	}
 
 }
