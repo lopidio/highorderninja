@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<heroStatePropertiesFile>
+    <statesMap>
+        <entry>
+            <key>HERO_SLIDING</key>
+            <value>
+				<shoot/>
+				<rope/>
+				<jump jumpImpulse="10.0"/>
+                <maxSpeed>
+                    <x>50</x>
+                    <y>20</y>
+                </maxSpeed>
+                <move acceleration="50.0"/>
+            </value>
+        </entry>
+    </statesMap>
+</heroStatePropertiesFile>

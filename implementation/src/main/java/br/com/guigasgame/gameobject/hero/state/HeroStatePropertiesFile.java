@@ -41,7 +41,8 @@ class HeroStatePropertiesFile {
 		return statesMap;
 	}
 
-	public static void main(String[] args) throws JAXBException {
+	
+	public static void currentProperties() throws JAXBException {
 		
 		try
 		{
@@ -70,6 +71,40 @@ class HeroStatePropertiesFile {
 
 //		StatePropertiesFile fromFile = ((StatePropertiesFile) StatePropertiesFile.loadFromFile("oi.txt"));
 
+	}
+	
+
+	
+	public static void newProperties() throws JAXBException {
+		
+		try
+		{
+			HeroStatePropertiesPrototype states = new HeroStatePropertiesPrototype(new HeroStatePropertiesPrototype.ShootXml(), new HeroStatePropertiesPrototype.RopeXml(), 
+					new HeroStatePropertiesPrototype.JumpXml(-10f), new Vector2(), new HeroStatePropertiesPrototype.MoveXml(20f));
+			JAXBContext context = JAXBContext
+					.newInstance(HeroStatePropertiesPrototype.class);
+			Marshaller m = context.createMarshaller(); // for pretty-print XML
+														// in JAXB
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+			// Write to System.out for debugging 
+			m.marshal(states, System.out);
+
+//			 Write to File 
+//			 m.marshal(anim, new File("prototype.xml"));
+		}
+		catch
+		(JAXBException e)
+		{
+			e.printStackTrace();
+		}
+
+	}	
+	
+	public static void main(String[] args) throws JAXBException 
+	{
+		//currentProperties();
+		newProperties();
 	}
 
 }
