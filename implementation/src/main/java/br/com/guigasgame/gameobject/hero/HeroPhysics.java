@@ -15,20 +15,21 @@ import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.math.Vector2;
+import br.com.guigasgame.side.Side;
 
 
 class HeroPhysics
 {
 
 	private Map<FixtureSensorID, Fixture> fixtureMap;
-	private GameHero gameHero;
 	private HeroSensorsController sensorsController;
 	private Body body;
+	int playerID;
 
-	public HeroPhysics(GameHero gameHero)
+	public HeroPhysics(int playerID)
 	{
-		this.gameHero = gameHero;
 		sensorsController = new HeroSensorsController();
+		this.playerID = playerID;
 	}
 
 	public void loadAndAttachFixturesToBody(Body body)
@@ -42,14 +43,14 @@ class HeroPhysics
 		{
 			FixtureDef def = entry.getValue();
 			
-			def.filter.categoryBits = 1 << (gameHero.getPlayerID() - 1);
+			def.filter.categoryBits = 1 << (playerID - 1);
 			def.filter.maskBits = CollidersFilters.MASK_PLAYER;
 			
 			Fixture fixture = body.createFixture(def);
 			fixtureMap.put(entry.getKey(), fixture);
 			sensorsController.attachController(entry.getKey(), fixture);
 		}
-		System.out.println("Player category: " + Integer.toBinaryString(1 << (gameHero.getPlayerID() - 1)));
+		System.out.println("Player category: 0x" + Integer.toBinaryString(1 << (playerID - 1)));
 	}
 
 	public void applyImpulse(Vec2 impulse)
@@ -120,24 +121,16 @@ class HeroPhysics
 		return body.getLinearVelocity().y < 0;
 	}
 
-	public boolean isTouchingWallAhead()
+	public boolean isTouchingWallAhead(Side side)
 	{
-		switch (gameHero.getForwardSide())
+		switch (side)
 		{
 		case LEFT:
-			return sensorsController
-					.getController(FixtureSensorID.LEFT_BOTTOM_SENSOR)
-					.isTouching()
-					&& sensorsController
-							.getController(FixtureSensorID.LEFT_TOP_SENSOR)
-							.isTouching();
+			return sensorsController.getController(FixtureSensorID.LEFT_BOTTOM_SENSOR).isTouching()
+					&& sensorsController.getController(FixtureSensorID.LEFT_TOP_SENSOR).isTouching();
 		case RIGHT:
-			return sensorsController
-					.getController(FixtureSensorID.RIGHT_BOTTOM_SENSOR)
-					.isTouching()
-					&& sensorsController
-							.getController(FixtureSensorID.RIGHT_TOP_SENSOR)
-							.isTouching();
+			return sensorsController.getController(FixtureSensorID.RIGHT_BOTTOM_SENSOR).isTouching()
+					&& sensorsController.getController(FixtureSensorID.RIGHT_TOP_SENSOR).isTouching();
 		default:
 			return false;
 		}

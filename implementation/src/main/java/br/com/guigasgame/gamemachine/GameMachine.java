@@ -42,10 +42,10 @@ public class GameMachine
 	public GameMachine()
 	{
 		
-		for (VideoMode list: VideoMode.getFullscreenModes())
-		{
+//		for (VideoMode list: VideoMode.getFullscreenModes())
+//		{
 //			System.out.println(list.toString());
-		}
+//		}
 		
 		renderWindow = new RenderWindow(new VideoMode(1366,  768, 32), "Test");//, Window.FULLSCREEN); //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);

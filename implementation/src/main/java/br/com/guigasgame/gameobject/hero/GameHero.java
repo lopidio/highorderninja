@@ -35,10 +35,10 @@ public class GameHero extends GameObject
 	{
 		super(position);
 		this.playerID = playerID;
-		forwardSide = Side.LEFT;
+		forwardSide = Side.RIGHT;
 		actionList = new ArrayList<GameHeroAction>();
 		gameHeroLogic = new GameHeroLogic(this);
-		physicHeroLogic = new HeroPhysics(this);
+		physicHeroLogic = new HeroPhysics(playerID);
 	}
 
 	@Override
@@ -111,6 +111,7 @@ public class GameHero extends GameObject
 		physicHeroLogic.editBodyDef(bodyDef);
 	}
 		
+	@Override
 	public void editBody(Body body)
 	{
 		physicHeroLogic.loadAndAttachFixturesToBody(body);
@@ -137,16 +138,6 @@ public class GameHero extends GameObject
 		physicHeroLogic.applyForce(force);
 	}
 
-	public GameHeroLogic getGameHeroLogic()
-	{
-		return gameHeroLogic;
-	}
-
-	public HeroPhysics getPhysicHeroLogic()
-	{
-		return physicHeroLogic;
-	}
-
 	public int getPlayerID()
 	{
 		return playerID;
@@ -168,14 +159,9 @@ public class GameHero extends GameObject
 		return physicHeroLogic.isFallingDown();
 	}
 
-	public boolean isAscending()
-	{
-		return physicHeroLogic.isAscending();
-	}
-
 	public boolean isTouchingWallAhead()
 	{
-		return physicHeroLogic.isTouchingWallAhead();
+		return physicHeroLogic.isTouchingWallAhead(forwardSide);
 	}
 
 	public void disableCollision(FixtureSensorID sensorID)

@@ -119,7 +119,7 @@ public class SFMLDebugDraw extends DebugDraw
 	@Override
 	public void drawTransform(Transform xf)
 	{
-		float lineProportion = 0.4f;
+//		float lineProportion = 0.4f;
 		// Vec2 p1 = xf.p, p2;
 		//
 		// // red (X axis)
