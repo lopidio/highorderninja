@@ -131,6 +131,11 @@ public class Animation implements UpdatableFromTime, Drawable
 		sprite.setPosition(graphicPosition.x + frameRect.width, graphicPosition.y + frameRect.height);
 	}
 
+	public void setOrientation(float angleInDegrees)
+	{
+		sprite.setRotation(angleInDegrees);
+	}
+
 	public short getCurrentFrameNumber()
 	{
 		return currentFrameNumber;
@@ -145,4 +150,5 @@ public class Animation implements UpdatableFromTime, Drawable
 	{
 		return frameRect.width;
 	}
+
 }

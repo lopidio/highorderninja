@@ -35,7 +35,7 @@ public class GameHero extends GameObject
 		actionList = new ArrayList<GameHeroAction>();
 		gameHeroLogic = new GameHeroLogic(this);
 		collidableHero = new CollidableHero(playerID, position);
-		drawable = animation;
+		
 		collidable = collidableHero;
 		collidable.addListener(this);
 	}
@@ -64,8 +64,8 @@ public class GameHero extends GameObject
 		final Vector2f vector2f = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBodyPosition());
 		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
 				
-		animation.getSprite().setPosition(vector2f);
-		animation.getSprite().setRotation(angleInDegrees);
+		animation.setPosition(vector2f);
+		animation.setOrientation(angleInDegrees);
 	}	
 	
 	private void updateActionList()
@@ -97,6 +97,7 @@ public class GameHero extends GameObject
 
 	public void setAnimation(Animation animation)
 	{
+		drawable = animation;
 		this.animation = animation;
 	}
 	
