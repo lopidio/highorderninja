@@ -11,6 +11,8 @@ import org.jbox2d.dynamics.Filter;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 
+import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
@@ -18,23 +20,22 @@ import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.side.Side;
 
 
-class HeroPhysics
+public class CollidableHero extends Collidable
 {
 
 	private Map<FixtureSensorID, Fixture> fixtureMap;
 	private HeroSensorsController sensorsController;
-	private Body body;
 	int playerID;
 
-	public HeroPhysics(int playerID)
+	public CollidableHero(int playerID, Vec2 position)
 	{
+		super(position);
 		sensorsController = new HeroSensorsController();
 		this.playerID = playerID;
 	}
 
 	public void loadAndAttachFixturesToBody(Body body)
 	{
-		this.body = body;
 		// HeroFixtures gameHeroFixtures = HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
 		HeroFixturesCreator gameHeroFixtures = new HeroFixturesCreator();
 		fixtureMap = new HashMap<>();
@@ -55,8 +56,7 @@ class HeroPhysics
 
 	public void applyImpulse(Vec2 impulse)
 	{
-		body.applyLinearImpulse(impulse.mul(body.getMass()),
-				body.getWorldCenter());
+		body.applyLinearImpulse(impulse.mul(body.getMass()), body.getWorldCenter());
 	}
 
 	public void applyForce(Vec2 force)
@@ -86,6 +86,11 @@ class HeroPhysics
 		}
 
 	}
+	
+	public boolean isMoving()
+	{
+		return body.getLinearVelocity().length() > WorldConstants.MOVING_TOLERANCE;
+	}	
 
 	public Vec2 getBodyPosition()
 	{
@@ -97,7 +102,7 @@ class HeroPhysics
 		return body.getAngle();
 	}
 
-	public BodyDef editBodyDef(BodyDef bodyDef)
+	public BodyDef editBodyDefBeforeCreation(BodyDef bodyDef)
 	{
 		bodyDef.fixedRotation = true;
 		bodyDef.type = BodyType.DYNAMIC;
@@ -107,8 +112,7 @@ class HeroPhysics
 
 	public boolean isTouchingGround()
 	{
-		return sensorsController.getController(FixtureSensorID.BOTTOM_SENSOR)
-				.isTouching();
+		return sensorsController.getController(FixtureSensorID.BOTTOM_SENSOR).isTouching();
 	}
 
 	public boolean isFallingDown()

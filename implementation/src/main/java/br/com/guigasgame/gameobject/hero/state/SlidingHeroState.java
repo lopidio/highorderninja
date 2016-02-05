@@ -28,7 +28,7 @@ class SlidingHeroState extends HeroState
 			return;
 		}
 		
-		if (gameHero.isFallingDown())
+		if (gameHero.getCollidableHero().isFallingDown())
 		{
 			setState(new FallingHeroState(gameHero));
 		}

@@ -7,11 +7,12 @@ import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 
+import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public class Animation implements UpdatableFromTime
+public class Animation implements UpdatableFromTime, Drawable
 {
 
 	private final AnimationProperties animationProperties;
@@ -105,6 +106,7 @@ public class Animation implements UpdatableFromTime
 				frameRect.width, frameRect.height));
 	}
 
+	@Override
 	public final Sprite getSprite()
 	{
 		return sprite;

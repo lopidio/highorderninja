@@ -28,7 +28,7 @@ public class DiagonalJumpAction implements GameHeroAction
 		// Aponta para o local correto
 		jumpDirection.mulLocal(impulse);
 
-		gameHero.applyImpulse(jumpDirection);
+		gameHero.getCollidableHero().applyImpulse(jumpDirection);
 	}
 
 }

@@ -5,16 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
-import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.side.Side;
@@ -28,29 +24,25 @@ public class GameHero extends GameObject
 	Side forwardSide;
 	List<GameHeroAction> actionList;
 	GameHeroLogic gameHeroLogic;
-	HeroPhysics physicHeroLogic;
+	CollidableHero collidableHero;
 	Animation animation;
 
 	public GameHero(int playerID, Vec2 position)
 	{
-		super(position);
 		this.playerID = playerID;
 		forwardSide = Side.RIGHT;
 		actionList = new ArrayList<GameHeroAction>();
 		gameHeroLogic = new GameHeroLogic(this);
-		physicHeroLogic = new HeroPhysics(playerID);
+		collidableHero = new CollidableHero(playerID, position);
+		drawable = animation;
+		collidable = collidableHero;
+		collidable.addListener(this);
 	}
 
 	@Override
-	public void load()
+	public void onEnter()
 	{
-		gameHeroLogic.load();
-	}
-
-	@Override
-	public void unload()
-	{
-		gameHeroLogic.unload();
+		gameHeroLogic.onEnter();
 	}
 
 	@Override
@@ -61,14 +53,16 @@ public class GameHero extends GameObject
 		gameHeroLogic.update(deltaTime);
 		updateActionList();
 
-		physicHeroLogic.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
-		adjustSpritePosition(WorldConstants.physicsToSfmlCoordinates(physicHeroLogic.getBodyPosition()),
-				(float) WorldConstants.radiansToDegrees(physicHeroLogic.getAngleRadians()));
+		collidableHero.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
+		adjustSpritePosition();
 	}
 
 
-	public void adjustSpritePosition(Vector2f vector2f, float angleInDegrees)
+	public void adjustSpritePosition()
 	{
+		final Vector2f vector2f = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBodyPosition());
+		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
+				
 		animation.getSprite().setPosition(vector2f);
 		animation.getSprite().setRotation(angleInDegrees);
 	}	
@@ -105,37 +99,9 @@ public class GameHero extends GameObject
 		this.animation = animation;
 	}
 	
-	@Override
-	protected void editBodyDef(BodyDef bodyDef)
-	{
-		physicHeroLogic.editBodyDef(bodyDef);
-	}
-		
-	@Override
-	public void editBody(Body body)
-	{
-		physicHeroLogic.loadAndAttachFixturesToBody(body);
-	}
-
-	@Override
-	public Sprite getSprite()
-	{
-		return animation.getSprite();
-	}
-
 	public Side getForwardSide()
 	{
 		return forwardSide;
-	}
-
-	public void applyImpulse(Vec2 impulse)
-	{
-		physicHeroLogic.applyImpulse(impulse);
-	}
-
-	public void applyForce(Vec2 force)
-	{
-		physicHeroLogic.applyForce(force);
 	}
 
 	public int getPlayerID()
@@ -149,34 +115,9 @@ public class GameHero extends GameObject
 		forwardSide = side;
 	}
 
-	public boolean isTouchingGround()
-	{
-		return physicHeroLogic.isTouchingGround();
-	}
-
-	public boolean isFallingDown()
-	{
-		return physicHeroLogic.isFallingDown();
-	}
-
 	public boolean isTouchingWallAhead()
 	{
-		return physicHeroLogic.isTouchingWallAhead(forwardSide);
-	}
-
-	public void disableCollision(FixtureSensorID sensorID)
-	{
-		physicHeroLogic.disableCollision(sensorID);
-	}
-
-	public void enableCollision(FixtureSensorID sensorID)
-	{
-		physicHeroLogic.enableCollision(sensorID);
-	}
-
-	public boolean isMoving()
-	{
-		return physicHeroLogic.getBodyLinearVelocity().length() > WorldConstants.MOVING_TOLERANCE;
+		return collidableHero.isTouchingWallAhead(forwardSide);
 	}
 
 	public void shoot(Projectile projectile)
@@ -189,9 +130,9 @@ public class GameHero extends GameObject
 		actionList.add(gameHeroAction);
 	}
 
-	public void stopMovement()
+	public CollidableHero getCollidableHero()
 	{
-		physicHeroLogic.stopMovement();
+		return collidableHero;
 	}
 
 }

@@ -20,7 +20,7 @@ public class JumpAction implements GameHeroAction
 	@Override
 	public void execute()
 	{
-		gameHero.applyImpulse(impulse);
+		gameHero.getCollidableHero().applyImpulse(impulse);
 	}
 
 }

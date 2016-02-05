@@ -2,6 +2,7 @@ package br.com.guigasgame.gameobject.projectile;
 
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.contacts.Contact;
 
@@ -21,6 +22,9 @@ public class Shuriken extends Projectile
 		this.playerID = playerID;
 		this.sightDistance = 100;
 		collisionCounter = 0;
+
+		collidable = new ShurikenCollidable(position);
+		collidable.addListener(this);
 	}
 
 	@Override
@@ -57,6 +61,7 @@ public class Shuriken extends Projectile
 	@Override
 	public void onEnter()
 	{
+		Body body = collidable.getBody();
 		FixtureDef def = createFixture();
 		body.createFixture(def);
 

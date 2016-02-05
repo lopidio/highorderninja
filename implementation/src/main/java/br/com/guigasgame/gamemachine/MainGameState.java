@@ -2,6 +2,7 @@ package br.com.guigasgame.gamemachine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,8 +27,10 @@ import org.jsfml.window.event.Event;
 import org.jsfml.window.event.Event.Type;
 
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
+import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidersFilters;
 import br.com.guigasgame.collision.CollisionManager;
+import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHero;
 
@@ -41,11 +44,15 @@ public class MainGameState implements GameState
 
 	Body singleBlockBody;
 	DistanceJoint joint;
+	
 	List<GameObject> gameObjectsList;
+	List<Drawable> drawableList;
 
 	public MainGameState() throws JAXBException
 	{
 		gameObjectsList = new ArrayList<>();
+		drawableList = new ArrayList<>();
+		
 		timeFactor = 1;
 
 		Vec2 gravity = new Vec2(0, (float) 9.8);
@@ -190,16 +197,16 @@ public class MainGameState implements GameState
 	{
 		DistanceJointDef distDef = new DistanceJointDef();
 
-		distDef.bodyA = gameHero.getBody();
+		distDef.bodyA = gameHero.getCollidable().getBody();
 		distDef.bodyB = singleBlockBody;
 		distDef.collideConnected = false;
-		distDef.length = singleBlockBody.getPosition().sub(gameHero.getBody().getPosition()).length();
+		distDef.length = singleBlockBody.getPosition().sub(gameHero.getCollidable().getBody().getPosition()).length();
 
 		System.out.println("Creates");
 		joint = (DistanceJoint) world.createJoint(distDef);
 	}
 
-	private void addNewGameObjectsToList()
+	private void verifyNewObjectsToLists()
 	{
 		List<GameObject> objsToAdd = new ArrayList<>();
 		objsToAdd.addAll(gameObjectsList);
@@ -207,36 +214,48 @@ public class MainGameState implements GameState
 		{
 			if (gameObject.hasChildrenToAdd())
 			{
-				initializeGameObject(gameObject.getChildrenToAdd());
+				initializeGameObject(gameObject.getChildrenList());
 			}
-			gameObject.clearChildrenToAdd();
+			gameObject.clearChildrenList();
 		}
 	}
 
-	private void initializeGameObject(List<GameObject> childrenToAdd)
+	private void initializeGameObject(Collection<GameObject> childrenToAdd)
 	{
 		for( GameObject child : childrenToAdd )
 		{
-			child.load();
-			child.attachBody(world);
+			child.onEnter();
+			Collidable collidable = child.getCollidable();
+			if (collidable != null)		
+			{
+				collidable.attachBody(world);
+			}
+			Drawable drawable = child.getDrawable();
+			if (drawable != null)
+			{
+				drawableList.add(drawable);
+			}
 			child.onEnter();
 			gameObjectsList.add(child);
 		}
 	}
 
-	private void clearDeadObject()
+	private void clearDeadObjects()
 	{
 		Iterator<GameObject> iterator = gameObjectsList.iterator();
 		while (iterator.hasNext())
 		{
-			GameObject toRemove = iterator.next(); // must be called before you
-													// can call
-													// iterator.remove()
+			GameObject toRemove = iterator.next(); // must be called before you can call iterator.remove()
 			if (toRemove.isDead())
 			{
-				toRemove.unload();
-				toRemove.onDestoy();
-				world.destroyBody(toRemove.getBody());
+				toRemove.onDestroy();
+				Collidable collidable = toRemove.getCollidable();
+				if (collidable != null)		
+				{
+					world.destroyBody(collidable.getBody());
+				}
+				drawableList.remove(toRemove.getDrawable());
+				
 				iterator.remove();
 			}
 		}
@@ -260,8 +279,8 @@ public class MainGameState implements GameState
 			joint.setLength(joint.getLength() * 0.995f);
 		}
 
-		addNewGameObjectsToList();
-		clearDeadObject();
+		verifyNewObjectsToLists();
+		clearDeadObjects();
 	}
 
 	@Override
@@ -269,9 +288,9 @@ public class MainGameState implements GameState
 	{
 		world.drawDebugData();
 
-		for( GameObject go : gameObjectsList )
+		for( Drawable drawable : drawableList )
 		{
-			renderWindow.draw(go.getSprite());
+			renderWindow.draw(drawable.getSprite());
 		}
 	}
 

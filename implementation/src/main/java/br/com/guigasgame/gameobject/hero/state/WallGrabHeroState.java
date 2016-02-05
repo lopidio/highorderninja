@@ -21,7 +21,7 @@ public class WallGrabHeroState extends HeroState
 	@Override
 	public void stateUpdate(float deltaTime)
 	{
-		if (gameHero.isTouchingGround() && !gameHero.isFallingDown())
+		if (gameHero.getCollidableHero().isTouchingGround() && !gameHero.getCollidableHero().isFallingDown())
 		{
 			setState(new StandingHeroState(gameHero));
 		}

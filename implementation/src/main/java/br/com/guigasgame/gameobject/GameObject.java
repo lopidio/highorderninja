@@ -1,27 +1,31 @@
 package br.com.guigasgame.gameobject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
+import br.com.guigasgame.collision.CollisionListener;
+import br.com.guigasgame.composite.Composible;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class GameObject extends Collidable
-		implements UpdatableFromTime, Drawable
+public abstract class GameObject implements Composible<GameObject>, CollisionListener, UpdatableFromTime
 {
 
+	protected Vec2 position;
+	protected Collidable collidable;
+	protected Drawable drawable;
+	
 	protected boolean alive;
-	private List<GameObject> childrenToAdd;
+	private List<GameObject> children;
 
-	public GameObject(Vec2 position)
+	public GameObject()
 	{
-		super(position);
-		childrenToAdd = new ArrayList<>();
+		children = new ArrayList<>();
 		alive = true;
 	}
 
@@ -35,56 +39,50 @@ public abstract class GameObject extends Collidable
 		alive = false;
 	}
 
-	@Override
-	public void beginContact(Collidable collidable, Contact contact)
-	{
-		// Default implementation
-	}
-
-	@Override
-	public void endContact(Collidable collidable, Contact contact)
-	{
-		// Default implementation
-	}
-
-	public void load()
-	{
-		// Default implementation
-	}
-
-	public void unload()
-	{
-		// Default implementation
-	}
-
 	public void onEnter()
 	{
 		// Default implementation
 	}
 
-	public void onDestoy()
+	public void onDestroy()
 	{
 		// Default implementation
 	}
 
-	public final void clearChildrenToAdd()
+	
+	@Override
+	public final void addChild(GameObject child)
 	{
-		childrenToAdd.clear();
+		children.add(child);
 	}
 
-	public final List<GameObject> getChildrenToAdd()
-	{
-		return childrenToAdd;
-	}
-
+	@Override
 	public final boolean hasChildrenToAdd()
 	{
-		return !childrenToAdd.isEmpty();
+		return children.size() > 0;
 	}
 
-	protected final void addChild(GameObject child)
+	@Override
+	public final Collection<GameObject> getChildrenList()
 	{
-		childrenToAdd.add(child);
+		return children;
+	}
+
+	@Override
+	public final void clearChildrenList()
+	{
+		children.clear();
+	}
+	
+	public final Collidable getCollidable()
+	{
+		return collidable;
+	}
+
+	
+	public final Drawable getDrawable()
+	{
+		return drawable;
 	}
 
 }

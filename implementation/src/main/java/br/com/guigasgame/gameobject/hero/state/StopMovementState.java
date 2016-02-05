@@ -14,7 +14,7 @@ public class StopMovementState extends HeroState
 	protected StopMovementState(GameHero gameHero)
 	{
 		super(gameHero, HeroAnimationsIndex.HERO_DIVING);
-		gameHero.getSprite().setColor(Color.YELLOW);
+		gameHero.getDrawable().getSprite().setColor(Color.YELLOW);
 		secondsRemaining = 0.5f;
 	}
 
@@ -24,11 +24,11 @@ public class StopMovementState extends HeroState
 		secondsRemaining -= deltaTime;
 		if (secondsRemaining <= 0)
 		{
-			if (gameHero.isFallingDown())
+			if (gameHero.getCollidableHero().isFallingDown())
 			{
 				setState(new FallingHeroState(gameHero));
 			}
-			else if (gameHero.isTouchingGround())
+			else if (gameHero.getCollidableHero().isTouchingGround())
 			{
 				setState(new StandingHeroState(gameHero));
 			}
@@ -36,7 +36,7 @@ public class StopMovementState extends HeroState
 		}
 		else
 		{
-			gameHero.stopMovement();
+			gameHero.getCollidableHero().stopMovement();
 		}
 
 	}

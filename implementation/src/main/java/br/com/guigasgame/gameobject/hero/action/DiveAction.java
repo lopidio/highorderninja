@@ -19,8 +19,8 @@ public class DiveAction implements GameHeroAction
 	@Override
 	public void execute()
 	{
-		gameHero.stopMovement();		
-		gameHero.applyImpulse(impulse);
+		gameHero.getCollidableHero().stopMovement();		
+		gameHero.getCollidableHero().applyImpulse(impulse);
 	}
 
 }

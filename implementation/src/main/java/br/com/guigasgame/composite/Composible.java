@@ -12,6 +12,6 @@ public interface Composible<T>
 
 	public Collection<T> getChildrenList();
 
-	public void clearChildren();
+	public void clearChildrenList();
 	
 }

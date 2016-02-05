@@ -5,7 +5,6 @@ import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.dynamics.contacts.Contact;
 
-
 public class CollisionManager implements ContactListener
 {
 

@@ -92,7 +92,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	{
 		if (heroStatesProperties.shoot != null)
 		{
-			gameHero.addAction(new ShootAction(gameHero, new Shuriken(pointingDirection(), gameHero.getBody().getWorldCenter(), gameHero.getPlayerID())));
+			gameHero.addAction(new ShootAction(gameHero, new Shuriken(pointingDirection(), gameHero.getCollidable().getBody().getWorldCenter(), gameHero.getPlayerID())));
 		}
 		
 	}

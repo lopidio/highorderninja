@@ -17,19 +17,19 @@ class DuckingState extends HeroState
 	@Override
 	public void onEnter()
 	{
-		gameHero.disableCollision(FixtureSensorID.HEAD);
+		gameHero.getCollidableHero().disableCollision(FixtureSensorID.HEAD);
 	}
 
 	@Override
 	public void onQuit()
 	{
-		gameHero.enableCollision(FixtureSensorID.HEAD);
+		gameHero.getCollidableHero().enableCollision(FixtureSensorID.HEAD);
 	}
 
 	@Override
 	public void stateUpdate(float deltaTime)
 	{
-		if (gameHero.isFallingDown())
+		if (gameHero.getCollidableHero().isFallingDown())
 		{
 			setState(new FallingHeroState(gameHero));
 		}

@@ -23,7 +23,7 @@ public class DoubleJumpAction implements GameHeroAction
 	{
 		if (heroStatesProperties.jump != null)
 		{
-			gameHero.applyImpulse(new Vec2(0, -heroStatesProperties.jump.impulse / 2));
+			gameHero.getCollidableHero().applyImpulse(new Vec2(0, -heroStatesProperties.jump.impulse / 2));
 		}
 	}
 

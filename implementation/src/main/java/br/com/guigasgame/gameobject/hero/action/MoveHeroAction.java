@@ -26,9 +26,9 @@ public class MoveHeroAction implements GameHeroAction
 	{
 		gameHero.setForwardSide(side);
 		if (side == Side.LEFT)
-			gameHero.applyForce(new Vec2(-heroStatesProperties.move.acceleration, 0));
+			gameHero.getCollidableHero().applyForce(new Vec2(-heroStatesProperties.move.acceleration, 0));
 		else if (side == Side.RIGHT)
-			gameHero.applyForce(new Vec2(heroStatesProperties.move.acceleration, 0));
+			gameHero.getCollidableHero().applyForce(new Vec2(heroStatesProperties.move.acceleration, 0));
 	}
 
 }

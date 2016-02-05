@@ -10,16 +10,12 @@ public class ShootAction implements GameHeroAction
 	GameHero gameHero;
 	Projectile projectile;	
 
-
-	
 	public ShootAction(GameHero gameHero, Projectile projectile)
 	{
 		super();
 		this.gameHero = gameHero;
 		this.projectile = projectile;
 	}
-
-
 
 	@Override
 	public void execute()

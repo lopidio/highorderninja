@@ -5,8 +5,8 @@ import java.util.Map.Entry;
 
 import javax.xml.bind.annotation.XmlEnum;
 
-import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.input.InputController;
+import br.com.guigasgame.input.InputListener;
 
 
 public class GameHeroInputMap
