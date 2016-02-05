@@ -21,7 +21,7 @@ public class Projectile extends GameObject
 		this.index = index;
 
 		this.animation = Animation.createAnimation(AnimationsCentralPool.getProjectileAnimationRepository().getAnimationsProperties(index));
-		animation.getSprite().setColor(Color.mul(Color.BLACK, Color.BLUE));
+		animation.setColor(Color.mul(Color.BLACK, Color.BLUE));
 
 		this.properties = ProjectilesPropertiesPool.getProjectileProperties(index);
 		this.direction = direction.clone();
@@ -32,7 +32,7 @@ public class Projectile extends GameObject
 	@Override
 	public void update(float deltaTime)
 	{
-		animation.getSprite().setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
+		animation.setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
 		animation.update(deltaTime);
 	}
 

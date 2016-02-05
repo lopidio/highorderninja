@@ -43,6 +43,7 @@ public class GameHero extends GameObject
 	@Override
 	public void onEnter()
 	{
+		collidableHero.loadAndAttachFixturesToBody();
 		gameHeroLogic.onEnter();
 	}
 
@@ -57,7 +58,6 @@ public class GameHero extends GameObject
 		collidableHero.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
 		adjustSpritePosition();
 	}
-
 
 	public void adjustSpritePosition()
 	{
@@ -140,6 +140,11 @@ public class GameHero extends GameObject
 	public Projectile getNextProjectile(Vec2 pointingDirection)
 	{
 		return new Shuriken(pointingDirection, collidable.getBody().getWorldCenter(), playerID);
+	}
+
+	public Animation getAnimation()
+	{
+		return animation;
 	}
 
 }

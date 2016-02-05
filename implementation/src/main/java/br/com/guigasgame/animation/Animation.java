@@ -3,7 +3,9 @@ package br.com.guigasgame.animation;
 import java.awt.Rectangle;
 import java.io.IOException;
 
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.IntRect;
+import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 
@@ -106,10 +108,11 @@ public class Animation implements UpdatableFromTime, Drawable
 				frameRect.width, frameRect.height));
 	}
 
+	
 	@Override
-	public final Sprite getSprite()
+	public void draw(RenderWindow renderWindow)
 	{
-		return sprite;
+		renderWindow.draw(sprite);
 	}
 
 	public final void flipAnimation(Side side)
@@ -149,6 +152,11 @@ public class Animation implements UpdatableFromTime, Drawable
 	public int getWidth()
 	{
 		return frameRect.width;
+	}
+
+	public void setColor(Color color)
+	{
+		sprite.setColor(color);
 	}
 
 }

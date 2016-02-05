@@ -69,7 +69,7 @@ class AnimationViewer
 			for( Animation animation : animationList )
 			{
 				animation.update(deltaTime);
-				renderWindow.draw(animation.getSprite());
+				animation.draw(renderWindow);
 			}
 			
 			renderWindow.display();

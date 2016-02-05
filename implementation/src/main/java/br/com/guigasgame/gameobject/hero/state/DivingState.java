@@ -14,7 +14,7 @@ public class DivingState extends HeroState
 	protected DivingState(GameHero gameHero)
 	{
 		super(gameHero, HeroAnimationsIndex.HERO_DIVING);
-		gameHero.getDrawable().getSprite().setColor(Color.MAGENTA);
+		gameHero.getAnimation().setColor(Color.MAGENTA);
 	}
 
 	@Override

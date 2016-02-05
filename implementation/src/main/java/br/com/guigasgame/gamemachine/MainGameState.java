@@ -67,7 +67,7 @@ public class MainGameState implements GameState
 		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1), true);
 
 		gameHero = new GameHero(1, new Vec2(10, 5));
-		initializeGameObject(Arrays.asList(gameHero, new GameHero(2, new Vec2(40, 5))));
+		initializeGameObject(Arrays.asList(gameHero/*, new GameHero(2, new Vec2(40, 5))*/));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size, boolean mask)
@@ -224,7 +224,6 @@ public class MainGameState implements GameState
 	{
 		for( GameObject child : childrenToAdd )
 		{
-			child.onEnter();
 			Collidable collidable = child.getCollidable();
 			if (collidable != null)		
 			{
@@ -290,7 +289,7 @@ public class MainGameState implements GameState
 
 		for( Drawable drawable : drawableList )
 		{
-			renderWindow.draw(drawable.getSprite());
+			drawable.draw(renderWindow);
 		}
 	}
 

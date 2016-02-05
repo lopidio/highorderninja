@@ -14,7 +14,7 @@ public class StopMovementState extends HeroState
 	protected StopMovementState(GameHero gameHero)
 	{
 		super(gameHero, HeroAnimationsIndex.HERO_DIVING);
-		gameHero.getDrawable().getSprite().setColor(Color.YELLOW);
+		gameHero.getAnimation().setColor(Color.YELLOW);
 		secondsRemaining = 0.5f;
 	}
 
