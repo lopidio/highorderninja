@@ -75,7 +75,12 @@ public class GameHero extends GameObject
 	
 	private void updateActionList()
 	{
-		Iterator<GameHeroAction> iterator = actionList.iterator();
+		//Set action list free to new actions
+		List<GameHeroAction> copy = new ArrayList<>();
+		copy.addAll(actionList);
+		actionList.clear();
+		
+		Iterator<GameHeroAction> iterator = copy.iterator();
 		while (iterator.hasNext())
 		{
 			GameHeroAction gameHeroAction = iterator.next();
@@ -86,7 +91,6 @@ public class GameHero extends GameObject
 				gameHeroAction.execute();
 				gameHeroAction.postExecute();
 			}
-			iterator.remove();
 		}
 	}
 

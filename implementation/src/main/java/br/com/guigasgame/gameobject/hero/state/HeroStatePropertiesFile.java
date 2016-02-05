@@ -21,7 +21,7 @@ import br.com.guigasgame.math.Vector2;
 public class HeroStatePropertiesFile {
 
 	@XmlElement
-	private Map<HeroAnimationsIndex, HeroStatePropertiesPrototype> statesMap;
+	private Map<HeroAnimationsIndex, HeroStateProperties> statesMap;
 
 	protected HeroStatePropertiesFile() {
 		statesMap = new HashMap<>();
@@ -37,7 +37,7 @@ public class HeroStatePropertiesFile {
 	}
 
 	
-	public Map<HeroAnimationsIndex, HeroStatePropertiesPrototype> getStatesMap()
+	public Map<HeroAnimationsIndex, HeroStateProperties> getStatesMap()
 	{
 		return statesMap;
 	}
@@ -47,8 +47,8 @@ public class HeroStatePropertiesFile {
 		try
 		{
 			HeroStatePropertiesFile states = new HeroStatePropertiesFile();
-			states.statesMap.put(HeroAnimationsIndex.HERO_SLIDING, new HeroStatePropertiesPrototype( new HeroStatePropertiesPrototype.ShootXml(), new HeroStatePropertiesPrototype.RopeXml(), 
-					new HeroStatePropertiesPrototype.JumpXml(-10f), new Vector2(), new HeroStatePropertiesPrototype.MoveXml(20f)));
+			states.statesMap.put(HeroAnimationsIndex.HERO_SLIDING, new HeroStateProperties( new HeroStateProperties.ShootXml(), new HeroStateProperties.RopeXml(), 
+					new HeroStateProperties.JumpXml(-10f), new Vector2(), new HeroStateProperties.MoveXml(20f)));
 			JAXBContext context = JAXBContext
 					.newInstance(HeroStatePropertiesFile.class);
 			Marshaller m = context.createMarshaller(); // for pretty-print XML

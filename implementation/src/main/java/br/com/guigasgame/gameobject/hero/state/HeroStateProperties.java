@@ -3,13 +3,11 @@ package br.com.guigasgame.gameobject.hero.state;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 
 import br.com.guigasgame.math.Vector2;
 
 @XmlRootElement
-@XmlSeeAlso(HeroStatePropertiesPrototype.JumpXml.class)
-public class HeroStatePropertiesPrototype
+public class HeroStateProperties
 {
 	
 	public static class JumpXml
@@ -55,7 +53,7 @@ public class HeroStatePropertiesPrototype
 	@XmlElement(required=true)
 	public final Vector2 maxSpeed;
 	
-	public HeroStatePropertiesPrototype(ShootXml shoot, RopeXml rope, JumpXml jump, Vector2 maxSpeed, MoveXml move)
+	public HeroStateProperties(ShootXml shoot, RopeXml rope, JumpXml jump, Vector2 maxSpeed, MoveXml move)
 	{
 		super();
 		this.shoot = shoot;
@@ -65,7 +63,7 @@ public class HeroStatePropertiesPrototype
 		this.move = move;
 	}
 	
-	public HeroStatePropertiesPrototype()
+	public HeroStateProperties()
 	{
 		this.shoot = null;
 		this.rope = null;

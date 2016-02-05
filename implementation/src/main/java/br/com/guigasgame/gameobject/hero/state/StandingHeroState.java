@@ -3,6 +3,7 @@ package br.com.guigasgame.gameobject.hero.state;
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.side.Side;
 
 
 class StandingHeroState extends HeroState
@@ -37,6 +38,12 @@ class StandingHeroState extends HeroState
 		{
 			setState(new RunningHeroState(gameHero));
 		}
+	}
+	
+	@Override
+	protected void move(Side side)
+	{
+		setState(new RunningHeroState(gameHero));
 	}
 		
 	@Override

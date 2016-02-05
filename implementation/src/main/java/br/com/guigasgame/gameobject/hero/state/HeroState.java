@@ -26,7 +26,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 {
 
 	protected final GameHero gameHero;
-	protected final HeroStatePropertiesPrototype heroStatesProperties;
+	protected final HeroStateProperties heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
 
 	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
@@ -132,7 +132,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		stateInputIsPressed(inputValue);
 	}
 
-	private void move(Side side)
+	protected void move(Side side)
 	{
 		if (heroStatesProperties.move != null)
 		{

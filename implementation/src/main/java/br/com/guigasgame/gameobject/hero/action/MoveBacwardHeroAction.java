@@ -1,17 +1,17 @@
 package br.com.guigasgame.gameobject.hero.action;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.hero.state.HeroStatePropertiesPrototype;
+import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 
 
 public class MoveBacwardHeroAction implements GameHeroAction
 {
 
 	GameHero gameHero;
-	HeroStatePropertiesPrototype heroStatesProperties;
+	HeroStateProperties heroStatesProperties;
 	MoveHeroAction decorator;
 
-	public MoveBacwardHeroAction(GameHero gameHero, HeroStatePropertiesPrototype heroStatesProperties)
+	public MoveBacwardHeroAction(GameHero gameHero, HeroStateProperties heroStatesProperties)
 	{
 		this.gameHero = gameHero;
 		this.heroStatesProperties = heroStatesProperties;

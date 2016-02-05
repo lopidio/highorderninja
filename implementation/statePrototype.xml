@@ -15,7 +15,7 @@
         <entry>
             <key>HERO_WALLGRABBING</key>
             <value>
-                <jump impulse="17.0"/>
+                <jump impulse="12.0"/>
                 <maxSpeed>
                     <x>10</x>
                     <y>3</y>
@@ -27,7 +27,6 @@
             <value>
 				<rope/>
 				<shoot/>
-				<move acceleration="50.0"/>			
                 <jump impulse="10.0"/>
                 <maxSpeed>
                     <x>20</x>
@@ -53,7 +52,6 @@
             <value>
 				<rope/>
 				<shoot/>
-				<move acceleration="5.0"/>			
                 <jump impulse="10.0"/>
                 <maxSpeed>
                     <x>20</x>
@@ -75,6 +73,7 @@
         <entry>
             <key>HERO_DIVING</key>
             <value>
+			    <jump impulse="10.0"/>
                 <maxSpeed>
                     <x>20</x>
                     <y>80</y>

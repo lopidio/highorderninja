@@ -25,8 +25,15 @@ class SlidingHeroState extends HeroState
 		if (secondsRemaining <= 0)
 		{
 			setState(new StandingHeroState(gameHero));
+			return;
+		}
+		
+		if (gameHero.isFallingDown())
+		{
+			setState(new FallingHeroState(gameHero));
 		}
 	}
+	
 	
 	@Override
 	public void stateInputPressed(HeroInputKey key)
