@@ -53,7 +53,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		// hook method
 	}
 
-	public void updateState(float deltaTime)
+	public void stateUpdate(float deltaTime)
 	{
 		// hook method
 	}
@@ -68,7 +68,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		// hook method
 	}
 	
-	protected void stateInputIsPressed(HeroInputKey inputValue)
+	protected void stateInputIsPressing(HeroInputKey inputValue)
 	{
 		// hook method
 	}
@@ -101,10 +101,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	public final void inputPressed(HeroInputKey inputValue)
 	{
 		inputMap.put(inputValue, true);
-		if (inputValue == HeroInputKey.SHOOT)
-		{
-			shoot();
-		}
 		if (inputValue == HeroInputKey.JUMP)
 		{
 			jump();
@@ -118,8 +114,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	}
 	
 	@Override
-	public final void isPressed(HeroInputKey inputValue)
+	public final void isPressing(HeroInputKey inputValue)
 	{
+		if (inputValue == HeroInputKey.SHOOT)
+		{
+			System.out.println("Aiming!");
+		}			
 		if (inputValue == HeroInputKey.LEFT)
 		{
 			move(Side.LEFT);
@@ -129,7 +129,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 			move(Side.RIGHT);
 		}
 		
-		stateInputIsPressed(inputValue);
+		stateInputIsPressing(inputValue);
 	}
 
 	protected void move(Side side)
@@ -147,13 +147,17 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	public final void inputReleased(HeroInputKey inputValue)
 	{
 		inputMap.put(inputValue, false);
+		if (inputValue == HeroInputKey.SHOOT)
+		{
+			shoot();
+		}		
 		stateInputReleased(inputValue);
 	}
 
 	@Override
 	public final void update(float deltaTime)
 	{
-		updateState(deltaTime);
+		stateUpdate(deltaTime);
 	}
 
 	protected final void setState(HeroState heroState)

@@ -24,7 +24,7 @@ class GameHeroLogic implements UpdatableFromTime
 	@Override
 	public void update(float deltaTime)
 	{
-		state.updateState(deltaTime);
+		state.stateUpdate(deltaTime);
 		gameHeroInput.update();
 	}
 

@@ -18,7 +18,7 @@ class SlidingHeroState extends HeroState
 	}
 
 	@Override
-	public void updateState(float deltaTime)
+	public void stateUpdate(float deltaTime)
 	{
 		secondsRemaining -= deltaTime;
 		gameHero.addAction(new MoveForwardHeroAction(gameHero, heroStatesProperties));

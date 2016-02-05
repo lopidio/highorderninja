@@ -28,7 +28,7 @@ class StandingHeroState extends HeroState
 	}
 
 	@Override
-	public void updateState(float deltaTime)
+	public void stateUpdate(float deltaTime)
 	{
 		if (gameHero.isFallingDown())
 		{
@@ -47,7 +47,7 @@ class StandingHeroState extends HeroState
 	}
 		
 	@Override
-	public void stateInputIsPressed(HeroInputKey key)
+	public void stateInputIsPressing(HeroInputKey key)
 	{
 		if (/* gameHero.isTouchingGround() && */key == HeroInputKey.DOWN)
 		{

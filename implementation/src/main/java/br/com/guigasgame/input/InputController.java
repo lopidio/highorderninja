@@ -52,7 +52,7 @@ public class InputController<T>
 		{
 			if (state)
 			{
-				inputListener.isPressed(userData);
+				inputListener.isPressing(userData);
 				if (!prevState)
 					inputListener.inputPressed(userData);
 			}

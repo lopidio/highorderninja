@@ -13,7 +13,7 @@ public interface InputListener<T>
 
 	}
 
-	public default void isPressed(T inputValue)
+	public default void isPressing(T inputValue)
 	{
 
 	}

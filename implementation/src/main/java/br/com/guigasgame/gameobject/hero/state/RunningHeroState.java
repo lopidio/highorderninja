@@ -27,7 +27,7 @@ class RunningHeroState extends HeroState
 	}
 
 	@Override
-	public void updateState(float deltaTime)
+	public void stateUpdate(float deltaTime)
 	{
 		if (!gameHero.isMoving())
 		{
