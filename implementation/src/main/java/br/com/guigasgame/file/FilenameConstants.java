@@ -7,7 +7,7 @@ public class FilenameConstants
 	private static String inputPlayerConfigFile2 = "InputConfigFile1.xml";
 	private static String heroAnimationFilename = "ninjaAnimationProperties.xml";
 	private static String heroFixturesFilename = "HeroFixtures.xml";
-	private static String heroStatesFilename = "heroStates.xml";
+	private static String heroStatesFilename = "statePrototype.xml";
 	private static String projectilePropertiesFilename = "projectiles.xml";
 	private static String projectileAnimationFilename = "shurikenAnimation.xml";
 	private static String projectileTextureFilename = "shuriken.png";

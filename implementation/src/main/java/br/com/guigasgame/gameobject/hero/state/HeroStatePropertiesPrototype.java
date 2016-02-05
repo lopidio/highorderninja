@@ -15,15 +15,15 @@ public class HeroStatePropertiesPrototype
 	public static class JumpXml
 	{
 		@XmlAttribute(required=true)
-		public final float jumpImpulse;
+		public final float impulse;
 
-		public JumpXml(float jumpImpulse)
+		public JumpXml(float impulse)
 		{
-			this.jumpImpulse = jumpImpulse;
+			this.impulse = impulse;
 		}
 		public JumpXml()
 		{
-			this.jumpImpulse = 0;
+			this.impulse = 0;
 		}
 	}
 

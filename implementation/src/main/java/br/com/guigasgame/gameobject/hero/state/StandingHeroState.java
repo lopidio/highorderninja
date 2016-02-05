@@ -2,9 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
-import br.com.guigasgame.side.Side;
 
 
 class StandingHeroState extends HeroState
@@ -18,11 +16,7 @@ class StandingHeroState extends HeroState
 	@Override
 	public void stateInputPressed(HeroInputKey key)
 	{
-		if (key == HeroInputKey.JUMP)
-		{
-			setState(new JumpingHeroState(gameHero));
-		}
-		else if (key == HeroInputKey.DOWN)
+		if (key == HeroInputKey.DOWN)
 		{
 			setState(new DuckingState(gameHero));
 		}
@@ -44,22 +38,13 @@ class StandingHeroState extends HeroState
 			setState(new RunningHeroState(gameHero));
 		}
 	}
-
+		
 	@Override
-	public void isPressed(HeroInputKey key)
+	public void stateInputIsPressed(HeroInputKey key)
 	{
-
 		if (/* gameHero.isTouchingGround() && */key == HeroInputKey.DOWN)
 		{
 			setState(new DuckingState(gameHero));
-		}
-		else if (key == HeroInputKey.LEFT)
-		{
-			gameHero.addAction(new MoveHeroAction(gameHero, Side.LEFT, heroStatesProperties));
-		}
-		else if (key == HeroInputKey.RIGHT)
-		{
-			gameHero.addAction(new MoveHeroAction(gameHero, Side.RIGHT, heroStatesProperties));
 		}
 	}
 

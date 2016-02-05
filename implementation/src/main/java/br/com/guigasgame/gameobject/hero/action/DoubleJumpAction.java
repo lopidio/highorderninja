@@ -3,16 +3,16 @@ package br.com.guigasgame.gameobject.hero.action;
 import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.hero.state.HeroStatesProperties;
+import br.com.guigasgame.gameobject.hero.state.HeroStatePropertiesPrototype;
 
 
 public class DoubleJumpAction implements GameHeroAction
 {
 
 	GameHero gameHero;
-	HeroStatesProperties heroStatesProperties;
+	HeroStatePropertiesPrototype heroStatesProperties;
 
-	public DoubleJumpAction(GameHero gameHero, HeroStatesProperties heroStatesProperties)
+	public DoubleJumpAction(GameHero gameHero, HeroStatePropertiesPrototype heroStatesProperties)
 	{
 		this.gameHero = gameHero;
 		this.heroStatesProperties = heroStatesProperties;
@@ -21,9 +21,9 @@ public class DoubleJumpAction implements GameHeroAction
 	@Override
 	public void execute()
 	{
-		if (heroStatesProperties.canJump)
+		if (heroStatesProperties.jump != null)
 		{
-			gameHero.applyImpulse(new Vec2(0, -heroStatesProperties.jumpImpulse / 2));
+			gameHero.applyImpulse(new Vec2(0, -heroStatesProperties.jump.impulse / 2));
 		}
 	}
 

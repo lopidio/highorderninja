@@ -10,7 +10,7 @@ import br.com.guigasgame.file.FilenameConstants;
 public class HeroStatesPropertiesPool
 {
 	private static HeroStatesPropertiesPool singleton;
-	private Map<HeroAnimationsIndex, HeroStatesProperties> statesMap;
+	private Map<HeroAnimationsIndex, HeroStatePropertiesPrototype> statesMap;
 	
 	static
 	{
@@ -23,7 +23,7 @@ public class HeroStatesPropertiesPool
 		loadHeroStates();
 	}
 	
-	public static HeroStatesProperties getStateProperties(HeroAnimationsIndex heroAnimationsIndex)
+	public static HeroStatePropertiesPrototype getStateProperties(HeroAnimationsIndex heroAnimationsIndex)
 	{
 		return singleton.statesMap.get(heroAnimationsIndex);
 	}

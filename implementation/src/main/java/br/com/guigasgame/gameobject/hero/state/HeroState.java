@@ -11,11 +11,13 @@ import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
+import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.action.ShootAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.projectile.Shuriken;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
+import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
@@ -24,7 +26,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 {
 
 	protected final GameHero gameHero;
-	protected final HeroStatesProperties heroStatesProperties;
+	protected final HeroStatePropertiesPrototype heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
 
 	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
@@ -33,6 +35,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		this.heroStatesProperties = HeroStatesPropertiesPool.getStateProperties(heroAnimationsIndex);
 		gameHero.setAnimation(Animation.createAnimation(AnimationsCentralPool.getHeroAnimationRepository().getAnimationsProperties(heroAnimationsIndex)));
 		this.gameHero = gameHero;
+		
 		inputMap = new HashMap<>();
 		for( HeroInputKey key : HeroInputKey.values() )
 		{
@@ -64,6 +67,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	{
 		// hook method
 	}
+	
+	protected void stateInputIsPressed(HeroInputKey inputValue)
+	{
+		// hook method
+	}
+
 
 	protected void rope()
 	{
@@ -72,15 +81,16 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	
 	protected void jump()
 	{
-		if (heroStatesProperties.canJump)
+		if (heroStatesProperties.jump != null)
 		{
-			gameHero.addAction(new JumpAction(gameHero, new Vec2(0, -heroStatesProperties.jumpImpulse)));
+			gameHero.addAction(new JumpAction(gameHero, new Vec2(0, -heroStatesProperties.jump.impulse)));
+			setState(new JumpingHeroState(gameHero));
 		}
 	}
 	
 	protected void shoot()
 	{
-		if (heroStatesProperties.canShoot)
+		if (heroStatesProperties.shoot != null)
 		{
 			gameHero.addAction(new ShootAction(gameHero, new Shuriken(pointingDirection(), gameHero.getBody().getWorldCenter(), gameHero.getPlayerID())));
 		}
@@ -103,9 +113,35 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 		{
 			rope();
 		}
+		
 		stateInputPressed(inputValue);
 	}
 	
+	@Override
+	public final void isPressed(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.LEFT)
+		{
+			move(Side.LEFT);
+		}
+		else if (inputValue == HeroInputKey.RIGHT)
+		{
+			move(Side.RIGHT);
+		}
+		
+		stateInputIsPressed(inputValue);
+	}
+
+	private void move(Side side)
+	{
+		if (heroStatesProperties.move != null)
+		{
+			gameHero.addAction(new MoveHeroAction(gameHero, side, heroStatesProperties));
+		}
+
+		gameHero.setForwardSide(side);
+
+	}
 
 	@Override
 	public final void inputReleased(HeroInputKey inputValue)

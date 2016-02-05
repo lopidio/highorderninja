@@ -5,6 +5,7 @@ import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.DiveAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 
@@ -20,8 +21,7 @@ public class DivingState extends HeroState
 	@Override
 	public void onEnter()
 	{
-		gameHero.stopMovement();
-		gameHero.applyImpulse(new Vec2(0, heroStatesProperties.jumpImpulse));
+		gameHero.addAction(new DiveAction(gameHero, new Vec2(0, heroStatesProperties.jump.impulse)));
 	}
 
 	@Override
