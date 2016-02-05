@@ -13,6 +13,7 @@ import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.projectile.Projectile;
+import br.com.guigasgame.gameobject.projectile.Shuriken;
 import br.com.guigasgame.side.Side;
 
 
@@ -79,11 +80,11 @@ public class GameHero extends GameObject
 		{
 			GameHeroAction gameHeroAction = iterator.next();
 			System.out.println(gameHeroAction.getClass().getSimpleName());			
-			if (gameHeroAction.canExecute())
+			if (gameHeroAction.canExecute(this))
 			{
-				gameHeroAction.preExecute();
-				gameHeroAction.execute();
-				gameHeroAction.postExecute();
+				gameHeroAction.preExecute(this);
+				gameHeroAction.execute(this);
+				gameHeroAction.postExecute(this);
 			}
 		}
 	}
@@ -133,6 +134,11 @@ public class GameHero extends GameObject
 	public CollidableHero getCollidableHero()
 	{
 		return collidableHero;
+	}
+
+	public Projectile getNextProjectile(Vec2 pointingDirection)
+	{
+		return new Shuriken(pointingDirection, collidable.getBody().getWorldCenter(), playerID);
 	}
 
 }

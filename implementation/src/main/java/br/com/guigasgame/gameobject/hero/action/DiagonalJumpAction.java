@@ -3,27 +3,32 @@ package br.com.guigasgame.gameobject.hero.action;
 import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 import br.com.guigasgame.side.Side;
 
 
-public class DiagonalJumpAction implements GameHeroAction
+public class DiagonalJumpAction extends GameHeroAction
 {
 
-	GameHero gameHero;
-	float impulse;
 	Side side;
 
-	public DiagonalJumpAction(GameHero gameHero, float impulse, Side side)
+	public DiagonalJumpAction(HeroStateProperties heroStateProperties, Side side)
 	{
-		this.gameHero = gameHero;
-		this.impulse = impulse;
+		super(heroStateProperties);
 		this.side = side;
+	}
+	
+	@Override
+	public boolean canExecute(GameHero hero)
+	{
+		return heroStateProperties.jump != null;
 	}
 
 	@Override
-	public void execute()
+	public void execute(GameHero gameHero)
 	{
-		Vec2 jumpDirection = new Vec2(side.getHorizontalValue(), -1);
+		float impulse = heroStateProperties.jump.impulse;
+		Vec2 jumpDirection = new Vec2(side.getHorizontalValue(), -2); //?
 		jumpDirection.normalize();
 		// Aponta para o local correto
 		jumpDirection.mulLocal(impulse);

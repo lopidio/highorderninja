@@ -7,28 +7,31 @@ import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 import br.com.guigasgame.side.Side;
 
 
-public class MoveHeroAction implements GameHeroAction
+public class MoveHeroAction extends GameHeroAction
 {
 
-	GameHero gameHero;
 	Side side;
-	HeroStateProperties heroStatesProperties;
 
-	public MoveHeroAction(GameHero gameHero, Side side, HeroStateProperties heroStatesProperties)
+	public MoveHeroAction(Side side, HeroStateProperties heroStatesProperties)
 	{
-		this.gameHero = gameHero;
+		super(heroStatesProperties);
 		this.side = side;
-		this.heroStatesProperties = heroStatesProperties;
+	}
+	
+	@Override
+	public boolean canExecute(GameHero hero)
+	{
+		return (heroStateProperties.move != null);
 	}
 
 	@Override
-	public void execute()
+	public void execute(GameHero gameHero)
 	{
 		gameHero.setForwardSide(side);
 		if (side == Side.LEFT)
-			gameHero.getCollidableHero().applyForce(new Vec2(-heroStatesProperties.move.acceleration, 0));
+			gameHero.getCollidableHero().applyForce(new Vec2(-heroStateProperties.move.acceleration, 0));
 		else if (side == Side.RIGHT)
-			gameHero.getCollidableHero().applyForce(new Vec2(heroStatesProperties.move.acceleration, 0));
+			gameHero.getCollidableHero().applyForce(new Vec2(heroStateProperties.move.acceleration, 0));
 	}
 
 }

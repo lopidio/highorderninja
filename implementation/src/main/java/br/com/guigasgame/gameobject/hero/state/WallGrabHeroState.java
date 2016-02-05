@@ -36,7 +36,7 @@ public class WallGrabHeroState extends HeroState
 	{
 		if (heroStatesProperties.jump != null)
 		{
-			gameHero.addAction(new DiagonalJumpAction(gameHero, heroStatesProperties.jump.impulse, wallSide.opposite()));
+			gameHero.addAction(new DiagonalJumpAction(heroStatesProperties, wallSide.opposite()));
 			setState(new JumpingHeroState(gameHero));
 		}			
 	}

@@ -4,22 +4,20 @@ import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 
 
-public class HeroStateSetterAction implements GameHeroAction
+public class HeroStateSetterAction extends GameHeroAction
 {
 
-	GameHero gameHero;
 	HeroState newState;
 
-	public HeroStateSetterAction(GameHero gameHero, HeroState newState)
+	public HeroStateSetterAction(HeroState newState)
 	{
-		super();
-		this.gameHero = gameHero;
+		super(null);
 		this.newState = newState;
 	}
 
 
 	@Override
-	public void execute()
+	public void execute(GameHero gameHero)
 	{
 		gameHero.setState(newState);
 	}

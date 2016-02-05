@@ -1,22 +1,32 @@
 package br.com.guigasgame.gameobject.hero.action;
 
+import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 
 
-public interface GameHeroAction
+
+public abstract class GameHeroAction
 {
-	public void execute();
+	protected final HeroStateProperties heroStateProperties;
+	
+	protected GameHeroAction(HeroStateProperties heroStateProperties)
+	{
+		this.heroStateProperties = heroStateProperties;
+	}
+	
+	public abstract void execute(GameHero hero);
 
-	default void preExecute()
+	public void preExecute(GameHero hero)
 	{
 		
 	}
 	
-	default void postExecute()
+	public void postExecute(GameHero hero)
 	{
 		
 	}
 	
-	default boolean canExecute()
+	public boolean canExecute(GameHero hero)
 	{
 		return true;
 	}

@@ -14,15 +14,13 @@ import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.action.ShootAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
-import br.com.guigasgame.gameobject.projectile.Shuriken;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class HeroState implements InputListener<HeroInputKey>,
-		UpdatableFromTime
+public abstract class HeroState implements InputListener<HeroInputKey>, UpdatableFromTime
 {
 
 	protected final GameHero gameHero;
@@ -83,7 +81,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	{
 		if (heroStatesProperties.jump != null)
 		{
-			gameHero.addAction(new JumpAction(gameHero, new Vec2(0, -heroStatesProperties.jump.impulse)));
+			gameHero.addAction(new JumpAction(heroStatesProperties));
 			setState(new JumpingHeroState(gameHero));
 		}
 	}
@@ -92,7 +90,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	{
 		if (heroStatesProperties.shoot != null)
 		{
-			gameHero.addAction(new ShootAction(gameHero, new Shuriken(pointingDirection(), gameHero.getCollidable().getBody().getWorldCenter(), gameHero.getPlayerID())));
+			gameHero.addAction(new ShootAction(heroStatesProperties, gameHero.getNextProjectile(pointingDirection())));
 		}
 		
 	}
@@ -136,7 +134,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	{
 		if (heroStatesProperties.move != null)
 		{
-			gameHero.addAction(new MoveHeroAction(gameHero, side, heroStatesProperties));
+			gameHero.addAction(new MoveHeroAction(side, heroStatesProperties));
 		}
 
 		gameHero.setForwardSide(side);
@@ -163,7 +161,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>,
 	protected final void setState(HeroState heroState)
 	{
 		heroState.inputMap = inputMap;
-		gameHero.addAction(new HeroStateSetterAction(gameHero, heroState));
+		gameHero.addAction(new HeroStateSetterAction(heroState));
 	}
 
 	public final Vector2 getMaxSpeed()

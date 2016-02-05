@@ -21,7 +21,7 @@ class SlidingHeroState extends HeroState
 	public void stateUpdate(float deltaTime)
 	{
 		secondsRemaining -= deltaTime;
-		gameHero.addAction(new MoveForwardHeroAction(gameHero, heroStatesProperties));
+		gameHero.addAction(new MoveForwardHeroAction(heroStatesProperties));
 		if (secondsRemaining <= 0)
 		{
 			setState(new StandingHeroState(gameHero));

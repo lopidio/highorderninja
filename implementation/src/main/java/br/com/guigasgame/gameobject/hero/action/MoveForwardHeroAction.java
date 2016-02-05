@@ -4,42 +4,43 @@ import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 
 
-public class MoveForwardHeroAction implements GameHeroAction
+public class MoveForwardHeroAction extends GameHeroAction
 {
 
-	GameHero gameHero;
-	HeroStateProperties heroStatesProperties;
 	MoveHeroAction decorator;
 
-	public MoveForwardHeroAction(GameHero gameHero, HeroStateProperties heroStatesProperties)
+	public MoveForwardHeroAction(HeroStateProperties heroStatesProperties)
 	{
-		this.gameHero = gameHero;
-		this.heroStatesProperties = heroStatesProperties;
-		decorator = new MoveHeroAction(gameHero, gameHero.getForwardSide(), heroStatesProperties);
+		super(heroStatesProperties);
 	}
 	
 	@Override
-	public void preExecute()
+	public void preExecute(GameHero gameHero)
 	{
-		decorator.preExecute();
+		decorator.preExecute(gameHero);
 	}
 	
 	@Override
-	public boolean canExecute()
+	public boolean canExecute(GameHero gameHero)
 	{
-		return decorator.canExecute();
+		if (heroStateProperties.move != null)
+		{
+			decorator = new MoveHeroAction(gameHero.getForwardSide(), heroStateProperties);
+			return decorator.canExecute(gameHero);
+		}
+		return false;
 	}
 	
 	@Override
-	public void postExecute()
+	public void postExecute(GameHero gameHero)
 	{
-		decorator.postExecute();
+		decorator.postExecute(gameHero);
 	}
 
 	@Override
-	public void execute()
+	public void execute(GameHero gameHero)
 	{
-		decorator.execute();
+		decorator.execute(gameHero);
 	}
 
 }

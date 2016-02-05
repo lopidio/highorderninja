@@ -1,24 +1,29 @@
 package br.com.guigasgame.gameobject.hero.action;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 
 
 
-public class ShootAction implements GameHeroAction
+public class ShootAction extends GameHeroAction
 {
-	GameHero gameHero;
 	Projectile projectile;	
 
-	public ShootAction(GameHero gameHero, Projectile projectile)
+	public ShootAction(HeroStateProperties heroStateProperties, Projectile projectile)
 	{
-		super();
-		this.gameHero = gameHero;
+		super(heroStateProperties);
 		this.projectile = projectile;
+	}
+	
+	@Override
+	public boolean canExecute(GameHero hero)
+	{
+		return (heroStateProperties.shoot != null);
 	}
 
 	@Override
-	public void execute()
+	public void execute(GameHero gameHero)
 	{
 		gameHero.shoot(projectile);
 	}

@@ -1,6 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
@@ -21,7 +20,7 @@ public class DivingState extends HeroState
 	@Override
 	public void onEnter()
 	{
-		gameHero.addAction(new DiveAction(gameHero, new Vec2(0, heroStatesProperties.jump.impulse)));
+		gameHero.addAction(new DiveAction(heroStatesProperties));
 	}
 
 	@Override
