@@ -47,7 +47,7 @@ public class Animation implements UpdatableFromTime, Drawable
 
 		
 		sprite = new Sprite(animationProperties.texture);
-		sprite.setOrigin(frameRect.width / 2, frameRect.height);
+		sprite.setOrigin(frameRect.width / 2, frameRect.height / 2);
 		
 		secondsSinceLastUpdate = 0;
 		currentFrameNumber = 0;
@@ -73,8 +73,6 @@ public class Animation implements UpdatableFromTime, Drawable
 	{
 		secondsSinceLastUpdate += deltaTime;
 		// timeFromLastUpdate > 1/ framePerSecond
-//		float multiplicationValue = secondsSinceLastUpdate
-//				* animationProperties.framePerSecond;
 		if (secondsSinceLastUpdate >= animationProperties.secondsPerFrame)
 		{
 			secondsSinceLastUpdate -= animationProperties.secondsPerFrame;
@@ -104,8 +102,7 @@ public class Animation implements UpdatableFromTime, Drawable
 			frameRect.y = animationProperties.textureSpriteRect.top
 					+ frameRect.height * currentFrameNumber;
 		}
-		sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y,
-				frameRect.width, frameRect.height));
+		sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y, frameRect.width, frameRect.height));
 	}
 
 	
@@ -131,7 +128,7 @@ public class Animation implements UpdatableFromTime, Drawable
 	
 	public void setPosition(Vector2f graphicPosition)
 	{
-		sprite.setPosition(graphicPosition.x + frameRect.width, graphicPosition.y + frameRect.height);
+		sprite.setPosition(graphicPosition.x, graphicPosition.y );
 	}
 
 	public void setOrientation(float angleInDegrees)

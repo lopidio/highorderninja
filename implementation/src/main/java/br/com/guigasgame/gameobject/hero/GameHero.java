@@ -61,7 +61,7 @@ public class GameHero extends GameObject
 
 	public void adjustSpritePosition()
 	{
-		final Vector2f vector2f = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBodyPosition());
+		final Vector2f vector2f = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
 		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
 				
 		animation.setPosition(vector2f);

@@ -46,12 +46,10 @@ public class MainGameState implements GameState
 	DistanceJoint joint;
 	
 	List<GameObject> gameObjectsList;
-	List<Drawable> drawableList;
 
 	public MainGameState() throws JAXBException
 	{
 		gameObjectsList = new ArrayList<>();
-		drawableList = new ArrayList<>();
 		
 		timeFactor = 1;
 
@@ -67,7 +65,7 @@ public class MainGameState implements GameState
 		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1), true);
 
 		gameHero = new GameHero(1, new Vec2(10, 5));
-		initializeGameObject(Arrays.asList(gameHero/*, new GameHero(2, new Vec2(40, 5))*/));
+		initializeGameObject(Arrays.asList(gameHero, new GameHero(2, new Vec2(40, 5))));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size, boolean mask)
@@ -229,11 +227,6 @@ public class MainGameState implements GameState
 			{
 				collidable.attachBody(world);
 			}
-			Drawable drawable = child.getDrawable();
-			if (drawable != null)
-			{
-				drawableList.add(drawable);
-			}
 			child.onEnter();
 			gameObjectsList.add(child);
 		}
@@ -253,7 +246,6 @@ public class MainGameState implements GameState
 				{
 					world.destroyBody(collidable.getBody());
 				}
-				drawableList.remove(toRemove.getDrawable());
 				
 				iterator.remove();
 			}
@@ -287,10 +279,11 @@ public class MainGameState implements GameState
 	{
 		world.drawDebugData();
 
-		for( Drawable drawable : drawableList )
+		for( GameObject gameObject : gameObjectsList )
 		{
-			drawable.draw(renderWindow);
+			Drawable drawable = gameObject.getDrawable();
+			if (drawable != null)
+				drawable.draw(renderWindow);
 		}
-	}
-
+	}		
 }
