@@ -25,7 +25,7 @@ class RunningHeroState extends HeroState
 			setState(new SlidingHeroState(gameHero));
 		}
 	}
-
+	
 	@Override
 	public void stateUpdate(float deltaTime)
 	{

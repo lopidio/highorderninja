@@ -79,20 +79,13 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	
 	protected void jump()
 	{
-		if (heroStatesProperties.jump != null)
-		{
-			gameHero.addAction(new JumpAction(heroStatesProperties));
-			setState(new JumpingHeroState(gameHero));
-		}
+		gameHero.addAction(new JumpAction(heroStatesProperties));
+		setState(new JumpingHeroState(gameHero));
 	}
 	
 	protected void shoot()
 	{
-		if (heroStatesProperties.shoot != null)
-		{
-			gameHero.addAction(new ShootAction(heroStatesProperties, gameHero.getNextProjectile(pointingDirection())));
-		}
-		
+		gameHero.addAction(new ShootAction(heroStatesProperties, gameHero.getNextProjectile(pointingDirection())));
 	}
 
 	@Override
@@ -101,13 +94,18 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		inputMap.put(inputValue, true);
 		if (inputValue == HeroInputKey.JUMP)
 		{
-			jump();
+			if (heroStatesProperties.jump != null)
+			{
+				jump();
+			}
 		}
 		if (inputValue == HeroInputKey.ROPE)
 		{
-			rope();
+			if (heroStatesProperties.rope != null)
+			{
+				rope();
+			}
 		}
-		
 		stateInputPressed(inputValue);
 	}
 	
@@ -120,11 +118,17 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		}			
 		if (inputValue == HeroInputKey.LEFT)
 		{
-			move(Side.LEFT);
+			if (heroStatesProperties.move != null)
+			{
+				move(Side.LEFT);
+			}
 		}
 		else if (inputValue == HeroInputKey.RIGHT)
 		{
-			move(Side.RIGHT);
+			if (heroStatesProperties.move != null)
+			{
+				move(Side.RIGHT);
+			}
 		}
 		
 		stateInputIsPressing(inputValue);
@@ -132,13 +136,10 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 
 	protected void move(Side side)
 	{
-		if (heroStatesProperties.move != null)
+		if (!gameHero.isTouchingWallAhead())
 		{
 			gameHero.addAction(new MoveHeroAction(side, heroStatesProperties));
 		}
-
-		gameHero.setForwardSide(side);
-
 	}
 
 	@Override

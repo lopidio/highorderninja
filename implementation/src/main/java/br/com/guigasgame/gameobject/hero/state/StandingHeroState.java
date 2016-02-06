@@ -2,6 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
 
@@ -43,7 +44,11 @@ class StandingHeroState extends HeroState
 	@Override
 	protected void move(Side side)
 	{
-		setState(new RunningHeroState(gameHero));
+		if (!gameHero.isTouchingWallAhead())
+		{
+			gameHero.addAction(new MoveHeroAction(side, heroStatesProperties));
+			setState(new RunningHeroState(gameHero));
+		}
 	}
 		
 	@Override

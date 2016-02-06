@@ -2,6 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.JumpAction;
 
 
 class JumpingHeroState extends HeroState
@@ -20,7 +21,7 @@ class JumpingHeroState extends HeroState
 	{
 		if (doubleJumpAllowed)
 		{
-			super.jump();
+			gameHero.addAction(new JumpAction(heroStatesProperties));
 			doubleJumpAllowed = false;
 		}
 	}
