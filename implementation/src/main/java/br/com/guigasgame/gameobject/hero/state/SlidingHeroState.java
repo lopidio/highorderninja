@@ -4,6 +4,7 @@ import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.MoveForwardHeroAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.side.Side;
 
 
 class SlidingHeroState extends HeroState
@@ -24,16 +25,26 @@ class SlidingHeroState extends HeroState
 		gameHero.addAction(new MoveForwardHeroAction(heroStatesProperties));
 		if (secondsRemaining <= 0)
 		{
-			setState(new StandingHeroState(gameHero));
-			return;
-		}
-		
-		if (gameHero.getCollidableHero().isFallingDown())
-		{
-			setState(new FallingHeroState(gameHero));
+			if (gameHero.getCollidableHero().isMoving())
+			{
+				setState(new RunningHeroState(gameHero));
+			}
+			else if (gameHero.getCollidableHero().isFallingDown())
+			{
+				setState(new FallingHeroState(gameHero));
+			}
+			else
+			{
+				setState(new StandingHeroState(gameHero));
+			}
 		}
 	}
 	
+	@Override
+	protected void move(Side side)
+	{
+		//do nothing
+	}
 	
 	@Override
 	public void stateInputPressed(HeroInputKey key)

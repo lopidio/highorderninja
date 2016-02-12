@@ -1,4 +1,4 @@
-http://www.learn-cocos2d.com/2013/08/physics-engine-platformer-terrible-idea/
+﻿http://www.learn-cocos2d.com/2013/08/physics-engine-platformer-terrible-idea/
 http://higherorderfun.com/blog/2012/05/20/the-guide-to-implementing-2d-platformers/
 http://download.eclipse.org/tools/cdt/releases/8.8
 
@@ -133,8 +133,8 @@ GameHero possuir uma fila (actionQueue) de ações para executar
 GameHero possuir uma animation
 Repositories becomes Pools
 
-Jump becomes action
-SetState becomes action
-setHeroOrientation becomes action
+v Jump becomes action
+v SetState becomes action
+v setHeroOrientation becomes action
 
 Projectiles shall have damage as propertie

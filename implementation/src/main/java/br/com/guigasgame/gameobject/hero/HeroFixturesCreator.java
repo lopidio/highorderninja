@@ -61,7 +61,7 @@ class HeroFixturesCreator {
 
 	private void createHeadFixture() {
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(0.3f, 0.4f, new Vec2(0, -2.2f), 0);
+		shape.setAsBox(0.4f, 0.4f, new Vec2(0, -2.2f), 0);
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
@@ -91,7 +91,7 @@ class HeroFixturesCreator {
 
 	private void createFeetFixture() {
 		CircleShape feetShape = new CircleShape();
-		feetShape.setRadius(0.3f);
+		feetShape.setRadius(0.35f);
 
 		FixtureDef def = new FixtureDef();
 		def.restitution = 0.0f;
