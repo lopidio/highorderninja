@@ -2,6 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
@@ -48,6 +49,10 @@ class StandingHeroState extends HeroState
 		{
 			gameHero.addAction(new MoveHeroAction(side, heroStatesProperties));
 			setState(new RunningHeroState(gameHero));
+		}
+		else
+		{
+			gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
 		}
 	}
 		

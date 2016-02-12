@@ -33,6 +33,7 @@ public class DiagonalJumpAction extends GameHeroAction
 		// Aponta para o local correto
 		jumpDirection.mulLocal(impulse);
 
+		gameHero.setForwardSide(side);
 		gameHero.getCollidableHero().applyImpulse(jumpDirection);
 	}
 

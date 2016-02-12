@@ -11,7 +11,9 @@ import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
+import br.com.guigasgame.gameobject.hero.state.FallingHeroState;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.Shuriken;
 import br.com.guigasgame.side.Side;
@@ -20,42 +22,77 @@ import br.com.guigasgame.side.Side;
 public class GameHero extends GameObject
 {
 
-	private final int playerID; //1 to 4
+	private final int playerID; // 1 to 4
 
 	Side forwardSide;
 	List<GameHeroAction> actionList;
-	GameHeroLogic gameHeroLogic;
 	CollidableHero collidableHero;
 	Animation animation;
+	GameHeroInputMap gameHeroInput;
+	HeroState state;
+
+	int life;
+	int maxLife;
+	int numShurikens;
 
 	public GameHero(int playerID, Vec2 position)
 	{
 		this.playerID = playerID;
 		forwardSide = Side.RIGHT;
 		actionList = new ArrayList<GameHeroAction>();
-		gameHeroLogic = new GameHeroLogic(this);
 		collidableHero = new CollidableHero(playerID, position);
 		
 		collidable = collidableHero;
 		collidable.addListener(this);
 	}
 
+	public int getLife()
+	{
+		return life;
+	}
+
+	public void addLife(int lifeToAdd)
+	{
+		life += lifeToAdd;
+		if (life > maxLife)
+			life = maxLife;
+	}
+
+	public void hit(int lifeToSubtract)
+	{
+		life -= lifeToSubtract;
+	}
+
+	public int getNumShurikens()
+	{
+		return numShurikens;
+	}
+
+	public HeroState getState()
+	{
+		return state;
+	}
+
 	@Override
 	public void onEnter()
 	{
 		collidableHero.loadAndAttachFixturesToBody();
-		gameHeroLogic.onEnter();
+		gameHeroInput = GameHeroInputMap.loadFromConfigFile(playerID);
+
+		setState(new FallingHeroState(this));
 	}
 
 	@Override
 	public void update(float deltaTime)
 	{
 		animation.update(deltaTime);
-		
-		gameHeroLogic.update(deltaTime);
+
+		state.stateUpdate(deltaTime);
+		gameHeroInput.update();
+
 		updateActionList();
 
-		collidableHero.checkSpeedLimits(gameHeroLogic.getState().getMaxSpeed());
+		collidableHero.checkSpeedLimits(state.getMaxSpeed());
 		adjustSpritePosition();
 	}
 
@@ -63,23 +100,23 @@ public class GameHero extends GameObject
 	{
 		final Vector2f vector2f = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
 		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
-				
+
 		animation.setPosition(vector2f);
 		animation.setOrientation(angleInDegrees);
-	}	
-	
+	}
+
 	private void updateActionList()
 	{
-		//Set action list free to new actions
+		// Set action list free to new actions
 		List<GameHeroAction> copy = new ArrayList<>();
 		copy.addAll(actionList);
 		actionList.clear();
-		
+
 		Iterator<GameHeroAction> iterator = copy.iterator();
 		while (iterator.hasNext())
 		{
 			GameHeroAction gameHeroAction = iterator.next();
-			System.out.println(gameHeroAction.getClass().getSimpleName());			
+			System.out.println(gameHeroAction.getClass().getSimpleName());
 			if (gameHeroAction.canExecute(this))
 			{
 				gameHeroAction.preExecute(this);
@@ -89,10 +126,16 @@ public class GameHero extends GameObject
 		}
 	}
 
-	public void setState(HeroState heroState)
+	public void setState(HeroState newState)
 	{
-		animation.flipAnimation(forwardSide);		
-		gameHeroLogic.setState(heroState);
+		animation.flipAnimation(forwardSide);
+		if (null != state)
+			state.onQuit();
+		System.out.println("Current state: " + newState.getClass().getSimpleName());
+		state = newState;
+		state.onEnter();
+
+		gameHeroInput.setInputListener(state);
 	}
 
 	public void setAnimation(Animation animation)
@@ -100,7 +143,7 @@ public class GameHero extends GameObject
 		drawable = animation;
 		this.animation = animation;
 	}
-	
+
 	public Side getForwardSide()
 	{
 		return forwardSide;
