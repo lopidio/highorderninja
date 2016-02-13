@@ -26,6 +26,9 @@ public class Projectile extends GameObject
 		this.properties = ProjectilesPropertiesPool.getProjectileProperties(index);
 		this.direction = direction.clone();
 
+		collidable = new ProjectileCollidable(position);
+		collidable.addListener(this);
+		
 		drawable = animation;
 	}
 

@@ -8,37 +8,27 @@ import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidersFilters;
+import br.com.guigasgame.gameobject.hero.GameHero;
 
-public class Shuriken extends Projectile
+
+public class RopeProjectile extends Projectile
 {
-	
-	private final float sightDistance;
-	private int collisionCounter;
-	private int playerID;
 
-	public Shuriken(Vec2 direction, Vec2 position, int playerID)
+	private final GameHero gameHero;
+
+	public RopeProjectile(Vec2 direction, Vec2 position, GameHero gameHero)
 	{
 		super(ProjectileIndex.SHURIKEN, direction, position);
-		this.playerID = playerID;
-		this.sightDistance = 100;
-		collisionCounter = 0;
-
+		this.gameHero = gameHero;
 	}
 
 	@Override
-	public void beginContact(Collidable collidable, Contact contact)
+	public void beginContact(Collidable other, Contact contact)
 	{
-		if (collidable != null)
-		{
-			System.out.println("Hit player!");
-		}
-		++collisionCounter;
-		if (collisionCounter >= properties.numBounces)
-		{
-			markToDestroy();
-		}
+		addChild(new Rope(collidable.getPosition(), gameHero));
+		markToDestroy();
 	}
-	
+
 	private FixtureDef createFixture()
 	{
 		CircleShape projectileShape = new CircleShape();
@@ -50,8 +40,7 @@ public class Shuriken extends Projectile
 		def.density = properties.mass;
 		def.filter.categoryBits = CollidersFilters.CATEGORY_BULLET;
 
-		def.filter.maskBits = CollidersFilters.MASK_BULLET;
-		def.filter.maskBits &= ~playerID; //Disable hero owner collision
+		def.filter.maskBits = CollidersFilters.MASK_ROPE;
 
 		return def;
 	}
@@ -63,13 +52,9 @@ public class Shuriken extends Projectile
 		FixtureDef def = createFixture();
 		body.createFixture(def);
 
-		ProjectileAimer aimer = new ProjectileAimer(sightDistance, direction, body, CollidersFilters.CATEGORY_PLAYER_MASK & ~playerID);
-		direction = aimer.getFinalDirection();
-
 		direction.normalize();
 		direction.mulLocal(properties.initialSpeed);
 		body.applyLinearImpulse(direction, body.getWorldCenter());
 	}
 
-	
 }

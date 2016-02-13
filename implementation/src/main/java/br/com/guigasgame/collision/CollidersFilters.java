@@ -43,6 +43,7 @@ public class CollidersFilters
 	///WHAT I COLLIDE WITH
 	public final static short MASK_PLAYER = CATEGORY_SCENERY | CATEGORY_PLAYER_MASK | CATEGORY_BULLET; // or ~CATEGORY_PLAYER
 	public final static short MASK_BULLET = CATEGORY_PLAYER_MASK | CATEGORY_SCENERY | CATEGORY_SINGLE_BLOCK; // or ~CATEGORY_MONSTER
+	public final static short MASK_ROPE = CATEGORY_SCENERY | CATEGORY_SINGLE_BLOCK; // or ~CATEGORY_MONSTER
 	public final static short MASK_SCENERY = -1; //also equals to 0xFFFF
 	
 	private int maskValue;

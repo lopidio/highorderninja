@@ -14,6 +14,7 @@ import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.action.ShootAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.gameobject.projectile.RopeProjectile;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.side.Side;
@@ -74,7 +75,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 
 	protected void rope()
 	{
-		//do nothing
+		gameHero.addAction(new ShootAction(heroStatesProperties, new RopeProjectile(pointingDirection(), gameHero.getCollidable().getBody().getWorldCenter(), gameHero)));
 	}
 	
 	protected void jump()

@@ -45,7 +45,7 @@ public abstract class Collidable implements CollisionListener
 		return bodyDef;
 	}
 	
-	public final void attachBody(World world)
+	public void attachToWorld(World world)
 	{
 		body = world.createBody(bodyDef);
 		body.setUserData(this);

@@ -225,7 +225,7 @@ public class MainGameState implements GameState
 			Collidable collidable = child.getCollidable();
 			if (collidable != null)		
 			{
-				collidable.attachBody(world);
+				collidable.attachToWorld(world);
 			}
 			child.onEnter();
 			gameObjectsList.add(child);
