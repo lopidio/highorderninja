@@ -17,8 +17,6 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
-import org.jbox2d.dynamics.joints.DistanceJoint;
-import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.Joystick;
 import org.jsfml.window.Joystick.Axis;
@@ -42,33 +40,37 @@ public class MainGameState implements GameState
 	float timeFactor;
 	GameHero gameHero;
 
-	Body singleBlockBody;
-	DistanceJoint joint;
-	
 	List<GameObject> gameObjectsList;
 
 	public MainGameState() throws JAXBException
 	{
 		gameObjectsList = new ArrayList<>();
-		
+
 		timeFactor = 1;
 
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
-		createGround(new Vec2(15, 38), new Vec2(52, 1), false);
-		createGround(new Vec2(15, 0), new Vec2(52, 1), false);
-		createGround(new Vec2(1, 15), new Vec2(1, 22), false);
-		createGround(new Vec2(9, 22), new Vec2(1, 10), false);
-		createGround(new Vec2(67, 15), new Vec2(1, 22), false);
-		createGround(new Vec2(50, 8), new Vec2(1, 1), true);
-		singleBlockBody = createGround(new Vec2(25, 5), new Vec2(1, 1), true);
+		createGround(new Vec2(15, 38), new Vec2(52, 1)); //ground
+		createGround(new Vec2(15, 0), new Vec2(52, 1)); //ceil
+		createGround(new Vec2(1, 15), new Vec2(1, 22)); //left wall
+		createGround(new Vec2(67, 15), new Vec2(1, 22)); //right wall
+
+		createGround(new Vec2(9, 24), new Vec2(1, 8));
+
+		createGround(new Vec2(20, 24), new Vec2(10, 1));
+
+
+		createGround(new Vec2(10, 8), new Vec2(3, 1));
+		createGround(new Vec2(25, 8), new Vec2(3, 1));
+		createGround(new Vec2(40, 8), new Vec2(3, 1));
+		createGround(new Vec2(55, 8), new Vec2(3, 1));
 
 		gameHero = new GameHero(1, new Vec2(10, 5));
 		initializeGameObject(Arrays.asList(gameHero, new GameHero(2, new Vec2(40, 5))));
 	}
 
-	private Body createGround(Vec2 position, Vec2 size, boolean mask)
+	private Body createGround(Vec2 position, Vec2 size)
 	{
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position = position;
@@ -79,14 +81,7 @@ public class MainGameState implements GameState
 		shape.setAsBox(size.x, size.y);
 		FixtureDef fixtureDef = new FixtureDef();
 
-		if (!mask)
-		{
-			fixtureDef.filter.categoryBits = CollidersFilters.CATEGORY_SCENERY;
-		}
-		else
-		{
-			fixtureDef.filter.categoryBits = CollidersFilters.CATEGORY_SINGLE_BLOCK;
-		}
+		fixtureDef.filter.categoryBits = CollidersFilters.CATEGORY_SCENERY;
 		fixtureDef.filter.maskBits = CollidersFilters.MASK_SCENERY;
 
 		fixtureDef.density = 0;
@@ -106,11 +101,11 @@ public class MainGameState implements GameState
 	{
 		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(new OBBViewportTransform(), renderWindow);
 		world.setDebugDraw(sfmlDebugDraw);
-//		sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
-//		sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
-//		sfmlDebugDraw.appendFlags(DebugDraw.e_dynamicTreeBit);
+		// sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
+		// sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
+		// sfmlDebugDraw.appendFlags(DebugDraw.e_dynamicTreeBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
-//		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
+		// sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
 	}
 
@@ -122,41 +117,26 @@ public class MainGameState implements GameState
 		int t;
 		z = w = t = 0;
 
-		if (Joystick.getAxisPosition(0, Axis.Z) > 60 //R2/L2
+		if (Joystick.getAxisPosition(0, Axis.Z) > 60 // R2/L2
 				|| Joystick.getAxisPosition(0, Axis.Z) < -60)
 		{
 			z = Joystick.getAxisPosition(0, Axis.Z) > 0 ? 1 : -1;
 		}
 
-		if (Joystick.getAxisPosition(0, Axis.U) > 60 //R3x
+		if (Joystick.getAxisPosition(0, Axis.U) > 60 // R3x
 				|| Joystick.getAxisPosition(0, Axis.U) < -60)
 		{
 			w = Joystick.getAxisPosition(0, Axis.U) > 0 ? 1 : -1;
 		}
-		
-		if (Joystick.getAxisPosition(0, Axis.R) > 60 //R3y
+
+		if (Joystick.getAxisPosition(0, Axis.R) > 60 // R3y
 				|| Joystick.getAxisPosition(0, Axis.R) < -60)
 		{
 			t = Joystick.getAxisPosition(0, Axis.R) > 0 ? 1 : -1;
 		}
-		
-		if (z != 0 || w != 0 || t != 0) 
+
+		if (z != 0 || w != 0 || t != 0)
 			System.out.println(z + ", " + w + ", " + t);
-		
-		if (event.type == Type.JOYSTICK_BUTTON_PRESSED)
-		{
-			if (event.asJoystickButtonEvent().button == 4)
-			{
-				createJoint();
-			}
-		}
-		if (event.type == Type.JOYSTICK_BUTTON_RELEASED)
-		{
-			if (event.asJoystickButtonEvent().button == 4)
-			{
-				removeJoint();
-			}
-		}
 
 		if (event.type == Type.KEY_PRESSED)
 		{
@@ -168,40 +148,8 @@ public class MainGameState implements GameState
 			{
 				timeFactor = 1;
 			}
-			if (event.asKeyEvent().key == Key.LSHIFT)
-			{
-				if (joint == null)
-				{
-					createJoint();
-				}
-			}
+
 		}
-		if (event.type == Type.KEY_RELEASED)
-			if (event.asKeyEvent().key == Key.LSHIFT)
-			{
-				removeJoint();
-			}
-	}
-	
-	private void removeJoint()
-	{
-		System.out.println("Remove");
-		if (joint != null)
-			world.destroyJoint(joint);
-		joint = null;
-	}
-
-	private void createJoint()
-	{
-		DistanceJointDef distDef = new DistanceJointDef();
-
-		distDef.bodyA = gameHero.getCollidable().getBody();
-		distDef.bodyB = singleBlockBody;
-		distDef.collideConnected = false;
-		distDef.length = singleBlockBody.getPosition().sub(gameHero.getCollidable().getBody().getPosition()).length();
-
-		System.out.println("Creates");
-		joint = (DistanceJoint) world.createJoint(distDef);
 	}
 
 	private void verifyNewObjectsToLists()
@@ -223,7 +171,7 @@ public class MainGameState implements GameState
 		for( GameObject child : childrenToAdd )
 		{
 			Collidable collidable = child.getCollidable();
-			if (collidable != null)		
+			if (collidable != null)
 			{
 				collidable.attachToWorld(world);
 			}
@@ -237,16 +185,18 @@ public class MainGameState implements GameState
 		Iterator<GameObject> iterator = gameObjectsList.iterator();
 		while (iterator.hasNext())
 		{
-			GameObject toRemove = iterator.next(); // must be called before you can call iterator.remove()
+			GameObject toRemove = iterator.next(); // must be called before you
+													// can call
+													// iterator.remove()
 			if (toRemove.isDead())
 			{
 				toRemove.onDestroy();
 				Collidable collidable = toRemove.getCollidable();
-				if (collidable != null)		
+				if (collidable != null)
 				{
 					world.destroyBody(collidable.getBody());
 				}
-				
+
 				iterator.remove();
 			}
 		}
@@ -265,11 +215,6 @@ public class MainGameState implements GameState
 			gameObject.update(deltaTime * timeFactor);
 		}
 
-		if (joint != null)
-		{
-			joint.setLength(joint.getLength() * 0.995f);
-		}
-
 		verifyNewObjectsToLists();
 		clearDeadObjects();
 	}
@@ -285,5 +230,5 @@ public class MainGameState implements GameState
 			if (drawable != null)
 				drawable.draw(renderWindow);
 		}
-	}		
+	}
 }

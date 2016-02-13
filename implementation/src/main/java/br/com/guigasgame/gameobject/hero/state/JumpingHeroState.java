@@ -34,6 +34,7 @@ class JumpingHeroState extends HeroState
 		{
 			setState(new FallingHeroState(gameHero));
 		}
+		
 	}
 
 }

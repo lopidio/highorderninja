@@ -130,7 +130,10 @@ public class GameHero extends GameObject
 	{
 		animation.flipAnimation(forwardSide);
 		if (null != state)
+		{
+			newState.setInputMap(state.getInputMap());
 			state.onQuit();
+		}
 		System.out.println("Current state: " + newState.getClass().getSimpleName());
 		state = newState;
 		state.onEnter();

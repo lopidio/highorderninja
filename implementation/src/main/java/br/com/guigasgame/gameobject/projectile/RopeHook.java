@@ -10,37 +10,33 @@ import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.gameobject.hero.GameHero;
 
 
-public class RopeCollidable extends Collidable
+public class RopeHook extends Collidable
 {
-
 	private GameHero gameHero;
 	private DistanceJoint joint;
 
-	public RopeCollidable(Vec2 position, GameHero gameHero)
+	public RopeHook(Vec2 position, GameHero gameHero)
 	{
 		super(position);
-		
+
 		this.gameHero = gameHero;
-		
+
 		bodyDef.fixedRotation = true;
 		bodyDef.type = BodyType.STATIC;
 		bodyDef.bullet = true;
-		
+
 	}
-	
+
 	@Override
 	public void attachToWorld(World world)
 	{
 		super.attachToWorld(world);
 		createJoint(world);
 	}
-	
-	private void removeJoint()
+
+	public void removeJoint()
 	{
-		// System.out.println("Remove");
-		// if (joint != null)
-		// world.destroyJoint(joint);
-		// joint = null;
+		joint.getBodyA().getWorld().destroyJoint(joint);
 	}
 
 	private void createJoint(World world)
@@ -52,17 +48,22 @@ public class RopeCollidable extends Collidable
 		distDef.collideConnected = false;
 		distDef.length = body.getPosition().sub(gameHero.getCollidable().getBody().getPosition()).length();
 
-		System.out.println("Creates");
 		joint = (DistanceJoint) world.createJoint(distDef);
 	}
 
-	public void enshort()
+	public void enshort(float value)
 	{
-		if (joint != null)
-		{
-			joint.setLength(joint.getLength() * 0.995f);
-		}
+		joint.setLength(joint.getLength() - value);
 	}
 
+	public void enlarge(float value)
+	{
+		joint.setLength(joint.getLength() + value);
+	}
+	
+	public DistanceJoint getJoint()
+	{
+		return joint;
+	}
 
 }

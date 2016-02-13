@@ -13,8 +13,9 @@ import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.action.ShootAction;
+import br.com.guigasgame.gameobject.hero.action.ShootRopeAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
-import br.com.guigasgame.gameobject.projectile.RopeProjectile;
+import br.com.guigasgame.gameobject.projectile.NinjaRopeProjectile;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.side.Side;
@@ -27,6 +28,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	protected final GameHero gameHero;
 	protected final HeroStateProperties heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
+	private NinjaRopeProjectile ninjaRopeProjectile;
 
 	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
 	{
@@ -75,7 +77,10 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 
 	protected void rope()
 	{
-		gameHero.addAction(new ShootAction(heroStatesProperties, new RopeProjectile(pointingDirection(), gameHero.getCollidable().getBody().getWorldCenter(), gameHero)));
+		if (ninjaRopeProjectile != null)
+			ninjaRopeProjectile.markToDestroy();
+		ninjaRopeProjectile = new NinjaRopeProjectile(pointingDirection(), gameHero);
+		gameHero.addAction(new ShootRopeAction(heroStatesProperties, ninjaRopeProjectile));
 	}
 	
 	protected void jump()
@@ -162,7 +167,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 
 	protected final void setState(HeroState heroState)
 	{
-		heroState.inputMap = inputMap;
 		gameHero.addAction(new HeroStateSetterAction(heroState));
 	}
 
@@ -198,6 +202,16 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 			retorno.x = gameHero.getForwardSide().getHorizontalValue();
 		}
 		return retorno;
+	}
+
+	public Map<HeroInputKey, Boolean> getInputMap()
+	{
+		return inputMap;
+	}
+
+	public void setInputMap(Map<HeroInputKey, Boolean> inputMap)
+	{
+		this.inputMap = inputMap;
 	}
 
 }

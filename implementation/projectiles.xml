@@ -17,8 +17,8 @@
             <value>
                 <numBounces>0</numBounces>
                 <initialSpeed>3.0</initialSpeed>
-                <mass>1.0</mass>
-                <radius>0.1</radius>
+                <mass>10.0</mass>
+                <radius>0.05</radius>
                 <restitution>0.8</restitution>
                 <damage>0</damage>
             </value>
