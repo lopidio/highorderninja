@@ -19,13 +19,13 @@ public class DiagonalJumpAction extends GameHeroAction
 	}
 	
 	@Override
-	public boolean canExecute(GameHero hero)
+	public boolean childCanExecute(GameHero hero)
 	{
 		return heroStateProperties.jump != null;
 	}
 
 	@Override
-	public void execute(GameHero gameHero)
+	public void childExecute(GameHero gameHero)
 	{
 		float impulse = heroStateProperties.jump.impulse;
 		Vec2 jumpDirection = new Vec2(side.getHorizontalValue(), -2); //?

@@ -19,13 +19,13 @@ public class MoveHeroAction extends GameHeroAction
 	}
 	
 	@Override
-	public boolean canExecute(GameHero hero)
+	public boolean childCanExecute(GameHero hero)
 	{
 		return (heroStateProperties.move != null);
 	}
 
 	@Override
-	public void execute(GameHero gameHero)
+	public void childExecute(GameHero gameHero)
 	{
 		gameHero.setForwardSide(side);
 		if (side == Side.LEFT)

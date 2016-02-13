@@ -11,13 +11,13 @@ public class HeroStateSetterAction extends GameHeroAction
 
 	public HeroStateSetterAction(HeroState newState)
 	{
-		super(null);
+		super();
 		this.newState = newState;
 	}
 
 
 	@Override
-	public void execute(GameHero gameHero)
+	public void childExecute(GameHero gameHero)
 	{
 		gameHero.setState(newState);
 	}
