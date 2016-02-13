@@ -20,7 +20,7 @@ public class Shuriken extends Projectile
 	{
 		super(ProjectileIndex.SHURIKEN, direction, position);
 		this.playerID = playerID;
-		this.sightDistance = 100;
+		this.sightDistance = 30;
 		collisionCounter = 0;
 
 	}
@@ -31,6 +31,7 @@ public class Shuriken extends Projectile
 		if (collidable != null)
 		{
 			System.out.println("Hit player!");
+			markToDestroy();
 		}
 		++collisionCounter;
 		if (collisionCounter >= properties.numBounces)
