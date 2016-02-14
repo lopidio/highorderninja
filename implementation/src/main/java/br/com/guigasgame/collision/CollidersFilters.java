@@ -3,32 +3,6 @@ package br.com.guigasgame.collision;
 
 public class CollidersFilters
 {
-	public enum CategoryMask
-	{
-		PLAYER_ONE(0x0001),
-		PLAYER_TWO(0x0002),
-		PLAYER_THREE(0x0004),
-		PLAYER_FOUR(0x0008),
-		
-		BULLET(0x0020),
-		SCENERY(0x0040),
-		SINGLE_BLOCK(0x0080);
-
-		
-		int maskValue;
-
-		private CategoryMask(int maskValue)
-		{
-			this.maskValue = maskValue;
-		}
-
-		
-		public static int getAllPlayersMask()
-		{
-			return PLAYER_ONE.maskValue | PLAYER_TWO.maskValue | PLAYER_THREE.maskValue | PLAYER_FOUR.maskValue;
-		}
-		
-	}
 	///WHO I AM
 	public final static short CATEGORY_PLAYER_ONE 	= 0x0001;
 	public final static short CATEGORY_PLAYER_TWO 	= 0x0002;
@@ -45,29 +19,48 @@ public class CollidersFilters
 	public final static short MASK_BULLET_AIMER = CATEGORY_SCENERY; // or ~CATEGORY_MONSTER
 	public final static short MASK_ROPE = CATEGORY_SCENERY; // or ~CATEGORY_MONSTER
 	public final static short MASK_SCENERY = -1; //also equals to 0xFFFF
+
+	///What I am
+	public final static CollidersFilters playersCategory	= new CollidersFilters(0x0F);
+	public final static CollidersFilters bulletCategory 	= new CollidersFilters(0x0020);
+	public final static CollidersFilters sceneryCategory 	= new CollidersFilters(0x0040);
 	
-	private int maskValue;
+	///What I collide with
+	public final static CollidersFilters playersMask 		= sceneryCategory.add(playersCategory).add(bulletCategory); // or ~CATEGORY_PLAYER
+	public final static CollidersFilters bulletsMask 		= sceneryCategory.add(playersCategory); // or ~CATEGORY_MONSTER
+	public final static CollidersFilters ropeMask 			= sceneryCategory; // or ~CATEGORY_MONSTER
+	public final static CollidersFilters sceneryMask 		= new CollidersFilters(-1); //also equals to 0xFFFF
 	
+	
+	private final int maskValue;
+	
+	
+	private CollidersFilters(int maskValue)
+	{
+		this.maskValue = maskValue;
+	}
+
 	public static int getPlayerCategory(int playerID)
 	{
-		return 1 << (playerID - 1);
+		return playersCategory.matches(new CollidersFilters(playerID)).value();
 	}
 	
-	
-	
-	public CollidersFilters addMask(CollidersFilters mask)
+	public CollidersFilters add(CollidersFilters mask)
 	{
-		maskValue |= mask.maskValue;
-		return this;
+		return new CollidersFilters(maskValue | mask.maskValue);
 	}
 	
-	public CollidersFilters removeMask(CollidersFilters mask)
+	public CollidersFilters except(CollidersFilters mask)
 	{
-		maskValue &= ~mask.maskValue;
-		return this;
+		return new CollidersFilters(maskValue & ~mask.maskValue);
 	}
 	
-	public int getMaskValue()
+	public CollidersFilters matches(CollidersFilters mask)
+	{
+		return new CollidersFilters(maskValue & mask.maskValue);
+	}
+	
+	public int value()
 	{
 		return maskValue;
 	}
