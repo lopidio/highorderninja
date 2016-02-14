@@ -17,6 +17,8 @@ public class StopMovementState extends HeroState
 		gameHero.getAnimation().setColor(Color.YELLOW);
 		secondsRemaining = 0.5f;
 	}
+	
+	
 
 	@Override
 	public void stateUpdate(float deltaTime)

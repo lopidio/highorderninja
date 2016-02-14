@@ -16,6 +16,12 @@ public class DivingState extends HeroState
 		super(gameHero, HeroAnimationsIndex.HERO_DIVING);
 		gameHero.getAnimation().setColor(Color.MAGENTA);
 	}
+	
+	@Override
+	protected void jump()
+	{
+		// do nothing
+	}
 
 	@Override
 	public void onEnter()

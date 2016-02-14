@@ -8,6 +8,7 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
+import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
 
 
@@ -47,7 +48,7 @@ public class GameMachine
 //			System.out.println(list.toString());
 //		}
 		
-		renderWindow = new RenderWindow(new VideoMode(1366,  768, 32), "Test");//, Window.FULLSCREEN); //Window.TRANSPARENT
+		renderWindow = new RenderWindow(new VideoMode(1366,  768, 32), "Test", Window.FULLSCREEN); //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		

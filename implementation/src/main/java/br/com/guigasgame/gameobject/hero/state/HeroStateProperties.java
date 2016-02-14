@@ -1,5 +1,7 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,6 +41,29 @@ public class HeroStateProperties
 		}		
 	}	
 	
+
+	public static class PropertyXml
+	{
+		@XmlAttribute(required=true)
+		public final float value;
+
+		@XmlAttribute(required=true)
+		public final String name;
+
+		public PropertyXml(float value, String name)
+		{
+			this.value = value;
+			this.name = name;
+		}
+
+		public PropertyXml()
+		{
+			this.value = 0;
+			this.name = "";
+		}
+		
+	}	
+	
 	public static class ShootXml{}	
 	public static class RopeXml{}	
 	
@@ -50,10 +75,12 @@ public class HeroStateProperties
 	public final JumpXml jump;
 	@XmlElement
 	public final MoveXml move;
+	@XmlElement
+	public final List<PropertyXml> property;
 	@XmlElement(required=true)
 	public final Vector2 maxSpeed;
 	
-	public HeroStateProperties(ShootXml shoot, RopeXml rope, JumpXml jump, Vector2 maxSpeed, MoveXml move)
+	public HeroStateProperties(ShootXml shoot, RopeXml rope, JumpXml jump, Vector2 maxSpeed, MoveXml move, List<PropertyXml> property)
 	{
 		super();
 		this.shoot = shoot;
@@ -61,6 +88,7 @@ public class HeroStateProperties
 		this.jump = jump;
 		this.maxSpeed = maxSpeed;
 		this.move = move;
+		this.property = property;
 	}
 	
 	public HeroStateProperties()
@@ -69,6 +97,7 @@ public class HeroStateProperties
 		this.rope = null;
 		this.jump = null;
 		this.move = null;
+		this.property = null;
 		this.maxSpeed = new Vector2();
 	}
 }

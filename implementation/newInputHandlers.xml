@@ -108,7 +108,7 @@
                     <keysCode>V</keysCode>
                 </handlers>
                 <handlers xsi:type="joystickButtonInput">
-                    <joystickButtonCode>3</joystickButtonCode>
+                    <joystickButtonCode>2</joystickButtonCode>
                 </handlers>
             </value>
         </entry>
@@ -119,7 +119,7 @@
                     <keysCode>A</keysCode>
                 </handlers>
                 <handlers xsi:type="joystickButtonInput">
-                    <joystickButtonCode>2</joystickButtonCode>
+                    <joystickButtonCode>4</joystickButtonCode>
                 </handlers>
             </value>
         </entry>

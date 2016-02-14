@@ -62,6 +62,7 @@ public class NinjaRopeProjectile extends Projectile
 
 		direction.y = -Math.abs(direction.y);
 		direction.addLocal(0, -1);
+//		direction.x *= 2;
 		
 		direction.normalize();
 		direction.mulLocal(properties.initialSpeed);

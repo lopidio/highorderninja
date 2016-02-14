@@ -3,6 +3,7 @@ package br.com.guigasgame.gameobject.hero.state;
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 
 class JumpingHeroState extends HeroState
@@ -37,4 +38,13 @@ class JumpingHeroState extends HeroState
 		
 	}
 
+	@Override
+	protected void stateInputPressed(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.ACTION)
+		{
+			setState(new DivingState(gameHero));
+		}
+	}
+	
 }
