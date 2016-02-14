@@ -22,27 +22,26 @@ public class CollidersFilters
 
 	///What I am
 	public final static CollidersFilters playersCategory	= new CollidersFilters(0x0F);
-	public final static CollidersFilters bulletCategory 	= new CollidersFilters(0x0020);
-	public final static CollidersFilters sceneryCategory 	= new CollidersFilters(0x0040);
+	public final static CollidersFilters sceneryCategory 	= new CollidersFilters(0x0020);
+	public final static CollidersFilters projectileCategory = new CollidersFilters(0x0040);
 	
 	///What I collide with
-	public final static CollidersFilters playersMask 		= sceneryCategory.add(playersCategory).add(bulletCategory); // or ~CATEGORY_PLAYER
-	public final static CollidersFilters bulletsMask 		= sceneryCategory.add(playersCategory); // or ~CATEGORY_MONSTER
-	public final static CollidersFilters ropeMask 			= sceneryCategory; // or ~CATEGORY_MONSTER
-	public final static CollidersFilters sceneryMask 		= new CollidersFilters(-1); //also equals to 0xFFFF
+	public final static CollidersFilters playersCollideWith 		= sceneryCategory.add(playersCategory); // or ~CATEGORY_PLAYER
+	public final static CollidersFilters projectilesCollideWith 	= sceneryCategory.add(playersCategory).add(projectileCategory); // or ~CATEGORY_MONSTER
+	public final static CollidersFilters sceneriesCollideWith 		= new CollidersFilters(-1); //also equals to 0xFFFF
 	
 	
 	private final int maskValue;
 	
 	
-	private CollidersFilters(int maskValue)
+	public CollidersFilters(int maskValue)
 	{
 		this.maskValue = maskValue;
 	}
 
-	public static int getPlayerCategory(int playerID)
+	public static CollidersFilters getPlayerCategory(int playerID)
 	{
-		return playersCategory.matches(new CollidersFilters(playerID)).value();
+		return playersCategory.matching(new CollidersFilters(playerID));
 	}
 	
 	public CollidersFilters add(CollidersFilters mask)
@@ -55,9 +54,14 @@ public class CollidersFilters
 		return new CollidersFilters(maskValue & ~mask.maskValue);
 	}
 	
-	public CollidersFilters matches(CollidersFilters mask)
+	public CollidersFilters matching(CollidersFilters mask)
 	{
 		return new CollidersFilters(maskValue & mask.maskValue);
+	}
+	
+	public boolean matches(CollidersFilters mask)
+	{
+		return this.matching(mask).value() > 0;
 	}
 	
 	public int value()

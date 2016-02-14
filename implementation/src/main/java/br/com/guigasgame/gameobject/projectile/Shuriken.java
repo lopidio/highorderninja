@@ -20,9 +20,8 @@ public class Shuriken extends Projectile
 	{
 		super(ProjectileIndex.SHURIKEN, direction, position);
 		this.playerID = playerID;
-		this.sightDistance = 30;
+		this.sightDistance = 50;
 		collisionCounter = 0;
-
 	}
 
 	@Override
@@ -49,10 +48,8 @@ public class Shuriken extends Projectile
 		def.restitution = properties.restitution;
 		def.shape = projectileShape;
 		def.density = properties.mass;
-		def.filter.categoryBits = CollidersFilters.CATEGORY_BULLET;
-
-		def.filter.maskBits = CollidersFilters.MASK_BULLET;
-		def.filter.maskBits &= ~playerID; //Disable hero owner collision
+		def.filter.categoryBits = CollidersFilters.projectileCategory.value();
+		def.filter.maskBits = CollidersFilters.projectilesCollideWith.except(CollidersFilters.getPlayerCategory(playerID)).value(); //Disable hero owner collision
 
 		return def;
 	}
@@ -63,8 +60,12 @@ public class Shuriken extends Projectile
 		Body body = collidable.getBody();
 		FixtureDef def = createFixture();
 		body.createFixture(def);
-
-		ProjectileAimer aimer = new ProjectileAimer(sightDistance, direction, body, CollidersFilters.CATEGORY_PLAYER_MASK & ~playerID);
+		
+		ProjectileAimer aimer = new ProjectileAimer(body, direction, 
+					CollidersFilters.playersCollideWith.except(CollidersFilters.getPlayerCategory(playerID)), 
+					CollidersFilters.playersCategory.except(CollidersFilters.getPlayerCategory(playerID)));
+		
+		aimer.setSightDistance(sightDistance);
 		direction = aimer.getFinalDirection();
 
 		direction.normalize();

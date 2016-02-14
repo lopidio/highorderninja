@@ -22,7 +22,7 @@ public class NinjaRopeProjectile extends Projectile
 
 	public NinjaRopeProjectile(Vec2 direction, GameHero gameHero)
 	{
-		super(ProjectileIndex.ROPE, direction, gameHero.getCollidable().getBody().getWorldCenter());
+		super(ProjectileIndex.ROPE, adjustInitialDirection(direction), gameHero.getCollidable().getBody().getWorldCenter());
 		this.gameHero = gameHero;
 	}
 
@@ -46,10 +46,9 @@ public class NinjaRopeProjectile extends Projectile
 		def.restitution = properties.restitution;
 		def.shape = projectileShape;
 		def.density = properties.mass;
-		def.filter.categoryBits = CollidersFilters.CATEGORY_BULLET;
-
-		def.filter.maskBits = CollidersFilters.MASK_ROPE;
-
+		def.filter.categoryBits = CollidersFilters.projectileCategory.value();
+		def.filter.maskBits = CollidersFilters.projectilesCollideWith.except(CollidersFilters.getPlayerCategory(gameHero.getPlayerID())).value(); //Disable hero owner collision
+		
 		return def;
 	}
 
@@ -59,14 +58,30 @@ public class NinjaRopeProjectile extends Projectile
 		Body body = collidable.getBody();
 		FixtureDef def = createFixture();
 		body.createFixture(def);
-
-		direction.y = -Math.abs(direction.y);
-		direction.addLocal(0, -1);
-//		direction.x *= 2;
 		
+		ProjectileAimer aimer = new ProjectileAimer(body, direction, 
+					CollidersFilters.projectilesCollideWith, CollidersFilters.projectilesCollideWith);
+		
+		aimer.setSightDistance(maxDistance);
+
+		direction = aimer.getFinalDirection();
 		direction.normalize();
 		direction.mulLocal(properties.initialSpeed);
 		body.applyLinearImpulse(direction, body.getWorldCenter());
+	}
+
+	private static Vec2 adjustInitialDirection(Vec2 direction)
+	{
+		if (direction.y == 0)
+		{
+			direction.addLocal(0, -1);
+			direction.normalize();
+		}
+		else
+		{
+			direction.y = -Math.abs(direction.y);
+		}
+		return direction;
 	}
 
 	@Override
