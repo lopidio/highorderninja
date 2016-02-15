@@ -1,13 +1,13 @@
 package br.com.guigasgame.gameobject.projectile;
 
-import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidersFilters;
+import br.com.guigasgame.collision.CollidableConstants;
+import br.com.guigasgame.collision.CollidableFilter;
 
 public class Shuriken extends Projectile
 {
@@ -37,37 +37,25 @@ public class Shuriken extends Projectile
 		}
 	}
 	
-	private FixtureDef createFixture()
+	@Override
+	protected CollidableFilter createCollidableFilter(CollidableFilter collisionProperty) 
 	{
-		CircleShape projectileShape = new CircleShape();
-		projectileShape.setRadius(properties.radius);
-
-		FixtureDef def = new FixtureDef();
-		def.restitution = properties.restitution;
-		def.shape = projectileShape;
-		def.density = properties.mass;
-		def.filter.categoryBits = CollidersFilters.projectileCategory.value();
-		def.filter.maskBits = CollidersFilters.projectilesCollideWith.except(CollidersFilters.getPlayerCategory(playerID)).value(); //Disable hero owner collision
-		return def;
 	}
 
 	@Override
 	public void onEnter()
 	{
-		Body body = collidable.getBody();
-		FixtureDef def = createFixture();
-		body.createFixture(def);
-		
+		shoot();
 		ProjectileAimer aimer = new ProjectileAimer(body, direction, 
-					CollidersFilters.playersCollideWith.except(CollidersFilters.getPlayerCategory(playerID)), 
-					CollidersFilters.playersCategory.except(CollidersFilters.getPlayerCategory(playerID)));
-		
-		aimer.setMaxDistance(properties.range);
-		direction = aimer.getFinalDirection();
+					CollisionProperty.projectilesCollideWith.except(CollisionProperty.getPlayerCategory(playerID)), 
+					CollisionProperty.playersCategory.except(CollisionProperty.getPlayerCategory(playerID)));
+	}
 
-		direction.normalize();
-		direction.mulLocal(properties.initialSpeed);
-		body.applyLinearImpulse(direction, body.getWorldCenter());
+	@Override
+	protected ProjectileCollidableFilter createCollidableFilter(ProjectileCollidableFilter collisionProperty) {
+		// TODO Auto-generated method stub
+		return CollidableConstants.projectileCollisionProperty.except(CollidableConstants.getPlayerCategory(playerID));
+		return null;
 	}
 
 	

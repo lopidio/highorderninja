@@ -6,7 +6,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 
-import br.com.guigasgame.collision.CollidersFilters;
+import br.com.guigasgame.collision.CollidableFilter;
 
 
 public class ProjectileAimer implements RayCastCallback
@@ -24,10 +24,9 @@ public class ProjectileAimer implements RayCastCallback
 	
 	private final Body body;
 	private final Vec2 initialDirection;
-	private final CollidersFilters collidesWith;
-	private final CollidersFilters aimingAt;
+	private final ProjectileCollidableFilter projectileCollidableFilter;
 
-	public ProjectileAimer(Body initialBody, Vec2 initialDirection, CollidersFilters collidesWith, CollidersFilters aimingAt)
+	public ProjectileAimer(Body initialBody, Vec2 initialDirection, ProjectileCollidableFilter projectileCollidableFilter)
 	{
 		super();
 		this.maxDistance = 30; //default value
@@ -35,10 +34,14 @@ public class ProjectileAimer implements RayCastCallback
 		this.initialDirection = initialDirection.clone().mul(maxDistance);
 		this.finalDirection = this.initialDirection;
 		this.bestDirection = null;
-		this.aimingAt = aimingAt;
-		this.collidesWith = collidesWith.add(aimingAt); 
+		this.projectileCollidableFilter = projectileCollidableFilter;
 		
 		generateRayCasts();
+	}
+
+	public ProjectileAimer(Projectile projectile, float range) 
+	{
+		// TODO Auto-generated constructor stub
 	}
 
 	private void generateRayCasts()
@@ -81,7 +84,7 @@ public class ProjectileAimer implements RayCastCallback
 	@Override
 	public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction)
 	{
-		CollidersFilters fixtureCollider = new CollidersFilters(fixture.getFilterData().categoryBits);
+		CollidableFilter fixtureCollider = new CollidableFilter(fixture.getFilterData().categoryBits);
 		
 		
 //		int fixtureCategory = fixture.getFilterData().categoryBits;

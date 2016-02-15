@@ -7,7 +7,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidersFilters;
+import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.state.NinjaRopeSwingingState;
@@ -43,8 +43,8 @@ public class NinjaRopeProjectile extends Projectile
 		def.restitution = properties.restitution;
 		def.shape = projectileShape;
 		def.density = properties.mass;
-		def.filter.categoryBits = CollidersFilters.projectileCategory.value();
-		def.filter.maskBits = CollidersFilters.projectilesCollideWith.except(CollidersFilters.getPlayerCategory(gameHero.getPlayerID())).value(); //Disable hero owner collision
+		def.filter.categoryBits = CollidableFilter.projectileCategory.value();
+		def.filter.maskBits = CollidableFilter.projectilesCollideWith.except(CollidableFilter.getPlayerCategory(gameHero.getPlayerID())).value(); //Disable hero owner collision
 		
 		return def;
 	}
@@ -57,7 +57,7 @@ public class NinjaRopeProjectile extends Projectile
 		body.createFixture(def);
 		
 		ProjectileAimer aimer = new ProjectileAimer(body, direction, 
-					CollidersFilters.projectilesCollideWith, CollidersFilters.projectilesCollideWith);
+					CollidableFilter.projectilesCollideWith, CollidableFilter.projectilesCollideWith);
 		
 		aimer.setMaxDistance(properties.range);
 		

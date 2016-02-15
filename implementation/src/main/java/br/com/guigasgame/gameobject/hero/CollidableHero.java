@@ -11,7 +11,7 @@ import org.jbox2d.dynamics.FixtureDef;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidersFilters;
+import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.math.Vector2;
@@ -35,8 +35,8 @@ public class CollidableHero extends Collidable
 		sensorsController = new HeroSensorsController();
 		this.playerID = playerID;
 		filter = new Filter();
-		filter.categoryBits = CollidersFilters.getPlayerCategory(playerID).value();
-		filter.maskBits = CollidersFilters.playersCollideWith.value();
+		filter.categoryBits = CollidableFilter.getPlayerCategory(playerID).value();
+		filter.maskBits = CollidableFilter.playersCollideWith.value();
 	}
 
 	public void loadAndAttachFixturesToBody()

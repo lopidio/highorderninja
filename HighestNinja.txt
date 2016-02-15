@@ -118,7 +118,6 @@ class Collidable extends Composite<Collidable>
 	BodyDef
 	attachToWorld(World): Body
 
-Refactor of CollidersFilters
 Refactor of playerInput
 Refactor of player's actions (Command pattern). Queue of commands to execute
 	
@@ -137,4 +136,6 @@ v Jump becomes action
 v SetState becomes action
 v setHeroOrientation becomes action
 
-Projectiles shall have damage as propertie
+Projectiles shall have damage as property
+Refactor of CollidersFilters
+Unify GameHero and GameHeroLogic
