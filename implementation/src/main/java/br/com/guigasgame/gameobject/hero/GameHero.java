@@ -112,6 +112,7 @@ public class GameHero extends GameObject
 		copy.addAll(actionList);
 		actionList.clear();
 
+		
 		Iterator<GameHeroAction> iterator = copy.iterator();
 		while (iterator.hasNext())
 		{

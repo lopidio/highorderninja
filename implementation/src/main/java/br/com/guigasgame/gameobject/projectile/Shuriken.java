@@ -12,7 +12,6 @@ import br.com.guigasgame.collision.CollidersFilters;
 public class Shuriken extends Projectile
 {
 	
-	private final float sightDistance;
 	private int collisionCounter;
 	private int playerID;
 
@@ -20,7 +19,6 @@ public class Shuriken extends Projectile
 	{
 		super(ProjectileIndex.SHURIKEN, direction, position);
 		this.playerID = playerID;
-		this.sightDistance = 50;
 		collisionCounter = 0;
 	}
 
@@ -50,7 +48,6 @@ public class Shuriken extends Projectile
 		def.density = properties.mass;
 		def.filter.categoryBits = CollidersFilters.projectileCategory.value();
 		def.filter.maskBits = CollidersFilters.projectilesCollideWith.except(CollidersFilters.getPlayerCategory(playerID)).value(); //Disable hero owner collision
-
 		return def;
 	}
 
@@ -65,7 +62,7 @@ public class Shuriken extends Projectile
 					CollidersFilters.playersCollideWith.except(CollidersFilters.getPlayerCategory(playerID)), 
 					CollidersFilters.playersCategory.except(CollidersFilters.getPlayerCategory(playerID)));
 		
-		aimer.setSightDistance(sightDistance);
+		aimer.setMaxDistance(properties.range);
 		direction = aimer.getFinalDirection();
 
 		direction.normalize();

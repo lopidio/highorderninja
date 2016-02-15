@@ -15,9 +15,6 @@ import br.com.guigasgame.gameobject.hero.state.NinjaRopeSwingingState;
 
 public class NinjaRopeProjectile extends Projectile
 {
-
-	private final float maxDistance = 30.f;
-
 	private final GameHero gameHero;
 
 	public NinjaRopeProjectile(Vec2 direction, GameHero gameHero)
@@ -62,8 +59,8 @@ public class NinjaRopeProjectile extends Projectile
 		ProjectileAimer aimer = new ProjectileAimer(body, direction, 
 					CollidersFilters.projectilesCollideWith, CollidersFilters.projectilesCollideWith);
 		
-		aimer.setSightDistance(maxDistance);
-
+		aimer.setMaxDistance(properties.range);
+		
 		direction = aimer.getFinalDirection();
 		direction.normalize();
 		direction.mulLocal(properties.initialSpeed);
@@ -88,7 +85,7 @@ public class NinjaRopeProjectile extends Projectile
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
-		if (gameHero.getCollidable().getPosition().sub(collidable.getPosition()).length() >= maxDistance)
+		if (gameHero.getCollidable().getPosition().sub(collidable.getPosition()).length() >= properties.range)
 		{
 			System.out.println("Rope is too far");
 			// Rope is too far

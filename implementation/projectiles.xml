@@ -10,6 +10,7 @@
                 <radius>0.1</radius>
                 <restitution>0.8</restitution>
                 <damage>12</damage>
+                <range>50</range>
             </value>
         </entry>
         <entry>
@@ -21,6 +22,7 @@
                 <radius>0.05</radius>
                 <restitution>0.8</restitution>
                 <damage>0</damage>
+                <range>30</range>
             </value>
         </entry>
     </projectilesPropertiesMap>

@@ -25,7 +25,6 @@ class HeroFixturesCreator {
 
 		createHeadFixture();
 		createUpperFixture();
-		createLegsFixture();
 		createFeetFixture();
 		createBottomSensor();
 		createBottomLeftSensor();
@@ -77,16 +76,6 @@ class HeroFixturesCreator {
 		def.shape = shape;
 		def.density = 0.2f;		
 		fixtures.put(FixtureSensorID.UPPER, def);
-	}
-
-	private void createLegsFixture() {
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(0.3f, 0.3f, new Vec2(0, -0.5f), 0);
-
-		FixtureDef def = new FixtureDef();
-		def.shape = shape;
-		def.density = 0.2f;		
-//		fixtures.put(FixtureSensorID.LEGS, def);
 	}
 
 	private void createFeetFixture() {

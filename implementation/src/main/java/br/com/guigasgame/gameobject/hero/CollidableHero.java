@@ -24,6 +24,7 @@ public class CollidableHero extends Collidable
 	private Map<FixtureSensorID, Fixture> fixtureMap;
 	private HeroSensorsController sensorsController;
 	int playerID;
+	private Filter filter;
 
 	public CollidableHero(int playerID, Vec2 position)
 	{
@@ -33,6 +34,9 @@ public class CollidableHero extends Collidable
 
 		sensorsController = new HeroSensorsController();
 		this.playerID = playerID;
+		filter = new Filter();
+		filter.categoryBits = CollidersFilters.getPlayerCategory(playerID).value();
+		filter.maskBits = CollidersFilters.playersCollideWith.value();
 	}
 
 	public void loadAndAttachFixturesToBody()
@@ -44,15 +48,12 @@ public class CollidableHero extends Collidable
 		for( Map.Entry<FixtureSensorID, FixtureDef> entry : fixtureDefMap.entrySet() )
 		{
 			FixtureDef def = entry.getValue();
-			
-			def.filter.categoryBits = 1 << (playerID - 1);
-			def.filter.maskBits = CollidersFilters.MASK_PLAYER;
+			def.filter = filter;
 			
 			Fixture fixture = body.createFixture(def);
 			fixtureMap.put(entry.getKey(), fixture);
 			sensorsController.attachController(entry.getKey(), fixture);
 		}
-		System.out.println("Player category: 0x" + Integer.toBinaryString(1 << (playerID - 1)));
 	}
 
 	public void applyImpulse(Vec2 impulse)
@@ -135,14 +136,15 @@ public class CollidableHero extends Collidable
 
 	public void disableCollision(FixtureSensorID sensorID)
 	{
-		Filter filter = fixtureMap.get(sensorID).getFilterData();
-		filter.maskBits = 0;// CollidersFilters.MASK_PLAYER;
-		fixtureMap.get(sensorID).setFilterData(filter);
+		Filter newFilter = new Filter();
+		newFilter.categoryBits = filter.categoryBits;
+		newFilter.maskBits = 0;
+		fixtureMap.get(sensorID).setFilterData(newFilter);
 	}
 
 	public void enableCollision(FixtureSensorID sensorID)
 	{
-		fixtureMap.get(sensorID).setSensor(false);
+		fixtureMap.get(sensorID).setFilterData(filter);
 	}
 
 	public Vec2 getBodyLinearVelocity()

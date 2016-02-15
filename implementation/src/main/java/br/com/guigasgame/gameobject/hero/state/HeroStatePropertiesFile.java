@@ -1,7 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,12 +46,14 @@ public class HeroStatePropertiesFile {
 		
 		try
 		{
+			Map<String, Float> maps = new HashMap<>();
+			maps.put("diving", 0.6f);
+			maps.put("other", 0.8f);
 			HeroStatePropertiesFile states = new HeroStatePropertiesFile();
 			states.statesMap.put(HeroAnimationsIndex.HERO_SLIDING, new HeroStateProperties( new HeroStateProperties.ShootXml(), new HeroStateProperties.RopeXml(), 
 					new HeroStateProperties.JumpXml(-10f), new Vector2(), 
-					new HeroStateProperties.MoveXml(20f), Arrays.asList(new HeroStateProperties.PropertyXml(0.6f, "diving"), new HeroStateProperties.PropertyXml(0.6f, "diagonalJump"))));
-			JAXBContext context = JAXBContext
-					.newInstance(HeroStatePropertiesFile.class);
+					new HeroStateProperties.MoveXml(20f), maps));
+			JAXBContext context = JAXBContext.newInstance(HeroStatePropertiesFile.class);
 			Marshaller m = context.createMarshaller(); // for pretty-print XML
 														// in JAXB
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

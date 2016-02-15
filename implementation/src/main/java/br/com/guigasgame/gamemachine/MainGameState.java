@@ -83,8 +83,8 @@ public class MainGameState implements GameState
 		shape.setAsBox(size.x, size.y);
 		FixtureDef fixtureDef = new FixtureDef();
 
-		fixtureDef.filter.categoryBits = CollidersFilters.CATEGORY_SCENERY;
-		fixtureDef.filter.maskBits = CollidersFilters.MASK_SCENERY;
+		fixtureDef.filter.categoryBits = CollidersFilters.sceneryCategory.value();
+		fixtureDef.filter.maskBits = CollidersFilters.sceneriesCollideWith.value();
 
 		fixtureDef.density = 0;
 		fixtureDef.shape = shape;

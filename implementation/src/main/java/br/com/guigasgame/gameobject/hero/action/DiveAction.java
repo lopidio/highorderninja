@@ -16,13 +16,14 @@ public class DiveAction extends GameHeroAction
 	@Override
 	public boolean childCanExecute(GameHero hero)
 	{
-		return heroStateProperties.jump != null;
+		System.out.println(heroStateProperties.property.get("diveImpulse"));
+		return heroStateProperties.property.get("diveImpulse") != null;
 	}
 	
 	@Override
 	public void childExecute(GameHero gameHero)
 	{
-		Vec2 impulse = new Vec2(0, heroStateProperties.jump.impulse);
+		Vec2 impulse = new Vec2(0, heroStateProperties.property.get("diveImpulse"));
 		gameHero.getCollidableHero().stopMovement();		
 		gameHero.getCollidableHero().applyImpulse(impulse);
 	}

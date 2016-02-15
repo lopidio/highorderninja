@@ -12,7 +12,7 @@ import br.com.guigasgame.collision.CollidersFilters;
 public class ProjectileAimer implements RayCastCallback
 {
 
-	private float sightDistance;
+	private float maxDistance;
 	private static int rayCastNumber = 16;
 	private static float angleRangeInRadians = (float) (Math.PI/ (10 * rayCastNumber));
 	
@@ -30,9 +30,9 @@ public class ProjectileAimer implements RayCastCallback
 	public ProjectileAimer(Body initialBody, Vec2 initialDirection, CollidersFilters collidesWith, CollidersFilters aimingAt)
 	{
 		super();
-		this.sightDistance = 30;
+		this.maxDistance = 30; //default value
 		this.body = initialBody;
-		this.initialDirection = initialDirection.clone().mul(sightDistance);
+		this.initialDirection = initialDirection.clone().mul(maxDistance);
 		this.finalDirection = this.initialDirection;
 		this.bestDirection = null;
 		this.aimingAt = aimingAt;
@@ -92,7 +92,7 @@ public class ProjectileAimer implements RayCastCallback
 //			if ((fixtureCategory & maskBits) > 0) //if collides with other players
 			{
 				float newDistance = point.sub(body.getPosition()).length();
-				if (newDistance <= sightDistance)
+				if (newDistance <= maxDistance)
 				{
 					if (bestDirection == null || newDistance < bestDirection.length())
 					{
@@ -116,9 +116,9 @@ public class ProjectileAimer implements RayCastCallback
 		return finalDirection;
 	}
 	
-	public void setSightDistance(float sightDistance)
+	public void setMaxDistance(float sightDistance)
 	{
-		this.sightDistance = sightDistance;
+		this.maxDistance = sightDistance;
 	}
 	
 	public static void setRayCastNumber(int rayCastNumber)

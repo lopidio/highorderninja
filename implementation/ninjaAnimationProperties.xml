@@ -116,6 +116,21 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroAnimationsIndex">HERO_DUCKING</key>
+			<value horizontal="true">
+				<numFrames>2</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>180</top>
+                    <width>98</width>
+                    <height>244</height>
+                </textureSpriteRect>				
+			</value>
+		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroAnimationsIndex">HERO_WALLGRABBING</key>
 			<value horizontal="true">
 				<numFrames>1</numFrames>
