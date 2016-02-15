@@ -4,8 +4,10 @@ import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.side.Side;
 
 
 class DuckingState extends HeroState
@@ -35,6 +37,20 @@ class DuckingState extends HeroState
 		if (gameHero.getCollidableHero().isFallingDown())
 		{
 			setState(new FallingHeroState(gameHero));
+		}
+	}
+	
+	@Override
+	protected void move(Side side)
+	{
+		if (!gameHero.isTouchingWallAhead())
+		{
+			setState(new RunningHeroState(gameHero));
+			super.move(side);
+		}
+		else
+		{
+			gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
 		}
 	}
 

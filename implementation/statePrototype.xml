@@ -92,6 +92,7 @@
             <key>HERO_DUCKING</key>
             <value>
 			    <jump impulse="15.0"/>
+				<move acceleration="10"/>			
                 <maxSpeed>
                     <x>00</x>
                     <y>00</y>

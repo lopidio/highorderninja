@@ -71,7 +71,7 @@ public class NinjaRopeProjectile extends Projectile
 	{
 		if (direction.y == 0)
 		{
-			direction.addLocal(0, -1);
+			direction.addLocal(0, -0.5f);
 			direction.normalize();
 		}
 		else
