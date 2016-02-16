@@ -1,15 +1,20 @@
 package br.com.guigasgame.gameobject.projectile;
 
-import br.com.guigasgame.collision.CollidableFilter;
-import br.com.guigasgame.collision.CollidableFilter.Category;
+import java.util.Locale.Category;
+
+import org.jbox2d.dynamics.Filter;
+
+import br.com.guigasgame.collision.CollidableLanguage;
+import br.com.guigasgame.collision.IntegerMask;
 
 public class ProjectileCollidableFilter
 {
-	private CollidableFilter collidableFilter;
+	private final CollidableLanguage collidableFilter;
+	private IntegerMask aimingMask;
 
-	public ProjectileCollidableFilter(CollidableFilter collidableFilter) 
+	public ProjectileCollidableFilter(Filter collidableFilter) 
 	{
-		this.collidableFilter = collidableFilter;
+		this.collidableFilter = new CollidableLanguage(collidableFilter);
 	}
 
 	public ProjectileCollidableFilter aimTo(Category category)
@@ -18,9 +23,4 @@ public class ProjectileCollidableFilter
 		return this;
 	}
 
-	public CollidableFilter getCollidableFilter() 
-	{
-		return collidableFilter;
-	}
-	
 }

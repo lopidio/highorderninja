@@ -1,29 +1,21 @@
 package br.com.guigasgame.collision;
 
-import br.com.guigasgame.collision.CollidableFilter.Category;
 
 public class CollidableConstants 
 {
 	///What I am
-	private final static Category playersCategory		= new Category(0x0F);
-	private final static Category sceneryCategory 		= new Category(0x0020);
-	private final static Category projectileCategory	= new Category(0x0040);
+	private final static CollidableCategory herosCategory		= CollidableCategory.getAllPlayerCategory();
+	private final static CollidableCategory sceneryCategory 	= CollidableCategory.getNextCategory();
+	private final static CollidableCategory projectileCategory	= CollidableCategory.getNextCategory();
 	
 	///What I collide with
-	public final static CollidableFilter heroCollidableFilter			= playersCategory.collidesWith(sceneryCategory).and(projectileCategory);
-	public final static CollidableFilter sceneryCollidableFilter 		= sceneryCategory.collidesWithEverything();
-	public final static CollidableFilter projectileCollidableFilter 	= projectileCategory.collidesWith(sceneryCategory).and(playersCategory);
+	public final static CollidableLanguage sceneryCollidableFilter 		= CollidableLanguage.categoryCollider(sceneryCategory).collidesWithEveryThing();
+	public final static CollidableLanguage projectileCollidableFilter 	= CollidableLanguage.categoryCollider(projectileCategory).collidesWith(herosCategory).and(sceneryCategory);
 	
-	private final static int maxPlayers = 4;
-	
-	public static Category getPlayerCategory(int playerID)
+	public static CollidableLanguage getPlayerCategory(int playerID)
 	{
-		int playersMaskValue = 0;
-		for (int i = 0; i < maxPlayers; ++i)
-		{
-			playersMaskValue = (playersMaskValue << 1) + 1;
-		}
-		return playersCategory.matching(playerID);
+		return CollidableLanguage.categoryCollider(herosCategory.matching(1 << playerID)).collidesWith(sceneryCategory);		
 	}
+	
 	
 }

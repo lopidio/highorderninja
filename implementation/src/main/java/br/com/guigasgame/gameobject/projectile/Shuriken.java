@@ -1,13 +1,10 @@
 package br.com.guigasgame.gameobject.projectile;
 
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableConstants;
-import br.com.guigasgame.collision.CollidableFilter;
 
 public class Shuriken extends Projectile
 {
