@@ -35,13 +35,14 @@ public class GameHero extends GameObject
 	int maxLife;
 	int numShurikens;
 
-	public GameHero(int playerID, Vec2 position)
+	public GameHero(int playerID, Vec2 position, GameHeroInputMap gameHeroInput)
 	{
 		this.playerID = playerID;
 		forwardSide = Side.RIGHT;
 		actionList = new ArrayList<GameHeroAction>();
 		collidableHero = new CollidableHero(playerID, position);
-		
+		this.gameHeroInput = gameHeroInput;
+
 		collidable = collidableHero;
 		collidable.addListener(this);
 	}
@@ -77,7 +78,6 @@ public class GameHero extends GameObject
 	public void onEnter()
 	{
 		collidableHero.loadAndAttachFixturesToBody();
-		gameHeroInput = GameHeroInputMap.loadFromConfigFile(playerID);
 
 		setState(new FallingHeroState(this));
 	}

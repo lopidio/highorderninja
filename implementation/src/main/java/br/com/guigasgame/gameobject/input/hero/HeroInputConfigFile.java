@@ -48,12 +48,9 @@ public class HeroInputConfigFile
 	{
 		try
 		{
-			JAXBContext context = JAXBContext
-					.newInstance(HeroInputConfigFile.class, JoystickAxisInput.class, JoystickButtonInput.class, MouseInput.class, KeyboardInput.class);
+			JAXBContext context = JAXBContext.newInstance(HeroInputConfigFile.class, JoystickAxisInput.class, JoystickButtonInput.class, MouseInput.class, KeyboardInput.class);
 			Unmarshaller jaxbUnmarshaller = context.createUnmarshaller();
-			HeroInputConfigFile heroInputConfigFile = (HeroInputConfigFile) jaxbUnmarshaller
-					.unmarshal(new File(FilenameConstants
-							.getInputPlayerConfigFilename(playerID)));
+			HeroInputConfigFile heroInputConfigFile = (HeroInputConfigFile) jaxbUnmarshaller.unmarshal(new File(FilenameConstants.getInputPlayerConfigFilename(playerID)));
 
 			// Insere as chaves no controlador de input
 			for( Entry<HeroInputKey, InputController<HeroInputKey>> inputConfig : heroInputConfigFile.map.entrySet() )
@@ -62,8 +59,7 @@ public class HeroInputConfigFile
 				inputConfig.getValue().setUserData(inputConfig.getKey());
 			}
 
-			GameHeroInputMap gameHeroInput = new GameHeroInputMap(
-					heroInputConfigFile.map);
+			GameHeroInputMap gameHeroInput = new GameHeroInputMap(heroInputConfigFile.map);
 			return gameHeroInput;
 		}
 		catch (JAXBException e)

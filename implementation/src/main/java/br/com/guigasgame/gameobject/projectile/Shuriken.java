@@ -6,6 +6,7 @@ import org.jbox2d.dynamics.contacts.Contact;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilter;
+import br.com.guigasgame.collision.CollidableFilterManipulator;
 
 public class Shuriken extends Projectile
 {
@@ -44,8 +45,8 @@ public class Shuriken extends Projectile
 	@Override
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{
-		// rope doesn't collides with heros
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilter.getProjectileCollidableFilter().except(CollidableCategory.getPlayerCategory(playerID)).toFilter());
+		// shuriken doesn't collides with owner hero
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableFilter.getProjectileCollidableFilter()).removeCollisionWith(CollidableCategory.getPlayerCategory(playerID)));
 		projectileCollidableFilter.aimTo(CollidableCategory.getOtherPlayersCategory(playerID));
 		
 		return projectileCollidableFilter;

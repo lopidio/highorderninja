@@ -6,6 +6,7 @@ import org.jbox2d.dynamics.contacts.Contact;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilter;
+import br.com.guigasgame.collision.CollidableFilterManipulator;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.state.NinjaRopeSwingingState;
@@ -68,8 +69,9 @@ public class NinjaRopeProjectile extends Projectile
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{
 		// rope doesn't collides with heros
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilter.getProjectileCollidableFilter().except(CollidableCategory.herosCategory).toFilter());
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableFilter.getProjectileCollidableFilter()).removeCollisionWith(CollidableCategory.herosCategory));
 		projectileCollidableFilter.aimTo(CollidableCategory.sceneryCategory);
+		
 		return projectileCollidableFilter;
 	}
 

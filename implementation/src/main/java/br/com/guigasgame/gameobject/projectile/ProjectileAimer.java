@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.CollidableFilter;
+import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 
 
 public class ProjectileAimer implements RayCastCallback
@@ -82,7 +83,7 @@ public class ProjectileAimer implements RayCastCallback
 	@Override
 	public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction)
 	{
-		CollidableFilter fixtureCollider = new CollidableFilter(fixture.getFilterData());
+		CollidableFilter fixtureCollider = new CollidableFilterBox2dAdapter(fixture.getFilterData()).toCollidableFilter();
 		
 		if (projectileCollidableFilter.getCollidableFilter().matches(fixtureCollider.getCategory()))//if collides with something interesting
 		{

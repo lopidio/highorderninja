@@ -22,8 +22,8 @@ class GameItem extends GameObject (Visitor+Decorator)
 	-execute(GameHero)
 
 class Projectile extends GameObject
-class Shuriken extends Projetile
-class HeroTrackerProjectile extends Projetile
+class Shuriken extends Projectile
+class HeroTrackerProjectile extends Projectile
 ...
 	
 class GameObstacles extends GameObject
@@ -139,3 +139,10 @@ v setHeroOrientation becomes action
 Projectiles shall have damage as property
 Refactor of CollidersFilters
 Unify GameHero and GameHeroLogic
+
+CollidableFilterBox2DAdapter
+CollidableManipulator
+GameHero receives input handler
+NinjaRope
+SmokeBomb
+ShurikenBomb

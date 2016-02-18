@@ -4,6 +4,7 @@ import org.jbox2d.dynamics.Filter;
 
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilter;
+import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.IntegerMask;
 
 public class ProjectileCollidableFilter
@@ -13,7 +14,13 @@ public class ProjectileCollidableFilter
 
 	public ProjectileCollidableFilter(Filter collidableFilter) 
 	{
-		this.collidableFilter = new CollidableFilter(collidableFilter);
+		this.collidableFilter = new CollidableFilterBox2dAdapter(collidableFilter).toCollidableFilter();
+		aimingMask = new IntegerMask();
+	}
+
+	public ProjectileCollidableFilter(CollidableFilter collidableFilter) 
+	{
+		this.collidableFilter = collidableFilter;
 		aimingMask = new IntegerMask();
 	}
 
@@ -27,7 +34,6 @@ public class ProjectileCollidableFilter
 	{
 		return collidableFilter;
 	}
-	
 	
 	public IntegerMask getAimingMask()
 	{

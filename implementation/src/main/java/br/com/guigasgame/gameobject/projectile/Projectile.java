@@ -9,6 +9,7 @@ import org.jsfml.graphics.Color;
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.gameobject.GameObject;
 
 
@@ -57,7 +58,7 @@ public abstract class Projectile extends GameObject
 		def.shape = projectileShape;
 		def.density = properties.mass;
 		projectileCollidableFilter = createCollidableFilter();
-		def.filter = projectileCollidableFilter.getCollidableFilter().toFilter();
+		def.filter = new CollidableFilterBox2dAdapter(projectileCollidableFilter.getCollidableFilter()).toBox2dFilter();
 		return def;
 	}
 
