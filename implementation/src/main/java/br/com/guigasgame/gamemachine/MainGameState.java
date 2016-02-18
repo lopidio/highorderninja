@@ -30,9 +30,11 @@ import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.drawable.Drawable;
+import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputDevice;
 
 
 public class MainGameState implements GameState
@@ -70,8 +72,8 @@ public class MainGameState implements GameState
 		createGround(new Vec2(40, 8), new Vec2(3, 1));
 		createGround(new Vec2(55, 8), new Vec2(3, 1));
 
-		gameHero = new GameHero(1, new Vec2(10, 5), GameHeroInputMap.loadFromConfigFile(1));
-		initializeGameObject(Arrays.asList(gameHero, new GameHero(2, new Vec2(40, 5), GameHeroInputMap.loadFromConfigFile(2))));
+		gameHero = new GameHero(1, new Vec2(10, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD));
+		initializeGameObject(Arrays.asList(gameHero, new GameHero(2, new Vec2(40, 5), GameHeroInputMap.loadConfigFromFilename(FilenameConstants.getInputPlayerConfigFilename(2)))));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size)
@@ -188,9 +190,7 @@ public class MainGameState implements GameState
 		Iterator<GameObject> iterator = gameObjectsList.iterator();
 		while (iterator.hasNext())
 		{
-			GameObject toRemove = iterator.next(); // must be called before you
-													// can call
-													// iterator.remove()
+			GameObject toRemove = iterator.next(); // must be called before you can call iterator.remove()
 			if (toRemove.isDead())
 			{
 				toRemove.onDestroy();

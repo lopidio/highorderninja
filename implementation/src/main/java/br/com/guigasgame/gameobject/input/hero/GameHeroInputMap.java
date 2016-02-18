@@ -11,6 +11,12 @@ import br.com.guigasgame.input.InputListener;
 
 public class GameHeroInputMap
 {
+	
+	public enum HeroInputDevice
+	{
+		KEYBOARD,
+		JOYSTICK
+	}
 
 	@XmlEnum
 	public enum HeroInputKey
@@ -27,8 +33,7 @@ public class GameHeroInputMap
 
 	private Map<HeroInputKey, InputController<HeroInputKey>> inputMap;
 
-	public GameHeroInputMap(
-			Map<HeroInputKey, InputController<HeroInputKey>> inputMap)
+	public GameHeroInputMap(Map<HeroInputKey, InputController<HeroInputKey>> inputMap)
 	{
 		this.inputMap = inputMap;
 
@@ -45,24 +50,38 @@ public class GameHeroInputMap
 
 	public void setInputListener(InputListener<HeroInputKey> listener)
 	{
-		for( Entry<GameHeroInputMap.HeroInputKey, InputController<HeroInputKey>> map : inputMap
-				.entrySet() )
+		for( Entry<GameHeroInputMap.HeroInputKey, InputController<HeroInputKey>> map : inputMap.entrySet() )
 		{
 			map.getValue().setInputListener(listener);
 		}
 	}
 
-	public static GameHeroInputMap loadFromConfigFile(int playerID)
+	public static GameHeroInputMap loadConfigFileFromDevice(GameHeroInputMap.HeroInputDevice device)
 	{
 		GameHeroInputMap retorno = null;
-		retorno = HeroInputConfigFile.parseFile(playerID);
+		retorno = HeroInputConfigFile.parseFile(device);
 		if (null == retorno)
 		{
-			HeroInputConfigFile.createDefaultFileFromPlayerID(playerID);
-			retorno = HeroInputConfigFile.parseFile(playerID);
+			HeroInputConfigFile.createDefaultFileFromDevice(device);
+			retorno = HeroInputConfigFile.parseFile(device);
 		}
 
 		return retorno;
+	}
+
+	public static GameHeroInputMap loadConfigFromFilename(String filename)
+	{
+		GameHeroInputMap retorno = HeroInputConfigFile.parseFile(filename);
+		return retorno;
+	}
+
+	public void setDeviceId(int deviceID) 
+	{
+		// Insere as chaves no controlador de input
+		for( Entry<GameHeroInputMap.HeroInputKey, InputController<HeroInputKey>> map : inputMap.entrySet() )
+		{
+			map.getValue().setDeviceId(deviceID);
+		}
 	}
 
 }

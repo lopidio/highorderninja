@@ -140,9 +140,9 @@ Projectiles shall have damage as property
 Refactor of CollidersFilters
 Unify GameHero and GameHeroLogic
 
-CollidableFilterBox2DAdapter
-CollidableManipulator
-GameHero receives input handler
+vCollidableFilterBox2DAdapter
+vCollidableManipulator
+vGameHero receives input handler
 NinjaRope
 SmokeBomb
 ShurikenBomb

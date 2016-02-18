@@ -1,6 +1,5 @@
 package br.com.guigasgame.collision;
 
-import org.jbox2d.dynamics.Filter;
 
 
 public class CollidableFilterManipulator 
@@ -55,8 +54,8 @@ public class CollidableFilterManipulator
 
 	public static class CollidableFilterAddingCollision extends CollidableFilter
 	{
-		public CollidableFilterAddingCollision(CollidableCategory collidableCategory,
-				CollidableCategory collidesWith) {
+		private CollidableFilterAddingCollision(CollidableCategory collidableCategory, CollidableCategory collidesWith) 
+		{
 			super(collidableCategory, collidesWith);
 		}
 		public CollidableFilterAddingCollision and(CollidableCategory collidableCategory)
@@ -71,7 +70,8 @@ public class CollidableFilterManipulator
 	
 	public static class CollidableFilterRemovingCollision extends CollidableFilter
 	{
-		public CollidableFilterRemovingCollision(CollidableCategory collidableCategory, CollidableCategory collidesWith) {
+		private CollidableFilterRemovingCollision(CollidableCategory collidableCategory, CollidableCategory collidesWith) 
+		{
 			super(collidableCategory, collidesWith);
 		}
 		

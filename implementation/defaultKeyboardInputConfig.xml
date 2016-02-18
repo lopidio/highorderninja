@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<heroInputConfigFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" playerID="-1" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
+    <map>
+        <entry>
+            <key>LEFT</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>LEFT</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>RIGHT</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>RIGHT</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>UP</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>UP</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>DOWN</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>DOWN</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>JUMP</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>X</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>SHOOT</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>Z</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>SLIDE</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>C</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>ACTION</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>V</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>ROPE</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>A</keysCode>
+                </handlers>
+            </value>
+        </entry>
+    </map>
+</heroInputConfigFile>
