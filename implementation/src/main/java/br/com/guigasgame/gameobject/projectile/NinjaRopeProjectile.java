@@ -1,12 +1,10 @@
 package br.com.guigasgame.gameobject.projectile;
 
-import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
@@ -34,40 +32,13 @@ public class NinjaRopeProjectile extends Projectile
 		markToDestroy();
 	}
 
-	private FixtureDef createFixture()
-	{
-		CircleShape projectileShape = new CircleShape();
-		projectileShape.setRadius(properties.radius);
-
-		FixtureDef def = new FixtureDef();
-		def.restitution = properties.restitution;
-		def.shape = projectileShape;
-		def.density = properties.mass;
-		def.filter.categoryBits = CollidableFilter.projectileCategory.value();
-		def.filter.maskBits = CollidableFilter.projectilesCollideWith.except(CollidableFilter.getPlayerCategory(gameHero.getPlayerID())).value(); //Disable hero owner collision
-		
-		return def;
-	}
-
 	@Override
 	public void onEnter()
 	{
-		Body body = collidable.getBody();
-		FixtureDef def = createFixture();
-		body.createFixture(def);
-		
-		ProjectileAimer aimer = new ProjectileAimer(body, direction, 
-					CollidableFilter.projectilesCollideWith, CollidableFilter.projectilesCollideWith);
-		
-		aimer.setMaxDistance(properties.range);
-		
-		direction = aimer.getFinalDirection();
-		direction.normalize();
-		direction.mulLocal(properties.initialSpeed);
-		body.applyLinearImpulse(direction, body.getWorldCenter());
+		shoot();
 	}
 
-	private static Vec2 adjustInitialDirection(Vec2 direction)
+	protected static Vec2 adjustInitialDirection(Vec2 direction)
 	{
 		if (direction.y == 0)
 		{
@@ -91,6 +62,15 @@ public class NinjaRopeProjectile extends Projectile
 			// Rope is too far
 			markToDestroy();
 		}
+	}
+
+	@Override
+	protected ProjectileCollidableFilter createCollidableFilter()
+	{
+		// rope doesn't collides with heros
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilter.getProjectileCollidableFilter().except(CollidableCategory.herosCategory).toFilter());
+		projectileCollidableFilter.aimTo(CollidableCategory.sceneryCategory);
+		return projectileCollidableFilter;
 	}
 
 }

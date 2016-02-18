@@ -14,34 +14,32 @@ public class ProjectileAimer implements RayCastCallback
 
 	private float maxDistance;
 	private static int rayCastNumber = 16;
-	private static float angleRangeInRadians = (float) (Math.PI/ (10 * rayCastNumber));
+	private static float angleRangeInRadians = (float) (Math.PI/10.f);
 	
 	private Vec2 finalDirection;
 	private Vec2 bestDirection;
 
-	private static float sinAngle = (float) Math.sin(angleRangeInRadians);
-	private static float cosAngle = (float) Math.cos(angleRangeInRadians);
+	private static float sinAngle = (float) Math.sin(angleRangeInRadians/(float)rayCastNumber);
+	private static float cosAngle = (float) Math.cos(angleRangeInRadians/(float)rayCastNumber);
 	
 	private final Body body;
 	private final Vec2 initialDirection;
 	private final ProjectileCollidableFilter projectileCollidableFilter;
-
-	public ProjectileAimer(Body initialBody, Vec2 initialDirection, ProjectileCollidableFilter projectileCollidableFilter)
+	
+	public ProjectileAimer(Projectile projectile) 
 	{
-		super();
-		this.maxDistance = 30; //default value
-		this.body = initialBody;
-		this.initialDirection = initialDirection.clone().mul(maxDistance);
-		this.finalDirection = this.initialDirection;
+		this.maxDistance = projectile.getProperties().range;
+		this.body = projectile.getCollidable().getBody();
+		this.initialDirection = projectile.getDirection().clone().mul(maxDistance);
+		this.finalDirection = initialDirection;
 		this.bestDirection = null;
-		this.projectileCollidableFilter = projectileCollidableFilter;
+		this.projectileCollidableFilter = projectile.getCollidableFilter();
+		
+		
+		System.out.println("Collides with:" + Integer.toBinaryString(projectileCollidableFilter.getCollidableFilter().getCollider().value));
+		System.out.println("Aiming to:" + Integer.toBinaryString(projectileCollidableFilter.getAimingMask().value));
 		
 		generateRayCasts();
-	}
-
-	public ProjectileAimer(Projectile projectile, float range) 
-	{
-		// TODO Auto-generated constructor stub
 	}
 
 	private void generateRayCasts()
@@ -84,24 +82,13 @@ public class ProjectileAimer implements RayCastCallback
 	@Override
 	public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction)
 	{
-		CollidableFilter fixtureCollider = new CollidableFilter(fixture.getFilterData().categoryBits);
+		CollidableFilter fixtureCollider = new CollidableFilter(fixture.getFilterData());
 		
-		
-//		int fixtureCategory = fixture.getFilterData().categoryBits;
-		if (collidesWith.matches(fixtureCollider))
-//		if ((fixtureCategory & (CollidersFilters.MASK_BULLET_AIMER | maskBits)) > 0) //if collides with scenario + other players
+		if (projectileCollidableFilter.getCollidableFilter().matches(fixtureCollider.getCategory()))//if collides with something interesting
 		{
-			if (aimingAt.matches(fixtureCollider))
-//			if ((fixtureCategory & maskBits) > 0) //if collides with other players
+			if (projectileCollidableFilter.getAimingMask().matches(fixtureCollider.getCategory().getValue())) //if collides with what I am aiming to
 			{
-				float newDistance = point.sub(body.getPosition()).length();
-				if (newDistance <= maxDistance)
-				{
-					if (bestDirection == null || newDistance < bestDirection.length())
-					{
-						bestDirection = point.sub(body.getPosition());
-					}
-				}
+				checkNewBestDirection(point);
 			}
 			else
 			{
@@ -113,20 +100,34 @@ public class ProjectileAimer implements RayCastCallback
 	}
 	
 
+	private void checkNewBestDirection(Vec2 point)
+	{
+		float newDistance = point.sub(body.getPosition()).length();
+		if (newDistance <= maxDistance)
+		{
+			if (bestDirection == null || newDistance < bestDirection.length())
+			{
+				bestDirection = point.sub(body.getPosition());
+			}
+		}
+	}
+
 	public Vec2 getFinalDirection()
 	{
 		finalDirection.normalize();
 		return finalDirection;
 	}
 	
-	public void setMaxDistance(float sightDistance)
-	{
-		this.maxDistance = sightDistance;
-	}
-	
 	public static void setRayCastNumber(int rayCastNumber)
 	{
 		ProjectileAimer.rayCastNumber = rayCastNumber;
+		updateSinAndCos();
+	}
+	
+	private static void updateSinAndCos()
+	{
+		sinAngle = (float) Math.sin(angleRangeInRadians/(float)rayCastNumber);
+		cosAngle = (float) Math.cos(angleRangeInRadians/(float)rayCastNumber);
 	}
 	
 	public static void setAngleRangeInRadians(float angleRangeInRadians)

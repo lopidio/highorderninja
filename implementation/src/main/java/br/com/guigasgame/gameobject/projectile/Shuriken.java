@@ -4,7 +4,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidableConstants;
+import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.collision.CollidableFilter;
 
 public class Shuriken extends Projectile
 {
@@ -35,24 +36,19 @@ public class Shuriken extends Projectile
 	}
 	
 	@Override
-	protected CollidableFilter createCollidableFilter(CollidableFilter collisionProperty) 
-	{
-	}
-
-	@Override
 	public void onEnter()
 	{
 		shoot();
-		ProjectileAimer aimer = new ProjectileAimer(body, direction, 
-					CollisionProperty.projectilesCollideWith.except(CollisionProperty.getPlayerCategory(playerID)), 
-					CollisionProperty.playersCategory.except(CollisionProperty.getPlayerCategory(playerID)));
 	}
 
 	@Override
-	protected ProjectileCollidableFilter createCollidableFilter(ProjectileCollidableFilter collisionProperty) {
-		// TODO Auto-generated method stub
-		return CollidableConstants.projectileCollisionProperty.except(CollidableConstants.getPlayerCategory(playerID));
-		return null;
+	protected ProjectileCollidableFilter createCollidableFilter()
+	{
+		// rope doesn't collides with heros
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilter.getProjectileCollidableFilter().except(CollidableCategory.getPlayerCategory(playerID)).toFilter());
+		projectileCollidableFilter.aimTo(CollidableCategory.getOtherPlayersCategory(playerID));
+		
+		return projectileCollidableFilter;
 	}
 
 	

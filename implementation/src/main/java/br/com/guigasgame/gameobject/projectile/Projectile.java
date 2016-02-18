@@ -9,7 +9,6 @@ import org.jsfml.graphics.Color;
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.gameobject.GameObject;
 
 
@@ -17,8 +16,9 @@ public abstract class Projectile extends GameObject
 {
 	protected final ProjectileIndex index;
 	protected final ProjectileProperties properties;
+	
 	private final Animation animation;
-	private ProjectileCollidableFilter projectileCollidableFilter;
+	protected ProjectileCollidableFilter projectileCollidableFilter;
 	protected Vec2 direction;
 
 	protected Projectile(ProjectileIndex index, Vec2 direction, Vec2 position)
@@ -38,7 +38,7 @@ public abstract class Projectile extends GameObject
 		drawable = animation;
 	}
 
-	protected abstract ProjectileCollidableFilter createCollidableFilter(ProjectileCollidableFilter collisionProperty);	
+	protected abstract ProjectileCollidableFilter createCollidableFilter();	
 
 	@Override
 	public void update(float deltaTime)
@@ -47,11 +47,6 @@ public abstract class Projectile extends GameObject
 		animation.update(deltaTime);
 	}
 
-	protected void adjustInitialDirection()
-	{
-		//hook method
-	}
-	
 	private FixtureDef createFixture()
 	{
 		CircleShape projectileShape = new CircleShape();
@@ -61,18 +56,18 @@ public abstract class Projectile extends GameObject
 		def.restitution = properties.restitution;
 		def.shape = projectileShape;
 		def.density = properties.mass;
-		def.filter = CollidableConstants.projectileCollidableFilter.toFilter();
+		projectileCollidableFilter = createCollidableFilter();
+		def.filter = projectileCollidableFilter.getCollidableFilter().toFilter();
 		return def;
 	}
 
-	public void shoot()
+	protected void shoot()
 	{
 		Body body = collidable.getBody();
 		FixtureDef def = createFixture();
 		body.createFixture(def);
 		
-		ProjectileAimer aimer = new ProjectileAimer(this, properties.range);
-		
+		ProjectileAimer aimer = new ProjectileAimer(this);
 		direction = aimer.getFinalDirection();
 
 		direction.normalize();
@@ -85,10 +80,14 @@ public abstract class Projectile extends GameObject
 		return direction;
 	}
 
-	public ProjectileCollidableFilter getProjectileCollidableFilter() 
+	public ProjectileCollidableFilter getCollidableFilter() 
 	{
 		return projectileCollidableFilter;
 	}
 	
+	public ProjectileProperties getProperties()
+	{
+		return properties;
+	}
 	
 }

@@ -120,7 +120,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	{
 		if (inputValue == HeroInputKey.SHOOT)
 		{
-			System.out.println("Aiming!");
+//			System.out.println("Aiming!");
 		}			
 		if (inputValue == HeroInputKey.LEFT)
 		{

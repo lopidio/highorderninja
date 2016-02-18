@@ -26,7 +26,7 @@ import org.jsfml.window.event.Event.Type;
 
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidableConstants;
+import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.GameObject;
@@ -83,7 +83,7 @@ public class MainGameState implements GameState
 		shape.setAsBox(size.x, size.y);
 		FixtureDef fixtureDef = new FixtureDef();
 
-		fixtureDef.filter = CollidableConstants.sceneryCollidableFilter.toFilter();
+		fixtureDef.filter = CollidableFilter.getSceneryCollidablefilter().toFilter();
 
 		fixtureDef.density = 0;
 		fixtureDef.shape = shape;
