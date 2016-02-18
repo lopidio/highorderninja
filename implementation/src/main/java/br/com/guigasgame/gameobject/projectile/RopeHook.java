@@ -14,11 +14,13 @@ public class RopeHook extends Collidable
 {
 	private GameHero gameHero;
 	private DistanceJoint joint;
+	private ProjectileProperties properties;
 
-	public RopeHook(Vec2 position, GameHero gameHero)
+	public RopeHook(Vec2 position, GameHero gameHero, ProjectileProperties properties)
 	{
 		super(position);
 
+		this.properties = properties;
 		this.gameHero = gameHero;
 
 		bodyDef.fixedRotation = true;
@@ -53,17 +55,33 @@ public class RopeHook extends Collidable
 
 	public void enshort(float value)
 	{
-		joint.setLength(joint.getLength() - value);
+		float length = joint.getLength(); 
+		if (length > 0)
+		{
+			length -= value;
+			if (length <= 0)
+				length = 0;
+			joint.setLength(length);
+			
+		}
 	}
 
 	public void enlarge(float value)
 	{
-		joint.setLength(joint.getLength() + value);
+		float length = joint.getLength(); 
+		if (length <=  properties.range)
+		{
+			length += value;
+			if (length <=  properties.range)
+				length = properties.range;
+			joint.setLength(length);
+		}
 	}
 	
-	public DistanceJoint getJoint()
+	public float getLength() 
 	{
-		return joint;
+		return joint.getLength();
+		
 	}
 
 }

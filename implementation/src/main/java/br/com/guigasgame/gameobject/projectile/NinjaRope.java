@@ -15,9 +15,9 @@ public class NinjaRope extends GameObject
 	private boolean markToEnshort;
 	private boolean markToEnlarge;
 
-	NinjaRope(Vec2 position, GameHero gameHero)
+	NinjaRope(Vec2 position, GameHero gameHero, ProjectileProperties properties)
 	{
-		ropeHook = new RopeHook(position, gameHero);
+		ropeHook = new RopeHook(position, gameHero, properties);
 		collidable = ropeHook;
 		markToEnlarge = false;
 		markToEnshort = false;

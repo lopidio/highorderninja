@@ -4,8 +4,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidableCategory;
-import br.com.guigasgame.collision.CollidableFilter;
+import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilterManipulator;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
@@ -25,7 +24,7 @@ public class NinjaRopeProjectile extends Projectile
 	@Override
 	public void beginContact(Collidable other, Contact contact)
 	{
-		NinjaRope ninjaRope = new NinjaRope(collidable.getPosition(), gameHero);
+		NinjaRope ninjaRope = new NinjaRope(collidable.getPosition(), gameHero, properties);
 		gameHero.addAction(new HeroStateSetterAction(new NinjaRopeSwingingState(gameHero, ninjaRope)));
 
 		addChild(ninjaRope);
@@ -69,8 +68,8 @@ public class NinjaRopeProjectile extends Projectile
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{
 		// rope doesn't collides with heros
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableFilter.getProjectileCollidableFilter()).removeCollisionWith(CollidableCategory.herosCategory));
-		projectileCollidableFilter.aimTo(CollidableCategory.sceneryCategory);
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getProjectileCollidableFilter()).removeCollisionWith(CollidableConstants.herosCategory));
+		projectileCollidableFilter.aimTo(CollidableConstants.sceneryCategory);
 		
 		return projectileCollidableFilter;
 	}

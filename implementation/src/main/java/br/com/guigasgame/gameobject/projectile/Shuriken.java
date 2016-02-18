@@ -4,8 +4,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidableCategory;
-import br.com.guigasgame.collision.CollidableFilter;
+import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilterManipulator;
 
 public class Shuriken extends Projectile
@@ -46,8 +45,8 @@ public class Shuriken extends Projectile
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{
 		// shuriken doesn't collides with owner hero
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableFilter.getProjectileCollidableFilter()).removeCollisionWith(CollidableCategory.getPlayerCategory(playerID)));
-		projectileCollidableFilter.aimTo(CollidableCategory.getOtherPlayersCategory(playerID));
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getProjectileCollidableFilter()).removeCollisionWith(CollidableConstants.getPlayerCategory(playerID)));
+		projectileCollidableFilter.aimTo(CollidableConstants.getOtherPlayersCategory(playerID));
 		
 		return projectileCollidableFilter;
 	}

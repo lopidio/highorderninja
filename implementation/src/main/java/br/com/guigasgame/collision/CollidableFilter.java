@@ -3,25 +3,6 @@ package br.com.guigasgame.collision;
 
 public class CollidableFilter 
 {
-	///What I collide with
-	private final static CollidableFilter sceneryCollidableFilter 					=  CollidableFilterManipulator.createFromCategory(CollidableCategory.sceneryCategory).collidesWithEveryThing();
-	private final static CollidableFilter projectileCollidableFilter 				= CollidableFilterManipulator.createFromCategory(CollidableCategory.projectileCategory).collidesWith(CollidableCategory.herosCategory).and(CollidableCategory.sceneryCategory);
-
-	public static CollidableFilter getPlayerFilter(int playerID)
-	{
-		return CollidableFilterManipulator.createFromCategory(CollidableCategory.getPlayerCategory(playerID)).collidesWith(CollidableCategory.projectileCategory).and(CollidableCategory.sceneryCategory).and(CollidableCategory.herosCategory);
-	}
-
-	public static CollidableFilter getProjectileCollidableFilter()
-	{
-		return projectileCollidableFilter.clone();
-	}
-
-	public static CollidableFilter getSceneryCollidablefilter()
-	{
-		return sceneryCollidableFilter.clone();
-	}
-
 	///What I am
 	protected final CollidableCategory category;
 
