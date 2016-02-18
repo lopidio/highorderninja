@@ -5,7 +5,15 @@
             <key>LEFT</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>H</keysCode>
+                    <keysCode>LEFT</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>X</axis>
+                    <axisSignal>NEGATIVE</axisSignal>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_Y</axis>
+                    <axisSignal>NEGATIVE</axisSignal>
                 </handlers>
             </value>
         </entry>
@@ -13,7 +21,15 @@
             <key>RIGHT</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>K</keysCode>
+                    <keysCode>RIGHT</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>X</axis>
+                    <axisSignal>POSITIVE</axisSignal>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_Y</axis>
+                    <axisSignal>POSITIVE</axisSignal>
                 </handlers>
             </value>
         </entry>
@@ -21,7 +37,15 @@
             <key>UP</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>U</keysCode>
+                    <keysCode>UP</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>Y</axis>
+                    <axisSignal>NEGATIVE</axisSignal>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_X</axis>
+                    <axisSignal>POSITIVE</axisSignal>
                 </handlers>
             </value>
         </entry>
@@ -29,7 +53,15 @@
             <key>DOWN</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>J</keysCode>
+                    <keysCode>DOWN</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>Y</axis>
+                    <axisSignal>POSITIVE</axisSignal>
+                </handlers>
+                <handlers xsi:type="joystickAxisInput">
+                    <axis>POV_X</axis>
+                    <axisSignal>NEGATIVE</axisSignal>
                 </handlers>
             </value>
         </entry>
@@ -37,7 +69,10 @@
             <key>JUMP</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>N</keysCode>
+                    <keysCode>X</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>0</joystickButtonCode>
                 </handlers>
             </value>
         </entry>
@@ -45,7 +80,13 @@
             <key>SHOOT</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>B</keysCode>
+                    <keysCode>Z</keysCode>
+                </handlers>
+                <handlers xsi:type="mouseInput">
+                    <mouseButton>LEFT</mouseButton>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>5</joystickButtonCode>
                 </handlers>
             </value>
         </entry>
@@ -53,7 +94,10 @@
             <key>SLIDE</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>M</keysCode>
+                    <keysCode>C</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>1</joystickButtonCode>
                 </handlers>
             </value>
         </entry>
@@ -61,7 +105,21 @@
             <key>ACTION</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>L</keysCode>
+                    <keysCode>V</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>2</joystickButtonCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>ROPE</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>A</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>4</joystickButtonCode>
                 </handlers>
             </value>
         </entry>

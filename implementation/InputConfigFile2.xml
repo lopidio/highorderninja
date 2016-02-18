@@ -1,62 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<heroInputConfigFile playerID="0">
-	<map>
-		<entry>
-			<key>JUMP</key>
-			<value>
-				<inputType>KeyboardInput</inputType>
-				<keysCodeList>B</keysCodeList>
-			</value>
-		</entry>
-		<entry>
-			<key>DOWN</key>
-			<value>
-				<inputType>KeyboardInput</inputType>
-				<keysCodeList>DOWN</keysCodeList>
-			</value>
-		</entry>
-		<entry>
-			<key>ACTION</key>
-			<value>
-				<inputType>JoystickInput</inputType>
-				<joystickButtonsCodeList>0</joystickButtonsCodeList>
-				<joystickId>2</joystickId>
-			</value>
-		</entry>
-		<entry>
-			<key>RIGHT</key>
-			<value>
-				<inputType>KeyboardInput</inputType>
-				<keysCodeList>RIGHT</keysCodeList>
-			</value>
-		</entry>
-		<entry>
-			<key>LEFT</key>
-			<value>
-				<inputType>KeyboardInput</inputType>
-				<keysCodeList>LEFT</keysCodeList>
-			</value>
-		</entry>
-		<entry>
-			<key>UP</key>
-			<value>
-				<inputType>KeyboardInput</inputType>
-				<keysCodeList>UP</keysCodeList>
-			</value>
-		</entry>
-		<entry>
-			<key>SLIDE</key>
-			<value>
-				<inputType>KeyboardInput</inputType>
-				<keysCodeList>N</keysCodeList>
-			</value>
-		</entry>
-		<entry>
-			<key>SHOOT</key>
-			<value>
-				<inputType>KeyboardInput</inputType>
-				<keysCodeList>M</keysCodeList>
-			</value>
-		</entry>
-	</map>
+<heroInputConfigFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" playerID="0" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance">
+    <map>
+        <entry>
+            <key>LEFT</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>H</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>RIGHT</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>K</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>UP</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>U</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>DOWN</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>J</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>JUMP</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>N</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>SHOOT</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>B</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>SLIDE</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>M</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>ACTION</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>L</keysCode>
+                </handlers>
+            </value>
+        </entry>
+        <entry>
+            <key>ROPE</key>
+            <value>
+                <handlers xsi:type="keyboardInput">
+                    <keysCode>L</keysCode>
+                </handlers>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>4</joystickButtonCode>
+                </handlers>
+            </value>
+        </entry>
+    </map>
 </heroInputConfigFile>
