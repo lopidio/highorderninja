@@ -16,7 +16,6 @@ public class DiveAction extends GameHeroAction
 	@Override
 	public boolean childCanExecute(GameHero hero)
 	{
-		System.out.println(heroStateProperties.property.get("diveImpulse"));
 		return heroStateProperties.property.get("diveImpulse") != null;
 	}
 	

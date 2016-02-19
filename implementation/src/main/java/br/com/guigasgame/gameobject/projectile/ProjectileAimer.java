@@ -12,6 +12,31 @@ import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 
 public class ProjectileAimer implements RayCastCallback
 {
+	private static class BestRaycast
+	{
+		public Vec2 direction;
+		public int angleVariation;
+		public BestRaycast(Vec2 direction, int angleVariation) 
+		{
+			this.direction = direction;
+			this.angleVariation = angleVariation;
+		}
+		
+		public boolean isWorseThan(BestRaycast other)
+		{
+			return (angleVariation > other.angleVariation);
+		}
+
+		public boolean isLongerThan(float newDistance) 
+		{
+			return 	( direction.length() > newDistance);
+		}
+		
+		public boolean isValid()
+		{
+			return direction!= null;
+		}
+	}
 
 	public final static int rayCastNumberDefault = 16;
 	public final static float angleRangeInRadiansDefault = (float) (Math.PI/10.f);
@@ -23,8 +48,8 @@ public class ProjectileAimer implements RayCastCallback
 	private float sinAngle;
 	private float cosAngle;
 	
-	private Vec2 finalDirection;
-	private Vec2 bestDirection;
+	private BestRaycast finalBestRaycast;
+	private BestRaycast currentBestRaycast;
 	private final float maxDistance;
 	private final Body body;
 	private final Vec2 initialDirection;
@@ -32,20 +57,24 @@ public class ProjectileAimer implements RayCastCallback
 	
 	public ProjectileAimer(Projectile projectile) 
 	{
-		this.maxDistance = projectile.getProperties().range;
-		this.body = projectile.getCollidable().getBody();
-		this.initialDirection = projectile.getDirection().clone().mul(maxDistance);
-		this.finalDirection = initialDirection;
-		this.bestDirection = null;
-		this.projectileCollidableFilter = projectile.getCollidableFilter();
-		
 		this.rayCastNumber = rayCastNumberDefault;
 		this.angleRangeInRadians = angleRangeInRadiansDefault;
 		this.sinAngle = sinAngleDefault;
 		this.cosAngle = cosAngleDefault;		
+
+		this.maxDistance = projectile.getProperties().range;
+		initialDirection = projectile.getDirection().clone();
+		initialDirection.normalize();
+		initialDirection.mulLocal(maxDistance);
 		
-		System.out.println("Collides with:" + Integer.toBinaryString(projectileCollidableFilter.getCollidableFilter().getCollider().value));
-		System.out.println("Aiming to:" + Integer.toBinaryString(projectileCollidableFilter.getAimingMask().value));
+		this.finalBestRaycast = new BestRaycast(this.initialDirection.clone(), rayCastNumber);
+		this.currentBestRaycast = null;
+		this.body = projectile.getCollidable().getBody();
+		this.projectileCollidableFilter = projectile.getCollidableFilter();
+		
+		
+		System.out.println("Collides with: " + Integer.toBinaryString(projectileCollidableFilter.getCollidableFilter().getCollider().value));
+		System.out.println("Aiming to: " + Integer.toBinaryString(projectileCollidableFilter.getAimingMask().value));
 		
 		generateRayCasts();
 	}
@@ -60,30 +89,33 @@ public class ProjectileAimer implements RayCastCallback
 		Vec2 pointsToCounterClock = initialDirection.clone();
 		Vec2 pointsToClockWise = initialDirection.clone();
 
+		makeRaycast(initialDirection.clone(), 0);
 		for( int i = 1; i <= rayCastNumber - 1; ++i )
 		{
 			Vec2 tempCC = pointsToCounterClock.clone();
 			pointsToCounterClock.x = (float) (tempCC.x * cosAngle - tempCC.y * sinAngle);
 			pointsToCounterClock.y = (float) (tempCC.x * sinAngle + tempCC.y * cosAngle);
-			makeRaycast(tempCC);
+			makeRaycast(tempCC, i);
 
 			Vec2 tempCW = pointsToClockWise.clone();
 			pointsToClockWise.x = (float) (tempCW.x * cosAngle + tempCW.y * sinAngle);
 			pointsToClockWise.y = (float) (tempCW.y * cosAngle - tempCW.x * sinAngle);
-			makeRaycast(tempCW);
+			makeRaycast(tempCW, i);
 		}
-		makeRaycast(initialDirection);
 	}
 	
-	private void makeRaycast(Vec2 pointTo)
+	private void makeRaycast(Vec2 pointTo, int variationAngle)
 	{
+		currentBestRaycast = new BestRaycast(null, variationAngle); //2 makes this initial value invalid :D
 		Vec2 initialPosition = body.getPosition();
 		World bodysWorld = body.getWorld();
 		bodysWorld.raycast(this, initialPosition, initialPosition.add(pointTo));
-		if (bestDirection != null && bestDirection.length() < finalDirection.length())
+
+		if (currentBestRaycast.isValid() && finalBestRaycast.isWorseThan(currentBestRaycast))
 		{
-			System.out.println("There is a best direction and it's better than the previous one");
-			finalDirection = bestDirection;
+			finalBestRaycast = new BestRaycast(currentBestRaycast.direction.clone(), variationAngle);
+			
+			System.out.println("There is a best direction and it's better than the previous one. (variation: " + variationAngle + ")");
 		}
 	}
 
@@ -96,33 +128,29 @@ public class ProjectileAimer implements RayCastCallback
 		{
 			if (projectileCollidableFilter.getAimingMask().matches(fixtureCollider.getCategory().getValue())) //if collides with what I am aiming to
 			{
-				checkNewBestDirection(point);
-			}
-			else
-			{
-				bestDirection = null;
+				checkShorterRaycast(point);
 			}
 			return fraction; ////get closest
 		}
 		return 1; //ignore
 	}
 	
-	private void checkNewBestDirection(Vec2 point)
+	private void checkShorterRaycast(Vec2 point)
 	{
 		float newDistance = point.sub(body.getPosition()).length();
 		if (newDistance <= maxDistance)
 		{
-			if (bestDirection == null || newDistance < bestDirection.length())
+			if ( !currentBestRaycast.isValid() || currentBestRaycast.isLongerThan(newDistance))
 			{
-				bestDirection = point.sub(body.getPosition());
+				currentBestRaycast.direction = point.sub(body.getPosition());
 			}
 		}
 	}
 
 	public Vec2 getFinalDirection()
 	{
-		finalDirection.normalize();
-		return finalDirection;
+		finalBestRaycast.direction.normalize();
+		return finalBestRaycast.direction;
 	}
 	
 	public void setRayCastNumber(int rayCastNumber)
