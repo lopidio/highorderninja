@@ -41,8 +41,7 @@ public class GameHeroInputMap
 
 	public void update()
 	{
-		for( Entry<GameHeroInputMap.HeroInputKey, InputController<HeroInputKey>> map : inputMap
-				.entrySet() )
+		for( Entry<GameHeroInputMap.HeroInputKey, InputController<HeroInputKey>> map : inputMap.entrySet() )
 		{
 			map.getValue().handleEvent();
 		}

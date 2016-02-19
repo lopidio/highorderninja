@@ -2,7 +2,6 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jsfml.graphics.Color;
 
-import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
@@ -15,7 +14,7 @@ class DuckingState extends HeroState
 
 	protected DuckingState(GameHero gameHero)
 	{
-		super(gameHero, HeroAnimationsIndex.HERO_DUCKING);
+		super(gameHero, HeroStateIndex.HERO_DUCKING);
 		gameHero.getAnimation().setColor(Color.BLUE);
 	}
 

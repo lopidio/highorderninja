@@ -4,13 +4,12 @@ import java.util.Map;
 
 import javax.xml.bind.JAXBException;
 
-import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.file.FilenameConstants;
 
 public class HeroStatesPropertiesPool
 {
 	private static HeroStatesPropertiesPool singleton;
-	private Map<HeroAnimationsIndex, HeroStateProperties> statesMap;
+	private Map<HeroStateIndex, HeroStateProperties> statesMap;
 	
 	static
 	{
@@ -23,7 +22,7 @@ public class HeroStatesPropertiesPool
 		loadHeroStates();
 	}
 	
-	public static HeroStateProperties getStateProperties(HeroAnimationsIndex heroAnimationsIndex)
+	public static HeroStateProperties getStateProperties(HeroStateIndex heroAnimationsIndex)
 	{
 		return singleton.statesMap.get(heroAnimationsIndex);
 	}

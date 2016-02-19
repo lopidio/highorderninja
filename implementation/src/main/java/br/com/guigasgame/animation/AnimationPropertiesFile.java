@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import org.jsfml.graphics.Texture;
 
+import br.com.guigasgame.gameobject.hero.state.HeroStateIndex;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 import br.com.guigasgame.math.Rect;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
@@ -27,7 +28,7 @@ import br.com.guigasgame.resourcemanager.TextureResourceManager;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso(
-{ HeroAnimationsIndex.class, ProjectileIndex.class })
+{ HeroStateIndex.class, ProjectileIndex.class })
 public class AnimationPropertiesFile<Enum>
 {
 
@@ -95,14 +96,14 @@ public class AnimationPropertiesFile<Enum>
 	public static void main(String[] args) throws JAXBException
 	{
 
-		AnimationPropertiesFile<HeroAnimationsIndex> anim = new AnimationPropertiesFile<>("ninja.bmp");
+		AnimationPropertiesFile<HeroStateIndex> anim = new AnimationPropertiesFile<>("ninja.bmp");
 
 		AnimationProperties animationProperties = new AnimationProperties((short) 2, (short) 3, (short) 12, new Rect(1, 4, 7, 8), true);
 
 		AnimationProperties nova = new AnimationProperties((short) 2, (short) 3,(short) 12, new Rect(1, 4, 7, 8), true);
 
-		anim.animationsMap.put(HeroAnimationsIndex.HERO_STANDING,animationProperties);
-		anim.animationsMap.put(HeroAnimationsIndex.HERO_RUNNING, nova);
+		anim.animationsMap.put(HeroStateIndex.HERO_STANDING,animationProperties);
+		anim.animationsMap.put(HeroStateIndex.HERO_RUNNING, nova);
 
 		try
 		{

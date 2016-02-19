@@ -8,7 +8,7 @@ public class WorldConstants
 {
 
 	public static final float SCALE = 20;
-	public static final float MOVING_TOLERANCE = 0.5f;
+	public static final float MOVING_TOLERANCE = 0.05f;
 
 	public static Vector2f physicsToSfmlCoordinates(Vec2 box2dVector)
 	{

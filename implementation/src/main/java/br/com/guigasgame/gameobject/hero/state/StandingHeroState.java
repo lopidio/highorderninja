@@ -1,6 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
@@ -13,7 +12,7 @@ class StandingHeroState extends HeroState
 
 	public StandingHeroState(GameHero gameHero)
 	{
-		super(gameHero, HeroAnimationsIndex.HERO_STANDING);
+		super(gameHero, HeroStateIndex.HERO_STANDING);
 	}
 
 	@Override

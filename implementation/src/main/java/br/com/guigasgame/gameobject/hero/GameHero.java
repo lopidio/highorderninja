@@ -42,7 +42,7 @@ public class GameHero extends GameObject
 		actionList = new ArrayList<GameHeroAction>();
 		collidableHero = new CollidableHero(playerID, position);
 		this.gameHeroInput = gameHeroInput;
-		gameHeroInput.setDeviceId(playerID);
+		gameHeroInput.setDeviceId(playerID - 1);
 
 		collidable = collidableHero;
 		collidable.addListener(this);

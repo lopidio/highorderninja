@@ -2,7 +2,6 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jsfml.graphics.Color;
 
-import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 
 
@@ -13,7 +12,7 @@ public class StopMovementState extends HeroState
 
 	protected StopMovementState(GameHero gameHero)
 	{
-		super(gameHero, HeroAnimationsIndex.HERO_DIVING);
+		super(gameHero, HeroStateIndex.HERO_DIVING);
 		gameHero.getAnimation().setColor(Color.YELLOW);
 		secondsRemaining = 0.5f;
 	}

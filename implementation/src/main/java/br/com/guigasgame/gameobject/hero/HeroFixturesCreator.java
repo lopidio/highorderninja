@@ -24,7 +24,7 @@ class HeroFixturesCreator {
 		fixtures = new HashMap<>();
 
 		createHeadFixture();
-		createUpperFixture();
+		createBodyFixture();
 		createFeetFixture();
 		createBottomSensor();
 		createBottomLeftSensor();
@@ -60,35 +60,35 @@ class HeroFixturesCreator {
 
 	private void createHeadFixture() {
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(0.3f, 0.5f, new Vec2(0, -1.5f), 0);
+		shape.setAsBox(0.25f, 0.5f, new Vec2(0, -1.5f), 0);
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
-		def.density = 0.2f;
+		def.density = 2.f;
 		fixtures.put(FixtureSensorID.HEAD, def);
 	}
 
-	private void createUpperFixture() {
+	private void createBodyFixture() {
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(0.3f, 0.6f, new Vec2(0, -0.5f), 0);
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
-		def.density = 0.2f;		
-		fixtures.put(FixtureSensorID.UPPER, def);
+		def.density = 2.f;		
+		fixtures.put(FixtureSensorID.BODY, def);
 	}
 
 	private void createFeetFixture() {
 		CircleShape feetShape = new CircleShape();
 //		feetShape.setRadius(0.35f);
-		feetShape.setRadius(0.2f);
+		feetShape.setRadius(0.25f);
 		
 		FixtureDef def = new FixtureDef();
 		def.restitution = 0.0f;
 		def.friction = 0.95f;
 
 		def.shape = feetShape;
-		def.density = 0.2f;
+		def.density = 2.f;
 		fixtures.put(FixtureSensorID.FEET, def);
 	}
 

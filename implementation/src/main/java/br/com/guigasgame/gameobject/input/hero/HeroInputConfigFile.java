@@ -136,6 +136,9 @@ public class HeroInputConfigFile
 		heroInputConfigFile.map.put(HeroInputKey.ACTION, new InputController<HeroInputKey>().
 				addInputHandler(new JoystickButtonInput(3)));
 
+		heroInputConfigFile.map.put(HeroInputKey.ROPE, new InputController<HeroInputKey>().
+				addInputHandler(new JoystickButtonInput(4)));
+
 		try
 		{
 			JAXBContext context = JAXBContext

@@ -30,7 +30,6 @@ import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
@@ -42,7 +41,6 @@ public class MainGameState implements GameState
 
 	World world;
 	float timeFactor;
-	GameHero gameHero;
 
 	List<GameObject> gameObjectsList;
 
@@ -72,8 +70,10 @@ public class MainGameState implements GameState
 		createGround(new Vec2(40, 8), new Vec2(3, 1));
 		createGround(new Vec2(55, 8), new Vec2(3, 1));
 
-		gameHero = new GameHero(1, new Vec2(10, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD));
-		initializeGameObject(Arrays.asList(gameHero, new GameHero(2, new Vec2(40, 5), GameHeroInputMap.loadConfigFromFilename(FilenameConstants.getInputPlayerConfigFilename(2)))));
+		initializeGameObject(Arrays.asList(
+				new GameHero(1, new Vec2(10, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK)), 
+				new GameHero(2, new Vec2(40, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK)),
+				new GameHero(3, new Vec2(50, 10), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD))));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size)
@@ -104,6 +104,9 @@ public class MainGameState implements GameState
 	@Override
 	public void enterState(RenderWindow renderWindow)
 	{
+		for ( int i = 0; i < 4; ++i)
+			System.out.println("Joystick ("+i+") is conected: " +Joystick.isConnected(i));
+		
 		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(new OBBViewportTransform(), renderWindow);
 		world.setDebugDraw(sfmlDebugDraw);
 		// sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
@@ -117,31 +120,26 @@ public class MainGameState implements GameState
 	@Override
 	public void handleEvent(Event event)
 	{
-		int z;
-		int w;
-		int t;
-		z = w = t = 0;
+		//Axis.Z R2/L2
+		//Axis.U R3x
+		//Axis.R R3y
 
-		if (Joystick.getAxisPosition(0, Axis.Z) > 60 // R2/L2
-				|| Joystick.getAxisPosition(0, Axis.Z) < -60)
+		for ( int i = 0; i < 4; ++i)
 		{
-			z = Joystick.getAxisPosition(0, Axis.Z) > 0 ? 1 : -1;
+			if (Joystick.isConnected(i))
+			{
+				for( Axis axis : Axis.values() )
+				{
+					if (Joystick.getAxisPosition(i, axis) > 60 || Joystick.getAxisPosition(i, axis) < -60)
+					{
+						if (axis != Axis.V)
+							System.out.println("Joys(" + i + "): " + axis.toString() + " -> " + (Joystick.getAxisPosition(i, axis) > 0 ? 1 : -1));
+					}
+					
+				}
+				
+			}
 		}
-
-		if (Joystick.getAxisPosition(0, Axis.U) > 60 // R3x
-				|| Joystick.getAxisPosition(0, Axis.U) < -60)
-		{
-			w = Joystick.getAxisPosition(0, Axis.U) > 0 ? 1 : -1;
-		}
-
-		if (Joystick.getAxisPosition(0, Axis.R) > 60 // R3y
-				|| Joystick.getAxisPosition(0, Axis.R) < -60)
-		{
-			t = Joystick.getAxisPosition(0, Axis.R) > 0 ? 1 : -1;
-		}
-
-		if (z != 0 || w != 0 || t != 0)
-			System.out.println(z + ", " + w + ", " + t);
 
 		if (event.type == Type.KEY_PRESSED)
 		{

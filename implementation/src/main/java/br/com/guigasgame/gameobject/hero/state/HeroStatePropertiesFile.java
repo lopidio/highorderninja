@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.math.Vector2;
 
 @XmlRootElement
@@ -21,7 +20,7 @@ import br.com.guigasgame.math.Vector2;
 public class HeroStatePropertiesFile {
 
 	@XmlElement
-	private Map<HeroAnimationsIndex, HeroStateProperties> statesMap;
+	private Map<HeroStateIndex, HeroStateProperties> statesMap;
 
 	protected HeroStatePropertiesFile() {
 		statesMap = new HashMap<>();
@@ -37,7 +36,7 @@ public class HeroStatePropertiesFile {
 	}
 
 	
-	public Map<HeroAnimationsIndex, HeroStateProperties> getStatesMap()
+	public Map<HeroStateIndex, HeroStateProperties> getStatesMap()
 	{
 		return statesMap;
 	}
@@ -50,7 +49,7 @@ public class HeroStatePropertiesFile {
 			maps.put("diving", 0.6f);
 			maps.put("other", 0.8f);
 			HeroStatePropertiesFile states = new HeroStatePropertiesFile();
-			states.statesMap.put(HeroAnimationsIndex.HERO_SLIDING, new HeroStateProperties( new HeroStateProperties.ShootXml(), new HeroStateProperties.RopeXml(), 
+			states.statesMap.put(HeroStateIndex.HERO_SLIDING, new HeroStateProperties( new HeroStateProperties.ShootXml(), new HeroStateProperties.RopeXml(), 
 					new HeroStateProperties.JumpXml(-10f), new Vector2(), 
 					new HeroStateProperties.MoveXml(20f), maps));
 			JAXBContext context = JAXBContext.newInstance(HeroStatePropertiesFile.class);

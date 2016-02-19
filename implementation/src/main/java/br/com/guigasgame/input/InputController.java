@@ -39,7 +39,9 @@ public class InputController<T>
 		for( InputHandler inputHandler : handlers )
 		{
 			if (inputHandler.handleInput())
+			{
 				hasSomePressed = true;
+			}
 		}
 		state = hasSomePressed;
 

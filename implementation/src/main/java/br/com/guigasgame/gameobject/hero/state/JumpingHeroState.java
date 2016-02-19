@@ -1,6 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -13,7 +12,7 @@ class JumpingHeroState extends HeroState
 
 	protected JumpingHeroState(GameHero gameHero)
 	{
-		super(gameHero, HeroAnimationsIndex.HERO_ASCENDING);
+		super(gameHero, HeroStateIndex.HERO_ASCENDING);
 		doubleJumpAllowed = true;
 	}
 

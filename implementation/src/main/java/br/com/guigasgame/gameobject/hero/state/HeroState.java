@@ -7,7 +7,6 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
-import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
@@ -30,11 +29,11 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	private Map<HeroInputKey, Boolean> inputMap;
 	private NinjaRopeProjectile ninjaRopeProjectile;
 
-	protected HeroState(GameHero gameHero, HeroAnimationsIndex heroAnimationsIndex)
+	protected HeroState(GameHero gameHero, HeroStateIndex heroIndex)
 	{
 		super();
-		this.heroStatesProperties = HeroStatesPropertiesPool.getStateProperties(heroAnimationsIndex);
-		gameHero.setAnimation(Animation.createAnimation(AnimationsCentralPool.getHeroAnimationRepository().getAnimationsProperties(heroAnimationsIndex)));
+		this.heroStatesProperties = HeroStatesPropertiesPool.getStateProperties(heroIndex);
+		gameHero.setAnimation(Animation.createAnimation(AnimationsCentralPool.getHeroAnimationRepository().getAnimationsProperties(heroIndex)));
 		this.gameHero = gameHero;
 		
 		inputMap = new HashMap<>();

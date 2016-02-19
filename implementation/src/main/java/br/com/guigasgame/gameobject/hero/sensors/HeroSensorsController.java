@@ -14,7 +14,7 @@ public class HeroSensorsController
 	@XmlEnum
 	public enum FixtureSensorID
 	{
-		HEAD, UPPER, FEET,
+		HEAD, BODY, FEET,
 		// SENSORS
 		LEFT_TOP_SENSOR, RIGHT_TOP_SENSOR, LEFT_BOTTOM_SENSOR, RIGHT_BOTTOM_SENSOR, BOTTOM_SENSOR
 	}

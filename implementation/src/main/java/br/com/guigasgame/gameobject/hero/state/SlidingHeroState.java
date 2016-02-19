@@ -1,6 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -14,7 +13,7 @@ class SlidingHeroState extends HeroState
 
 	protected SlidingHeroState(GameHero gameHero)
 	{
-		super(gameHero, HeroAnimationsIndex.HERO_SLIDING);
+		super(gameHero, HeroStateIndex.HERO_SLIDING);
 		secondsRemaining = 0.5f;
 	}
 

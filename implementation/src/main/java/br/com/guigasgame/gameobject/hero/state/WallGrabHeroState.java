@@ -1,6 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.animation.HeroAnimationsIndex;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.DiagonalJumpAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -14,7 +13,7 @@ public class WallGrabHeroState extends HeroState
 
 	protected WallGrabHeroState(GameHero gameHero)
 	{
-		super(gameHero, HeroAnimationsIndex.HERO_WALLGRABBING);
+		super(gameHero, HeroStateIndex.HERO_WALLGRABBING);
 		wallSide = gameHero.getForwardSide();
 	}
 

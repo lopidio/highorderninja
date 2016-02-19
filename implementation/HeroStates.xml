@@ -5,7 +5,7 @@
             <key>HERO_SLIDING</key>
             <value>
                 <jump impulse="10.0"/>
-                <move acceleration="20.0"/>
+                <move acceleration="80.0"/>
                 <maxSpeed>
                     <x>50</x>
                     <y>20</y>
@@ -27,7 +27,7 @@
             <value>
 				<rope/>
 				<shoot/>
-                <move acceleration="2"/>
+                <move acceleration="40"/>
                 <jump impulse="10.0"/>
                 <maxSpeed>
                     <x>20</x>
@@ -40,7 +40,7 @@
             <value>
 				<rope/>
 				<shoot/>
-				<move acceleration="20.0"/>			
+				<move acceleration="40.0"/>			
                 <jump impulse="10.0"/>
                 <maxSpeed>
                     <x>10</x>
@@ -78,12 +78,12 @@
             <value>
                 <maxSpeed>
                     <x>20</x>
-                    <y>80</y>
+                    <y>100</y>
                 </maxSpeed>
                 <property>
                     <entry>
                         <key>diveImpulse</key>
-                        <value>20</value>
+                        <value>30</value>
                     </entry>
                 </property>
             </value>
@@ -94,10 +94,20 @@
 			    <jump impulse="15.0"/>
 				<move acceleration="10"/>			
                 <maxSpeed>
-                    <x>00</x>
-                    <y>00</y>
+                    <x>20</x>
+                    <y>20</y>
                 </maxSpeed>
             </value>
         </entry>		
+        <entry>
+            <key>HERO_ROPE</key>
+            <value>
+				<move acceleration="10"/>			
+                <maxSpeed>
+                    <x>100</x>
+                    <y>100</y>
+                </maxSpeed>
+            </value>
+        </entry>        
     </statesMap>
 </heroStatePropertiesFile>

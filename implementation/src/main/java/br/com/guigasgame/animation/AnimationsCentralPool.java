@@ -3,6 +3,7 @@ package br.com.guigasgame.animation;
 import javax.xml.bind.JAXBException;
 
 import br.com.guigasgame.file.FilenameConstants;
+import br.com.guigasgame.gameobject.hero.state.HeroStateIndex;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 
 
@@ -11,7 +12,7 @@ public class AnimationsCentralPool
 
 	private static AnimationsCentralPool singleton;
 
-	private AnimationPropertiesFile<HeroAnimationsIndex> heroAnimations;
+	private AnimationPropertiesFile<HeroStateIndex> heroAnimations;
 	private AnimationPropertiesFile<ProjectileIndex> projectilesAnimations;
 
 	static
@@ -35,7 +36,7 @@ public class AnimationsCentralPool
 		return getInstance().projectilesAnimations;
 	}
 
-	public static AnimationPropertiesFile<HeroAnimationsIndex> getHeroAnimationRepository()
+	public static AnimationPropertiesFile<HeroStateIndex> getHeroAnimationRepository()
 	{
 		return getInstance().heroAnimations;
 	}
@@ -45,7 +46,7 @@ public class AnimationsCentralPool
 	{
 		try
 		{
-			heroAnimations = (AnimationPropertiesFile<HeroAnimationsIndex>) AnimationPropertiesFile.loadFromFile(FilenameConstants.getHeroAnimationFilename());
+			heroAnimations = (AnimationPropertiesFile<HeroStateIndex>) AnimationPropertiesFile.loadFromFile(FilenameConstants.getHeroAnimationFilename());
 
 			// Seto a textura de todas as animações
 			for( AnimationProperties animation : heroAnimations.getAnimationsMap() )

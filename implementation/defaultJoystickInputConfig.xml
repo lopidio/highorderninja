@@ -85,5 +85,13 @@
                 </handlers>
             </value>
         </entry>
+        <entry>
+            <key>ROPE</key>
+            <value>
+                <handlers xsi:type="joystickButtonInput">
+                    <joystickButtonCode>4</joystickButtonCode>
+                </handlers>
+            </value>
+        </entry>
     </map>
 </heroInputConfigFile>

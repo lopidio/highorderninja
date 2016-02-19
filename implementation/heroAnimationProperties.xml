@@ -11,7 +11,7 @@
 	<animationsMap>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO_STANDING</key>
+				xsi:type="heroStateIndex">HERO_STANDING</key>
 			<value horizontal="true">
 				<numFrames>4</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
@@ -26,7 +26,7 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO_RUNNING</key>
+				xsi:type="heroStateIndex">HERO_RUNNING</key>
 			<value horizontal="true">
 				<numFrames>8</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
@@ -41,7 +41,22 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO_ASCENDING</key>
+				xsi:type="heroStateIndex">HERO_ROPE</key>
+			<value horizontal="true">
+				<numFrames>8</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>90</top>
+                    <width>400</width>
+                    <height>154</height>
+                </textureSpriteRect>				
+			</value>
+		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroStateIndex">HERO_ASCENDING</key>
 			<value horizontal="true">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
@@ -56,7 +71,7 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO_SUPERJUMP</key>
+				xsi:type="heroStateIndex">HERO_SUPERJUMP</key>
 			<value horizontal="true">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
@@ -71,7 +86,7 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO_FALLING</key>
+				xsi:type="heroStateIndex">HERO_FALLING</key>
 			<value horizontal="true">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
@@ -86,7 +101,7 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO_DIVING</key>
+				xsi:type="heroStateIndex">HERO_DIVING</key>
 			<value horizontal="true">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
@@ -101,7 +116,7 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO_SLIDING</key>
+				xsi:type="heroStateIndex">HERO_SLIDING</key>
 			<value horizontal="true">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
@@ -116,7 +131,7 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO_DUCKING</key>
+				xsi:type="heroStateIndex">HERO_DUCKING</key>
 			<value horizontal="true">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
@@ -131,7 +146,7 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:type="heroAnimationsIndex">HERO_WALLGRABBING</key>
+				xsi:type="heroStateIndex">HERO_WALLGRABBING</key>
 			<value horizontal="true">
 				<numFrames>1</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>

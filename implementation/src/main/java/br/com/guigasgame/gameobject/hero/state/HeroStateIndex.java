@@ -1,9 +1,9 @@
-package br.com.guigasgame.animation;
+package br.com.guigasgame.gameobject.hero.state;
 
 import javax.xml.bind.annotation.XmlEnum;
 
 @XmlEnum
-public enum HeroAnimationsIndex
+public enum HeroStateIndex
 {
 	HERO_STANDING,
 	HERO_RUNNING,
