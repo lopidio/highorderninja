@@ -56,14 +56,14 @@ public class NinjaRopeProjectile extends Projectile
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
-		if (gameHero.getCollidable().getPosition().sub(collidable.getPosition()).length() >= properties.range)
+		if (gameHero.getCollidable().getPosition().sub(collidable.getPosition()).length() >= properties.maxDistance)
 		{
 			System.out.println("Rope is too far");
 			// Rope is too far
 			markToDestroy();
 		}
 	}
-
+	
 	@Override
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{

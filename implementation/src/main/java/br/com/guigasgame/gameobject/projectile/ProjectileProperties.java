@@ -19,7 +19,9 @@ class ProjectileProperties
 	@XmlElement
 	public final float damage;
 	@XmlElement
-	public final float range;
+	public final float maxDistance;
+	@XmlElement
+	public final float rangeAngle;
 
 	public ProjectileProperties()
 	{
@@ -29,11 +31,12 @@ class ProjectileProperties
 		radius = 0;
 		restitution = 0;
 		damage = 0;
-		range = 0;
+		maxDistance = 0;
+		rangeAngle = (float) Math.PI/10;
 	}
 
 	public ProjectileProperties(short numBounces, float initialSpeed,
-			float mass, float radius, float restitution, float damage, float range)
+			float mass, float radius, float restitution, float damage, float maxDistance,float rangeAngle)
 	{
 		this.numBounces = numBounces;
 		this.initialSpeed = initialSpeed;
@@ -41,7 +44,8 @@ class ProjectileProperties
 		this.radius = radius;
 		this.restitution = restitution;
 		this.damage = damage;
-		this.range = 0;
+		this.maxDistance = maxDistance;
+		this.rangeAngle = rangeAngle;
 	}
 	
 }

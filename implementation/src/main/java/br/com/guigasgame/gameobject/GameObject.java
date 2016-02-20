@@ -15,7 +15,6 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public abstract class GameObject implements Composible<GameObject>, CollisionListener, UpdatableFromTime
 {
-
 	protected Vec2 position;
 	protected Collidable collidable;
 	protected Drawable drawable;

@@ -69,11 +69,11 @@ public class RopeHook extends Collidable
 	public void enlarge(float value)
 	{
 		float length = joint.getLength(); 
-		if (length <=  properties.range)
+		if (length <=  properties.maxDistance)
 		{
 			length += value;
-			if (length <=  properties.range)
-				length = properties.range;
+			if (length <=  properties.maxDistance)
+				length = properties.maxDistance;
 			joint.setLength(length);
 		}
 	}

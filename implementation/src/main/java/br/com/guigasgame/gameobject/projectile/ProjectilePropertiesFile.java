@@ -44,7 +44,7 @@ public class ProjectilePropertiesFile
 		try
 		{
 			ProjectilePropertiesFile states = new ProjectilePropertiesFile();
-			ProjectileProperties properties = new ProjectileProperties((short)0, 1.f, 1f, 0.1f, 1.f, 12.f, 30.f);
+			ProjectileProperties properties = new ProjectileProperties((short)0, 1.f, 1f, 0.1f, 1.f, 12.f, 30.f, 12.f);
 
 			states.projectilesPropertiesMap.put(ProjectileIndex.SHURIKEN, properties);
 
@@ -58,7 +58,7 @@ public class ProjectilePropertiesFile
 			m.marshal(states, System.out);
 
 //			 Write to File 
-			 m.marshal(states, new File("projectiles.xml"));
+//			 m.marshal(states, new File("projectiles.xml"));
 		}
 		catch
 		(JAXBException e)

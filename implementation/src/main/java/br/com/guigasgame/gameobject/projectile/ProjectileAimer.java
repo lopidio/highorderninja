@@ -62,9 +62,10 @@ public class ProjectileAimer implements RayCastCallback
 		this.rayCastNumber = rayCastNumberDefault;
 		this.angleRangeInRadians = angleRangeInRadiansDefault;
 		this.sinAngle = sinAngleDefault;
-		this.cosAngle = cosAngleDefault;		
+		this.cosAngle = cosAngleDefault;
+		setAngleRangeInRadians(projectile.getProperties().rangeAngle);
 
-		this.maxDistance = projectile.getProperties().range;
+		this.maxDistance = projectile.getProperties().maxDistance;
 		initialDirection = projectile.getDirection().clone();
 		initialDirection.normalize();
 		initialDirection.mulLocal(maxDistance);
@@ -163,8 +164,11 @@ public class ProjectileAimer implements RayCastCallback
 	
 	public void setAngleRangeInRadians(float angleRangeInRadians)
 	{
-		this.angleRangeInRadians = angleRangeInRadians;
-		updateSinAndCos();
+		if (Math.abs(this.angleRangeInRadians - angleRangeInRadians) > 0.0001f)
+		{
+			this.angleRangeInRadians = angleRangeInRadians;
+			updateSinAndCos();
+		}
 	}
 
 	private void updateSinAndCos()
