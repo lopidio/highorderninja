@@ -33,14 +33,18 @@ public class NinjaRopeSwingingState extends HeroState
 	protected void releaseRope()
 	{
 		super.releaseRope();
-		if (gameHero.getCollidableHero().isTouchingGround() && !gameHero.getCollidableHero().isFallingDown())
+		if (gameHero.getCollidableHero().isAscending())
+			setState(new JumpingHeroState(gameHero));
+		else if (gameHero.getCollidableHero().isFallingDown())
+			setState(new FallingHeroState(gameHero));
+			
+//		if (gameHero.getCollidableHero().isTouchingGround() && !gameHero.getCollidableHero().isFallingDown())
 		{
 			setState(new StandingHeroState(gameHero));
 		}
-		else
-		{
-			setState(new JumpingHeroState(gameHero));
-		}
+//		else
+//		{
+//		}
 		ninjaRope.markToDestroy();
 	}
 	
@@ -54,6 +58,9 @@ public class NinjaRopeSwingingState extends HeroState
 		{
 			newSide = Side.RIGHT;
 		}
+		if (gameHero.isTouchingGround())
+			releaseRope();
+
 		if (newSide != currentSide)
 		{
 //			gameHero.addAction(new SideOrientationHeroSetter(newSide, heroStatesProperties));
@@ -78,7 +85,8 @@ public class NinjaRopeSwingingState extends HeroState
 			}
 			
 		}
-		gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
+		if (gameHero.getForwardSide() != side)
+			gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
 	}
 	
 	@Override

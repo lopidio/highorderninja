@@ -80,7 +80,7 @@ public class CollidableConstants
 																						collidesWith(herosCategory).and(sceneryCategory).and(ropeBodyCategory);
 	
 	private final static CollidableFilter ropeBodyCollidableFilter 		= CollidableFilterManipulator.createFromCategory(ropeBodyCategory).
-																						collidesWith(projectileCategory).and(sceneryCategory);
+																						collidesWith(sceneryCategory);
 
 	public static CollidableFilter getPlayerFilter(int playerID)
 	{

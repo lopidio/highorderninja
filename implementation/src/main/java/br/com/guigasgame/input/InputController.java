@@ -95,7 +95,6 @@ public class InputController<T>
 
 	private boolean checkDoubleTap()
 	{
-		System.out.println("Double tap: " + doubleTapCounter);
 		return doubleTapCounter <= DOUBLE_TAP_INTERVAL;
 	}
 

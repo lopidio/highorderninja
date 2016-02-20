@@ -108,12 +108,12 @@ public class CollidableHero extends Collidable
 
 	public boolean isFallingDown()
 	{
-		return body.getLinearVelocity().y > 0;
+		return body.getLinearVelocity().y > WorldConstants.MOVING_TOLERANCE;
 	}
 
 	public boolean isAscending()
 	{
-		return body.getLinearVelocity().y < 0;
+		return body.getLinearVelocity().y < -WorldConstants.MOVING_TOLERANCE;
 	}
 
 	public boolean isTouchingWallAhead(Side side)

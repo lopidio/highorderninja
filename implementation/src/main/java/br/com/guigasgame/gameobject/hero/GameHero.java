@@ -11,8 +11,9 @@ import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
-import br.com.guigasgame.gameobject.hero.state.FallingHeroState;
+import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
+import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.Shuriken;
@@ -79,8 +80,7 @@ public class GameHero extends GameObject
 	public void onEnter()
 	{
 		collidableHero.loadAndAttachFixturesToBody();
-
-		setState(new FallingHeroState(this));
+		setState(new StandingHeroState(this));
 	}
 
 	@Override
@@ -162,6 +162,11 @@ public class GameHero extends GameObject
 	{
 		animation.flipAnimation(side);
 		forwardSide = side;
+	}
+	
+	public boolean isTouchingGround()
+	{
+		return collidableHero.isTouchingGround();
 	}
 
 	public boolean isTouchingWallAhead()

@@ -5,7 +5,7 @@ import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
 
 
-public class FallingHeroState extends HeroState
+class FallingHeroState extends HeroState
 {
 
 	public FallingHeroState(GameHero gameHero)

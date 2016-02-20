@@ -3,6 +3,7 @@ package br.com.guigasgame.gameobject.projectile;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jbox2d.collision.shapes.MassData;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -27,7 +28,7 @@ import br.com.guigasgame.gameobject.hero.state.NinjaRopeSwingingState;
 
 public class NinjaRopeProjectile extends Projectile
 {
-	private static final float TOTAL_MASS = 2f;
+	private static final float TOTAL_MASS = 5f;
 	private static final float CHAIN_SIZE = 0.35f;
 	private static final float SQUARED_CHAIN_SIZE = CHAIN_SIZE*CHAIN_SIZE;
 	private static final float DISTORT_FACTOR = 10.f;
@@ -72,13 +73,13 @@ public class NinjaRopeProjectile extends Projectile
 
 		linkFixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.getRopeBodyCollidableFilter()).toBox2dFilter();
 		linkFixtureDef.restitution = 0f;
-		linkFixtureDef.friction = 1f;
+		linkFixtureDef.friction = 0f;
 		linkFixtureDef.shape = linkShape;
 		
 		linkBodyDef = new BodyDef();
 		linkBodyDef.type = BodyType.DYNAMIC;
 
-		linkFixtureDef.density = 10*TOTAL_MASS/size;//5f;//100/distance;//10f;//1/(calculateChainNumber()*distance);
+		linkFixtureDef.density = 10.f;//distance;//10f;//1/(calculateChainNumber()*distance);
 
 		collidable.setFixtureDef(linkFixtureDef);
 	}
@@ -147,8 +148,8 @@ public class NinjaRopeProjectile extends Projectile
 					localSize += CHAIN_SIZE;
 				}
 				
-				System.out.println("local: " + localSize);
-				System.out.println("Sub: " + gameHero.getCollidable().getPosition().sub(collidable.getPosition()).length());
+//				System.out.println("local: " + localSize);
+//				System.out.println("Sub: " + gameHero.getCollidable().getPosition().sub(collidable.getPosition()).length());
 				if (needsNewLink())
 				{
 					addNewLink();
@@ -165,7 +166,6 @@ public class NinjaRopeProjectile extends Projectile
 				attachHero();
 			}
 		}
-		
 		if (!setState && attachedHero && attachedHook)
 		{
 			setState = true;
@@ -199,20 +199,19 @@ public class NinjaRopeProjectile extends Projectile
 	
 	private boolean needsNewLink()
 	{
-		System.out.println(lastLink.getPosition());
-		System.out.println(gameHero.getCollidable().getPosition());
-		System.out.println(lastLink.getPosition().sub(gameHero.getCollidable().getPosition()));
+//		System.out.println(lastLink.getPosition());
+//		System.out.println(gameHero.getCollidable().getPosition());
+//		System.out.println(lastLink.getPosition().sub(gameHero.getCollidable().getPosition()));
 		return size >= 0 && lastLink.getPosition().sub(gameHero.getCollidable().getPosition()).lengthSquared() >= SQUARED_CHAIN_SIZE*2;
 	}
 	
 	private void addNewLink()
 	{
-		System.out.println("Size: " + size);
+//		System.out.println("Size: " + size);
 		Vec2 increasingSizeRope = lastLink.getPosition().sub(gameHero.getCollidable().getPosition());
 		increasingSizeRope.normalize();
 
-		System.out.println("Hook pos: " + collidable.getBody().getWorldCenter());
-		System.out.println("Hook pos: " + collidable.getBody().getWorldCenter());
+//		System.out.println("Hook pos: " + collidable.getBody().getWorldCenter());
 		
 		
 		float angle = (float) WorldConstants.getCossinBetweenVectors(increasingSizeRope, new Vec2(-1, 0));
@@ -231,6 +230,8 @@ public class NinjaRopeProjectile extends Projectile
 	
 	private void attachHero()
 	{
+		if (attachedHero)
+			return;
 		attachedHero = true;
 
 		float mass = 0;
@@ -241,7 +242,7 @@ public class NinjaRopeProjectile extends Projectile
 		System.out.println(collidable.getBody().getType().toString());
 		System.out.println("Hero: " + gameHero.getCollidable().getBody().getMass() + " / Rope: " + mass);
 
-		DistanceJointDef jointDef = new DistanceJointDef();
+//		DistanceJointDef jointDef = new DistanceJointDef();
 //		jointDef.localAnchorA = new Vec2(CHAIN_SIZE*.95f, 0);
 //		jointDef.localAnchorB = new Vec2(-CHAIN_SIZE*.95f, 0);
 
@@ -263,9 +264,17 @@ public class NinjaRopeProjectile extends Projectile
 		linkBodyDef.position = position;
 
 		Body body = world.createBody(linkBodyDef);
-		linkFixtureDef.density = Math.max(10*TOTAL_MASS/size, 1);//5f;//100/distance;//10f;//1/(calculateChainNumber()*distance);
+//		linkFixtureDef.density = 1;//Math.max(10*TOTAL_MASS/size, 1);//5f;//100/distance;//10f;//1/(calculateChainNumber()*distance);
 		body.createFixture(linkFixtureDef);
 		bodyList.add(body);
+//		MassData massData = new MassData();
+//		collidable.getBody().getMassData(massData);
+//		massData.mass/=bodyList.size();
+//		for( Body b : bodyList )
+//		{
+//			b.setMassData(massData);
+//			b.resetMassData();
+//		}
 		return body;
 	}
 

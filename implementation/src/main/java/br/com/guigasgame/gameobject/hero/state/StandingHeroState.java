@@ -7,7 +7,7 @@ import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
 
 
-class StandingHeroState extends HeroState
+public class StandingHeroState extends HeroState
 {
 
 	public StandingHeroState(GameHero gameHero)
@@ -43,6 +43,10 @@ class StandingHeroState extends HeroState
 		else if (gameHero.getCollidableHero().isFallingDown())
 		{
 			setState(new FallingHeroState(gameHero));
+		}
+		else if (gameHero.getCollidableHero().isAscending())
+		{
+			setState(new JumpingHeroState(gameHero));
 		}
 	}
 	
