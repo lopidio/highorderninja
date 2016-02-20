@@ -131,7 +131,7 @@ public class GameHero extends GameObject
 	{
 		if (null != state)
 		{
-			newState.setInputMap(state.getInputMap());
+			newState.getPropertyOfPreviousState(state);
 			state.onQuit();
 		}
 		System.out.println("Current state: " + newState.getClass().getSimpleName());

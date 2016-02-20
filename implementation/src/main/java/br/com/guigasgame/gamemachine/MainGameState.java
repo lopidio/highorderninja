@@ -72,8 +72,8 @@ public class MainGameState implements GameState
 
 		initializeGameObject(Arrays.asList(
 				new GameHero(1, new Vec2(10, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK)), 
-				new GameHero(2, new Vec2(40, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK)),
-				new GameHero(3, new Vec2(50, 10), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD))));
+				new GameHero(2, new Vec2(40, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD)),
+				new GameHero(3, new Vec2(50, 10), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK))));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size)

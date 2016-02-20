@@ -2,6 +2,40 @@ package br.com.guigasgame.collision;
 
 public class CollidableConstants 
 {
+	public enum Category
+	{
+		hero(true),
+		scene,
+		rope,
+		projectile;
+		
+		CollidableCategory category;
+		
+		Category(boolean hero)
+		{
+			if (hero)
+				category = getAllPlayerCategory();
+			else
+				category = getNextCategory();
+		}
+
+		Category()
+		{
+			this(false);
+		}
+		
+		public static Category fromCollidableFilter(CollidableFilter collidableFilter)
+		{
+			for( Category category : Category.values() )
+			{
+				if (collidableFilter.getCategory() == category.category)
+					return category;
+			}
+			return null;
+		}
+		
+	}
+	
 	///What I am
 	public final static CollidableCategory herosCategory		= CollidableConstants.getAllPlayerCategory();
 	public final static CollidableCategory sceneryCategory 		= CollidableConstants.getNextCategory();
@@ -40,13 +74,17 @@ public class CollidableConstants
 	}	
 	
 	///What I collide with
-	private final static CollidableFilter sceneryCollidableFilter 					= CollidableFilterManipulator.createFromCategory(CollidableConstants.sceneryCategory).collidesWithEveryThing();
-	private final static CollidableFilter projectileCollidableFilter 				= CollidableFilterManipulator.createFromCategory(CollidableConstants.projectileCategory).collidesWith(CollidableConstants.herosCategory).and(CollidableConstants.sceneryCategory);
-	private final static CollidableFilter ropeBodyCollidableFilter 					= CollidableFilterManipulator.createFromCategory(CollidableConstants.ropeBodyCategory).collidesWith(CollidableConstants.projectileCategory).and(CollidableConstants.sceneryCategory);
+	private final static CollidableFilter sceneryCollidableFilter		= CollidableFilterManipulator.createFromCategory(sceneryCategory).collidesWithEveryThing();
+	
+	private final static CollidableFilter projectileCollidableFilter	= CollidableFilterManipulator.createFromCategory(projectileCategory).
+																						collidesWith(herosCategory).and(sceneryCategory).and(ropeBodyCategory);
+	
+	private final static CollidableFilter ropeBodyCollidableFilter 		= CollidableFilterManipulator.createFromCategory(ropeBodyCategory).
+																						collidesWith(projectileCategory).and(sceneryCategory);
 
 	public static CollidableFilter getPlayerFilter(int playerID)
 	{
-		return CollidableFilterManipulator.createFromCategory(CollidableConstants.getPlayerCategory(playerID)).collidesWith(CollidableConstants.projectileCategory).and(CollidableConstants.sceneryCategory).and(CollidableConstants.herosCategory).clone();
+		return CollidableFilterManipulator.createFromCategory(getPlayerCategory(playerID)).collidesWith(projectileCategory).and(sceneryCategory).and(herosCategory).clone();
 	}
 
 	public static CollidableFilter getRopeBodyCollidableFilter()

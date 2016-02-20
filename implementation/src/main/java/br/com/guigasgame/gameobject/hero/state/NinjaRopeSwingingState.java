@@ -8,19 +8,19 @@ import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.action.SwingFasterAction;
 import br.com.guigasgame.gameobject.hero.action.SwingSlowerAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
-import br.com.guigasgame.gameobject.projectile.NinjaRope;
+import br.com.guigasgame.gameobject.projectile.NinjaRopeProjectile;
 import br.com.guigasgame.side.Side;
 
 public class NinjaRopeSwingingState extends HeroState
 {
-	private NinjaRope ninjaRope;
+	private NinjaRopeProjectile ninjaRope;
 	
-	public NinjaRopeSwingingState(GameHero gameHero, NinjaRope ninjaRope)
+	public NinjaRopeSwingingState(GameHero gameHero, NinjaRopeProjectile ninjaRopeProjectile)
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE);
 
 		animation.setColor(Color.CYAN);
-		this.ninjaRope = ninjaRope; 
+		this.ninjaRope = ninjaRopeProjectile; 
 	}
 	
 	@Override
@@ -28,9 +28,11 @@ public class NinjaRopeSwingingState extends HeroState
 	{
 		//do nothing
 	}
-	
-	private void ropeRelease()
+
+	@Override
+	protected void releaseRope()
 	{
+		super.releaseRope();
 		if (gameHero.getCollidableHero().isTouchingGround() && !gameHero.getCollidableHero().isFallingDown())
 		{
 			setState(new StandingHeroState(gameHero));
@@ -42,14 +44,6 @@ public class NinjaRopeSwingingState extends HeroState
 		ninjaRope.markToDestroy();
 	}
 	
-	@Override
-	protected void stateInputReleased(HeroInputKey inputValue)
-	{
-		if (inputValue == HeroInputKey.ROPE)
-		{
-			ropeRelease();
-		}
-	}
 	
 	@Override
 	public void stateUpdate(float deltaTime)
@@ -62,13 +56,9 @@ public class NinjaRopeSwingingState extends HeroState
 		}
 		if (newSide != currentSide)
 		{
-			gameHero.addAction(new SideOrientationHeroSetter(newSide, heroStatesProperties));
+//			gameHero.addAction(new SideOrientationHeroSetter(newSide, heroStatesProperties));
 		}
-		
-		if (!getInputMap().get(HeroInputKey.ROPE))
-		{
-			ropeRelease();
-		}
+
 	}
 	
 	@Override
@@ -88,6 +78,7 @@ public class NinjaRopeSwingingState extends HeroState
 			}
 			
 		}
+		gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
 	}
 	
 	@Override

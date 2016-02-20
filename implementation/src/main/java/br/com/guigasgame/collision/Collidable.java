@@ -6,6 +6,7 @@ import java.util.List;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
@@ -13,10 +14,12 @@ public abstract class Collidable implements CollisionListener
 {
 	protected List<CollisionListener> listenerList;
 	protected BodyDef bodyDef;
+	protected FixtureDef fixtureDef;
 	protected Body body;
 	
 	public Collidable(Vec2 position)
 	{
+		fixtureDef = null;
 		bodyDef = new BodyDef();
 		bodyDef.position = position;
 		listenerList = new ArrayList<CollisionListener>();
@@ -48,12 +51,21 @@ public abstract class Collidable implements CollisionListener
 	public void attachToWorld(World world)
 	{
 		body = world.createBody(bodyDef);
+		if (null != fixtureDef)
+		{
+			body.createFixture(fixtureDef);
+		}
 		body.setUserData(this);
 	}
 
 	public final Body getBody()
 	{
 		return body;
+	}
+	
+	public final void setFixtureDef(FixtureDef fixtureDef)
+	{
+		this.fixtureDef = fixtureDef;
 	}
 
 	public final Vec2 getPosition()

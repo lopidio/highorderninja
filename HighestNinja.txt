@@ -146,3 +146,4 @@ vGameHero receives input handler
 NinjaRope
 SmokeBomb
 ShurikenBomb
+Get category from filter (enumeration)

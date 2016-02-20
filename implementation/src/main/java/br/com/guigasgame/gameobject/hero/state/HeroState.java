@@ -90,7 +90,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		stateOnQuit();
 	}
 
-
+	protected void releaseRope()
+	{
+		if (ninjaRopeProjectile != null)
+			ninjaRopeProjectile.markToDestroy();
+	}
+	
 	protected void rope()
 	{
 		if (ninjaRopeProjectile != null)
@@ -182,12 +187,22 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		{
 			shoot();
 		}		
+		else if (inputValue == HeroInputKey.ROPE)
+		{
+			releaseRope();
+		}		
 		stateInputReleased(inputValue);
 	}
 
+	
 	@Override
 	public final void update(float deltaTime)
 	{
+		if (!inputMap.get(HeroInputKey.ROPE))
+		{
+			releaseRope();
+		}
+	
 		stateUpdate(deltaTime);
 	}
 
@@ -230,20 +245,16 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		return retorno;
 	}
 
-	public Map<HeroInputKey, Boolean> getInputMap()
-	{
-		return inputMap;
-	}
-
-	public void setInputMap(Map<HeroInputKey, Boolean> inputMap)
-	{
-		this.inputMap = inputMap;
-	}
-
 	public boolean canExecute(GameHero hero)
 	{
 		//Hook method
 		return true;
+	}
+
+	public void getPropertyOfPreviousState(HeroState state)
+	{
+		this.inputMap = state.inputMap;
+		this.ninjaRopeProjectile = state.ninjaRopeProjectile;
 	}
 
 }

@@ -11,7 +11,7 @@ public class RopeHook extends Collidable
 	public RopeHook(Vec2 position)
 	{
 		super(position);
-		bodyDef.fixedRotation = true;
+		bodyDef.fixedRotation = false;
 		bodyDef.type = BodyType.STATIC;
 	}
 
