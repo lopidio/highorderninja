@@ -89,7 +89,7 @@ public class GameHero extends GameObject
 		animation.update(deltaTime);
 
 		state.stateUpdate(deltaTime);
-		gameHeroInput.update();
+		gameHeroInput.update(deltaTime);
 
 		updateActionList();
 

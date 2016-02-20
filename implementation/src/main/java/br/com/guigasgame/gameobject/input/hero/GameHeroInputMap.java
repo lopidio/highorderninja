@@ -39,11 +39,11 @@ public class GameHeroInputMap
 
 	}
 
-	public void update()
+	public void update(float deltaTime)
 	{
 		for( Entry<GameHeroInputMap.HeroInputKey, InputController<HeroInputKey>> map : inputMap.entrySet() )
 		{
-			map.getValue().handleEvent();
+			map.getValue().handleEvent(deltaTime);
 		}
 	}
 

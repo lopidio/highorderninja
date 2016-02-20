@@ -16,8 +16,6 @@ class SlidingHeroState extends HeroState
 		super(gameHero, HeroStateIndex.HERO_SLIDING);
 		Float duration = heroStatesProperties.property.get("duration");
 		secondsRemaining = duration != null? duration.floatValue(): 0.5f;
-		
-		heroStatesProperties.printOut();
 	}
 
 	@Override

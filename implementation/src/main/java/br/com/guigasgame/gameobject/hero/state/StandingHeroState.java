@@ -22,12 +22,17 @@ class StandingHeroState extends HeroState
 		{
 			setState(new DuckingState(gameHero));
 		}
-		else if (key == HeroInputKey.SLIDE)
+	}
+	
+	@Override
+	protected void stateDoubleTapInput(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.LEFT || inputValue == HeroInputKey.RIGHT)
 		{
 			setState(new SlidingHeroState(gameHero));
 		}
 	}
-
+	
 	@Override
 	public void stateUpdate(float deltaTime)
 	{

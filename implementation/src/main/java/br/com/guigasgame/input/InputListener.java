@@ -17,4 +17,10 @@ public interface InputListener<T>
 	{
 
 	}
+	
+	public default void doubleTapInput(T inputValue)
+	{
+
+	}
+
 }

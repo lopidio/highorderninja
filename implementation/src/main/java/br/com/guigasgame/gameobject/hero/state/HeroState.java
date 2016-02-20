@@ -73,6 +73,11 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	{
 		// hook method
 	}
+	
+	protected void stateDoubleTapInput(HeroInputKey inputValue)
+	{
+		// hook method
+	}
 
 	public final void onEnter()
 	{
@@ -153,6 +158,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		}
 		
 		stateInputIsPressing(inputValue);
+	}
+
+	@Override
+	public final void doubleTapInput(HeroInputKey inputValue)
+	{
+		stateDoubleTapInput(inputValue);
 	}
 
 	protected void move(Side side)

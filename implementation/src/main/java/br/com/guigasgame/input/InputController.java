@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class InputController<T>
 {
-
+	private static final float DOUBLE_TAP_INTERVAL = 0.2f; //seconds
+	
 	// https://github.com/SFML/SFML/wiki/Tutorial:-Manage-dynamic-key-binding
 	private InputListener<T> inputListener;
 
@@ -24,16 +25,22 @@ public class InputController<T>
 
 	private boolean state;
 	private boolean prevState;
+	private float doubleTapCounter;
 
 	public InputController()
 	{
 		handlers = new ArrayList<InputHandler>();
 		state = false;
 		prevState = false;
+		doubleTapCounter = 2*DOUBLE_TAP_INTERVAL;
 	}
 
-	public void handleEvent()
+	public void handleEvent(float deltaTime)
 	{
+		if (null == inputListener)
+			return;
+		
+		incrementDoubleTapCounter(deltaTime);
 		prevState = state;
 		boolean hasSomePressed = false;
 		for( InputHandler inputHandler : handlers )
@@ -50,20 +57,46 @@ public class InputController<T>
 
 	private void reportToListener()
 	{
-		if (inputListener != null)
+		if (state)
 		{
-			if (state)
-			{
-				inputListener.isPressing(userData);
-				if (!prevState)
-					inputListener.inputPressed(userData);
-			}
-			else // if (!state)
-			{
-				if (prevState)
-					inputListener.inputReleased(userData);
-			}
+			activate();
 		}
+		else // if (!state)
+		{
+			deactivate();
+		}
+	}
+
+	private void deactivate()
+	{
+		if (prevState)
+		{
+			inputListener.inputReleased(userData);
+		}
+	}
+
+	private void activate()
+	{
+		inputListener.isPressing(userData);
+		if (!prevState)
+		{
+			inputListener.inputPressed(userData);
+			if (checkDoubleTap())
+				inputListener.doubleTapInput(userData);
+			doubleTapCounter = 0;
+		}
+	}
+
+	private void incrementDoubleTapCounter(float deltaTime)
+	{
+		if (doubleTapCounter < 2*DOUBLE_TAP_INTERVAL)
+			doubleTapCounter += deltaTime;
+	}
+
+	private boolean checkDoubleTap()
+	{
+		System.out.println("Double tap: " + doubleTapCounter);
+		return doubleTapCounter <= DOUBLE_TAP_INTERVAL;
 	}
 
 	public T getUserData()

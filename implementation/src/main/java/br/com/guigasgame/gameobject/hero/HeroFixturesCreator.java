@@ -75,7 +75,6 @@ class HeroFixturesCreator {
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
 		def.density = 2.f;		
-		def.restitution = 0.2f;		
 		fixtures.put(FixtureSensorID.BODY, def);
 	}
 
