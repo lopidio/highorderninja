@@ -6,7 +6,7 @@ public class CollidableConstants
 	public final static CollidableCategory herosCategory		= CollidableConstants.getAllPlayerCategory();
 	public final static CollidableCategory sceneryCategory 		= CollidableConstants.getNextCategory();
 	public final static CollidableCategory projectileCategory	= CollidableConstants.getNextCategory();
-	public final static CollidableCategory ropeBodyCategory			= CollidableConstants.getNextCategory();
+	public final static CollidableCategory ropeBodyCategory		= CollidableConstants.getNextCategory();
 	
 	public static CollidableCategory getPlayerCategory(int playerID)
 	{
@@ -33,7 +33,10 @@ public class CollidableConstants
 	
 	public static CollidableCategory getNextCategory()
 	{
-		return new CollidableCategory((++categoriesUsed) << NUM_MAX_PLAYERS );
+		CollidableCategory retorno = new CollidableCategory((1 << categoriesUsed) << NUM_MAX_PLAYERS );
+		System.out.println(Integer.toBinaryString(retorno.getValue()));
+		++categoriesUsed;
+		return retorno;
 	}	
 	
 	///What I collide with
@@ -43,7 +46,7 @@ public class CollidableConstants
 
 	public static CollidableFilter getPlayerFilter(int playerID)
 	{
-		return CollidableFilterManipulator.createFromCategory(CollidableConstants.getPlayerCategory(playerID)).collidesWith(CollidableConstants.projectileCategory).and(CollidableConstants.sceneryCategory).and(CollidableConstants.herosCategory);
+		return CollidableFilterManipulator.createFromCategory(CollidableConstants.getPlayerCategory(playerID)).collidesWith(CollidableConstants.projectileCategory).and(CollidableConstants.sceneryCategory).and(CollidableConstants.herosCategory).clone();
 	}
 
 	public static CollidableFilter getRopeBodyCollidableFilter()

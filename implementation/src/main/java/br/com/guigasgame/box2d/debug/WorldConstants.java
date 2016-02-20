@@ -33,7 +33,7 @@ public class WorldConstants
 	public static double getCossinBetweenVectors(Vec2 a, Vec2 b)
 	{
 		float dotProduct = Vec2.dot(a, b);
-		return dotProduct / (a.length()*b.length());
+		return Math.acos(dotProduct / (a.length()*b.length()));
 	}
 
 }

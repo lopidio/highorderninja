@@ -78,9 +78,9 @@ public class NinjaRopeSwingingState extends HeroState
 		{
 			Vec2 tangent = gameHero.getCollidable().getBody().getLinearVelocity().clone();
 			
-			if ((side == Side.RIGHT && tangent.x > 0) || (side == Side.LEFT && tangent.x < 0))
+			if ((side == Side.RIGHT && tangent.x >= 0) || (side == Side.LEFT && tangent.x <= 0))
 			{
-				gameHero.addAction(new SwingFasterAction(heroStatesProperties));
+				gameHero.addAction(new SwingFasterAction(heroStatesProperties, side));
 			}
 			else
 			{

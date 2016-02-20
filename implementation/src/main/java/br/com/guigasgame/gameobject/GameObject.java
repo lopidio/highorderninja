@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollisionListener;
@@ -15,10 +16,10 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public abstract class GameObject implements Composible<GameObject>, CollisionListener, UpdatableFromTime
 {
+
 	protected Vec2 position;
 	protected Collidable collidable;
 	protected Drawable drawable;
-	
 	protected boolean alive;
 	private List<GameObject> children;
 
@@ -48,7 +49,6 @@ public abstract class GameObject implements Composible<GameObject>, CollisionLis
 		// Default implementation
 	}
 
-	
 	@Override
 	public final void addChild(GameObject child)
 	{
@@ -72,16 +72,23 @@ public abstract class GameObject implements Composible<GameObject>, CollisionLis
 	{
 		children.clear();
 	}
-	
+
 	public final Collidable getCollidable()
 	{
 		return collidable;
 	}
 
-	
 	public final Drawable getDrawable()
 	{
 		return drawable;
+	}
+
+	public void attachToWorld(World world)
+	{
+		if (collidable != null)
+		{
+			collidable.attachToWorld(world);
+		}
 	}
 
 }

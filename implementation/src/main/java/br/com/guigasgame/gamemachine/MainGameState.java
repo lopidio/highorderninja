@@ -173,11 +173,7 @@ public class MainGameState implements GameState
 	{
 		for( GameObject child : childrenToAdd )
 		{
-			Collidable collidable = child.getCollidable();
-			if (collidable != null)
-			{
-				collidable.attachToWorld(world);
-			}
+			child.attachToWorld(world);
 			child.onEnter();
 			gameObjectsList.add(child);
 		}

@@ -68,7 +68,7 @@ public class NinjaRopeProjectile extends Projectile
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{
 		// rope doesn't collides with heros
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getProjectileCollidableFilter()).removeCollisionWith(CollidableConstants.herosCategory));
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getRopeBodyCollidableFilter()).removeCollisionWith(CollidableConstants.herosCategory));
 		projectileCollidableFilter.aimTo(CollidableConstants.sceneryCategory);
 		
 		return projectileCollidableFilter;

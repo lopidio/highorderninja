@@ -4,14 +4,18 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
+import br.com.guigasgame.side.Side;
 
 
 public class SwingFasterAction extends GameHeroAction
 {
 
-	public SwingFasterAction(HeroStateProperties heroStatesProperties)
+	private final Side side;
+
+	public SwingFasterAction(HeroStateProperties heroStatesProperties, Side side)
 	{
 		super(heroStatesProperties);
+		this.side = side;
 	}
 
 	@Override
@@ -24,7 +28,14 @@ public class SwingFasterAction extends GameHeroAction
 	public void childExecute(GameHero gameHero)
 	{
 		Vec2 tangent = gameHero.getCollidable().getBody().getLinearVelocity().clone();
-		tangent.normalize();
+		if (tangent.lengthSquared() > 0)
+		{
+			tangent.normalize();
+		}
+		else
+		{
+			tangent = new Vec2(side.getHorizontalValue(), 0);
+		}
 		tangent.mulLocal(heroStateProperties.move.acceleration);
 		gameHero.getCollidableHero().applyForce(tangent);
 	}
