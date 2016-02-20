@@ -12,43 +12,43 @@ public class NinjaRope extends GameObject
 	private final float distortFactor = 10.f;
 
 	private RopeHook ropeHook;
-	private boolean markToEnshort;
-	private boolean markToEnlarge;
+	private boolean markToShorten;
+	private boolean markToIncrease;
 
 	NinjaRope(Vec2 position, GameHero gameHero, ProjectileProperties properties)
 	{
 		ropeHook = new RopeHook(position, gameHero, properties);
 		collidable = ropeHook;
-		markToEnlarge = false;
-		markToEnshort = false;
+		markToIncrease = false;
+		markToShorten = false;
 	}
 
 	@Override
 	public void update(float deltaTime)
 	{
-		if (markToEnlarge)
+		if (markToIncrease)
 		{
 			ropeHook.enlarge(deltaTime * distortFactor);
 		}
-		else if (markToEnshort)
+		else if (markToShorten)
 		{
 			ropeHook.enshort(deltaTime * distortFactor);
 		}
 
-		markToEnlarge = false;
-		markToEnshort = false;
+		markToIncrease = false;
+		markToShorten = false;
 	}
 
-	public void enlarge()
+	public void increase()
 	{
-		markToEnshort = false;
-		markToEnlarge = true;
+		markToShorten = false;
+		markToIncrease = true;
 	}
 
-	public void enshort()
+	public void shorten()
 	{
-		markToEnlarge = false;
-		markToEnshort = true;
+		markToIncrease = false;
+		markToShorten = true;
 	}
 
 	@Override

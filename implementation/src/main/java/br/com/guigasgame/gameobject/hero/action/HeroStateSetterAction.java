@@ -15,6 +15,12 @@ public class HeroStateSetterAction extends GameHeroAction
 		this.newState = newState;
 	}
 
+	
+	@Override
+	public boolean canExecute(GameHero hero)
+	{
+		return newState.canExecute(hero);
+	}
 
 	@Override
 	public void childExecute(GameHero gameHero)

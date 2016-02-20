@@ -13,12 +13,10 @@ public class StopMovementState extends HeroState
 	protected StopMovementState(GameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_DIVING);
-		gameHero.getAnimation().setColor(Color.YELLOW);
+		animation.setColor(Color.YELLOW);
 		secondsRemaining = 0.5f;
 	}
 	
-	
-
 	@Override
 	public void stateUpdate(float deltaTime)
 	{

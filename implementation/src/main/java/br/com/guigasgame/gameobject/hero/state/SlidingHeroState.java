@@ -14,7 +14,10 @@ class SlidingHeroState extends HeroState
 	protected SlidingHeroState(GameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_SLIDING);
-		secondsRemaining = 0.5f;
+		Float duration = heroStatesProperties.property.get("duration");
+		secondsRemaining = duration != null? duration.floatValue(): 0.5f;
+		
+		heroStatesProperties.printOut();
 	}
 
 	@Override
@@ -28,15 +31,16 @@ class SlidingHeroState extends HeroState
 			{
 				setState(new RunningHeroState(gameHero));
 			}
-			else if (gameHero.getCollidableHero().isFallingDown())
-			{
-				setState(new FallingHeroState(gameHero));
-			}
 			else
 			{
 				setState(new StandingHeroState(gameHero));
 			}
 		}
+		if (gameHero.getCollidableHero().isFallingDown())
+		{
+			setState(new FallingHeroState(gameHero));
+		}
+
 	}
 	
 	@Override

@@ -3,8 +3,6 @@ package br.com.guigasgame.gameobject.hero.action;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 
-
-
 public abstract class GameHeroAction
 {
 	protected final HeroStateProperties heroStateProperties;

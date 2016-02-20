@@ -15,17 +15,17 @@ class DuckingState extends HeroState
 	protected DuckingState(GameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_DUCKING);
-		gameHero.getAnimation().setColor(Color.BLUE);
+		animation.setColor(Color.BLUE);
 	}
 
 	@Override
-	public void onEnter()
+	public void stateOnEnter()
 	{
 		gameHero.getCollidableHero().disableCollision(FixtureSensorID.HEAD);
 	}
 
 	@Override
-	public void onQuit()
+	protected void stateOnQuit()
 	{
 		gameHero.getCollidableHero().enableCollision(FixtureSensorID.HEAD);
 	}

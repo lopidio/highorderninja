@@ -28,12 +28,13 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	protected final HeroStateProperties heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
 	private NinjaRopeProjectile ninjaRopeProjectile;
+	protected final Animation animation;
 
 	protected HeroState(GameHero gameHero, HeroStateIndex heroIndex)
 	{
 		super();
 		this.heroStatesProperties = HeroStatesPropertiesPool.getStateProperties(heroIndex);
-		gameHero.setAnimation(Animation.createAnimation(AnimationsCentralPool.getHeroAnimationRepository().getAnimationsProperties(heroIndex)));
+		animation = Animation.createAnimation(AnimationsCentralPool.getHeroAnimationRepository().getAnimationsProperties(heroIndex));
 		this.gameHero = gameHero;
 		
 		inputMap = new HashMap<>();
@@ -43,12 +44,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		}
 	}
 
-	public void onEnter()
+	protected void stateOnEnter()
 	{
 		// hook method
 	}
 
-	public void onQuit()
+	protected void stateOnQuit()
 	{
 		// hook method
 	}
@@ -73,6 +74,17 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		// hook method
 	}
 
+	public final void onEnter()
+	{
+		gameHero.setAnimation(animation);
+		stateOnEnter();
+	}
+
+	public final void onQuit()
+	{
+		stateOnQuit();
+	}
+
 
 	protected void rope()
 	{
@@ -84,8 +96,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	
 	protected void jump()
 	{
-		gameHero.addAction(new JumpAction(heroStatesProperties));
-		setState(new JumpingHeroState(gameHero));
+		JumpingHeroState jumping = new JumpingHeroState(gameHero);
+		if (jumping.canExecute(gameHero))
+		{
+			gameHero.addAction(new JumpAction(heroStatesProperties));
+			setState(jumping);
+		}
 	}
 	
 	protected void shoot()
@@ -211,6 +227,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	public void setInputMap(Map<HeroInputKey, Boolean> inputMap)
 	{
 		this.inputMap = inputMap;
+	}
+
+	public boolean canExecute(GameHero hero)
+	{
+		//Hook method
+		return true;
 	}
 
 }

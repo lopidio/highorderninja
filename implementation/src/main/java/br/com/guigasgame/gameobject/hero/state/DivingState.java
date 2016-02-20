@@ -13,7 +13,7 @@ public class DivingState extends HeroState
 	protected DivingState(GameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_DIVING);
-		gameHero.getAnimation().setColor(Color.MAGENTA);
+		animation.setColor(Color.MAGENTA);
 	}
 	
 	@Override
@@ -23,7 +23,7 @@ public class DivingState extends HeroState
 	}
 
 	@Override
-	public void onEnter()
+	public void stateOnEnter()
 	{
 		gameHero.addAction(new DiveAction(heroStatesProperties));
 	}

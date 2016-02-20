@@ -19,7 +19,7 @@ public class NinjaRopeSwingingState extends HeroState
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE);
 
-		gameHero.getAnimation().setColor(Color.CYAN);
+		animation.setColor(Color.CYAN);
 		this.ninjaRope = ninjaRope; 
 	}
 	
@@ -95,11 +95,11 @@ public class NinjaRopeSwingingState extends HeroState
 	{
 		if (inputValue == HeroInputKey.UP)
 		{
-			ninjaRope.enshort();
+			ninjaRope.shorten();
 		}
 		else if (inputValue == HeroInputKey.DOWN)
 		{
-			ninjaRope.enlarge();
+			ninjaRope.increase();
 		}
 	}
 

@@ -24,7 +24,9 @@ public class ProjectileAimer implements RayCastCallback
 		
 		public boolean isWorseThan(BestRaycast other)
 		{
-			return (angleVariation > other.angleVariation);
+			if (angleVariation != other.angleVariation)
+				return (angleVariation > other.angleVariation);
+			return direction.lengthSquared() > direction.lengthSquared();
 		}
 
 		public boolean isLongerThan(float newDistance) 

@@ -2,6 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
+import br.com.guigasgame.gameobject.hero.action.JumpPressingHelp;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 
@@ -26,7 +27,6 @@ class JumpingHeroState extends HeroState
 		}
 	}
 
-
 	@Override
 	public void stateUpdate(float deltaTime)
 	{
@@ -35,6 +35,15 @@ class JumpingHeroState extends HeroState
 			setState(new FallingHeroState(gameHero));
 		}
 		
+	}
+	
+	@Override
+	protected void stateInputIsPressing(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.JUMP)
+		{
+			gameHero.addAction(new JumpPressingHelp(heroStatesProperties));
+		}
 	}
 
 	@Override

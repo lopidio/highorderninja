@@ -112,7 +112,6 @@ public class GameHero extends GameObject
 		List<GameHeroAction> copy = new ArrayList<>();
 		copy.addAll(actionList);
 		actionList.clear();
-
 		
 		Iterator<GameHeroAction> iterator = copy.iterator();
 		while (iterator.hasNext())
@@ -130,7 +129,6 @@ public class GameHero extends GameObject
 
 	public void setState(HeroState newState)
 	{
-		animation.flipAnimation(forwardSide);
 		if (null != state)
 		{
 			newState.setInputMap(state.getInputMap());
@@ -139,6 +137,7 @@ public class GameHero extends GameObject
 		System.out.println("Current state: " + newState.getClass().getSimpleName());
 		state = newState;
 		state.onEnter();
+		animation.flipAnimation(forwardSide);
 
 		gameHeroInput.setInputListener(state);
 	}

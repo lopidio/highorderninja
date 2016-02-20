@@ -3,6 +3,9 @@ package br.com.guigasgame.gameobject.hero.state;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -78,5 +81,24 @@ public class HeroStateProperties
 		this.move = null;
 		this.property = new HashMap<>();
 		this.maxSpeed = new Vector2();
+	}
+
+	public void printOut()
+	{
+		// Write to System.out for debugging 
+		try
+		{
+			JAXBContext context = JAXBContext.newInstance(HeroStatePropertiesFile.class);
+			Marshaller m = context.createMarshaller(); // for pretty-print XML
+			// in JAXB
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			m.marshal(this, System.out);
+		}
+		catch (JAXBException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
