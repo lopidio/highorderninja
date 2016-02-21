@@ -1,9 +1,16 @@
 package br.com.guigasgame.collision;
 
+import org.jbox2d.dynamics.contacts.Contact;
 
 public interface CollidableContactListener
 {
-	public void endContact(Collidable collidable);
+	public default void endContact(Object me, Object other, Contact contact)
+	{
+		
+	}
 
-	public void beginContact(Collidable collidable);
+	public default void beginContact(Object me, Object other, Contact contact)
+	{
+		
+	}
 }

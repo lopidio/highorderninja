@@ -8,13 +8,13 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollisionListener;
+import br.com.guigasgame.collision.CollidableContactListener;
 import br.com.guigasgame.composite.Composible;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class GameObject implements Composible<GameObject>, CollisionListener, UpdatableFromTime
+public abstract class GameObject implements Composible<GameObject>, CollidableContactListener, UpdatableFromTime
 {
 
 	protected Vec2 position;
@@ -90,5 +90,4 @@ public abstract class GameObject implements Composible<GameObject>, CollisionLis
 			collidable.attachToWorld(world);
 		}
 	}
-
 }

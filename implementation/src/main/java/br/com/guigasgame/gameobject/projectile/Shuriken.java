@@ -1,9 +1,9 @@
 package br.com.guigasgame.gameobject.projectile;
 
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 
-import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilterManipulator;
 
@@ -21,9 +21,10 @@ public class Shuriken extends Projectile
 	}
 
 	@Override
-	public void beginContact(Collidable collidable, Contact contact)
+	public void beginContact(Object me, Object other, Contact contact)
 	{
-		if (collidable != null)
+		Body otherBody = (Body) other;
+		if (otherBody.getUserData() != null)
 		{
 			System.out.println("Hit player!");
 			markToDestroy();

@@ -7,7 +7,6 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.joints.RevoluteJointDef;
 
-import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableContactListener;
 
 
@@ -15,11 +14,13 @@ public class RopeLinkDef implements CollidableContactListener
 {
 	public static final float CHAIN_SIZE = 0.35f;
 	public static final float SQUARED_CHAIN_SIZE = CHAIN_SIZE*CHAIN_SIZE;
+	private static final float ANCHOR_POINT = 1.f*CHAIN_SIZE;
 
 	private PolygonShape shape;
 	private FixtureDef fixtureDef;
 	private BodyDef bodyDef;
 	private RevoluteJointDef jointDef;
+	private int linksCreated;
 	
 	public RopeLinkDef(FixtureDef defBase)
 	{
@@ -52,24 +53,29 @@ public class RopeLinkDef implements CollidableContactListener
 	{
 		jointDef = new RevoluteJointDef();
 		jointDef.collideConnected = false;
-		jointDef.localAnchorA = new Vec2(CHAIN_SIZE*.95f, 0);
-		jointDef.localAnchorB = new Vec2(-CHAIN_SIZE*.95f, 0);
+		jointDef.localAnchorA = new Vec2(ANCHOR_POINT, 0);
+		jointDef.localAnchorB = new Vec2(-ANCHOR_POINT, 0);
 		
-		jointDef.enableLimit = true;
-		jointDef.lowerAngle = -(float) (Math.PI);
-		jointDef.upperAngle = (float) (Math.PI);
+//		jointDef.enableLimit = false;
+//		jointDef.lowerAngle = (float) (-Math.PI*2);
+//		jointDef.upperAngle = (float) (Math.PI*2);
 	}
 	
 	public RevoluteJointDef getJointDef()
 	{
-		jointDef.lowerAngle /= 1.1f;
-		jointDef.upperAngle /= 1.1f;
+		if (linksCreated > 5)
+		{
+			jointDef.enableLimit = false;
+			jointDef.lowerAngle = 0;
+			jointDef.upperAngle = 0;
+		}
 		return jointDef;
 	}
 
 	public FixtureDef getFixtureDef()
 	{
-		fixtureDef.density += .5f;
+		++linksCreated;
+		fixtureDef.density += 1f;
 		return fixtureDef;
 	}
 
@@ -80,15 +86,20 @@ public class RopeLinkDef implements CollidableContactListener
 		return bodyDef;
 	}
 	
-	@Override
-	public void beginContact(Collidable collidable)
-	{
-	}
-	
-	@Override
-	public void endContact(Collidable collidable)
-	{
-		
-	}
+//	@Override
+//	public void beginContact(Collidable collidable, Object userData)
+//	{
+////		RevoluteJoint joint = (RevoluteJoint) userData;
+////		joint.enableLimit(true);
+////		joint.setLimits((float)-Math.PI*4, (float)Math.PI*4);
+//	}
+//	
+//	@Override
+//	public void endContact(Collidable collidable, Object userData)
+//	{
+////		RevoluteJoint joint = (RevoluteJoint) userData;
+////		joint.enableLimit(true);
+////		joint.setLimits(0, 0);
+//	}
 
 }

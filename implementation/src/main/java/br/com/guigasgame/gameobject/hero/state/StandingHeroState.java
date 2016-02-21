@@ -56,7 +56,6 @@ public class StandingHeroState extends HeroState
 		if (!gameHero.isTouchingWallAhead())
 		{
 			gameHero.addAction(new MoveHeroAction(side, heroStatesProperties));
-			setState(new RunningHeroState(gameHero));
 		}
 		else
 		{

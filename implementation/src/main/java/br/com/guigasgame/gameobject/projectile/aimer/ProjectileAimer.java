@@ -67,22 +67,22 @@ public class ProjectileAimer implements RayCastCallback
 		Vec2 pointsToCounterClock = initialDirection.clone();
 		Vec2 pointsToClockWise = initialDirection.clone();
 
-		makeRaycast(initialDirection.clone(), 0);
+		shootRaycast(initialDirection.clone(), 0);
 		for( int i = 1; i <= rayCastNumber - 1; ++i )
 		{
 			Vec2 tempCC = pointsToCounterClock.clone();
 			pointsToCounterClock.x = (float) (tempCC.x * cosAngle - tempCC.y * sinAngle);
 			pointsToCounterClock.y = (float) (tempCC.x * sinAngle + tempCC.y * cosAngle);
-			makeRaycast(tempCC, i);
+			shootRaycast(tempCC, i);
 
 			Vec2 tempCW = pointsToClockWise.clone();
 			pointsToClockWise.x = (float) (tempCW.x * cosAngle + tempCW.y * sinAngle);
 			pointsToClockWise.y = (float) (tempCW.y * cosAngle - tempCW.x * sinAngle);
-			makeRaycast(tempCW, i);
+			shootRaycast(tempCW, i);
 		}
 	}
 	
-	private void makeRaycast(Vec2 pointTo, int variationAngle)
+	private void shootRaycast(Vec2 pointTo, int variationAngle)
 	{
 		currentRaycastAimer = new RaycastAimer(null, variationAngle); //2 makes this initial value invalid :D
 		Vec2 initialPosition = body.getPosition();

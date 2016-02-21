@@ -1,6 +1,7 @@
 package br.com.guigasgame.gameobject.hero.sensors;
 
-import br.com.guigasgame.collision.Collidable;
+import org.jbox2d.dynamics.contacts.Contact;
+
 import br.com.guigasgame.collision.CollidableContactListener;
 
 
@@ -8,17 +9,16 @@ public class SensorController implements CollidableContactListener
 {
 
 	private int touchingContacts;
-
 	@Override
-	public void endContact(Collidable collidable)
+	public void beginContact(Object me, Object other, Contact contact)
 	{
-		--touchingContacts;
+		++touchingContacts;
 	}
 
 	@Override
-	public void beginContact(Collidable collidable)
+	public void endContact(Object me, Object other, Contact contact)
 	{
-		++touchingContacts;
+		--touchingContacts;
 	}
 
 	public boolean isTouching()

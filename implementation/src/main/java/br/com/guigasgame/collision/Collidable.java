@@ -6,13 +6,12 @@ import java.util.List;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
-public abstract class Collidable implements CollisionListener
+public abstract class Collidable implements CollidableContactListener
 {
-	protected List<CollisionListener> listenerList;
+	protected List<CollidableContactListener> listenerList;
 	protected BodyDef bodyDef;
 	protected Body body;
 	
@@ -20,24 +19,24 @@ public abstract class Collidable implements CollisionListener
 	{
 		bodyDef = new BodyDef();
 		bodyDef.position = position;
-		listenerList = new ArrayList<CollisionListener>();
+		listenerList = new ArrayList<CollidableContactListener>();
 	}
 	
 	@Override
-	public void endContact(Collidable collidable, Contact contact)
+	public void beginContact(Object me, Object other, Contact contact)
 	{
-		for( CollisionListener listener : listenerList )
+		for( CollidableContactListener listener : listenerList )
 		{
-			listener.endContact(collidable, contact);
-		}		
+			listener.beginContact(me, other, contact);
+		}
 	}
 
 	@Override
-	public void beginContact(Collidable collidable, Contact contact)
+	public void endContact(Object me, Object other, Contact contact)
 	{
-		for( CollisionListener listener : listenerList )
+		for( CollidableContactListener listener : listenerList )
 		{
-			listener.beginContact(collidable, contact);
+			listener.endContact(me, other, contact);
 		}
 	}
 
@@ -62,12 +61,12 @@ public abstract class Collidable implements CollisionListener
 		return body.getPosition();
 	}
 
-	public final void addListener(CollisionListener listener)
+	public final void addListener(CollidableContactListener listener)
 	{
 		this.listenerList.add(listener);
 	}
 
-	public final void removeListener(CollisionListener listener)
+	public final void removeListener(CollidableContactListener listener)
 	{
 		this.listenerList.remove(listener);
 	}
