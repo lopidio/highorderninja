@@ -4,6 +4,7 @@ import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.jbox2d.dynamics.joints.JointEdge;
 
 public class CollisionManager implements ContactListener
 {
@@ -15,8 +16,11 @@ public class CollisionManager implements ContactListener
 			Collidable objectA = (Collidable) contact.getFixtureA().getBody().getUserData();
 			Collidable objectB = (Collidable) contact.getFixtureB().getBody().getUserData();
 
-			reportToFixtureListenersBeginCollision((FixtureContactListener) contact.getFixtureA().getUserData(), objectB);
-			reportToFixtureListenersBeginCollision((FixtureContactListener) contact.getFixtureB().getUserData(), objectA);
+			
+			reportToJointListenersBeginCollision( contact.getFixtureA().getBody().getJointList(), objectB);
+			reportToJointListenersBeginCollision(contact.getFixtureB().getBody().getJointList(), objectA);
+			reportToFixtureListenersBeginCollision((CollidableContactListener) contact.getFixtureA().getUserData(), objectB);
+			reportToFixtureListenersBeginCollision((CollidableContactListener) contact.getFixtureB().getUserData(), objectA);
 			reportCollidableBeginCollision(objectA, objectB, contact);
 			reportCollidableBeginCollision(objectB, objectA, contact);
 		}
@@ -29,8 +33,10 @@ public class CollisionManager implements ContactListener
 			Collidable objectA = (Collidable) contact.getFixtureA().getBody().getUserData();
 			Collidable objectB = (Collidable) contact.getFixtureB().getBody().getUserData();
 
-			reportToFixtureListenersEndCollision((FixtureContactListener) contact.getFixtureA().getUserData(), objectB);
-			reportToFixtureListenersEndCollision((FixtureContactListener) contact.getFixtureB().getUserData(), objectA);
+			reportToJointListenersEndCollision(contact.getFixtureA().getBody().getJointList(), objectB);
+			reportToJointListenersEndCollision(contact.getFixtureB().getBody().getJointList(), objectA);
+			reportToFixtureListenersEndCollision((CollidableContactListener) contact.getFixtureA().getUserData(), objectB);
+			reportToFixtureListenersEndCollision((CollidableContactListener) contact.getFixtureB().getUserData(), objectA);
 			reportCollidableEndCollision(objectA, objectB, contact);
 			reportCollidableEndCollision(objectB, objectA, contact);
 		}
@@ -47,7 +53,29 @@ public class CollisionManager implements ContactListener
 		// TODO Auto-generated method stub
 	}
 
-	private void reportToFixtureListenersBeginCollision(FixtureContactListener fixtureContactListener, Collidable objectB)
+	private void reportToJointListenersBeginCollision(JointEdge jointEdge, Collidable objectB)
+	{
+		while (jointEdge != null && jointEdge.joint != null)
+		{
+			CollidableContactListener listener = (CollidableContactListener) jointEdge.joint.getUserData();
+			if (listener != null)
+				listener.beginContact(objectB);
+			jointEdge = jointEdge.next;
+		}
+	}
+	
+	private void reportToJointListenersEndCollision(JointEdge jointEdge, Collidable objectA)
+	{
+		while (jointEdge != null && jointEdge.joint != null)
+		{
+			CollidableContactListener listener = (CollidableContactListener) jointEdge.joint.getUserData();
+			if (listener != null)
+				listener.endContact(objectA);
+			jointEdge = jointEdge.next;
+		}
+	}
+
+	private void reportToFixtureListenersBeginCollision(CollidableContactListener fixtureContactListener, Collidable objectB)
 	{
 		if (fixtureContactListener != null)
 		{
@@ -55,7 +83,7 @@ public class CollisionManager implements ContactListener
 		}
 	}
 
-	private void reportToFixtureListenersEndCollision(FixtureContactListener fixtureContactListener, Collidable collider)
+	private void reportToFixtureListenersEndCollision(CollidableContactListener fixtureContactListener, Collidable collider)
 	{
 		if (fixtureContactListener != null)
 		{

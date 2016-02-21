@@ -1,10 +1,10 @@
 package br.com.guigasgame.gameobject.hero.sensors;
 
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.FixtureContactListener;
+import br.com.guigasgame.collision.CollidableContactListener;
 
 
-public class SensorController implements FixtureContactListener
+public class SensorController implements CollidableContactListener
 {
 
 	private int touchingContacts;

@@ -8,7 +8,7 @@ import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.action.SwingFasterAction;
 import br.com.guigasgame.gameobject.hero.action.SwingSlowerAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
-import br.com.guigasgame.gameobject.projectile.NinjaRopeProjectile;
+import br.com.guigasgame.gameobject.projectile.rope.NinjaRopeProjectile;
 import br.com.guigasgame.side.Side;
 
 public class NinjaRopeSwingingState extends HeroState

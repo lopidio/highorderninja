@@ -53,22 +53,22 @@ public class MainGameState implements GameState
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
-		createGround(new Vec2(15, 38), new Vec2(52, 1)); //ground
-		createGround(new Vec2(15, 0), new Vec2(52, 1)); //ceil
+		createGround(new Vec2(15, 38), new Vec2(52, 1f)); //ground
+		createGround(new Vec2(15, 0), new Vec2(52, .5f)); //ceil
 		createGround(new Vec2(1, 15), new Vec2(1, 22)); //left wall
 		createGround(new Vec2(67, 15), new Vec2(1, 22)); //right wall
 
-		createGround(new Vec2(14, 24), new Vec2(1, 8)); // |
-		createGround(new Vec2(17, 24), new Vec2(12, 1)); // --
+		createGround(new Vec2(14, 24), new Vec2(.5f, 8)); // |
+		createGround(new Vec2(17, 24), new Vec2(12, .5f)); // --
 
-		createGround(new Vec2(50, 24), new Vec2(4, 1));
-		createGround(new Vec2(50, 24), new Vec2(1, 4));
+		createGround(new Vec2(50, 24), new Vec2(4, .5f));
+		createGround(new Vec2(50, 24), new Vec2(.5f, 4));
 
 
-		createGround(new Vec2(10, 8), new Vec2(3, 1));
-		createGround(new Vec2(25, 8), new Vec2(3, 1));
-		createGround(new Vec2(40, 8), new Vec2(3, 1));
-		createGround(new Vec2(55, 8), new Vec2(3, 1));
+		createGround(new Vec2(10, 8), new Vec2(3, .5f));
+		createGround(new Vec2(25, 8), new Vec2(3, .5f));
+		createGround(new Vec2(40, 8), new Vec2(3, .5f));
+		createGround(new Vec2(55, 8), new Vec2(3, .5f));
 
 		initializeGameObject(Arrays.asList(
 				new GameHero(1, new Vec2(10, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK)), 

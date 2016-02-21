@@ -9,8 +9,10 @@ import org.jsfml.graphics.Color;
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.gameobject.GameObject;
+import br.com.guigasgame.gameobject.projectile.aimer.ProjectileAimer;
 
 
 public abstract class Projectile extends GameObject
@@ -39,7 +41,11 @@ public abstract class Projectile extends GameObject
 		drawable = animation;
 	}
 
-	protected abstract ProjectileCollidableFilter createCollidableFilter();	
+	protected ProjectileCollidableFilter createCollidableFilter()
+	{
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableConstants.getProjectileCollidableFilter());
+		return projectileCollidableFilter;
+	}
 
 	@Override
 	public void update(float deltaTime)
@@ -48,7 +54,7 @@ public abstract class Projectile extends GameObject
 		animation.update(deltaTime);
 	}
 
-	private FixtureDef createFixture()
+	protected FixtureDef createFixtureDef()
 	{
 		CircleShape projectileShape = new CircleShape();
 		projectileShape.setRadius(properties.radius);
@@ -57,6 +63,7 @@ public abstract class Projectile extends GameObject
 		def.restitution = properties.restitution;
 		def.shape = projectileShape;
 		def.density = properties.mass;
+		def.friction = properties.friction;
 		projectileCollidableFilter = createCollidableFilter();
 		def.filter = new CollidableFilterBox2dAdapter(projectileCollidableFilter.getCollidableFilter()).toBox2dFilter();
 		return def;
@@ -65,7 +72,7 @@ public abstract class Projectile extends GameObject
 	protected void shoot()
 	{
 		Body body = collidable.getBody();
-		FixtureDef def = createFixture();
+		FixtureDef def = createFixtureDef();
 		body.createFixture(def);
 		
 		ProjectileAimer aimer = new ProjectileAimer(this);

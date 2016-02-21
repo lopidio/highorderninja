@@ -6,9 +6,10 @@
             <value>
                 <numBounces>3</numBounces>
                 <initialSpeed>3.0</initialSpeed>
-                <mass>1.0</mass>
+                <mass>0.75</mass>
                 <radius>0.1</radius>
                 <restitution>0.8</restitution>
+                <friction>0.8</friction>
                 <damage>12</damage>
                 <maxDistance>50.0</maxDistance>
                 <rangeAngle>.314159</rangeAngle> <!-- 36° = PI/10 -->
@@ -18,13 +19,14 @@
             <key>ROPE</key>
             <value>
                 <numBounces>0</numBounces>
-                <initialSpeed>100.0</initialSpeed>
-                <mass>10.0</mass>
+                <initialSpeed>250.0</initialSpeed>
+                <mass>5.0</mass>
                 <radius>0.05</radius>
-                <restitution>0.8</restitution>
+                <restitution>0</restitution>
+                <friction>0</friction>
                 <damage>0</damage>
-                <maxDistance>10.0</maxDistance>
-                <rangeAngle>.314159</rangeAngle> <!-- 36° = PI/10 -->
+                <maxDistance>5</maxDistance>
+                <rangeAngle>1.570795</rangeAngle> <!-- 36° = PI/2 -->
             </value>
         </entry>
     </projectilesPropertiesMap>

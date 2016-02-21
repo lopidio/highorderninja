@@ -1,4 +1,4 @@
-package br.com.guigasgame.gameobject.projectile;
+package br.com.guigasgame.gameobject.projectile.aimer;
 
 import org.jbox2d.callbacks.RayCastCallback;
 import org.jbox2d.common.Vec2;
@@ -8,37 +8,12 @@ import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
+import br.com.guigasgame.gameobject.projectile.Projectile;
+import br.com.guigasgame.gameobject.projectile.ProjectileCollidableFilter;
 
 
 public class ProjectileAimer implements RayCastCallback
 {
-	private static class BestRaycast
-	{
-		public Vec2 direction;
-		public int angleVariation;
-		public BestRaycast(Vec2 direction, int angleVariation) 
-		{
-			this.direction = direction;
-			this.angleVariation = angleVariation;
-		}
-		
-		public boolean isWorseThan(BestRaycast other)
-		{
-			if (angleVariation != other.angleVariation)
-				return (angleVariation > other.angleVariation);
-			return direction.lengthSquared() > direction.lengthSquared();
-		}
-
-		public boolean isLongerThan(float newDistance) 
-		{
-			return 	( direction.length() > newDistance);
-		}
-		
-		public boolean isValid()
-		{
-			return direction!= null;
-		}
-	}
 
 	public final static int rayCastNumberDefault = 16;
 	public final static float angleRangeInRadiansDefault = (float) (Math.PI/10.f);
@@ -50,8 +25,8 @@ public class ProjectileAimer implements RayCastCallback
 	private float sinAngle;
 	private float cosAngle;
 	
-	private BestRaycast finalBestRaycast;
-	private BestRaycast currentBestRaycast;
+	private RaycastAimer finalRaycastAimer;
+	private RaycastAimer currentRaycastAimer;
 	private final float maxDistance;
 	private final Body body;
 	private final Vec2 initialDirection;
@@ -70,8 +45,8 @@ public class ProjectileAimer implements RayCastCallback
 		initialDirection.normalize();
 		initialDirection.mulLocal(maxDistance);
 		
-		this.finalBestRaycast = new BestRaycast(this.initialDirection.clone(), rayCastNumber);
-		this.currentBestRaycast = null;
+		this.finalRaycastAimer = new RaycastAimer(this.initialDirection.clone(), rayCastNumber);
+		this.currentRaycastAimer = null;
 		this.body = projectile.getCollidable().getBody();
 		this.projectileCollidableFilter = projectile.getCollidableFilter();
 		
@@ -109,16 +84,15 @@ public class ProjectileAimer implements RayCastCallback
 	
 	private void makeRaycast(Vec2 pointTo, int variationAngle)
 	{
-		currentBestRaycast = new BestRaycast(null, variationAngle); //2 makes this initial value invalid :D
+		currentRaycastAimer = new RaycastAimer(null, variationAngle); //2 makes this initial value invalid :D
 		Vec2 initialPosition = body.getPosition();
 		World bodysWorld = body.getWorld();
 		bodysWorld.raycast(this, initialPosition, initialPosition.add(pointTo));
 
-		if (currentBestRaycast.isValid() && finalBestRaycast.isWorseThan(currentBestRaycast))
+		if (currentRaycastAimer.isValid() && finalRaycastAimer.isWorseThan(currentRaycastAimer))
 		{
-			finalBestRaycast = new BestRaycast(currentBestRaycast.direction.clone(), variationAngle);
-			
-			System.out.println("There is a best direction and it's better than the previous one. (variation: " + variationAngle + ")");
+			finalRaycastAimer = new RaycastAimer(currentRaycastAimer.direction.clone(), variationAngle);
+			System.out.println("There is a best direction and it's better than the previous one. (distance: " + finalRaycastAimer.direction.length() + ". variation: " + variationAngle + ")");
 		}
 	}
 
@@ -143,17 +117,17 @@ public class ProjectileAimer implements RayCastCallback
 		float newDistance = point.sub(body.getPosition()).length();
 		if (newDistance <= maxDistance)
 		{
-			if ( !currentBestRaycast.isValid() || currentBestRaycast.isLongerThan(newDistance))
+			if ( !currentRaycastAimer.isValid() || currentRaycastAimer.isLongerThan(newDistance))
 			{
-				currentBestRaycast.direction = point.sub(body.getPosition());
+				currentRaycastAimer.direction = point.sub(body.getPosition());
 			}
 		}
 	}
 
 	public Vec2 getFinalDirection()
 	{
-		finalBestRaycast.direction.normalize();
-		return finalBestRaycast.direction;
+		finalRaycastAimer.direction.normalize();
+		return finalRaycastAimer.direction;
 	}
 	
 	public void setRayCastNumber(int rayCastNumber)

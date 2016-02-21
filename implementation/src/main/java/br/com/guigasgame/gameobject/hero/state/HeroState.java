@@ -14,7 +14,7 @@ import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.action.ShootAction;
 import br.com.guigasgame.gameobject.hero.action.ShootRopeAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
-import br.com.guigasgame.gameobject.projectile.NinjaRopeProjectile;
+import br.com.guigasgame.gameobject.projectile.rope.NinjaRopeProjectile;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.side.Side;
@@ -54,7 +54,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		// hook method
 	}
 
-	public void stateUpdate(float deltaTime)
+	protected void stateUpdate(float deltaTime)
 	{
 		// hook method
 	}
@@ -186,10 +186,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		if (inputValue == HeroInputKey.SHOOT)
 		{
 			shoot();
-		}		
-		else if (inputValue == HeroInputKey.ROPE)
-		{
-			releaseRope();
 		}		
 		stateInputReleased(inputValue);
 	}

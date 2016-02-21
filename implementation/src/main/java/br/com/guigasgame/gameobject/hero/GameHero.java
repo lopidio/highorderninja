@@ -11,7 +11,6 @@ import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
-import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
@@ -35,6 +34,8 @@ public class GameHero extends GameObject
 	int life;
 	int maxLife;
 	int numShurikens;
+
+	private String lastActionName;
 
 	public GameHero(int playerID, Vec2 position, GameHeroInputMap gameHeroInput)
 	{
@@ -88,7 +89,7 @@ public class GameHero extends GameObject
 	{
 		animation.update(deltaTime);
 
-		state.stateUpdate(deltaTime);
+		state.update(deltaTime);
 		gameHeroInput.update(deltaTime);
 
 		updateActionList();
@@ -117,7 +118,12 @@ public class GameHero extends GameObject
 		while (iterator.hasNext())
 		{
 			GameHeroAction gameHeroAction = iterator.next();
-			System.out.println(gameHeroAction.getClass().getSimpleName());
+			String currentActionName = gameHeroAction.getClass().getSimpleName();
+			if (!currentActionName.equals(lastActionName))
+			{
+				System.out.println("("+playerID+") " + currentActionName);
+			}
+			lastActionName = currentActionName;
 			if (gameHeroAction.canExecute(this))
 			{
 				gameHeroAction.preExecute(this);
@@ -134,7 +140,7 @@ public class GameHero extends GameObject
 			newState.getPropertyOfPreviousState(state);
 			state.onQuit();
 		}
-		System.out.println("Current state: " + newState.getClass().getSimpleName());
+		System.out.println("\t("+playerID+") State: " + newState.getClass().getSimpleName());
 		state = newState;
 		state.onEnter();
 		animation.flipAnimation(forwardSide);

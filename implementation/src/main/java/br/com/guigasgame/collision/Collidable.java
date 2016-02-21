@@ -14,12 +14,10 @@ public abstract class Collidable implements CollisionListener
 {
 	protected List<CollisionListener> listenerList;
 	protected BodyDef bodyDef;
-	protected FixtureDef fixtureDef;
 	protected Body body;
 	
 	public Collidable(Vec2 position)
 	{
-		fixtureDef = null;
 		bodyDef = new BodyDef();
 		bodyDef.position = position;
 		listenerList = new ArrayList<CollisionListener>();
@@ -51,10 +49,6 @@ public abstract class Collidable implements CollisionListener
 	public void attachToWorld(World world)
 	{
 		body = world.createBody(bodyDef);
-		if (null != fixtureDef)
-		{
-			body.createFixture(fixtureDef);
-		}
 		body.setUserData(this);
 	}
 
@@ -63,11 +57,6 @@ public abstract class Collidable implements CollisionListener
 		return body;
 	}
 	
-	public final void setFixtureDef(FixtureDef fixtureDef)
-	{
-		this.fixtureDef = fixtureDef;
-	}
-
 	public final Vec2 getPosition()
 	{
 		return body.getPosition();
