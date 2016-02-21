@@ -40,6 +40,7 @@ public class SFMLDebugDraw extends DebugDraw
 		CircleShape cs = new CircleShape();
 		cs.setPosition(WorldConstants.physicsToSfmlCoordinates(arg0));
 		cs.setRadius(arg1);
+		cs.setOutlineColor(Color.RED);
 		cs.setFillColor(makeColor(arg2));
 		renderWindow.draw(cs);
 	}
@@ -98,8 +99,7 @@ public class SFMLDebugDraw extends DebugDraw
 						.physicsToSfmlCoordinates(vertex));
 			}
 		}
-		polygon.setFillColor(Color.mul(makeColor(color),
-				Color.mul(Color.YELLOW, Color.WHITE)));
+		polygon.setFillColor(Color.mul(makeColor(color), new Color(0, 100, 0)));//,Color.mul(Color.YELLOW, Color.WHITE)));
 		polygon.setOutlineColor(makeColor(color));
 		polygon.setOutlineThickness(1.0f);
 		renderWindow.draw(polygon);

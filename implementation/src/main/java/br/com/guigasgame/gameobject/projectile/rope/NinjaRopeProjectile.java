@@ -2,6 +2,7 @@ package br.com.guigasgame.gameobject.projectile.rope;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.jbox2d.callbacks.RayCastCallback;
 import org.jbox2d.common.Vec2;
@@ -15,7 +16,6 @@ import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jbox2d.dynamics.joints.Joint;
-import org.jbox2d.dynamics.joints.RevoluteJointDef;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.CollidableConstants;
@@ -33,48 +33,47 @@ import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 public class NinjaRopeProjectile extends Projectile implements RayCastCallback
 {
 	private static final float DISTORT_FACTOR = 10.f;
+	private static final float MIN_DISTANCE = 0.5f;
 
 	private final GameHero gameHero;
 	private World world;
-	private RopeLinkDef ropeLink;
+
 	private Body lastLinkBody;
-	private List<Joint> jointList;
+	private DistanceJoint lastJoint;
+	private Vector<DistanceJoint> jointList;
 	private List<Body> bodyList;
 
-	private boolean attachedHook;
-	private boolean attachedHero;
-	private boolean setState;
+	private boolean startToRetract;
+	private boolean hookIsAttached;
 	private boolean markToAttachHook;
-	private boolean startToReduce;
-	private float size;
 
 	private Vec2 pointToCreateJointAt;
 
-	private DistanceJoint lastJoint;
+	private boolean canGrow;
+
+	private FixtureDef fixtureDef;
+	private float lastDistance;
+	private float maxDistance;
+	protected boolean collidesWithSomething;
+	private boolean markToRemoveJoint;
 
 	public NinjaRopeProjectile(Vec2 direction, GameHero gameHero)
 	{
 		super(ProjectileIndex.ROPE, adjustInitialDirection(direction), gameHero.getCollidable().getBody().getWorldCenter());
 		this.gameHero = gameHero;
 		world = null;
-		jointList = new ArrayList<>();
+		jointList = new Vector<>();
 		bodyList = new ArrayList<>();
 		lastLinkBody = null;
-		attachedHook = false;
+		hookIsAttached = false;
 		markToAttachHook = false;
-		startToReduce = false;
-		
-		size = properties.maxDistance;
+		startToRetract = false;
 	}
 	
 	@Override
 	protected FixtureDef createFixtureDef()
 	{
-		
-//		collidable.getBody().setGravityScale(0.1f);
-
-		FixtureDef fixtureDef = super.createFixtureDef();//ropeLink.getFixtureDef();//super.createFixtureDef();
-//		ropeLink = new RopeLinkDef(fixtureDef);
+		fixtureDef = super.createFixtureDef();//ropeLink.getFixtureDef();//super.createFixtureDef();
 		return fixtureDef;
 	}
 	
@@ -99,15 +98,15 @@ public class NinjaRopeProjectile extends Projectile implements RayCastCallback
 
 	protected static Vec2 adjustInitialDirection(Vec2 direction)
 	{
-		if (direction.y == 0)
-		{
-			direction.addLocal(0, -1f);
-			direction.normalize();
-		}
-		else
-		{
-			direction.y = -Math.abs(direction.y);
-		}
+//		if (direction.y == 0)
+//		{
+//			direction.addLocal(0, -1f);
+//		}
+//		else
+//		{
+//			direction.y = -Math.abs(direction.y);
+//		}
+		direction.normalize();
 		return direction;
 	}
 
@@ -115,124 +114,253 @@ public class NinjaRopeProjectile extends Projectile implements RayCastCallback
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
+
+		float attachedSize = calculateRopeSize();
+		canGrow = attachedSize <= properties.maxDistance;
+		
 		
 		if (pointToCreateJointAt != null)
 		{
 			divideLink();
 		}
-		if (markToAttachHook && !attachedHook)
+		if (markToAttachHook)
 		{
 			attachHook();
-			gameHero.addAction(new HeroStateSetterAction(new NinjaRopeSwingingState(gameHero, this)));
 		}
+		if(markToRemoveJoint)
+			removeLastJoints();
 		
-		world.raycast(this, lastLinkBody.getWorldCenter(), gameHero.getCollidable().getBody().getWorldCenter());
-		if (!attachedHook && !attachedHero)
+		checkJointRemoval();
+
+		//		if (lastJoint != null && lastJoint.getBodyA().getWorldCenter().sub(lastJoint.getBodyB().getWorldCenter()).length() < MIN_DISTANCE)
+//		{
+//			removeJoint(lastJoint, lastJoint);
+//		}
+		
+		//-------------
+		world.raycast(this, gameHero.getCollidable().getBody().getWorldCenter(), lastLinkBody.getWorldCenter());
+		//-------------
+		
+		if (!hookIsAttached)
 		{
 			if (ropeIsTooLong())
 			{
-				startToReduce = true;
+				startToRetract = true;
 				markToDestroy();
 			}
-			else if (needsNewLink())
-			{
-//				if (!attachedHook)
-//					collidable.getBody().setLinearVelocity(getDirection().mul(properties.initialSpeed*deltaTime*10));
-//				addNewLink();
-			}
 		}
+	}
 
-		if (!setState && attachedHero && attachedHook)
+	private boolean checkJointRemoval()
+	{
+		if (jointList.size() > 1)
 		{
-//			System.out.println("--");
-//			for( Joint joint : jointList )
+			DistanceJoint last = jointList.get(jointList.size() - 1);
+			DistanceJoint prevLast = jointList.get(jointList.size() - 2);
+			
+			collidesWithSomething = false;
+			RayCastCallback rayCastCallback = new RayCastCallback()
+			{
+				
+				@Override
+				public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction)
+				{
+					CollidableFilter fixtureCollider = new CollidableFilterBox2dAdapter(fixture.getFilterData()).toCollidableFilter();
+					if (projectileCollidableFilter.getCollidableFilter().matches(fixtureCollider.getCategory()))//if collides with something interesting
+					{
+						if (projectileCollidableFilter.getAimingMask().matches(fixtureCollider.getCategory().getValue())) //if collides with what I am aiming to
+						{
+							if (fraction < .98f)
+							{
+								collidesWithSomething = true;
+								return 0;
+							}
+						}
+					}
+					return 1; //ignore
+				}
+			};
+			
+			world.raycast(rayCastCallback, gameHero.getCollidable().getBody().getWorldCenter(), prevLast.getBodyA().getWorldCenter());
+			if (collidesWithSomething)
+			{
+//				System.out.println("hitsPrev");
+				return false;
+			}
+			
+//			Vec2 prevLastVec = prevLast.getBodyA().getPosition().sub(prevLast.getBodyB().getPosition());
+//			Vec2 lastVec = last.getBodyA().getPosition().sub(last.getBodyB().getPosition());
+//			float angle = (float) WorldConstants.getAngleBetweenVectors(prevLastVec, lastVec);
+//			System.out.println("Angle: " + angle);
+//			world.raycast(rayCastCallback, gameHero.getCollidable().getBody().getWorldCenter(), last.getBodyA().getWorldCenter());
+//			if (collidesWithSomething)
 //			{
-//				RevoluteJoint rj = (RevoluteJoint) joint;
-//				rj.getBodyA().setType(BodyType.DYNAMIC);
-//				rj.getBodyB().setType(BodyType.DYNAMIC);
-//				System.out.println(rj.isLimitEnabled());
-//				System.out.println(rj.getUpperLimit());
+//				System.out.println("hitsLast");
+//				return false;
 //			}
-			setState = true;
-			gameHero.addAction(new HeroStateSetterAction(new NinjaRopeSwingingState(gameHero, this)));
+//			world.raycast(rayCastCallback, gameHero.getCollidable().getPosition(), last.getBodyA().getPosition());
+			
+			if (!collidesWithSomething)
+			{
+				System.out.println("Remove joint");
+//				removeJoint(prevLast, last);
+				prevLast.getBodyB().setType(BodyType.DYNAMIC);
+				
+				System.out.println("------------------------------------------\njointsCount: " + jointList.size());
+			}
+			
+//			Vec2 lastVec = prevLast.getBodyA().getPosition().sub(last.getBodyB().getPosition());
+////			double angle = WorldConstants.getAngleBetweenVectors(lastVec, prevLastVec);
+////			double currentAngle = Math.toDegrees(angle);
+//			
+//
+//			float currentDistance = lastVec.length();
+//			float diffTollerance = maxDistance*0.003f;
+//			float diffToMaxDistance = maxDistance - currentDistance;
+//			
+//			boolean isIncreasing = (currentDistance - lastDistance) > diffTollerance*0.1;
+//			
+//			System.out.println("(" + jointList.size() + ") increasing: "+isIncreasing + " | currentDistance: " + currentDistance + ". lasDist: " + lastDistance + "| max: " + maxDistance + 
+//					" --- diffToMax: " + diffToMaxDistance + "--- tol: " + diffTollerance);
+//			lastDistance = currentDistance;
+//			if (isIncreasing && diffToMaxDistance < diffTollerance)
+//			{
+//				System.out.println("Remove joint");
+//				removeJoint(prevLast, last);
+//				maxDistance = updateDistanceFromTwoLastJoints();
+//				
+//				return true;
+//			}
+		}
+		return false;
+	}
+
+
+	private float calculateRopeSize()
+	{
+		float attachedSize = 0 ;
+		for( Joint joint : jointList )
+		{
+			float jointSize = joint.getBodyA().getWorldCenter().sub(joint.getBodyB().getWorldCenter()).length();
+			attachedSize += jointSize;
+		}
+		return attachedSize;
+	}
+
+	private void removeLastJoints()
+	{
+		if (jointList.size() < 2)
+			return;
+		DistanceJoint last = jointList.get(jointList.size() - 1);
+		DistanceJoint prevLast = jointList.get(jointList.size() - 2);
+		
+		world.destroyJoint(last);
+		world.destroyJoint(prevLast);
+		world.destroyBody(last.getBodyA());
+
+		bodyList.remove(last.getBodyA());
+		jointList.remove(last);
+		jointList.remove(prevLast);
+
+		lastJoint = createJoint(prevLast.getBodyA(), last.getBodyB());
+		lastLinkBody = prevLast.getBodyA();
+		markToRemoveJoint = false;
+	}
+	
+	@Override
+	public void endContact(Object me, Object other, Contact contact)
+	{
+		Body myBody = (Body) me;
+		System.out.println("Checkpoint removed: " + !myBody.isBullet());
+		if (!myBody.isBullet())
+		{
+			markToRemoveJoint = true;
 		}
 
 	}
 
 	private void divideLink()
 	{
+		jointList.remove(lastJoint);
 		System.out.println("Dividing");
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position = pointToCreateJointAt;
 		bodyDef.type = BodyType.STATIC;
-		
-		Body bodyMiddle = world.createBody(bodyDef);
-		Body bodyBegin = lastJoint.getBodyA();
-		bodyMiddle.createFixture(createFixtureDef());
-		Body bodyEnd = lastJoint.getBodyB();
-		world.destroyJoint(lastJoint);
-		bodyList.add(bodyMiddle);
-		
-		
-		DistanceJointDef distJoinDef = new DistanceJointDef();
-		distJoinDef.bodyA = bodyBegin;
-		distJoinDef.bodyB = bodyMiddle;
-		distJoinDef.length = distJoinDef.bodyA.getWorldCenter().sub(distJoinDef.bodyB.getWorldCenter()).length();
-		Joint joint = world.createJoint(distJoinDef);
-		jointList.add(joint);
 
+		Body middleBody = world.createBody(bodyDef);
+		middleBody.setUserData(this);
+
+		bodyList.add(middleBody);
 		
-		DistanceJointDef otherJoinDef = new DistanceJointDef();
-		otherJoinDef.bodyA = bodyMiddle;
-		otherJoinDef.bodyB = bodyEnd;
-		otherJoinDef.length = otherJoinDef.bodyA.getWorldCenter().sub(otherJoinDef.bodyB.getWorldCenter()).length();
-		DistanceJoint otherJoint = (DistanceJoint) world.createJoint(otherJoinDef);
-		jointList.add(otherJoint);
+		Body beginBody = lastJoint.getBodyA();
+		middleBody.createFixture(createFixtureDef());
+		Body endBody = lastJoint.getBodyB();
+		world.destroyJoint(lastJoint);
 		
-		lastJoint = otherJoint;
-		lastLinkBody = bodyMiddle;
-		
+		createJoint(beginBody, middleBody);
+		lastJoint = createJoint(middleBody, endBody);
+
+		updateDistanceFromTwoLastJoints();
+		lastLinkBody = middleBody;
 		pointToCreateJointAt = null;
-		
+		System.out.println("------------------------------------------\njointsCount: " + jointList.size());
+
+	}
+
+	private float updateDistanceFromTwoLastJoints()
+	{
+		if (jointList.size() >= 2)
+		{
+			System.out.println("MaxDistance updated");
+			DistanceJoint last = jointList.get(jointList.size() - 1);
+			DistanceJoint prevLast = jointList.get(jointList.size() - 2);
+			
+			Vec2 lastVec = last.getBodyA().getPosition().sub(last.getBodyB().getPosition());
+			Vec2 prevLastVec = prevLast.getBodyB().getPosition().sub(prevLast.getBodyA().getPosition());
+
+			maxDistance = lastVec.length() + prevLastVec.length();
+			lastDistance = maxDistance;
+			return maxDistance;
+
+		}
+		maxDistance = -1;
+		lastDistance = -1;
+		return -1;
+	}
+
+	private DistanceJoint createJoint(Body fromBody, Body toBody)
+	{
+		DistanceJointDef distJoinDef = new DistanceJointDef();
+		distJoinDef.bodyA = fromBody;
+		distJoinDef.bodyB = toBody;
+		distJoinDef.length = fromBody.getPosition().sub(toBody.getPosition()).length();
+		System.out.println("JointsDistance: " + distJoinDef.length);
+		DistanceJoint joint = (DistanceJoint) world.createJoint(distJoinDef);
+		jointList.add(joint);
+		System.out.println("------------------------------------------\njointsCount: " + jointList.size());
+
+		return joint;
 	}
 
 	private void attachHook()
 	{
-//		RevoluteJoint joint = (RevoluteJoint) collidable.getBody().getJointList().joint;
-//		joint.enableLimit(true);
-//		joint.setLimits((float)-Math.PI*4, (float)Math.PI*4);
-
-		if (attachedHook)
+		if (hookIsAttached)
 			return;
+
+		gameHero.addAction(new HeroStateSetterAction(new NinjaRopeSwingingState(gameHero, this)));
 		
-		DistanceJointDef distJoinDef = new DistanceJointDef();
-		distJoinDef.bodyA = collidable.getBody();
-		distJoinDef.bodyB = gameHero.getCollidable().getBody();
-		distJoinDef.length = distJoinDef.bodyA.getWorldCenter().sub(distJoinDef.bodyB.getWorldCenter()).length();
-		lastJoint = (DistanceJoint) world.createJoint(distJoinDef);
-		jointList.add(lastJoint);
+		collidable.getBody().setType(BodyType.STATIC);
+		lastJoint = createJoint(collidable.getBody(), gameHero.getCollidable().getBody());
 		
 		System.out.println("Hook attached");
-		startToReduce = false;
-		attachedHook = true;
-		collidable.getBody().setType(BodyType.STATIC);
-//		if (!attachedHero)
-//		{
-//			attachHero();
-//		}
+		startToRetract = false;
+		hookIsAttached = true;
 	}
 	
 	private boolean ropeIsTooLong()
 	{
 		return gameHero.getCollidable().getPosition().sub(collidable.getPosition()).lengthSquared() >= properties.maxDistance*properties.maxDistance;
-	}
-
-	private boolean needsNewLink()
-	{
-		return false;
-//		System.out.println("Links: " + jointList.size());
-//		return lastLinkBody.getWorldCenter().sub(gameHero.getCollidable().getBody().getWorldCenter()).lengthSquared() >= RopeLinkDef.SQUARED_CHAIN_SIZE;
 	}
 
 	@Override
@@ -253,125 +381,51 @@ public class NinjaRopeProjectile extends Projectile implements RayCastCallback
 		lastLinkBody = collidable.getBody();
 	}
 	
-	
-	private void addNewLink()
-	{
-		size -= RopeLinkDef.CHAIN_SIZE;
-//		collidable.getBody().setLinearVelocity(collidable.getBody().getLinearVelocity().mul());
-//		System.out.println(lastLink.getWorldCenter());
-//		System.out.println(gameHero.getCollidable().getBody().getWorldCenter());
-		final Vec2 angleFinder = lastLinkBody.getWorldCenter().sub(gameHero.getCollidable().getBody().getWorldCenter());
-		angleFinder.normalize();
-		float angle = (float) WorldConstants.getCossinBetweenVectors(angleFinder, new Vec2(-1, 0));
-
-//		newLinkPosition.addLocal(gameHero.getCollidable().getBody().getWorldCenter());
-		
-//		Body body = createNewLinkBody(gameHero.getCollidable().getBody().getWorldCenter().clone(), angle);
-//		body.setGravityScale(0.1f);
-
-//		RevoluteJointDef jointDef = ropeLink.getJointDef();
-//		body.applyLinearImpulse(angleFinder.mul(properties.initialSpeed/(bodyList.size()*5)), body.getWorldCenter());
-//		collidable.getBody().applyForceToCenter(collidable.getBody().getLinearVelocity().mul(properties.initialSpeed));
-
-//		System.out.println("low: " + jointDef.lowerAngle);
-//		System.out.println("upper: " + jointDef.upperAngle);
-		
-		
-//		jointDef.bodyA = lastLinkBody;
-//		jointDef.bodyB = body;
-// 
-//		Joint joint = world.createJoint(jointDef);
-//		jointList.add(joint);
-//		joint.setUserData(ropeLink);
-		
-
-//		lastLinkBody = body;
-//		size -= CHAIN_SIZE;
-//		lastLink.setUserData(t);
-	}
-	
-	private void attachHero()
-	{
-		if (attachedHero)
-			return;
-		
-		System.out.println("Hero attached");
-		
-		attachedHero = true;
-
-		float mass = 0;
-		for( Body body : bodyList )
-		{
-			mass += body.getMass();
-		}
-		System.out.println(collidable.getBody().getType().toString());
-		System.out.println("Hero: " + gameHero.getCollidable().getBody().getMass() + " / Rope: " + mass);
-
-		RevoluteJointDef jointDef = ropeLink.getJointDef();
-		
-		jointDef.lowerAngle = (float) (-Math.PI*2);
-		jointDef.upperAngle = (float) (Math.PI*2);
-
-		jointDef.bodyA = lastLinkBody;
-		jointDef.bodyB = gameHero.getCollidable().getBody();
-		Joint joint = world.createJoint(jointDef);
-		joint.setUserData(ropeLink);
-		jointList.add(joint);
-	}
-
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
 	{
 		markToAttachHook = true;
 	}
 	
-//	private Body createNewLinkBody(Vec2 position, float angle)
-//	{
-//		Body body = world.createBody(ropeLink.adjustBodyDef(position, angle));
-//		body.createFixture(ropeLink.getFixtureDef());
-//		bodyList.add(body);
-//		return body;
-//	}
-
 	public void shorten()
 	{
-		lastJoint.setLength((float) (lastJoint.getLength()*0.995));
+		lastJoint.setLength((float) (lastJoint.getLength()*0.95));
 	}
 
 	public void increase()
 	{
-		lastJoint.setLength((float) (lastJoint.getLength()*1.005));
+		if (canGrow)
+			lastJoint.setLength((float) (lastJoint.getLength()*1.05));
 	}
 	
 	@Override
 	public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction)
 	{
-		System.out.println("raycast: " + lastLinkBody.getPosition());
 		CollidableFilter fixtureCollider = new CollidableFilterBox2dAdapter(fixture.getFilterData()).toCollidableFilter();
 		if (projectileCollidableFilter.getCollidableFilter().matches(fixtureCollider.getCategory()))//if collides with something interesting
 		{
-			System.out.println("Interesting raycast");
 			if (projectileCollidableFilter.getAimingMask().matches(fixtureCollider.getCategory().getValue())) //if collides with what I am aiming to
 			{
-				if (!attachedHook)
+				if (!hookIsAttached)
 				{
+					System.out.println("Wall on the way");
 					markToDestroy();
-					System.out.println("Wall ahead");
+					return 0;
 				}
-				else
+				else if (point.sub(lastLinkBody.getPosition()).length() > MIN_DISTANCE)
 				{
 					System.out.println("Collides for dividing");
-					markToDivideAt(point);
+					markToDivideAt(point.clone());
+					return fraction;
 				}
 			}
-			return fraction; ////get closest
 		}
 		return 1; //ignore
 	}
 
 	private void markToDivideAt(Vec2 point)
 	{
-		pointToCreateJointAt = point;
+		pointToCreateJointAt = point.clone();
 	}
 
 }

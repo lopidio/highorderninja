@@ -30,7 +30,7 @@ public class WorldConstants
 		return degrees * Math.PI / 180.0;
 	}
 	
-	public static double getCossinBetweenVectors(Vec2 a, Vec2 b)
+	public static double getAngleBetweenVectors(Vec2 a, Vec2 b)
 	{
 		float dotProduct = Vec2.dot(a, b);
 		return Math.acos(dotProduct / (a.length()*b.length()));
