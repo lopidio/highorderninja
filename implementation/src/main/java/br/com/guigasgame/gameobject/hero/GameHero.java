@@ -137,7 +137,6 @@ public class GameHero extends GameObject
 	{
 		if (null != state)
 		{
-			newState.getPropertyOfPreviousState(state);
 			state.onQuit();
 		}
 		System.out.println("\t("+playerID+") State: " + newState.getClass().getSimpleName());

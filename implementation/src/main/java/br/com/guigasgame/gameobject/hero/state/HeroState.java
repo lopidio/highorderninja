@@ -12,9 +12,7 @@ import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.action.ShootAction;
-import br.com.guigasgame.gameobject.hero.action.ShootRopeAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
-import br.com.guigasgame.gameobject.projectile.rope.NinjaRopeProjectile;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.side.Side;
@@ -25,10 +23,9 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 {
 
 	protected final GameHero gameHero;
-	protected final HeroStateProperties heroStatesProperties;
+	protected HeroStateProperties heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
-	private NinjaRopeProjectile ninjaRopeProjectile;
-	protected final Animation animation;
+	protected Animation animation;
 
 	protected HeroState(GameHero gameHero, HeroStateIndex heroIndex)
 	{
@@ -90,18 +87,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		stateOnQuit();
 	}
 
-	protected void releaseRope()
-	{
-		if (ninjaRopeProjectile != null)
-			ninjaRopeProjectile.markToDestroy();
-	}
-	
 	protected void rope()
 	{
-		if (ninjaRopeProjectile != null)
-			ninjaRopeProjectile.markToDestroy();
-		ninjaRopeProjectile = new NinjaRopeProjectile(pointingDirection(), gameHero);
-		gameHero.addAction(new ShootRopeAction(heroStatesProperties, ninjaRopeProjectile));
+		if (heroStatesProperties.rope != null)
+		{
+			setState(new RopeShootingState(gameHero));
+		}
 	}
 	
 	protected void jump()
@@ -194,16 +185,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	@Override
 	public final void update(float deltaTime)
 	{
-		if (!inputMap.get(HeroInputKey.ROPE))
-		{
-			releaseRope();
-		}
-	
 		stateUpdate(deltaTime);
 	}
 
 	protected final void setState(HeroState heroState)
 	{
+		heroState.getPropertyOfPreviousState(this);
 		gameHero.addAction(new HeroStateSetterAction(heroState));
 	}
 
@@ -250,7 +237,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	public void getPropertyOfPreviousState(HeroState state)
 	{
 		this.inputMap = state.inputMap;
-		this.ninjaRopeProjectile = state.ninjaRopeProjectile;
 	}
 
 }

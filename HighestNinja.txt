@@ -147,3 +147,4 @@ NinjaRope
 SmokeBomb
 ShurikenBomb
 Get category from filter (enumeration)
+Projectile aimer refactoring (bg fixing). It aims even when theres a obstacle beteween
