@@ -46,7 +46,7 @@ public class Shuriken extends Projectile
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{
 		// shuriken doesn't collides with owner hero
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getProjectileCollidableFilter()).removeCollisionWith(CollidableConstants.getPlayerCategory(playerID)));
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getShurikenCollidableFilter()).removeCollisionWith(CollidableConstants.getPlayerCategory(playerID)));
 		projectileCollidableFilter.aimTo(CollidableConstants.getOtherPlayersCategory(playerID));
 		
 		return projectileCollidableFilter;

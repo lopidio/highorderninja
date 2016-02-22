@@ -43,7 +43,7 @@ public abstract class Projectile extends GameObject
 
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableConstants.getProjectileCollidableFilter());
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableConstants.getShurikenCollidableFilter());
 		return projectileCollidableFilter;
 	}
 

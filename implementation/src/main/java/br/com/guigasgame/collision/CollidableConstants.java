@@ -39,8 +39,9 @@ public class CollidableConstants
 	///What I am
 	public final static CollidableCategory herosCategory		= CollidableConstants.getAllPlayerCategory();
 	public final static CollidableCategory sceneryCategory 		= CollidableConstants.getNextCategory();
-	public final static CollidableCategory projectileCategory	= CollidableConstants.getNextCategory();
+	public final static CollidableCategory shurikenCategory		= CollidableConstants.getNextCategory();
 	public final static CollidableCategory ropeBodyCategory		= CollidableConstants.getNextCategory();
+	public final static CollidableCategory ropeNodeCategory		= CollidableConstants.getNextCategory();
 	
 	public static CollidableCategory getPlayerCategory(int playerID)
 	{
@@ -76,15 +77,18 @@ public class CollidableConstants
 	///What I collide with
 	private final static CollidableFilter sceneryCollidableFilter		= CollidableFilterManipulator.createFromCategory(sceneryCategory).collidesWithEveryThing();
 	
-	private final static CollidableFilter projectileCollidableFilter	= CollidableFilterManipulator.createFromCategory(projectileCategory).
+	private final static CollidableFilter shurikenCollidableFilter	= CollidableFilterManipulator.createFromCategory(shurikenCategory).
 																						collidesWith(herosCategory).and(sceneryCategory).and(ropeBodyCategory);
 	
 	private final static CollidableFilter ropeBodyCollidableFilter 		= CollidableFilterManipulator.createFromCategory(ropeBodyCategory).
-																						collidesWith(sceneryCategory);
+			collidesWith(sceneryCategory);
+
+	private final static CollidableFilter ropeNodeCollidableFilter 		= CollidableFilterManipulator.createFromCategory(ropeNodeCategory).
+			collidesWith(sceneryCategory).and(ropeNodeCategory);
 
 	public static CollidableFilter getPlayerFilter(int playerID)
 	{
-		return CollidableFilterManipulator.createFromCategory(getPlayerCategory(playerID)).collidesWith(projectileCategory).and(sceneryCategory).and(herosCategory).clone();
+		return CollidableFilterManipulator.createFromCategory(getPlayerCategory(playerID)).collidesWith(shurikenCategory).and(sceneryCategory).and(herosCategory).clone();
 	}
 
 	public static CollidableFilter getRopeBodyCollidableFilter()
@@ -92,9 +96,14 @@ public class CollidableConstants
 		return ropeBodyCollidableFilter.clone();
 	}
 
-	public static CollidableFilter getProjectileCollidableFilter()
+	public static CollidableFilter getRopeNodeCollidableFilter()
 	{
-		return projectileCollidableFilter.clone();
+		return ropeNodeCollidableFilter.clone();
+	}
+
+	public static CollidableFilter getShurikenCollidableFilter()
+	{
+		return shurikenCollidableFilter.clone();
 	}
 
 	public static CollidableFilter getSceneryCollidablefilter()

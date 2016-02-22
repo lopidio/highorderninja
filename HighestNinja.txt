@@ -147,4 +147,17 @@ NinjaRope
 SmokeBomb
 ShurikenBomb
 Get category from filter (enumeration)
-Projectile aimer refactoring (bg fixing). It aims even when theres a obstacle beteween
+Projectile aimer refactoring (bg fixing). It aims even when there is a obstacle among
+
+RopeNode
+{
+	prevRopeJoint;
+	prevRopeNode;
+	nodeBody....
+}
+
+Rope
+{
+	List<RopeNode> ...
+	addNodeAt(position)
+}
