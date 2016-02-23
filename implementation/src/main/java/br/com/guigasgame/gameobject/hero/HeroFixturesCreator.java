@@ -93,9 +93,9 @@ class HeroFixturesCreator {
 	}
 
 	private void createBottomSensor() {
-		CircleShape bottomShape = new CircleShape();
-		bottomShape.setRadius(0.33f);
-
+		PolygonShape bottomShape = new PolygonShape();
+		bottomShape.setAsBox(0.2f, 0.4f, new Vec2(0, 0f), 0);
+		
 		FixtureDef def = new FixtureDef();
 		def.isSensor = true;
 		def.shape = bottomShape;

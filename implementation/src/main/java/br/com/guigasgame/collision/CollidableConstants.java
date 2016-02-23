@@ -2,21 +2,30 @@ package br.com.guigasgame.collision;
 
 public class CollidableConstants 
 {
+	
+	///What I am
 	public enum Category
 	{
-		hero(true),
-		scene,
-		rope,
-		projectile;
+		HERO(true),
+		SCENERY,
+		ROPE,
+		SHURIKEN;
+		
+		
+		private static int categoriesUsed = 0; 
+		private final static int NUM_MAX_PLAYERS = 4;		
 		
 		CollidableCategory category;
 		
 		Category(boolean hero)
 		{
 			if (hero)
-				category = getAllPlayerCategory();
+				category = getAllPlayersCategory();
 			else
+			{
 				category = getNextCategory();
+			}
+			System.out.println(toString() + ": " + Integer.toBinaryString(category.getValue()));
 		}
 
 		Category()
@@ -34,10 +43,66 @@ public class CollidableConstants
 			return null;
 		}
 		
+		public CollidableCategory getPlayerCategory(int playerID)
+		{
+			if (playerID > NUM_MAX_PLAYERS - 1)
+				return null;
+			return HERO.category.matching((1 << (playerID - 1)));
+		}
+		
+		public CollidableCategory getOtherPlayersCategory(int playerID)
+		{
+			if (playerID > NUM_MAX_PLAYERS - 1)
+				return null;
+			return HERO.category.matching(~(1 << (playerID - 1)));
+		}	
+		
+		
+		public static CollidableCategory getAllPlayersCategory()
+		{
+			int playersMask = 1;
+			for (int i = 0; i < NUM_MAX_PLAYERS - 1; ++i) 
+			{
+				playersMask = (playersMask << 1) + 1;
+			}
+			return new CollidableCategory(playersMask);
+		}
+		
+		public static CollidableCategory getNextCategory()
+		{
+			CollidableCategory retorno = new CollidableCategory((1 << categoriesUsed) << NUM_MAX_PLAYERS );
+			System.out.println(Integer.toBinaryString(retorno.getValue()));
+			++categoriesUsed;
+			return retorno;
+		}			
+		
 	}
 	
+	public enum CollidableFilterEnum
+	{
+		HERO 			(new CollidableFilter(sceneryCategory).addCollisionWithEveryThing()),
+		SCENERY 		(new CollidableFilter(shurikenCategory).addCollisionWith(herosCategory).and(sceneryCategory).and(shurikenCategory)),
+		ROPE 			(new CollidableFilter(ropeBodyCategory).addCollisionWith(sceneryCategory)),
+		SHURIKEN 		(new CollidableFilter(ropeNodeCategory).addCollisionWith(sceneryCategory).and(ropeNodeCategory));		
+		
+		CollidableFilter filter;
+
+		private CollidableFilterEnum(CollidableFilter filter) 
+		{
+			this.filter = filter;
+		}
+
+		public CollidableFilter getFilter() 
+		{
+			return filter;
+		}
+		
+		
+	}
+	
+	
 	///What I am
-	public final static CollidableCategory herosCategory		= CollidableConstants.getAllPlayerCategory();
+	public final static CollidableCategory herosCategory		= CollidableConstants.getAllPlayersCategory();
 	public final static CollidableCategory sceneryCategory 		= CollidableConstants.getNextCategory();
 	public final static CollidableCategory shurikenCategory		= CollidableConstants.getNextCategory();
 	public final static CollidableCategory ropeBodyCategory		= CollidableConstants.getNextCategory();
@@ -56,7 +121,7 @@ public class CollidableConstants
 	private static int categoriesUsed = 0; 
 	private final static int NUM_MAX_PLAYERS = 4;
 	
-	public static CollidableCategory getAllPlayerCategory()
+	public static CollidableCategory getAllPlayersCategory()
 	{
 		int playersMask = 1;
 		for (int i = 0; i < NUM_MAX_PLAYERS - 1; ++i) 
@@ -72,7 +137,9 @@ public class CollidableConstants
 		System.out.println(Integer.toBinaryString(retorno.getValue()));
 		++categoriesUsed;
 		return retorno;
-	}	
+	}
+	
+	
 	
 	///What I collide with
 	private final static CollidableFilter sceneryCollidableFilter		= new CollidableFilter(sceneryCategory).addCollisionWithEveryThing();
