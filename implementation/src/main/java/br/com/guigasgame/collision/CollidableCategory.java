@@ -20,5 +20,11 @@ public class CollidableCategory
 	{
 		return mask.value;
 	}
+
+	public IntegerMask getMask()
+	{
+		return mask;
+	}
+	
 	
 }

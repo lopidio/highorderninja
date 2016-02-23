@@ -9,17 +9,12 @@ import br.com.guigasgame.collision.IntegerMask;
 
 public class RayCastClosestFixture implements RayCastCallback
 {
-	private Fixture fixture;
-	private Vec2 point;
-	private Vec2 normal;
-	private float fraction;
+	private RayCastCallBackWrapper callBackWrapper;
 	private IntegerMask mask;
+	private float fraction;
 	
 	public RayCastClosestFixture(World world, Vec2 from, Vec2 to, IntegerMask integerMask)
 	{
-		fixture = null;
-		point = null;
-		normal = null;
 		fraction = from.sub(to).length();
 		this.mask = integerMask;
 		world.raycast(this, from, to);
@@ -33,9 +28,7 @@ public class RayCastClosestFixture implements RayCastCallback
 		{
 			if (fraction < this.fraction)
 			{
-				this.fixture = fixture;
-				this.point = point;
-				this.normal = normal;
+				callBackWrapper = new RayCastCallBackWrapper(fixture, point, normal, fraction);
 			}
 			this.fraction = fraction;
 			return fraction;
@@ -43,36 +36,15 @@ public class RayCastClosestFixture implements RayCastCallback
 		return 1; //ignore
 	}
 
-	
-	public Vec2 getNormal()
-	{
-		return normal;
-	}
-
-	
-	public void setNormal(Vec2 normal)
-	{
-		this.normal = normal;
-	}
-
-	
-	public Fixture getFixture()
-	{
-		return fixture;
-	}
-
-	
-	public Vec2 getPoint()
-	{
-		return point;
-	}
-
-	
 	public float getFraction()
 	{
 		return fraction;
 	}
+
 	
-	
+	public RayCastCallBackWrapper getCallBackWrapper()
+	{
+		return callBackWrapper;
+	}
 	
 }

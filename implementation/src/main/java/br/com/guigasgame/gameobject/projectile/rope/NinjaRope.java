@@ -26,19 +26,14 @@ import br.com.guigasgame.raycast.RayCastClosestFixture;
 
 public class NinjaRope implements CollidableContactListener
 {
-	private static final float MIN_DISTANCE = 0.1f;
-	private static final float ALIGN_TOLLERANCE = .01f;
+	private static final float MIN_DISTANCE_BETWEEN_NODES = 0.1f;
 	
 	private Vector<DistanceJoint> jointVector;
 	private List<Body> bodyList;
 	
 	private boolean canGrow;
 	private World world;
-	private Body lastLinkNode;
 	private final ProjectileProperties ropeProperties;
-	private boolean markToUnifyJoint;
-	private DistanceJoint lastJoint;
-	private DistanceJoint prevLastJoint;
 	private Vec2 hookPosition;
 
 	private Body gameHero;
@@ -46,7 +41,6 @@ public class NinjaRope implements CollidableContactListener
 	private FixtureDef fixtureDef;
 
 	boolean movingDirectionToBeAbleToremove;
-
 	
 	public NinjaRope(World world, ProjectileProperties ropeProperties, Vec2 hookPosition, Body gameHero)
 	{
@@ -58,9 +52,23 @@ public class NinjaRope implements CollidableContactListener
 		
 		bodyList = new ArrayList<>();
 		jointVector = new Vector<>();
-		lastLinkNode = createBodyAt(hookPosition);
-		createJoint(lastLinkNode, gameHero);
-		
+		createBodyAt(hookPosition);
+		createJoint(getLastBody(), gameHero);
+	}
+	
+	private Body getLastBody()
+	{
+		if (bodyList.size() < 1)
+			return null;
+		return bodyList.get(bodyList.size() - 1);
+	}
+	
+	
+	private Body getPrevLastBody()
+	{
+		if (bodyList.size() < 2)
+			return null;
+		return bodyList.get(bodyList.size() - 2);
 	}
 	
 	public void destroy()
@@ -80,117 +88,88 @@ public class NinjaRope implements CollidableContactListener
 		float attachedSize = calculateRopeSize();
 		canGrow = attachedSize <= ropeProperties.maxDistance;
 		
-//		if(markToUnifyJoint)
-//			unifyLastJoints();
-//		
-		
+		checkJointRemotion();
 		checkJointDivision();
 
-		checkJointRemotion();
 		
 	}
 
-	private Vec2 thereIsLineToLastBody()
-	{
-		RayCastClosestFixture rayCastClosestFixture = new RayCastClosestFixture(world, 
-				gameHero.getWorldCenter(),
-				lastLinkNode.getWorldCenter(), 
-				CollidableConstants.getRopeBodyCollidableFilter().getCollider());
-		
-		Vec2 pointOfDivision = rayCastClosestFixture.getPoint();
-
-		if (pointOfDivision != null)
-		{
-			if (pointOfDivision.sub(lastLinkNode.getPosition()).length() > MIN_DISTANCE)
-			{
-				return pointOfDivision;
-			}
-		}	
-		return pointOfDivision;
-	}
-	
 	private void checkJointDivision()
 	{
-		RayCastClosestFixture rayCastClosestFixture = new RayCastClosestFixture(world, 
-				gameHero.getWorldCenter(),
-				lastLinkNode.getWorldCenter(), 
-				CollidableConstants.getRopeBodyCollidableFilter().getCollider());
-		
-		Vec2 pointOfDivision = rayCastClosestFixture.getPoint();
-
-		if (pointOfDivision != null)
-		{
-			if (pointOfDivision.sub(lastLinkNode.getPosition()).length() > MIN_DISTANCE)
-			{
-				divideLink(pointOfDivision);
-			}
-		}
+		Vec2 blockingPoint = jointCollidesWithBlock(getLastBody().getWorldCenter());
+		if (blockingPoint != null)
+			divideLink(blockingPoint);
 	}
-
+	
 	private boolean checkJointRemotion()
 	{
 		if (jointVector.size() > 1)
 		{
-//			for (Body body : bodyList) {
-//				System.out.println("Nodes position: " + body.getPosition());
-//			}
-			DistanceJoint prevLast = jointVector.get(jointVector.size() - 2);
+			System.out.println("-------------------------------------------");
+			for (Body body : bodyList) {
+				System.out.println("Nodes position: " + body.getWorldCenter());
+			}
+			System.out.println("From: " + gameHero.getWorldCenter() + " | To: " + getPrevLastBody().getWorldCenter());
 			
-			RayCastClosestFixture closestFixture = new RayCastClosestFixture(world,
-					gameHero.getPosition(),
-					prevLast.getBodyA().getPosition(), 
-					CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getRopeNodeCollidableFilter()).removeCollisionWith(CollidableConstants.sceneryCategory).getCollider());
-
-			boolean isAligned = closestFixture.getPoint().sub(prevLast.getBodyB().getPosition()).length() <= ALIGN_TOLLERANCE;
+//			Vec2 a = game
 			
+			boolean isAligned = isAligned(getPrevLastBody().getWorldCenter());
+			boolean hasBlock = jointCollidesWithBlock(getPrevLastBody().getWorldCenter()) != null;//hasBlockPoint != null;
 			
+			System.out.println("isAligned: " + isAligned + ". correctDirection: " + (isMovingClockwiseDirection() == movingDirectionToBeAbleToremove) + ". hasBlock: " + hasBlock);
 			
-//			System.out.println();// + " | From: " + gameHero.getPosition() + " | To: " + prevLast.getBodyA().getWorldCenter());
-			System.out.println("isAligned: " + isAligned + ". CW: " + isMovingClockwiseDirection());
-//			System.out.println("Remotion fraction: " + closestFixture.getPoint());
 			
 			if (isAligned)
 			{
-				if (isMovingClockwiseDirection() == movingDirectionToBeAbleToremove)
+//				if (isMovingClockwiseDirection() == movingDirectionToBeAbleToremove)
 				{
-					
-//					RayCastClosestFixture rayCastClosestFixture = new RayCastClosestFixture(world, 
-//							gameHero.getWorldCenter(),
-//							lastLinkNode.getWorldCenter(), 
-//							CollidableConstants.getRopeBodyCollidableFilter().getCollider());
-//					
-//					Vec2 pointOfDivision = rayCastClosestFixture.getPoint();
-//
-//					if (pointOfDivision != null)
-//					{
-//						if (pointOfDivision.sub(lastLinkNode.getPosition()).length() > MIN_DISTANCE)
-//						{
-//							divideLink(pointOfDivision);
-//						}
-//					}
-					
-					
-					
-					System.out.println("Removing body");
-					unifyLastJoints();
+					if (!hasBlock)
+					{
+						System.out.println("Removing body");
+						unifyLastJoints();
+						System.out.println("Body count: " + bodyList.size());
+					}
 				}
-			}
-			else
-			{
-//				System.out.println("Not aligned");
-//					prevLast.getBodyB().setType(BodyType.DYNAMIC);
-//					
-//				if (secondAlign)
-//				{
-//					secondAlign = false;
-//				}
-//				System.out.println("HasHit");
 			}
 		}
 		return false;
 	}
 
-	private boolean isMovingClockwiseDirection() {
+	private Vec2 jointCollidesWithBlock(Vec2 position)
+	{
+		RayCastClosestFixture rayCastClosestFixture = new RayCastClosestFixture(world, 
+				gameHero.getWorldCenter(),
+				position, 
+				CollidableConstants.getRopeBodyCollidableFilter().getCollider());
+		
+		if (rayCastClosestFixture.getCallBackWrapper() != null)
+		{
+			
+			Vec2 pointOfDivision = rayCastClosestFixture.getCallBackWrapper().point;
+			if (pointOfDivision.sub(position).length() > MIN_DISTANCE_BETWEEN_NODES)
+			{
+				return rayCastClosestFixture.getCallBackWrapper().point;
+			}
+		}
+		return null;
+	}
+
+	private boolean isAligned(Vec2 position)
+	{
+		RayCastClosestFixture closestFixture = new RayCastClosestFixture(world,
+				gameHero.getWorldCenter(),
+				position, 
+				CollidableConstants.ropeNodeCategory.getMask());
+		if (closestFixture.getCallBackWrapper() != null)
+		{
+			System.out.println("Sub: "+ closestFixture.getCallBackWrapper().point.sub(position).length());
+			return closestFixture.getCallBackWrapper().point.sub(position).length() > MIN_DISTANCE_BETWEEN_NODES*3;//ALIGN_TOLLERANCE;
+		}
+		return false;
+	}
+
+	private boolean isMovingClockwiseDirection() 
+	{
 		/*
 		 * 
 		Given the points Source, Destination and Centre, where a move has happened from Source to Destination first compute the vectors:		
@@ -225,8 +204,8 @@ public class NinjaRope implements CollidableContactListener
 	{
 		if (jointVector.size() < 2)
 			return;
-		DistanceJoint last = lastJoint;//jointVector.get(jointVector.size() - 1);
-		DistanceJoint prevLast = prevLastJoint;//jointVector.get(jointVector.size() - 2);
+		DistanceJoint last = jointVector.get(jointVector.size() - 1);
+		DistanceJoint prevLast = jointVector.get(jointVector.size() - 2);
 		
 		world.destroyJoint(last);
 		world.destroyJoint(prevLast);
@@ -237,16 +216,14 @@ public class NinjaRope implements CollidableContactListener
 		world.destroyBody(last.getBodyA());
 
 
-		lastJoint = createJoint(prevLast.getBodyA(), gameHero);
-		lastLinkNode = prevLast.getBodyA();
-		markToUnifyJoint = false;
+		createJoint(prevLast.getBodyA(), gameHero);
 	}
 	
 	@Override
 	public void endContact(Object me, Object other, Contact contact)
 	{
 		System.out.println("Checkpoint removed: ");
-			markToUnifyJoint = true;
+//			markToUnifyJoint = true;
 	}
 
 	private DistanceJoint createJoint(Body fromBody, Body toBody)
@@ -258,23 +235,19 @@ public class NinjaRope implements CollidableContactListener
 		distJoinDef.length = fromBody.getPosition().sub(toBody.getPosition()).length();
 		DistanceJoint joint = (DistanceJoint) world.createJoint(distJoinDef);
 		jointVector.add(joint);
-		
-		System.out.println("------------------------------------------\nCreateJoint. Count: " + jointVector.size());
-		prevLastJoint = lastJoint;
-		lastJoint = joint;
 		return joint;
 	}
 
 
 	public void shorten()
 	{
-		lastJoint.setLength((float) (lastJoint.getLength()*0.95));		
+		jointVector.lastElement().setLength((float) (jointVector.lastElement().getLength()*0.95));		
 	}
 	
 	public void increase()
 	{
 		if (canGrow)
-			lastJoint.setLength((float) (lastJoint.getLength()*1.05));
+			jointVector.lastElement().setLength((float) (jointVector.lastElement().getLength()*1.05));
 	}
 	
 	private void initializeDefinitions()
@@ -283,7 +256,7 @@ public class NinjaRope implements CollidableContactListener
 		bodyDef.type = BodyType.STATIC;
 		
 		CircleShape shape = new CircleShape();
-		shape.setRadius(0.001f);
+		shape.setRadius(0.01f);
 		
 		fixtureDef = new FixtureDef();
 		fixtureDef.restitution = 0.0f;
@@ -294,31 +267,25 @@ public class NinjaRope implements CollidableContactListener
 	
 	private Body createBodyAt(Vec2 position)
 	{
+		
 		bodyDef.position = position;
 		Body body = world.createBody(bodyDef);
 		body.setUserData(this);
 		body.createFixture(fixtureDef);
 
 		bodyList.add(body);
-		lastLinkNode = body;
+		System.out.println("------------------------------------------\nCreateNode. Count: " + bodyList.size());
 		return body;
 	}
 
 
 	private void divideLink(Vec2 pointOfDivision)
 	{
-		jointVector.remove(lastJoint);
-
-		Body middleBody = createBodyAt(pointOfDivision);
-		lastLinkNode = middleBody;
-		
-		Body beginBody = lastJoint.getBodyA();
-		Body endBody = lastJoint.getBodyB();
-		
-		world.destroyJoint(lastJoint);
-		
-		createJoint(beginBody, middleBody);
-		createJoint(middleBody, endBody);
+		createBodyAt(pointOfDivision);
+		world.destroyJoint(jointVector.lastElement());
+		jointVector.remove(jointVector.lastElement());
+		createJoint(getPrevLastBody(), getLastBody());
+		createJoint(getLastBody(), gameHero);
 	}
 
 	public Vec2 getHookPosition()
