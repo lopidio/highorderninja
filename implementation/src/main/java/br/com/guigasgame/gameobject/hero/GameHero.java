@@ -196,7 +196,7 @@ public class GameHero extends GameObject
 
 	public Projectile getNextProjectile(Vec2 pointingDirection)
 	{
-		return new Shuriken(pointingDirection, collidable.getBody().getWorldCenter(), playerID);
+		return new Shuriken(pointingDirection, collidable.getBody().getWorldCenter(), this);
 	}
 
 	public Animation getAnimation()

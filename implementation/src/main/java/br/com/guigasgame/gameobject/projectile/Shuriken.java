@@ -6,17 +6,18 @@ import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilterManipulator;
+import br.com.guigasgame.gameobject.hero.GameHero;
 
 public class Shuriken extends Projectile
 {
 	
 	private int collisionCounter;
-	private int playerID;
+	private GameHero owner;
 
-	public Shuriken(Vec2 direction, Vec2 position, int playerID)
+	public Shuriken(Vec2 direction, Vec2 position, GameHero gameHero)
 	{
 		super(ProjectileIndex.SHURIKEN, direction, position);
-		this.playerID = playerID;
+		owner = gameHero;
 		collisionCounter = 0;
 	}
 
@@ -46,8 +47,8 @@ public class Shuriken extends Projectile
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{
 		// shuriken doesn't collides with owner hero
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getShurikenCollidableFilter()).removeCollisionWith(CollidableConstants.getPlayerCategory(playerID)));
-		projectileCollidableFilter.aimTo(CollidableConstants.getOtherPlayersCategory(playerID));
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getShurikenCollidableFilter()).removeCollisionWith(CollidableConstants.getPlayerCategory(owner.getPlayerID())));
+		projectileCollidableFilter.aimTo(CollidableConstants.getOtherPlayersCategory(owner.getPlayerID()));
 		
 		return projectileCollidableFilter;
 	}

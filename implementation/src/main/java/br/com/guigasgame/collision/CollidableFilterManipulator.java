@@ -16,9 +16,9 @@ public class CollidableFilterManipulator
 			return new CollidableFilterAddingCollision(this.category, collidableCategory);
 		}
 
-		public CollidableFilter collidesWithEveryThing()
+		public CollidableFilterAddingCollision collidesWithEveryThing()
 		{
-			return new CollidableFilter(this.category, new CollidableCategory(new IntegerMask().setAll().value));
+			return new CollidableFilterAddingCollision(this.category, new CollidableCategory(new IntegerMask().setAll().value));
 		}
 
 		public CollidableFilter collidesWithNothing()
