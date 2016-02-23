@@ -1,5 +1,8 @@
 package br.com.guigasgame.collision;
 
+import br.com.guigasgame.collision.CollidableFilterManipulator.CollidableFilterAddingCollision;
+import br.com.guigasgame.collision.CollidableFilterManipulator.CollidableFilterRemovingCollision;
+
 
 public class CollidableFilter 
 {
@@ -12,6 +15,12 @@ public class CollidableFilter
 	public CollidableFilter(CollidableCategory collidableCategory, CollidableCategory collidesWith) {
 		category = collidableCategory;
 		collider = new IntegerMask(collidesWith.getValue());
+	}
+
+	public CollidableFilter(CollidableCategory collidableCategory)
+	{
+		category = collidableCategory;
+		collider = new IntegerMask();
 	}
 
 	public CollidableFilter clone() 
@@ -32,6 +41,22 @@ public class CollidableFilter
 	public IntegerMask getCollider()
 	{
 		return collider;
+	}
+	
+	public CollidableFilterAddingCollision addCollisionWith(CollidableCategory collidableCategory)
+	{
+		return new CollidableFilterAddingCollision(this.category, collidableCategory);
+	}
+
+	public CollidableFilterAddingCollision addCollisionWithEveryThing()
+	{
+		return new CollidableFilterAddingCollision(this.category, new CollidableCategory(new IntegerMask().setAll().value));
+	}
+	
+	
+	public CollidableFilterRemovingCollision removeCollisionWith(CollidableCategory collidableCategory) 
+	{
+		return new CollidableFilterRemovingCollision(this.category, new CollidableCategory(collider.clear(collidableCategory.getValue()).value));
 	}
 	
 }

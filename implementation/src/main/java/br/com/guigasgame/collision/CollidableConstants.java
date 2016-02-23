@@ -75,20 +75,17 @@ public class CollidableConstants
 	}	
 	
 	///What I collide with
-	private final static CollidableFilter sceneryCollidableFilter		= CollidableFilterManipulator.createFromCategory(sceneryCategory).collidesWithEveryThing();
+	private final static CollidableFilter sceneryCollidableFilter		= new CollidableFilter(sceneryCategory).addCollisionWithEveryThing();
 	
-	private final static CollidableFilter shurikenCollidableFilter	= CollidableFilterManipulator.createFromCategory(shurikenCategory).
-																						collidesWith(herosCategory).and(sceneryCategory).and(ropeBodyCategory);
+	private final static CollidableFilter shurikenCollidableFilter		= new CollidableFilter(shurikenCategory).addCollisionWith(herosCategory).and(sceneryCategory).and(shurikenCategory);
 	
-	private final static CollidableFilter ropeBodyCollidableFilter 		= CollidableFilterManipulator.createFromCategory(ropeBodyCategory).
-			collidesWith(sceneryCategory);
+	private final static CollidableFilter ropeBodyCollidableFilter 		= new CollidableFilter(ropeBodyCategory).addCollisionWith(sceneryCategory);
 
-	private final static CollidableFilter ropeNodeCollidableFilter 		= CollidableFilterManipulator.createFromCategory(ropeNodeCategory).
-			collidesWith(sceneryCategory).and(ropeNodeCategory);
+	private final static CollidableFilter ropeNodeCollidableFilter 		= new CollidableFilter(ropeNodeCategory).addCollisionWith(sceneryCategory).and(ropeNodeCategory);
 
 	public static CollidableFilter getPlayerFilter(int playerID)
 	{
-		return CollidableFilterManipulator.createFromCategory(getPlayerCategory(playerID)).collidesWith(shurikenCategory).and(sceneryCategory).and(herosCategory).clone();
+		return new CollidableFilter(getPlayerCategory(playerID)).addCollisionWith(shurikenCategory).and(sceneryCategory).and(herosCategory).clone();
 	}
 
 	public static CollidableFilter getRopeBodyCollidableFilter()

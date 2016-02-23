@@ -10,7 +10,6 @@ import org.jbox2d.dynamics.contacts.Contact;
 import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
-import br.com.guigasgame.collision.CollidableFilterManipulator;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileCollidableFilter;
@@ -89,7 +88,7 @@ public class NinjaHookProjectile extends Projectile implements RayCastCallback
 	protected ProjectileCollidableFilter createCollidableFilter()
 	{
 		// rope doesn't collides with heros
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableFilterManipulator.createFromCollidableFilter(CollidableConstants.getRopeBodyCollidableFilter()));
+		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableConstants.getRopeBodyCollidableFilter());
 		projectileCollidableFilter.aimTo(CollidableConstants.sceneryCategory);
 		
 		return projectileCollidableFilter;
