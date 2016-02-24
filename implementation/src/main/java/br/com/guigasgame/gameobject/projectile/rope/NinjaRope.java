@@ -160,7 +160,7 @@ public class NinjaRope implements CollidableContactListener
 				gameHero.getWorldCenter(),
 				position, 
 				CollidableConstants.getRopeBodyCollidableFilter().getCollider());
-		
+		rayCastClosestFixture.shoot();
 		if (rayCastClosestFixture.getCallBackWrapper() != null)
 		{
 			
@@ -179,6 +179,7 @@ public class NinjaRope implements CollidableContactListener
 				gameHero.getWorldCenter(),
 				position, 
 				CollidableConstants.ropeNodeCategory.getMask());
+		closestFixture.shoot();
 		if (closestFixture.getCallBackWrapper() != null)
 		{
 //			if (closestFixture.getCallBackWrapper().fixture.getBody() == getLastBody())

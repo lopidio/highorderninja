@@ -10,33 +10,36 @@ import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.IntegerMask;
 
-public class RayCastAllFixturesOnTheWay implements RayCastCallback
+public class RayCastAllFixturesOnTheWay extends RayCast implements RayCastCallback
 {
-	
-	
 	
 	private Vector<RayCastCallBackWrapper> callBackWrapperVector;
 	private IntegerMask mask;
 
 	public RayCastAllFixturesOnTheWay(World world, Vec2 from, Vec2 to, IntegerMask integerMask)
 	{
+		super(world, from, to);
 		this.mask = integerMask;
+	}
+	
+	@Override
+	public void shoot()
+	{
 		callBackWrapperVector = new Vector<>();
-
+		
 		System.out.println("MyMask:   " + Integer.toBinaryString(mask.value));
 		world.raycast(this, from, to);
 		
 		callBackWrapperVector.sort(new Comparator<RayCastCallBackWrapper>()
 		{
-
 			@Override
 			public int compare(RayCastCallBackWrapper a, RayCastCallBackWrapper b)
 			{
 				return (int) (b.fraction - a.fraction);
 			}
 		});
+		
 	}
-	
 
 	@Override
 	public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction)

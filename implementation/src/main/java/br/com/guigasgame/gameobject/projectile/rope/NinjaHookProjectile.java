@@ -1,19 +1,15 @@
 package br.com.guigasgame.gameobject.projectile.rope;
 
-import org.jbox2d.callbacks.RayCastCallback;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilter;
-import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
-import br.com.guigasgame.gameobject.projectile.ProjectileCollidableFilter;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 import br.com.guigasgame.raycast.RayCastHitAnyThing;
 
@@ -71,6 +67,8 @@ public class NinjaHookProjectile extends Projectile
 				gameHero.getCollidable().getBody().getWorldCenter(),
 				collidable.getPosition(), 
 				CollidableConstants.sceneryCategory.getMask());
+		
+		anyThing.shoot();
 		if (anyThing.hasHit())
 		{
 			System.out.println("Wall is on the way");

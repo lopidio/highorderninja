@@ -7,7 +7,7 @@ import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.IntegerMask;
 
-public class RayCastClosestFixture implements RayCastCallback
+public class RayCastClosestFixture extends RayCast implements RayCastCallback
 {
 	private RayCastCallBackWrapper callBackWrapper;
 	private IntegerMask mask;
@@ -15,8 +15,13 @@ public class RayCastClosestFixture implements RayCastCallback
 	
 	public RayCastClosestFixture(World world, Vec2 from, Vec2 to, IntegerMask integerMask)
 	{
+		super(world, from, to);
 		fraction = from.sub(to).length();
 		this.mask = integerMask;
+	}
+	
+	public void shoot()
+	{
 		world.raycast(this, from, to);
 	}
 
@@ -41,7 +46,6 @@ public class RayCastClosestFixture implements RayCastCallback
 		return fraction;
 	}
 
-	
 	public RayCastCallBackWrapper getCallBackWrapper()
 	{
 		return callBackWrapper;

@@ -7,15 +7,22 @@ import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.IntegerMask;
 
-public class RayCastHitAnyThing implements RayCastCallback
+public class RayCastHitAnyThing extends RayCast implements RayCastCallback
 {
 	
 	private boolean hit;
 	private IntegerMask mask;
-
+	
 	public RayCastHitAnyThing(World world, Vec2 from, Vec2 to, IntegerMask integerMask)
 	{
+		super(world, from, to);
+		
 		this.mask = integerMask;
+	}
+	
+	@Override
+	public void shoot() 
+	{
 		hit = false;
 		world.raycast(this, from, to);
 	}
