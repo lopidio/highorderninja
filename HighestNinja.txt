@@ -136,15 +136,18 @@ v Jump becomes action
 v SetState becomes action
 v setHeroOrientation becomes action
 
-Projectiles shall have damage as property
-Refactor of CollidersFilters
-Unify GameHero and GameHeroLogic
-
+vProjectiles shall have damage as property
+vUnify GameHero and GameHeroLogic
 vCollidableFilterBox2DAdapter
 vCollidableManipulator
 vGameHero receives input handler
 NinjaRope
-SmokeBomb
+Refactor of CollidersFilters
+SmokeBomb (player colloring)
 ShurikenBomb
 Get category from filter (enumeration)
-Projectile aimer refactoring (bg fixing). It aims even when there is a obstacle among
+vProjectile aimer refactoring (bug fixing). It aims even when there is a obstacle among
+GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
+RayCastAnythingBut....
+GameHero receives GameHeroProperties(?) {Color, input, ID, initial position...} at constructor
+Aimer aims worse when target is inside a smokebomb area

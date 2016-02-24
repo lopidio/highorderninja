@@ -1,0 +1,33 @@
+High Order Ninja - To Do List
+
+v	Refactor of playerInput
+v	Refactor of player's actions (Command pattern). Queue of commands to execute
+v	GameObject ser composta de um collidable
+v	Cada ação do player vai herdar de GameHeroAction (moveLeft, moveRight, jump, diagonalJump, ropeSwing, ...)
+v	GameHero possuir uma fila (actionQueue) de ações para executar
+v	GameHero possuir uma animation
+v	Repositories renamed as Pools
+v	Jump becomes action
+v	SetState becomes action
+v	setHeroOrientation becomes action
+v	Projectiles shall have damage as property
+v	Unify GameHero and GameHeroLogic
+v	CollidableFilterBox2DAdapter
+v	CollidableManipulator
+v	GameHero receives input handler
+v	Projectile aimer refactoring (bug fixing). It aims even when there is a obstacle among
+
+-	NinjaRope
+	v After hook attachement
+	- Before hook attachement
+	- Shuriken cuts the rope
+
+Refactor of CollidersFilters
+SmokeBomb (player colloring)
+ShurikenBomb
+Get category from filter (enumeration)
+GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
+RayCastAnythingBut....
+GameHero receives GameHeroProperties(?) {Color, input, ID, initial position...} at constructor
+Aimer aims worse when target is inside a smokebomb area
+MatchProperties (given to MainGameStateConstructos. Has: deathmatch, teammatch, numMaxShurikens, maxTime, itemsAvailable, friendlyFire...)

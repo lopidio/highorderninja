@@ -24,7 +24,6 @@ public class RayCastHitAnyThing implements RayCastCallback
 	public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction)
 	{
 		IntegerMask fixtureMask = new IntegerMask(fixture.getFilterData().categoryBits);
-//		System.out.println("Raycast - fixture: " + fixtureMask.value + " | me: " + mask.value);
 		if (mask.matches(fixtureMask.value))
 		{
 			hit = true;

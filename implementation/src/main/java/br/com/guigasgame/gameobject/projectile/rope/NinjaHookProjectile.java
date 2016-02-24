@@ -10,13 +10,15 @@ import org.jbox2d.dynamics.contacts.Contact;
 import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
+import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileCollidableFilter;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
+import br.com.guigasgame.raycast.RayCastHitAnyThing;
 
 
-public class NinjaHookProjectile extends Projectile implements RayCastCallback
+public class NinjaHookProjectile extends Projectile
 {
 	private final GameHero gameHero;
 	private World world;
@@ -58,13 +60,26 @@ public class NinjaHookProjectile extends Projectile implements RayCastCallback
 		}
 		else
 		{
-			world.raycast(this, gameHero.getCollidable().getBody().getWorldCenter(), collidable.getPosition());
-			if (ropeIsTooLong())
-			{
-				markToDestroy();
-			}
+			verifyAutoDestruction();
 		}
 		
+	}
+
+	private void verifyAutoDestruction() 
+	{
+		RayCastHitAnyThing anyThing = new RayCastHitAnyThing(world, 
+				gameHero.getCollidable().getBody().getWorldCenter(),
+				collidable.getPosition(), 
+				CollidableConstants.sceneryCategory.getMask());
+		if (anyThing.hasHit())
+		{
+			System.out.println("Wall is on the way");
+			markToDestroy();
+		}
+		if (ropeIsTooLong())
+		{
+			markToDestroy();
+		}
 	}
 
 	private void attachHook()
@@ -85,13 +100,19 @@ public class NinjaHookProjectile extends Projectile implements RayCastCallback
 	}
 
 	@Override
-	protected ProjectileCollidableFilter createCollidableFilter()
+	protected CollidableFilter createCollidableFilter()
 	{
 		// rope doesn't collides with heros
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableConstants.getRopeBodyCollidableFilter());
-		projectileCollidableFilter.aimTo(CollidableConstants.sceneryCategory);
+		collidableFilter = CollidableConstants.getRopeBodyCollidableFilter();
 		
-		return projectileCollidableFilter;
+		return collidableFilter;
+	}
+	
+	@Override
+	protected IntegerMask editTarget(IntegerMask target) 
+	{
+		target = CollidableConstants.sceneryCategory.getMask();
+		return target;
 	}
 	
 	@Override
@@ -110,25 +131,6 @@ public class NinjaHookProjectile extends Projectile implements RayCastCallback
 	public NinjaRope getNinjaRope()
 	{
 		return ninjaRope;
-	}
-
-	@Override
-	public float reportFixture(Fixture fixture, Vec2 point, Vec2 normal, float fraction)
-	{
-		CollidableFilter fixtureCollider = new CollidableFilterBox2dAdapter(fixture.getFilterData()).toCollidableFilter();
-		if (projectileCollidableFilter.getCollidableFilter().matches(fixtureCollider.getCategory()))//if collides with something interesting
-		{
-			if (projectileCollidableFilter.getAimingMask().matches(fixtureCollider.getCategory().getValue())) //if collides with what I am aiming to
-			{
-				if (!hookIsAttached)
-				{
-					System.out.println("Wall on the way");
-					markToDestroy();
-					return 0;
-				}
-			}
-		}
-		return 1; //ignore
 	}
 
 	public boolean isHookAttached()

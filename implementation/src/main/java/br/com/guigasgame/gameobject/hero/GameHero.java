@@ -9,6 +9,7 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
@@ -196,7 +197,7 @@ public class GameHero extends GameObject
 
 	public Projectile getNextProjectile(Vec2 pointingDirection)
 	{
-		return new Shuriken(pointingDirection, collidable.getBody().getWorldCenter(), this);
+		return new Shuriken(pointingDirection, new IntegerMask(), this);
 	}
 
 	public Animation getAnimation()

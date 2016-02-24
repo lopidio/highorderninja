@@ -4,8 +4,9 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
+import br.com.guigasgame.collision.CollidableFilter;
+import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.projectile.Projectile;
-import br.com.guigasgame.gameobject.projectile.ProjectileCollidableFilter;
 import br.com.guigasgame.raycast.RayCastCallBackWrapper;
 import br.com.guigasgame.raycast.RayCastClosestFixture;
 
@@ -46,7 +47,8 @@ public class ProjectileAimer
 	private final float maxDistance;
 	private final Body body;
 	private final Vec2 initialDirection;
-	private final ProjectileCollidableFilter projectileCollidableFilter;
+	private final CollidableFilter collidableFilter;
+	private final IntegerMask targetMask;
 	
 	public ProjectileAimer(Projectile projectile) 
 	{
@@ -63,11 +65,8 @@ public class ProjectileAimer
 		
 		this.finalRaycastAimer = new RayCastAimer(this.initialDirection.clone().mul(maxDistance), rayCastNumber);
 		this.body = projectile.getCollidable().getBody();
-		this.projectileCollidableFilter = projectile.getCollidableFilter();
-		
-		
-		System.out.println("Collides with: " + Integer.toBinaryString(projectileCollidableFilter.getCollidableFilter().getCollider().value));
-		System.out.println("Aiming to: " + Integer.toBinaryString(projectileCollidableFilter.getAimingMask().value));
+		this.collidableFilter = projectile.getCollidableFilter();
+		this.targetMask = projectile.getTargetMask();
 		
 		generateRayCasts();
 	}
@@ -104,13 +103,13 @@ public class ProjectileAimer
 		
 		
 		RayCastClosestFixture closestFixture = new RayCastClosestFixture(bodysWorld, initialPosition, initialPosition.add(pointTo), 
-				projectileCollidableFilter.getCollidableFilter().getCollider());
+				collidableFilter.getCollider());
 		
 		RayCastCallBackWrapper response = closestFixture.getCallBackWrapper();
 		
 		if (response != null)
 		{
-			if (projectileCollidableFilter.getAimingMask().matches(response.fixture.getFilterData().categoryBits)) //if its what I am aiming at
+			if (targetMask.matches(response.fixture.getFilterData().categoryBits)) //if its what I am aiming at
 			{
 				checkShorterRaycast(response.point, variationAngle);
 			}

@@ -9,8 +9,9 @@ import org.jsfml.graphics.Color;
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.collision.CollidableConstants;
+import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
+import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.projectile.aimer.ProjectileAimer;
 
@@ -21,8 +22,9 @@ public abstract class Projectile extends GameObject
 	protected final ProjectileProperties properties;
 	
 	private final Animation animation;
-	protected ProjectileCollidableFilter projectileCollidableFilter;
+	protected CollidableFilter collidableFilter;
 	protected Vec2 direction;
+	protected IntegerMask targetMask;
 
 	protected Projectile(ProjectileIndex index, Vec2 direction, Vec2 position)
 	{
@@ -36,16 +38,23 @@ public abstract class Projectile extends GameObject
 
 		collidable = new ProjectileCollidable(position);
 		collidable.addListener(this);
-		projectileCollidableFilter = null;
+		collidableFilter = null;
+		this.targetMask = editTarget(new IntegerMask());
 		
 		drawable = animation;
 	}
 
-	protected ProjectileCollidableFilter createCollidableFilter()
+	protected IntegerMask editTarget(IntegerMask target)
 	{
-		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableConstants.getShurikenCollidableFilter());
-		return projectileCollidableFilter;
+		//hook method
+		return target;
 	}
+	
+	protected abstract CollidableFilter createCollidableFilter();
+//	{
+//		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableConstants.getShurikenCollidableFilter());
+//		return projectileCollidableFilter;
+//	}
 
 	@Override
 	public void update(float deltaTime)
@@ -64,8 +73,8 @@ public abstract class Projectile extends GameObject
 		def.shape = projectileShape;
 		def.density = properties.mass;
 		def.friction = properties.friction;
-		projectileCollidableFilter = createCollidableFilter();
-		def.filter = new CollidableFilterBox2dAdapter(projectileCollidableFilter.getCollidableFilter()).toBox2dFilter();
+		collidableFilter = createCollidableFilter();
+		def.filter = new CollidableFilterBox2dAdapter(collidableFilter).toBox2dFilter();
 		return def;
 	}
 
@@ -87,15 +96,22 @@ public abstract class Projectile extends GameObject
 	{
 		return direction;
 	}
+	
+	
 
-	public ProjectileCollidableFilter getCollidableFilter() 
+	public CollidableFilter getCollidableFilter() 
 	{
-		return projectileCollidableFilter;
+		return collidableFilter;
 	}
 	
 	public ProjectileProperties getProperties()
 	{
 		return properties;
+	}
+
+	public IntegerMask getTargetMask() 
+	{
+		return targetMask;
 	}
 	
 }
