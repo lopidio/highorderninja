@@ -20,6 +20,7 @@ import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.gameobject.projectile.ProjectileProperties;
 import br.com.guigasgame.raycast.RayCastClosestFixture;
+import br.com.guigasgame.raycast.RayCastHitAnyThing;
 
 
 public class NinjaRope
@@ -76,6 +77,7 @@ public class NinjaRope
 	
 	public void destroy()
 	{
+		System.out.println("Rope dies");
 		for( Joint joint : jointVector )
 		{
 			world.destroyJoint(joint);
@@ -93,7 +95,25 @@ public class NinjaRope
 		
 		checkJointRemotion();
 		checkJointDivision();
+		checkCutTheRope();
 		
+	}
+
+	private void checkCutTheRope()
+	{
+		for (Joint joint : jointVector)
+		{
+			RayCastHitAnyThing hitAnyThing = new RayCastHitAnyThing(world, 
+													joint.getBodyA().getWorldCenter(),
+													joint.getBodyB().getWorldCenter(),
+													CollidableConstants.getShurikenCollidableFilter().getCategory().getMask());
+			hitAnyThing.shoot();
+			if (hitAnyThing.hasHit())
+			{
+				System.out.println("Cut the rope");
+				destroy();
+			}
+		}
 	}
 
 	private void checkJointDivision()

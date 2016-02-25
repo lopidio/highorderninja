@@ -29,6 +29,12 @@ public class NinjaRopeSwingingState extends HeroState
 		//do nothing
 	}
 	
+	@Override
+	protected void stateOnQuit()
+	{
+		releaseRope();
+	}
+	
 	protected void releaseRope()
 	{
 		ninjaRope.destroy();

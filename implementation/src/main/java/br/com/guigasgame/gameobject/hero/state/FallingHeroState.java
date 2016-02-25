@@ -41,7 +41,11 @@ class FallingHeroState extends HeroState
 	@Override
 	public void stateUpdate(float deltaTime)
 	{
-		if (gameHero.getCollidableHero().isTouchingGround())// || !gameHero.getCollidableHero().isFallingDown())
+		if (gameHero.getCollidableHero().isTouchingGround())
+		{
+			setState(new StandingHeroState(gameHero));
+		}
+		else if (!gameHero.getCollidableHero().isFallingDown())
 		{
 			setState(new StandingHeroState(gameHero));
 		}

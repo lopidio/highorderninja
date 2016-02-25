@@ -54,8 +54,11 @@ public abstract class Projectile extends GameObject
 	@Override
 	public void update(float deltaTime)
 	{
-		animation.setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
-		animation.update(deltaTime);
+		if (alive)
+		{
+			animation.setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
+			animation.update(deltaTime);
+		}
 	}
 
 	protected FixtureDef createFixtureDef()

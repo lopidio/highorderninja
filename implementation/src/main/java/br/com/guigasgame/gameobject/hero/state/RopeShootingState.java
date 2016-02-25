@@ -28,6 +28,18 @@ public class RopeShootingState extends HeroState
 		gameHero.addAction(new ShootRopeAction(heroStatesProperties, ninjaHook));
 	}
 	
+	@Override
+	protected void rope()
+	{
+		//TODO temporário enquanto o estado não é criado na enumeração/animação/xml
+	}
+	
+	@Override
+	protected void stateOnQuit()
+	{
+		ninjaHook.markToDestroy();
+	}
+	
 	protected void releaseRope()
 	{
 		ninjaHook.markToDestroy();

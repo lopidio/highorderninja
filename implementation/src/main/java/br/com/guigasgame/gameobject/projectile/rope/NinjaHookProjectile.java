@@ -44,11 +44,12 @@ public class NinjaHookProjectile extends Projectile
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
+		if (isDead())
+			return;
 
 		if (hookIsAttached)
 		{
-			if (null != ninjaRope)
-				ninjaRope.update(deltaTime);
+			ninjaRope.update(deltaTime);
 		}
 		else if (markToAttachHook)
 		{
@@ -59,6 +60,13 @@ public class NinjaHookProjectile extends Projectile
 			verifyAutoDestruction();
 		}
 		
+	}
+	
+	@Override
+	public void onDestroy()
+	{
+		if (null != ninjaRope && !hookIsAttached)
+			ninjaRope.destroy();
 	}
 
 	private void verifyAutoDestruction() 

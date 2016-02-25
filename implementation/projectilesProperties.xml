@@ -19,8 +19,8 @@
             <key>ROPE</key>
             <value>
                 <numBounces>0</numBounces>
-                <initialSpeed>5.0</initialSpeed>
-                <mass>1.0</mass>
+                <initialSpeed>4.0</initialSpeed>
+                <mass>0.1</mass>
                 <radius>0.2</radius>
                 <restitution>0</restitution>
                 <friction>0</friction>

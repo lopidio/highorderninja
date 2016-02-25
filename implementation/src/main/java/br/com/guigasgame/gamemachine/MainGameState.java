@@ -59,9 +59,7 @@ public class MainGameState implements GameState
 		createGround(new Vec2(67, 15), new Vec2(1, 22)); //right wall
 
 		createGround(new Vec2(14, 24), new Vec2(.5f, 8)); // |
-		createGround(new Vec2(17, 20), new Vec2(10, .5f)); // --
-		createGround(new Vec2(17, 26), new Vec2(5, .5f)); // --
-		createGround(new Vec2(20, 24), new Vec2(.5f, 8)); // |
+		createGround(new Vec2(22, 24), new Vec2(15, .5f)); //middle floor
 
 		createGround(new Vec2(50, 24), new Vec2(4, .5f));
 		createGround(new Vec2(50, 24), new Vec2(.5f, 4));
@@ -72,7 +70,7 @@ public class MainGameState implements GameState
 		createGround(new Vec2(40, 8), new Vec2(3, .5f));
 		createGround(new Vec2(55, 8), new Vec2(3, .5f));
 
-		createGround(new Vec2(40, 12), new Vec2(.5f, .5f));
+		createGround(new Vec2(40, 13), new Vec2(.5f, .5f));
 		
 		initializeGameObject(Arrays.asList(
 				new GameHero(1, new Vec2(10, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK)), 
