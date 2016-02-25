@@ -105,6 +105,7 @@ public class ProjectileAimer
 		RayCastClosestFixture closestFixture = new RayCastClosestFixture(bodysWorld, initialPosition, initialPosition.add(pointTo), 
 				collidableFilter.getCollider());
 		
+		closestFixture.shoot();
 		RayCastCallBackWrapper response = closestFixture.getCallBackWrapper();
 		
 		if (response != null)

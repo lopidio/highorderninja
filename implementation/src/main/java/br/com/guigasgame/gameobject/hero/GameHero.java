@@ -9,6 +9,7 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
@@ -203,6 +204,11 @@ public class GameHero extends GameObject
 	public Animation getAnimation()
 	{
 		return animation;
+	}
+
+	public IntegerMask getEnemiesMask()
+	{
+		return CollidableConstants.getOtherPlayersCategory(playerID).getMask();
 	}
 
 }

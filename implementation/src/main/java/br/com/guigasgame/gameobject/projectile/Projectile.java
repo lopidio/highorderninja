@@ -39,7 +39,6 @@ public abstract class Projectile extends GameObject
 		collidable = new ProjectileCollidable(position);
 		collidable.addListener(this);
 		collidableFilter = null;
-		this.targetMask = editTarget(new IntegerMask());
 		
 		drawable = animation;
 	}
@@ -51,10 +50,6 @@ public abstract class Projectile extends GameObject
 	}
 	
 	protected abstract CollidableFilter createCollidableFilter();
-//	{
-//		projectileCollidableFilter = new ProjectileCollidableFilter(CollidableConstants.getShurikenCollidableFilter());
-//		return projectileCollidableFilter;
-//	}
 
 	@Override
 	public void update(float deltaTime)
@@ -75,6 +70,8 @@ public abstract class Projectile extends GameObject
 		def.friction = properties.friction;
 		collidableFilter = createCollidableFilter();
 		def.filter = new CollidableFilterBox2dAdapter(collidableFilter).toBox2dFilter();
+		this.targetMask = editTarget(new IntegerMask());
+
 		return def;
 	}
 

@@ -21,6 +21,7 @@ public class Shuriken extends Projectile
 		super(ProjectileIndex.SHURIKEN, direction, gameHero.getCollidable().getBody().getWorldCenter());
 		owner = gameHero;
 		collisionCounter = 0;
+		targetMask = gameHero.getEnemiesMask();
 	}
 
 	@Override

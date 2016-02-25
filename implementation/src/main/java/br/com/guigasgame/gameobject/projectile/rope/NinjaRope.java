@@ -12,19 +12,17 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
-import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jbox2d.dynamics.joints.Joint;
 
 import br.com.guigasgame.collision.CollidableConstants;
-import br.com.guigasgame.collision.CollidableContactListener;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.gameobject.projectile.ProjectileProperties;
 import br.com.guigasgame.raycast.RayCastClosestFixture;
 
 
-public class NinjaRope implements CollidableContactListener
+public class NinjaRope
 {
 	private static final float MIN_DISTANCE_BETWEEN_NODES = 0.1f;
 	
@@ -110,8 +108,9 @@ public class NinjaRope implements CollidableContactListener
 		if (jointVector.size() > 1)
 		{
 			System.out.println("-------------------------------------------");
+			int i = 0;
 			for (Body body : bodyList) {
-				System.out.println("Nodes position: " + body.getWorldCenter());
+				System.out.println("Nodes position: " + body.getWorldCenter() + ". CW: " + movingDirectionOfNode.get(i++));
 			}
 			System.out.println("From: " + gameHero.getWorldCenter() + " | To: " + getPrevLastBody().getWorldCenter());
 			
@@ -120,7 +119,7 @@ public class NinjaRope implements CollidableContactListener
 			
 			System.out.println("isAligned: " + isAligned + 
 					". hasBlock: " + hasBlock +
-					". correctDirection: " + (isMovingClockwiseDirection() == movingDirectionOfNode.lastElement())
+					". CW: " + isMovingClockwiseDirection()
 					);
 			
 			if (prevAlign && !isAligned) //instante de desalinhamento
@@ -182,12 +181,16 @@ public class NinjaRope implements CollidableContactListener
 		closestFixture.shoot();
 		if (closestFixture.getCallBackWrapper() != null)
 		{
-//			if (closestFixture.getCallBackWrapper().fixture.getBody() == getLastBody())
+			System.out.println("Category: "+ Integer.toBinaryString(closestFixture.getCallBackWrapper().fixture.getFilterData().categoryBits) +
+					". Mine: " + Integer.toBinaryString(CollidableConstants.ropeNodeCategory.getMask().value) + 
+					". Distance: " + closestFixture.getCallBackWrapper().point.sub(position).length());
+			if (closestFixture.getCallBackWrapper().fixture.getBody() == getLastBody())
 			{
-				System.out.println("Category: "+ Integer.toBinaryString(closestFixture.getCallBackWrapper().fixture.getFilterData().categoryBits) +
-						". Mine: " + Integer.toBinaryString(CollidableConstants.ropeNodeCategory.getMask().value) + 
-						". Distance: " + closestFixture.getCallBackWrapper().point.sub(position).length());//.point.sub(position).length());
-				return closestFixture.getCallBackWrapper().point.sub(position).length() > MIN_DISTANCE_BETWEEN_NODES*3;//ALIGN_TOLLERANCE;
+				return closestFixture.getCallBackWrapper().point.sub(position).length() > 0.1;//MIN_DISTANCE_BETWEEN_NODES;//ALIGN_TOLLERANCE;
+			}
+			else
+			{
+				System.out.println("OTHER BODY");
 			}
 		}
 		return false;
@@ -246,13 +249,6 @@ public class NinjaRope implements CollidableContactListener
 		createJoint(prevLast.getBodyA(), gameHero);
 	}
 	
-	@Override
-	public void endContact(Object me, Object other, Contact contact)
-	{
-		System.out.println("Checkpoint removed: ");
-//			markToUnifyJoint = true;
-	}
-
 	private DistanceJoint createJoint(Body fromBody, Body toBody)
 	{
 		DistanceJointDef distJoinDef = new DistanceJointDef();
@@ -300,7 +296,7 @@ public class NinjaRope implements CollidableContactListener
 		body.createFixture(fixtureDef);
 
 		bodyList.add(body);
-		System.out.println("------------------------------------------\nCreateNode. Count: " + bodyList.size());
+		System.out.println("------------------------------------------\nCreateNode. Count: " + bodyList.size() + ". CW: " + movingDirectionOfNode.lastElement());
 		return body;
 	}
 
