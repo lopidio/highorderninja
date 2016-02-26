@@ -55,6 +55,33 @@
 			</value>
 		</entry>
 		<entry>
+			<key>HERO_SUPER_RUNNING</key>
+			<value>
+				<move acceleration="80.0" />
+				<jump impulse="13.0" />
+				<maxSpeed>
+					<x>20</x>
+					<y>20</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>minDuration</key>
+						<value>0.75</value>
+					</entry>
+				</property>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_WALLRIDING</key>
+			<value>
+				<jump impulse="10.0" />
+				<maxSpeed>
+					<x>2</x>
+					<y>20</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
 			<key>HERO_ASCENDING</key>
 			<value>
 				<rope />

@@ -7,6 +7,7 @@
 	HERO_WALLRIDING,
 	HERO_WALLGRABBING,
 	HERO_SLIDING,
+	HERO_SUPER_RUNNING	
  -->
 	<animationsMap>
 		<entry>
@@ -41,6 +42,21 @@
 		</entry>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroStateIndex">HERO_SUPER_RUNNING</key>
+			<value horizontal="true">
+				<numFrames>8</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>90</top>
+                    <width>400</width>
+                    <height>154</height>
+                </textureSpriteRect>				
+			</value>
+		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_ROPE</key>
 			<value horizontal="true">
 				<numFrames>8</numFrames>
@@ -57,6 +73,21 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_ASCENDING</key>
+			<value horizontal="true">
+				<numFrames>2</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>0.1</secondsPerFrame>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>270</top>
+                    <width>98</width>
+                    <height>332</height>
+                </textureSpriteRect>				
+			</value>
+		</entry>
+		<entry>
+			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:type="heroStateIndex">HERO_WALLRIDING</key>
 			<value horizontal="true">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>

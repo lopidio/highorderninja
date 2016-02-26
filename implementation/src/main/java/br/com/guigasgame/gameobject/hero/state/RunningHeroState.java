@@ -1,5 +1,7 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import org.jbox2d.common.Vec2;
+
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
@@ -13,11 +15,14 @@ class RunningHeroState extends HeroState
 	}
 
 	@Override
-	public void stateInputPressed(HeroInputKey key)
+	protected void stateInputIsPressing(HeroInputKey inputValue) 
 	{
-		if (key == HeroInputKey.JUMP)
+		if (inputValue == HeroInputKey.ACTION)
 		{
-			setState(new JumpingHeroState(gameHero));
+			if (gameHero.getCollidableHero().getBodyLinearVelocity().length() >= new Vec2(heroStatesProperties.maxSpeed.x, 0).length()*0.99) //99%
+			{
+				setState(new SuperRunningState(gameHero));
+			}			
 		}
 	}
 
