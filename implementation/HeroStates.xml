@@ -46,7 +46,7 @@
 			<value>
 				<rope />
 				<shoot />
-				<move acceleration="40.0" />
+				<move acceleration="60.0" />
 				<jump impulse="10.0" />
 				<maxSpeed>
 					<x>10</x>

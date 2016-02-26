@@ -22,7 +22,7 @@ public class SwingSlowerAction extends GameHeroAction
 	@Override
 	public void childExecute(GameHero gameHero)
 	{
-		Vec2 tangent = gameHero.getCollidable().getBody().getLinearVelocity().clone();
+		Vec2 tangent = gameHero.getCollidableHero().getBody().getLinearVelocity().clone();
 		tangent.normalize();
 		tangent.mulLocal(-heroStateProperties.move.acceleration);
 		gameHero.getCollidableHero().applyForce(tangent);

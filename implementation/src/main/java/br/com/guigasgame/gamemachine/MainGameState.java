@@ -29,7 +29,6 @@ import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.CollisionManager;
-import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
@@ -59,7 +58,8 @@ public class MainGameState implements GameState
 		createGround(new Vec2(67, 15), new Vec2(1, 22)); //right wall
 
 		createGround(new Vec2(14, 24), new Vec2(.5f, 8)); // |
-		createGround(new Vec2(22, 24), new Vec2(15, .5f)); //middle floor
+		createGround(new Vec2(8, 24), new Vec2(.5f, 8)); // |
+		createGround(new Vec2(26, 24), new Vec2(12, .5f)); //middle floor
 
 		createGround(new Vec2(50, 24), new Vec2(4, .5f));
 		createGround(new Vec2(50, 24), new Vec2(.5f, 4));
@@ -190,8 +190,8 @@ public class MainGameState implements GameState
 			if (toRemove.isDead())
 			{
 				toRemove.onDestroy();
-				Collidable collidable = toRemove.getCollidable();
-				if (collidable != null)
+				List<Collidable> collidableList = toRemove.getCollidable();
+				for (Collidable collidable : collidableList) 
 				{
 					world.destroyBody(collidable.getBody());
 				}
@@ -225,9 +225,7 @@ public class MainGameState implements GameState
 
 		for( GameObject gameObject : gameObjectsList )
 		{
-			Drawable drawable = gameObject.getDrawable();
-			if (drawable != null)
-				drawable.draw(renderWindow);
+			gameObject.draw(renderWindow);
 		}
 	}
 }

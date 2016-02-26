@@ -50,7 +50,7 @@ public class ProjectileAimer
 	private final CollidableFilter collidableFilter;
 	private final IntegerMask targetMask;
 	
-	public ProjectileAimer(Projectile projectile) 
+	public ProjectileAimer(Projectile projectile, Body body) 
 	{
 		this.rayCastNumber = rayCastNumberDefault;
 		this.angleRangeInRadians = angleRangeInRadiansDefault;
@@ -64,7 +64,7 @@ public class ProjectileAimer
 		initialDirection.mulLocal(maxDistance);
 		
 		this.finalRaycastAimer = new RayCastAimer(this.initialDirection.clone().mul(maxDistance), rayCastNumber);
-		this.body = projectile.getCollidable().getBody();
+		this.body = body;
 		this.collidableFilter = projectile.getCollidableFilter();
 		this.targetMask = projectile.getTargetMask();
 		

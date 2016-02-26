@@ -25,7 +25,7 @@ public class NinjaHookProjectile extends Projectile
 
 	public NinjaHookProjectile(Vec2 direction, GameHero gameHero)
 	{
-		super(ProjectileIndex.ROPE, direction, gameHero.getCollidable().getBody().getWorldCenter());
+		super(ProjectileIndex.ROPE, direction, gameHero.getCollidableHero().getBody().getWorldCenter());
 		System.out.println("Pointing: " + direction);
 		this.gameHero = gameHero;
 		world = null;
@@ -72,7 +72,7 @@ public class NinjaHookProjectile extends Projectile
 	private void verifyAutoDestruction() 
 	{
 		RayCastHitAnyThing anyThing = new RayCastHitAnyThing(world, 
-				gameHero.getCollidable().getBody().getWorldCenter(),
+				gameHero.getCollidableHero().getBody().getWorldCenter(),
 				collidable.getPosition(), 
 				CollidableConstants.sceneryCategory.getMask());
 		
@@ -94,7 +94,7 @@ public class NinjaHookProjectile extends Projectile
 			return;
 
 		collidable.getBody().setType(BodyType.STATIC);
-		ninjaRope = new NinjaRope(world, properties, collidable.getBody().getPosition(), gameHero.getCollidable().getBody());
+		ninjaRope = new NinjaRope(world, properties, collidable.getBody().getPosition(), gameHero.getCollidableHero().getBody());
 		
 		System.out.println("Hook attached");
 		hookIsAttached = true;
@@ -102,7 +102,7 @@ public class NinjaHookProjectile extends Projectile
 	
 	private boolean ropeIsTooLong()
 	{
-		return gameHero.getCollidable().getPosition().sub(collidable.getPosition()).lengthSquared() >= properties.maxDistance*properties.maxDistance;
+		return gameHero.getCollidableHero().getPosition().sub(collidable.getPosition()).lengthSquared() >= properties.maxDistance*properties.maxDistance;
 	}
 
 	@Override

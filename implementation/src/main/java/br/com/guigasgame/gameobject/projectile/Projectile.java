@@ -25,6 +25,7 @@ public abstract class Projectile extends GameObject
 	protected CollidableFilter collidableFilter;
 	protected Vec2 direction;
 	protected IntegerMask targetMask;
+	protected ProjectileCollidable collidable;
 
 	protected Projectile(ProjectileIndex index, Vec2 direction, Vec2 position)
 	{
@@ -38,9 +39,10 @@ public abstract class Projectile extends GameObject
 
 		collidable = new ProjectileCollidable(position);
 		collidable.addListener(this);
+		collidableList.add(collidable);
 		collidableFilter = null;
 		
-		drawable = animation;
+		drawableList.add(animation);
 	}
 
 	protected IntegerMask editTarget(IntegerMask target)
@@ -84,7 +86,7 @@ public abstract class Projectile extends GameObject
 		FixtureDef def = createFixtureDef();
 		body.createFixture(def);
 		
-		ProjectileAimer aimer = new ProjectileAimer(this);
+		ProjectileAimer aimer = new ProjectileAimer(this, collidable.getBody());
 		direction = aimer.getFinalDirection();
 
 		direction.normalize();

@@ -94,9 +94,9 @@ public class NinjaRopeSwingingState extends HeroState
 	@Override
 	protected void move(Side side)
 	{
-		if (gameHero.getCollidable().getPosition().y > ninjaRope.getHookPosition().y)
+		if (gameHero.getCollidableHero().getPosition().y > ninjaRope.getHookPosition().y)
 		{
-			Vec2 tangent = gameHero.getCollidable().getBody().getLinearVelocity().clone();
+			Vec2 tangent = gameHero.getCollidableHero().getBody().getLinearVelocity().clone();
 			
 			if ((side == Side.RIGHT && tangent.x >= 0) || (side == Side.LEFT && tangent.x <= 0))
 			{

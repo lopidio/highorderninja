@@ -18,7 +18,7 @@ public class Shuriken extends Projectile
 
 	public Shuriken(Vec2 direction, IntegerMask targetCategory, GameHero gameHero)
 	{
-		super(ProjectileIndex.SHURIKEN, direction, gameHero.getCollidable().getBody().getWorldCenter());
+		super(ProjectileIndex.SHURIKEN, direction, gameHero.getCollidableHero().getBody().getWorldCenter());
 		owner = gameHero;
 		collisionCounter = 0;
 		targetMask = gameHero.getEnemiesMask();

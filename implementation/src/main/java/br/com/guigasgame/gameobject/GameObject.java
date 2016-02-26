@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableContactListener;
@@ -14,12 +15,12 @@ import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class GameObject implements Composible<GameObject>, CollidableContactListener, UpdatableFromTime
+public abstract class GameObject implements Composible<GameObject>, CollidableContactListener, UpdatableFromTime, Drawable
 {
 
 	protected Vec2 position;
-	protected Collidable collidable;
-	protected Drawable drawable;
+	protected List<Collidable> collidableList;
+	protected List<Drawable> drawableList;
 	protected boolean alive;
 	private List<GameObject> children;
 
@@ -27,6 +28,8 @@ public abstract class GameObject implements Composible<GameObject>, CollidableCo
 	{
 		children = new ArrayList<>();
 		alive = true;
+		drawableList = new ArrayList<Drawable>();
+		collidableList = new ArrayList<Collidable>();
 	}
 
 	public final boolean isDead()
@@ -73,19 +76,23 @@ public abstract class GameObject implements Composible<GameObject>, CollidableCo
 		children.clear();
 	}
 
-	public final Collidable getCollidable()
+	public final List<Collidable> getCollidable()
 	{
-		return collidable;
+		return collidableList;
 	}
-
-	public final Drawable getDrawable()
+	
+	@Override
+	public void draw(RenderWindow renderWindow) 
 	{
-		return drawable;
+		for (Drawable drawable : drawableList) 
+		{
+			drawable.draw(renderWindow);
+		}
 	}
 
 	public void attachToWorld(World world)
 	{
-		if (collidable != null)
+		for (Collidable collidable : collidableList) 
 		{
 			collidable.attachToWorld(world);
 		}

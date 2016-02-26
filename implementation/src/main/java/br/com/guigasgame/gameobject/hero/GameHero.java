@@ -48,8 +48,8 @@ public class GameHero extends GameObject
 		this.gameHeroInput = gameHeroInput;
 		gameHeroInput.setDeviceId(playerID - 1);
 
-		collidable = collidableHero;
-		collidable.addListener(this);
+		collidableHero.addListener(this);
+		collidableList.add(collidableHero);
 	}
 
 	public int getLife()
@@ -141,6 +141,8 @@ public class GameHero extends GameObject
 		{
 			state.onQuit();
 		}
+		if (drawableList.size() > 0)
+			drawableList.remove(0);
 		System.out.println("\t("+playerID+") State: " + newState.getClass().getSimpleName());
 		state = newState;
 		state.onEnter();
@@ -151,7 +153,7 @@ public class GameHero extends GameObject
 
 	public void setAnimation(Animation animation)
 	{
-		drawable = animation;
+		drawableList.add(animation);
 		this.animation = animation;
 	}
 

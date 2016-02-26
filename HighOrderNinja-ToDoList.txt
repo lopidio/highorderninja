@@ -22,12 +22,11 @@ v	Projectile aimer refactoring (bug fixing). It aims even when there is a obstac
 	- Before hook attachement
 	- Shuriken cuts the rope
 
-Refactor of CollidersFilters
+v GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
+Refactor of CollidersFilters (Get category from filter (enumeration))
 SmokeBomb (player colloring)
-ShurikenBomb
-Get category from filter (enumeration)
-GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
+ShurikenBomb (Aimer aims worse when target is inside a smokebomb area)
 RayCastAnythingBut....
-GameHero receives GameHeroProperties(?) {Color, input, ID, initial position...} at constructor
-Aimer aims worse when target is inside a smokebomb area
-MatchProperties (given to MainGameStateConstructos. Has: deathmatch, teammatch, numMaxShurikens, maxTime, itemsAvailable, friendlyFire...)
+GameHero receives GameHeroProperties(?) {Color, input, ID, initial position, enemiesCategoryMask...} at constructor
+MatchProperties (given to MainGameStateConstructos. Has: deathmatch or teammatch, numMaxShurikens, maxTime, itemsAvailable, friendlyFire, scene...)
+WallRideHeroState 
