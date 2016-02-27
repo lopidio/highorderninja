@@ -1,9 +1,12 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.jbox2d.common.Vec2;
+import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
@@ -25,13 +28,14 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	protected final GameHero gameHero;
 	protected HeroStateProperties heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
-	protected Animation animation;
+	protected List<Animation> animationList;
 
 	protected HeroState(GameHero gameHero, HeroStateIndex heroIndex)
 	{
 		super();
 		this.heroStatesProperties = HeroStatesPropertiesPool.getStateProperties(heroIndex);
-		animation = Animation.createAnimation(AnimationsCentralPool.getHeroAnimationRepository().getAnimationsProperties(heroIndex));
+		animationList = new ArrayList<Animation>();
+		animationList.add(Animation.createAnimation(AnimationsCentralPool.getHeroAnimationRepository().getAnimationsProperties(heroIndex)));
 		this.gameHero = gameHero;
 		
 		inputMap = new HashMap<>();
@@ -78,7 +82,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 
 	public final void onEnter()
 	{
-		gameHero.setAnimation(animation);
+		gameHero.setAnimationList(animationList);
 		stateOnEnter();
 	}
 
@@ -227,6 +231,11 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		}
 		return retorno;
 	}
+	
+	protected boolean isHeroInputPressed(HeroInputKey key)
+	{
+		return inputMap.get(key);
+	}
 
 	public boolean canExecute(GameHero hero)
 	{
@@ -237,6 +246,26 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	public void getPropertyOfPreviousState(HeroState state)
 	{
 		this.inputMap = state.inputMap;
+	}
+
+	public void setAnimationsColor(Color color)
+	{
+		for( Animation animation : animationList )
+		{
+			animation.setColor(Color.YELLOW);
+		}
+	}
+
+	public boolean isAnimationsFinished()
+	{
+		for( Animation animation : animationList )
+		{
+			if (!animation.isFinished())
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

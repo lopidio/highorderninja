@@ -19,7 +19,7 @@ public class NinjaRopeSwingingState extends HeroState
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE);
 
-		animation.setColor(Color.CYAN);
+		setAnimationsColor(Color.CYAN);
 		this.ninjaRope = rope; 
 	}
 	

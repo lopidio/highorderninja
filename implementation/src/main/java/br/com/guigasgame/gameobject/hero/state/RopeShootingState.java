@@ -16,9 +16,9 @@ public class RopeShootingState extends HeroState
 
 	public RopeShootingState(GameHero gameHero)
 	{
-		super(gameHero, HeroStateIndex.HERO_ASCENDING);
+		super(gameHero, HeroStateIndex.HERO_ROPE_SHOOTING);
 
-		animation.setColor(Color.GREEN);
+		setAnimationsColor(Color.GREEN);
 	}
 	
 	@Override
@@ -26,12 +26,6 @@ public class RopeShootingState extends HeroState
 	{
 		ninjaHook = new NinjaHookProjectile(pointingDirection(), gameHero);
 		gameHero.addAction(new ShootRopeAction(heroStatesProperties, ninjaHook));
-	}
-	
-	@Override
-	protected void rope()
-	{
-		//TODO temporário enquanto o estado não é criado na enumeração/animação/xml
 	}
 	
 	@Override

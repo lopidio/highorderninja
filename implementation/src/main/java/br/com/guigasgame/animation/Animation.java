@@ -10,11 +10,12 @@ import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.drawable.Drawable;
+import br.com.guigasgame.moveable.Moveable;
 import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public class Animation implements UpdatableFromTime, Drawable
+public class Animation implements UpdatableFromTime, Drawable, Moveable
 {
 
 	private final AnimationProperties animationProperties;
@@ -22,6 +23,7 @@ public class Animation implements UpdatableFromTime, Drawable
 	private float secondsSinceLastUpdate;
 	private Rectangle frameRect;
 	private Sprite sprite;
+	private boolean finished;
 
 	// Private constructor
 	private Animation(AnimationProperties animationProperties)
@@ -80,6 +82,7 @@ public class Animation implements UpdatableFromTime, Drawable
 
 			if (currentFrameNumber >= animationProperties.numFrames)
 			{
+				finished = true;
 				currentFrameNumber -= animationProperties.numFrames
 						- animationProperties.numEntranceFrames;
 			}
@@ -126,11 +129,7 @@ public class Animation implements UpdatableFromTime, Drawable
 		}
 	}
 	
-	public void setPosition(Vector2f graphicPosition)
-	{
-		sprite.setPosition(graphicPosition.x, graphicPosition.y );
-	}
-
+	
 	public void setOrientation(float angleInDegrees)
 	{
 		sprite.setRotation(angleInDegrees);
@@ -154,6 +153,23 @@ public class Animation implements UpdatableFromTime, Drawable
 	public void setColor(Color color)
 	{
 		sprite.setColor(color);
+	}
+
+	@Override
+	public void move(Vector2f graphicPosition)
+	{
+		setPosition(Vector2f.add(sprite.getPosition(), graphicPosition));
+	}
+
+	@Override
+	public void setPosition(Vector2f graphicPosition)
+	{
+		sprite.setPosition(graphicPosition.x, graphicPosition.y );
+	}
+
+	public boolean isFinished()
+	{
+		return finished;
 	}
 
 }

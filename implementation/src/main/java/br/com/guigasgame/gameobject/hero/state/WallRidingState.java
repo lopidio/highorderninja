@@ -5,28 +5,30 @@ import org.jsfml.graphics.Color;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.DiagonalJumpAction;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 public class WallRidingState extends HeroState 
 {
 	protected WallRidingState(GameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_WALLRIDING);
-		animation.setColor(Color.YELLOW);
+		super.setAnimationsColor(Color.YELLOW);
 	}
 	
-	@Override
-	protected void stateOnEnter()
-	{
-		super.stateOnEnter();
-	}
-
 	@Override
 	protected void jump()
 	{
 		if (heroStatesProperties.jump != null)
 		{
-			gameHero.addAction(new DiagonalJumpAction(heroStatesProperties, gameHero.getForwardSide().opposite()));
-			setState(new JumpingHeroState(gameHero));
+			if (isHeroInputPressed(HeroInputKey.UP))
+			{
+				gameHero.addAction(new DiagonalJumpAction(heroStatesProperties, gameHero.getForwardSide().opposite()));
+				setState(new JumpingHeroState(gameHero));
+			}
+			else
+			{
+				setState(new AirSpinHeroState(gameHero));
+			}
 		}			
 	}	
 	
@@ -35,9 +37,7 @@ public class WallRidingState extends HeroState
 	{
 		if (gameHero.getCollidableHero().getBodyLinearVelocity().y >= WorldConstants.MOVING_TOLERANCE)
 		{
-			gameHero.addAction(new DiagonalJumpAction(heroStatesProperties, gameHero.getForwardSide().opposite()));
-			//TODO Add backflip state
-			setState(new FallingHeroState(gameHero));
+			setState(new BackFlipHeroState(gameHero));
 		}
 	}
 }

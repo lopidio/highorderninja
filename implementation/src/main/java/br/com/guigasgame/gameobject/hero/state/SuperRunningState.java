@@ -9,26 +9,16 @@ import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 public class SuperRunningState extends HeroState 
 {
 	private float secondsRemaining;
-	private boolean actionButtonReleased;
 
 	protected SuperRunningState(GameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_SUPER_RUNNING);
-		animation.setColor(Color.MAGENTA);
+		setAnimationsColor(Color.MAGENTA);
 		
 		Float duration = heroStatesProperties.property.get("minDuration");
 		secondsRemaining = duration != null? duration.floatValue(): 0.5f;		
 	}
 
-	@Override
-	protected void stateInputReleased(HeroInputKey inputValue) 
-	{
-		if (inputValue == HeroInputKey.ACTION)
-		{
-			actionButtonReleased = true;
-		}
-	}	
-	
 	@Override
 	public void stateUpdate(float deltaTime)
 	{
@@ -46,7 +36,7 @@ public class SuperRunningState extends HeroState
 		{
 			setState(new FallingHeroState(gameHero));
 		}
-		else if (actionButtonReleased && secondsRemaining <= 0)
+		else if (!isHeroInputPressed(HeroInputKey.ACTION) && secondsRemaining <= 0)
 		{
 			setState(new RunningHeroState(gameHero));
 		}

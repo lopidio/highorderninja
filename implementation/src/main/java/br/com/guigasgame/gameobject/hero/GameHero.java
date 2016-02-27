@@ -26,12 +26,12 @@ public class GameHero extends GameObject
 
 	private final int playerID; // 1 to 4
 
-	Side forwardSide;
-	List<GameHeroAction> actionList;
-	CollidableHero collidableHero;
-	Animation animation;
-	GameHeroInputMap gameHeroInput;
-	HeroState state;
+	private Side forwardSide;
+	private List<GameHeroAction> actionList;
+	private CollidableHero collidableHero;
+	private List<Animation> animationList;
+	private GameHeroInputMap gameHeroInput;
+	private HeroState state;
 
 	int life;
 	int maxLife;
@@ -50,6 +50,7 @@ public class GameHero extends GameObject
 
 		collidableHero.addListener(this);
 		collidableList.add(collidableHero);
+		animationList = new ArrayList<>();
 	}
 
 	public int getLife()
@@ -89,7 +90,10 @@ public class GameHero extends GameObject
 	@Override
 	public void update(float deltaTime)
 	{
-		animation.update(deltaTime);
+		for( Animation animation : animationList )
+		{
+			animation.update(deltaTime);
+		}
 
 		state.update(deltaTime);
 		gameHeroInput.update(deltaTime);
@@ -105,8 +109,13 @@ public class GameHero extends GameObject
 		final Vector2f vector2f = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
 		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
 
-		animation.setPosition(vector2f);
-		animation.setOrientation(angleInDegrees);
+		
+		for( Animation animation : animationList )
+		{
+			animation.setPosition(vector2f);
+			animation.setOrientation(angleInDegrees);
+		}
+
 	}
 
 	private void updateActionList()
@@ -146,15 +155,23 @@ public class GameHero extends GameObject
 		System.out.println("\t("+playerID+") State: " + newState.getClass().getSimpleName());
 		state = newState;
 		state.onEnter();
-		animation.flipAnimation(forwardSide);
+
+		for( Animation animation : animationList )
+		{
+			animation.flipAnimation(forwardSide);
+		}
 
 		gameHeroInput.setInputListener(state);
 	}
 
-	public void setAnimation(Animation animation)
+	public void setAnimationList(List<Animation> animationList)
 	{
-		drawableList.add(animation);
-		this.animation = animation;
+		this.animationList = animationList;
+		drawableList.clear();
+		for( Animation animation : animationList )
+		{
+			drawableList.add(animation);
+		}
 	}
 
 	public Side getForwardSide()
@@ -169,7 +186,10 @@ public class GameHero extends GameObject
 
 	public void setForwardSide(Side side)
 	{
-		animation.flipAnimation(side);
+		for( Animation animation : animationList )
+		{
+			animation.flipAnimation(side);
+		}
 		forwardSide = side;
 	}
 	
@@ -203,9 +223,9 @@ public class GameHero extends GameObject
 		return new Shuriken(pointingDirection, new IntegerMask(), this);
 	}
 
-	public Animation getAnimation()
+	public List<Animation> getAnimation()
 	{
-		return animation;
+		return animationList;
 	}
 
 	public IntegerMask getEnemiesMask()

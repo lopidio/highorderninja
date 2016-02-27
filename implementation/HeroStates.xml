@@ -58,7 +58,7 @@
 			<key>HERO_SUPER_RUNNING</key>
 			<value>
 				<move acceleration="80.0" />
-				<jump impulse="13.0" />
+				<jump impulse="12.0" />
 				<maxSpeed>
 					<x>20</x>
 					<y>20</y>
@@ -146,6 +146,50 @@
 					<x>100</x>
 					<y>100</y>
 				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_ROPE_SHOOTING</key>
+			<value>
+				<rope />
+				<maxSpeed>
+					<x>100</x>
+					<y>100</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_BACKFLIPPING</key>
+			<value>
+				<maxSpeed>
+					<x>10</x>
+					<y>10</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>impulse</key>
+						<value>5</value>
+					</entry>
+				</property>				
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_AIR_SPIN</key>
+			<value>
+				<maxSpeed>
+					<x>30</x>
+					<y>0</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>duration</key>
+						<value>0.5</value>
+					</entry>
+					<entry>
+						<key>spinImpulse</key>
+						<value>10</value>
+					</entry>
+				</property>				
 			</value>
 		</entry>
 	</statesMap>

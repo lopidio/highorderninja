@@ -15,7 +15,7 @@ class DuckingState extends HeroState
 	protected DuckingState(GameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_DUCKING);
-		animation.setColor(Color.BLUE);
+		setAnimationsColor(Color.BLUE);
 	}
 
 	@Override
