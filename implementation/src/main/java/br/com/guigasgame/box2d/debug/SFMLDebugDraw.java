@@ -100,7 +100,7 @@ public class SFMLDebugDraw extends DebugDraw
 			}
 		}
 		polygon.setFillColor(Color.mul(makeColor(color), new Color(0, 100, 0)));//,Color.mul(Color.YELLOW, Color.WHITE)));
-		polygon.setOutlineColor(makeColor(color));
+		polygon.setOutlineColor(Color.BLACK);
 		polygon.setOutlineThickness(1.0f);
 		renderWindow.draw(polygon);
 	}
