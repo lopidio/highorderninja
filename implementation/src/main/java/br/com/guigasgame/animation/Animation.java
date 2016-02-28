@@ -56,8 +56,7 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 		updateFrameRect();
 	}
 
-	public static Animation createAnimation(
-			AnimationProperties animationDefinition)
+	public static Animation createAnimation(AnimationProperties animationDefinition)
 	{
 		try
 		{
@@ -153,6 +152,24 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	public void setColor(Color color)
 	{
 		sprite.setColor(color);
+	}
+	
+	public int getAlpha()
+	{
+		return sprite.getColor().a;
+	}
+
+	public void setAlpha(int alpha)
+	{
+		Color currentColor = sprite.getColor();
+		Color newColor = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
+		sprite.setColor(newColor);
+	}
+
+	public void scale(float scale)
+	{
+		sprite.setScale(new Vector2f(scale, scale));
+//		sprite.scale(scale, scale);
 	}
 
 	@Override

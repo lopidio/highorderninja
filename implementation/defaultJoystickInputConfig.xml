@@ -70,7 +70,7 @@
             </value>
         </entry>
         <entry>
-            <key>SLIDE</key>
+            <key>ITEM</key>
             <value>
                 <handlers xsi:type="joystickButtonInput">
                     <joystickButtonCode>1</joystickButtonCode>

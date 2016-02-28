@@ -130,7 +130,7 @@ public class HeroInputConfigFile
 		heroInputConfigFile.map.put(HeroInputKey.SHOOT, new InputController<HeroInputKey>().
 				addInputHandler(new JoystickButtonInput(5)));
 
-		heroInputConfigFile.map.put(HeroInputKey.SLIDE, new InputController<HeroInputKey>().
+		heroInputConfigFile.map.put(HeroInputKey.ITEM, new InputController<HeroInputKey>().
 				addInputHandler(new JoystickButtonInput(1)));
 
 		heroInputConfigFile.map.put(HeroInputKey.ACTION, new InputController<HeroInputKey>().
@@ -189,7 +189,7 @@ public class HeroInputConfigFile
 		heroInputConfigFile.map.put(HeroInputKey.SHOOT, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.Z)));
 
-		heroInputConfigFile.map.put(HeroInputKey.SLIDE, new InputController<HeroInputKey>().
+		heroInputConfigFile.map.put(HeroInputKey.ITEM, new InputController<HeroInputKey>().
 				addInputHandler(new KeyboardInput(Key.C)));
 
 		heroInputConfigFile.map.put(HeroInputKey.ACTION, new InputController<HeroInputKey>().

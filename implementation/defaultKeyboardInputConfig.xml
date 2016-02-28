@@ -50,7 +50,7 @@
             </value>
         </entry>
         <entry>
-            <key>SLIDE</key>
+            <key>ITEM</key>
             <value>
                 <handlers xsi:type="keyboardInput">
                     <keysCode>S</keysCode>

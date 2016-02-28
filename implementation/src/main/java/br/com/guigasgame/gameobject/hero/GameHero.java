@@ -18,6 +18,7 @@ import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.Shuriken;
+import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBomb;
 import br.com.guigasgame.side.Side;
 
 
@@ -218,7 +219,7 @@ public class GameHero extends GameObject
 		return collidableHero;
 	}
 
-	public Projectile getNextProjectile(Vec2 pointingDirection)
+	public Projectile getShuriken(Vec2 pointingDirection)
 	{
 		return new Shuriken(pointingDirection, new IntegerMask(), this);
 	}
@@ -231,6 +232,11 @@ public class GameHero extends GameObject
 	public IntegerMask getEnemiesMask()
 	{
 		return CollidableConstants.Category.getOtherPlayersCategory(playerID);
+	}
+
+	public Projectile getItem(Vec2 pointingDirection)
+	{
+		return new SmokeBomb(pointingDirection, collidableHero.getBody().getWorldCenter());
 	}
 
 }

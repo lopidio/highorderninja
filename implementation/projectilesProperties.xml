@@ -29,5 +29,19 @@
                 <rangeAngle>1.0471966</rangeAngle> <!-- 60° = PI/3 -->
             </value>
         </entry>
+        <entry>
+            <key>SMOKE_BOMB</key>
+            <value>
+                <numBounces>1</numBounces>
+                <initialSpeed>3.0</initialSpeed>
+                <mass>1.0</mass>
+                <radius>0.15</radius>
+                <restitution>0.0</restitution>
+                <friction>5</friction>
+                <damage>0</damage>
+                <maxDistance>5</maxDistance>
+                <rangeAngle>1.0471966</rangeAngle> <!-- 60° = PI/3 -->
+            </value>
+        </entry>
     </projectilesPropertiesMap>
 </projectilePropertiesFile>

@@ -25,10 +25,9 @@ public class GameHeroInputMap
 
 		JUMP, // X
 		ROPE, // L1
-		SHOOT, // square
-		SLIDE, // R1
-		STOP, // circle
-		ACTION, // R1
+		SHOOT, // R1
+		ITEM, // circle
+		ACTION, // square
 	}
 
 	private Map<HeroInputKey, InputController<HeroInputKey>> inputMap;

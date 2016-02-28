@@ -10,7 +10,8 @@ public class CollidableConstants
 		SCENERY		(getNextCategory()),
 		ROPE_NODE	(getNextCategory()),
 		ROPE_BODY	(getNextCategory()),
-		SHURIKEN	(getNextCategory());
+		SHURIKEN	(getNextCategory()), 
+		SMOKE_BOMB	(getNextCategory());
 		
 		private final static int NUM_MAX_PLAYERS = 8;		
 		private static int categoriesUsed = 0; 
@@ -86,7 +87,8 @@ public class CollidableConstants
 		SCENERY 		(new CollidableFilter(Category.SCENERY).addCollisionWithEveryThing()),
 		ROPE_NODE		(new CollidableFilter(Category.ROPE_NODE).addCollisionWith(Category.SCENERY)),
 		ROPE_BODY		(new CollidableFilter(Category.ROPE_BODY).addCollisionWith(Category.SHURIKEN).and(Category.SCENERY)),
-		SHURIKEN 		(new CollidableFilter(Category.SHURIKEN).addCollisionWith(Category.SCENERY).and(Category.ROPE_BODY).and(Category.ROPE_NODE).and(Category.HEROS));		
+		SHURIKEN 		(new CollidableFilter(Category.SHURIKEN).addCollisionWith(Category.SCENERY).and(Category.ROPE_BODY).and(Category.ROPE_NODE).and(Category.HEROS)),
+		SMOKE_BOMB		(new CollidableFilter(Category.SMOKE_BOMB).addCollisionWith(Category.SCENERY).and(Category.ROPE_BODY));
 		
 		CollidableFilter filter;
 

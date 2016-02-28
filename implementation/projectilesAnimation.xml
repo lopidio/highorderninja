@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<animationPropertiesFile textureFilename="shuriken.png"
-	smooth="true">
+<animationPropertiesFile textureFilename="projectilesAlphaTransparency.png" smooth="true">
 	<animationsMap>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -36,14 +35,14 @@
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="projectileIndex">SMOKE_BOMB</key>
 			<value horizontal="true">
-				<numFrames>4</numFrames>
+				<numFrames>8</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
 				<textureSpriteRect>
 					<left>0</left>
-					<top>0</top>
-					<width>16</width>
-					<height>4</height>
+					<top>4</top>
+					<width>64</width>
+					<height>12</height>
 				</textureSpriteRect>
 			</value>
 		</entry>

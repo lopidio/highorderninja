@@ -15,6 +15,7 @@ import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.action.ShootAction;
+import br.com.guigasgame.gameobject.hero.action.UseItemAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
@@ -111,7 +112,12 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	
 	protected void shoot()
 	{
-		gameHero.addAction(new ShootAction(heroStatesProperties, gameHero.getNextProjectile(pointingDirection())));
+		gameHero.addAction(new ShootAction(heroStatesProperties, gameHero.getShuriken(pointingDirection())));
+	}
+	
+	private void shootItem()
+	{
+		gameHero.addAction(new UseItemAction(heroStatesProperties, gameHero.getItem(pointingDirection())));
 	}
 
 	@Override
@@ -138,10 +144,10 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	@Override
 	public final void isPressing(HeroInputKey inputValue)
 	{
-		if (inputValue == HeroInputKey.SHOOT)
-		{
+//		if (inputValue == HeroInputKey.SHOOT)
+//		{
 //			System.out.println("Aiming!");
-		}			
+//		}			
 		if (inputValue == HeroInputKey.LEFT)
 		{
 			if (heroStatesProperties.move != null)
@@ -183,10 +189,13 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		{
 			shoot();
 		}		
+		if (inputValue == HeroInputKey.ITEM)
+		{
+			shootItem();
+		}		
 		stateInputReleased(inputValue);
 	}
 
-	
 	@Override
 	public final void update(float deltaTime)
 	{

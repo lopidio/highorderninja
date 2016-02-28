@@ -15,7 +15,6 @@ public class FilenameConstants
 	private static String heroStatesFilename = "HeroStates.xml";
 	private static String projectilePropertiesFilename = "projectilesProperties.xml";
 	private static String projectileAnimationFilename = "projectilesAnimation.xml";
-	private static String projectileTextureFilename = "shuriken.png";
 	
 	public static String getProjectileAnimationFilename()
 	{
@@ -33,10 +32,6 @@ public class FilenameConstants
 	public static String getHeroAnimationFilename()
 	{
 		return heroAnimationFilename;
-	}
-	public static String getProjectileTextureFilename()
-	{
-		return projectileTextureFilename;
 	}
 
 	public static String getHeroFixturesFilename()

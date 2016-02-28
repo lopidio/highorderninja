@@ -5,6 +5,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
@@ -12,6 +13,7 @@ import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.IntegerMask;
+import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.projectile.aimer.ProjectileAimer;
 
@@ -21,7 +23,6 @@ public abstract class Projectile extends GameObject
 	protected final ProjectileIndex index;
 	protected final ProjectileProperties properties;
 	
-	private final Animation animation;
 	protected CollidableFilter collidableFilter;
 	protected Vec2 direction;
 	protected IntegerMask targetMask;
@@ -31,8 +32,7 @@ public abstract class Projectile extends GameObject
 	{
 		this.index = index;
 
-		this.animation = Animation.createAnimation(AnimationsCentralPool.getProjectileAnimationRepository().getAnimationsProperties(index));
-		animation.setColor(Color.mul(Color.BLACK, Color.BLUE));
+		Animation animation = Animation.createAnimation(AnimationsCentralPool.getProjectileAnimationRepository().getAnimationsProperties(index));
 
 		this.properties = ProjectilesPropertiesPool.getProjectileProperties(index);
 		this.direction = direction.clone();
@@ -46,14 +46,27 @@ public abstract class Projectile extends GameObject
 
 		drawableList.add(animation);
 	}
+	
+	@Override
+	public void draw(RenderWindow renderWindow)
+	{
+		for (Drawable drawable : drawableList) 
+		{
+			drawable.draw(renderWindow);
+		}
+	}
 
 	@Override
 	public void update(float deltaTime)
 	{
 		if (alive)
 		{
-			animation.setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
-			animation.update(deltaTime);
+			for( Drawable drawable : drawableList )
+			{
+				Animation animation = (Animation) drawable;
+				animation.setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
+				animation.update(deltaTime);
+			}
 		}
 	}
 
@@ -91,8 +104,6 @@ public abstract class Projectile extends GameObject
 		return direction;
 	}
 	
-	
-
 	public CollidableFilter getCollidableFilter() 
 	{
 		return collidableFilter;
