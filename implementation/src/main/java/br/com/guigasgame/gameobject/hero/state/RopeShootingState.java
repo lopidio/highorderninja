@@ -57,6 +57,10 @@ public class RopeShootingState extends HeroState
 			gameHero.addAction(new HeroStateSetterAction(new NinjaRopeSwingingState(gameHero, ninjaHook.getNinjaRope())));
 			ninjaHook.markToDestroy();
 		}
+		else if (ninjaHook.isDead())
+		{
+			setState(new FallingHeroState(gameHero));
+		}
 	}
 	
 }

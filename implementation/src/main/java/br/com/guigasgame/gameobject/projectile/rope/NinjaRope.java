@@ -21,7 +21,6 @@ import org.jbox2d.dynamics.joints.Joint;
 import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableContactListener;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
-import br.com.guigasgame.gamemachine.GameMachine;
 import br.com.guigasgame.gameobject.projectile.ProjectileProperties;
 import br.com.guigasgame.raycast.RayCastClosestFixture;
 
@@ -151,11 +150,16 @@ public class NinjaRope implements CollidableContactListener
 			float currentDistance = distanceToLastHook();
 			boolean increasingDistance = currentDistance > prevDistance;
 			
-			if (!increasingDistance && prevIncreasingDistance) //instante de desalinhamento
+//			if (!increasingDistance && prevIncreasingDistance) //instante de desalinhamento
+//			{
+//				this.alignCondition = true;
+//			}
+
+			if (prevAlign && !isAligned) //instante de desalinhamento
 			{
 				this.alignCondition = true;
 			}
-			
+
 			if (prevBlock && !hasBlock)
 			{
 				this.blockCondition = true;

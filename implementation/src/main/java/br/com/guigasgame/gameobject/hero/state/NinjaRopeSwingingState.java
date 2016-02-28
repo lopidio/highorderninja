@@ -32,7 +32,7 @@ public class NinjaRopeSwingingState extends HeroState
 	protected void releaseRope()
 	{
 		ninjaRope.destroy();
-		setState(new StandingHeroState(gameHero));
+		setState(new FallingHeroState(gameHero));
 	}
 	
 	@Override

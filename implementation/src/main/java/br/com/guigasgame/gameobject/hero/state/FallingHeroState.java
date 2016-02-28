@@ -45,10 +45,10 @@ class FallingHeroState extends HeroState
 		{
 			setState(new StandingHeroState(gameHero));
 		}
-		else if (!gameHero.getCollidableHero().isFallingDown())
-		{
-			setState(new StandingHeroState(gameHero));
-		}
+//		else if (!gameHero.getCollidableHero().isFallingDown())
+//		{
+//			setState(new StandingHeroState(gameHero));
+//		}
 	}
 
 }

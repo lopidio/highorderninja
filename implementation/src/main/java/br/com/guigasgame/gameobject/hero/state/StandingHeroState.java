@@ -16,15 +16,6 @@ public class StandingHeroState extends HeroState
 	}
 
 	@Override
-	public void stateInputPressed(HeroInputKey key)
-	{
-		if (key == HeroInputKey.DOWN)
-		{
-			setState(new DuckingState(gameHero));
-		}
-	}
-	
-	@Override
 	protected void stateDoubleTapInput(HeroInputKey inputValue)
 	{
 		if (inputValue == HeroInputKey.LEFT || inputValue == HeroInputKey.RIGHT)
