@@ -325,7 +325,7 @@ public class NinjaRope implements CollidableContactListener
 		bodyDef.position = center;
 		
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(0.2f, dist.length()*0.5f, new Vec2(), angle);
+		shape.setAsBox(0.1f, dist.length()*0.5f, new Vec2(), angle);
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.restitution = 0.0f;
@@ -333,7 +333,6 @@ public class NinjaRope implements CollidableContactListener
 		fixtureDef.density = 0f;
 		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.Filter.ROPE_BODY).toBox2dFilter();
 		
-
 		
 		Body body = world.createBody(bodyDef);
 		body.setUserData(this);
@@ -366,7 +365,7 @@ public class NinjaRope implements CollidableContactListener
 //		bodyDef.position = center;
 		
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(0.2f, dist.length()*0.5f, new Vec2(), angle);
+		shape.setAsBox(0.1f, dist.length()*0.5f, new Vec2(), angle);
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.restitution = 0.0f;

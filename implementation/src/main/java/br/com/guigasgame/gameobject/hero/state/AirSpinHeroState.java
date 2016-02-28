@@ -4,6 +4,7 @@ import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.SideImpulseAction;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 public class AirSpinHeroState extends HeroState
 {
@@ -35,5 +36,13 @@ public class AirSpinHeroState extends HeroState
 			setState(new FallingHeroState(gameHero));
 		}
 	}
-
+	
+	@Override
+	protected void stateInputPressed(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.ACTION)
+		{
+			setState(new StopMovementState(gameHero));
+		}
+	}
 }

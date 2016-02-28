@@ -163,4 +163,16 @@ public class CollidableHero extends Collidable
 		return false;
 	}
 
+	public void putRopeSwingingProperties()
+	{
+		fixtureMap.get(FixtureSensorID.FEET).setFriction(1f);
+		fixtureMap.get(FixtureSensorID.FEET).setRestitution(0);
+	}
+
+	public void takeOutRopeSwingingProperties()
+	{
+		fixtureMap.get(FixtureSensorID.FEET).setFriction(0);
+		fixtureMap.get(FixtureSensorID.FEET).setRestitution(.5f);
+	}
+
 }

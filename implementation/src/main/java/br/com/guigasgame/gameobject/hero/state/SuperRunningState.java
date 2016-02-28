@@ -18,7 +18,7 @@ public class SuperRunningState extends HeroState
 		Float duration = heroStatesProperties.property.get("minDuration");
 		secondsRemaining = duration != null? duration.floatValue(): 0.5f;		
 	}
-
+	
 	@Override
 	public void stateUpdate(float deltaTime)
 	{

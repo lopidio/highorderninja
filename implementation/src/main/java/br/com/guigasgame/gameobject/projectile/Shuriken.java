@@ -28,7 +28,8 @@ public class Shuriken extends Projectile
 		Body otherBody = (Body) other;
 		if (otherBody.getUserData() != null)
 		{
-			System.out.println("Hit player!");
+			CollidableConstants.Category category = CollidableConstants.Category.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
+			System.out.println("Hit: " + category.name());
 			markToDestroy();
 		}
 		++collisionCounter;

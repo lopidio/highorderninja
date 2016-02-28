@@ -140,8 +140,8 @@ public class MainGameState implements GameState
 				{
 					if (Joystick.getAxisPosition(i, axis) > 60 || Joystick.getAxisPosition(i, axis) < -60)
 					{
-						if (axis != Axis.V)
-							System.out.println("Joys(" + i + "): " + axis.toString() + " -> " + (Joystick.getAxisPosition(i, axis) > 0 ? 1 : -1));
+//						if (axis != Axis.V)
+//							System.out.println("Joys(" + i + "): " + axis.toString() + " -> " + (Joystick.getAxisPosition(i, axis) > 0 ? 1 : -1));
 					}
 					
 				}

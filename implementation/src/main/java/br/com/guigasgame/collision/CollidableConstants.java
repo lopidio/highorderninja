@@ -22,11 +22,11 @@ public class CollidableConstants
 			this.mask = mask;
 		}
 		
-		public static Category fromCollidableFilter(CollidableFilter collidableFilter)
+		public static Category fromMask(int value)
 		{
 			for( Category category : Category.values() )
 			{
-				if (collidableFilter.getCategory() == category.mask)
+				if (category.mask.matches(value))
 					return category;
 			}
 			return null;
@@ -37,8 +37,7 @@ public class CollidableConstants
 			if (playerID > NUM_MAX_PLAYERS - 1)
 				return null;
 			int valueToMatch = 1 << (playerID);
-			int valueExplain = HEROS.mask.and(valueToMatch).value;
-			return new IntegerMask(valueExplain);
+			return new IntegerMask(HEROS.mask.and(valueToMatch).value);
 		}
 		
 		public static IntegerMask getOtherPlayersCategory(int playerID)
