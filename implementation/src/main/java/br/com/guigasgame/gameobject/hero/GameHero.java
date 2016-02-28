@@ -18,7 +18,7 @@ import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.Shuriken;
-import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBomb;
+import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
 
 
@@ -237,7 +237,7 @@ public class GameHero extends GameObject
 
 	public Projectile getItem(Vec2 pointingDirection)
 	{
-		return new SmokeBomb(pointingDirection, collidableHero.getBody().getWorldCenter());
+		return new SmokeBombProjectile(pointingDirection, collidableHero.getBody().getWorldCenter());
 	}
 
 }

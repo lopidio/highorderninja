@@ -17,7 +17,7 @@ public class SmokeBombParticle extends Projectile
 
 	public SmokeBombParticle(Vec2 direction, Vec2 position)
 	{
-		super(ProjectileIndex.SMOKE_BOMB, direction, position);
+		super(ProjectileIndex.SMOKE_BOMB_PARTICLE, direction, position);
 		collidableFilter = CollidableConstants.Filter.SMOKE_BOMB.getFilter();
 		alpha = 255;
 		scale = 1;

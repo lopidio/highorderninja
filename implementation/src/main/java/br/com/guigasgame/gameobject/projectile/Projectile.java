@@ -4,7 +4,6 @@ import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.FixtureDef;
-import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.animation.Animation;

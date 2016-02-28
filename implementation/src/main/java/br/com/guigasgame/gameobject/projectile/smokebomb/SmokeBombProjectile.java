@@ -8,13 +8,13 @@ import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 
-public class SmokeBomb extends Projectile
+public class SmokeBombProjectile extends Projectile
 {
 	private static int NUM_PARTICLES = 50;
 
-	public SmokeBomb(Vec2 direction, Vec2 position)
+	public SmokeBombProjectile(Vec2 direction, Vec2 position)
 	{
-		super(ProjectileIndex.SMOKE_BOMB, direction, position);
+		super(ProjectileIndex.SMOKE_BOMB_PROJECTILE, direction, position);
 
 		targetMask = CollidableConstants.Category.SCENERY.getMask();
 		collidableFilter = CollidableConstants.Filter.SMOKE_BOMB.getFilter();

@@ -70,7 +70,7 @@ class HeroFixturesCreator {
 
 	private void createBodyFixture() {
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(0.3f, 0.6f, new Vec2(0, -0.5f), 0);
+		shape.setAsBox(0.25f, 0.6f, new Vec2(0, -0.5f), 0);
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;

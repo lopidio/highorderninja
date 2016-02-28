@@ -7,5 +7,6 @@ public enum ProjectileIndex
 {
 	SHURIKEN,
 	ROPE,
-	SMOKE_BOMB
+	SMOKE_BOMB_PROJECTILE,
+	SMOKE_BOMB_PARTICLE
 }

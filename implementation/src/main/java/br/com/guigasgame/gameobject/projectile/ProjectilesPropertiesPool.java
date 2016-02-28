@@ -23,8 +23,7 @@ public class ProjectilesPropertiesPool
 		loadProjectilesPropertiesStates();
 	}
 
-	public static ProjectileProperties getProjectileProperties(
-			ProjectileIndex projectileIndex)
+	public static ProjectileProperties getProjectileProperties(ProjectileIndex projectileIndex)
 	{
 		return singleton.projectilePropertiesMap.get(projectileIndex);
 	}
