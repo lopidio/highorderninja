@@ -7,8 +7,6 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableConstants;
-import br.com.guigasgame.collision.CollidableFilter;
-import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
@@ -32,6 +30,9 @@ public class NinjaHookProjectile extends Projectile
 		world = null;
 		hookIsAttached = false;
 		markToAttachHook = false;
+
+		targetMask = CollidableConstants.sceneryCategory.getMask();
+		collidableFilter = CollidableConstants.getRopeNodeCollidableFilter();
 	}
 	
 	@Override
@@ -96,7 +97,6 @@ public class NinjaHookProjectile extends Projectile
 
 		collidable.getBody().setType(BodyType.STATIC);
 		ninjaRope = new NinjaRope(world, properties, attachPoint, gameHero.getCollidableHero().getBody());
-
 		
 		System.out.println("Hook attached");
 		hookIsAttached = true;
@@ -107,22 +107,6 @@ public class NinjaHookProjectile extends Projectile
 		return gameHero.getCollidableHero().getPosition().sub(collidable.getPosition()).lengthSquared() >= properties.maxDistance*properties.maxDistance;
 	}
 
-	@Override
-	protected CollidableFilter createCollidableFilter()
-	{
-		// rope doesn't collides with heros
-		collidableFilter = CollidableConstants.getRopeBodyCollidableFilter();
-		
-		return collidableFilter;
-	}
-	
-	@Override
-	protected IntegerMask editTarget(IntegerMask target) 
-	{
-		target = CollidableConstants.sceneryCategory.getMask();
-		return target;
-	}
-	
 	@Override
 	public void attachToWorld(World world)
 	{

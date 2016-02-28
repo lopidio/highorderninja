@@ -5,16 +5,13 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableConstants;
-import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.hero.GameHero;
 
 public class Shuriken extends Projectile
 {
-	
 	private int collisionCounter;
 	private GameHero owner;
-	private IntegerMask targetMask;
 
 	public Shuriken(Vec2 direction, IntegerMask targetCategory, GameHero gameHero)
 	{
@@ -22,6 +19,7 @@ public class Shuriken extends Projectile
 		owner = gameHero;
 		collisionCounter = 0;
 		targetMask = gameHero.getEnemiesMask();
+		collidableFilter = (CollidableConstants.getShurikenCollidableFilter().removeCollisionWith(CollidableConstants.getPlayerCategory(owner.getPlayerID())));
 	}
 
 	@Override
@@ -45,21 +43,5 @@ public class Shuriken extends Projectile
 	{
 		shoot();
 	}
-	
-	@Override
-	protected IntegerMask editTarget(IntegerMask target) 
-	{
-		return targetMask;
-	}
-
-	@Override
-	protected CollidableFilter createCollidableFilter()
-	{
-		// shuriken doesn't collides with owner hero
-		collidableFilter = (CollidableConstants.getShurikenCollidableFilter().removeCollisionWith(CollidableConstants.getPlayerCategory(owner.getPlayerID())));
-		
-		return collidableFilter;
-	}
-
 	
 }

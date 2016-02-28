@@ -10,12 +10,11 @@ import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableContactListener;
-import br.com.guigasgame.composite.Composible;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class GameObject implements Composible<GameObject>, CollidableContactListener, UpdatableFromTime, Drawable
+public abstract class GameObject implements CollidableContactListener, UpdatableFromTime, Drawable
 {
 
 	protected Vec2 position;
@@ -52,25 +51,21 @@ public abstract class GameObject implements Composible<GameObject>, CollidableCo
 		// Default implementation
 	}
 
-	@Override
 	public final void addChild(GameObject child)
 	{
 		children.add(child);
 	}
 
-	@Override
 	public final boolean hasChildrenToAdd()
 	{
 		return children.size() > 0;
 	}
 
-	@Override
 	public final Collection<GameObject> getChildrenList()
 	{
 		return children;
 	}
 
-	@Override
 	public final void clearChildrenList()
 	{
 		children.clear();

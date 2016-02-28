@@ -42,16 +42,10 @@ public abstract class Projectile extends GameObject
 		collidableList.add(collidable);
 		collidableFilter = null;
 		
+		this.targetMask = new IntegerMask();
+
 		drawableList.add(animation);
 	}
-
-	protected IntegerMask editTarget(IntegerMask target)
-	{
-		//hook method
-		return target;
-	}
-	
-	protected abstract CollidableFilter createCollidableFilter();
 
 	@Override
 	public void update(float deltaTime)
@@ -73,9 +67,7 @@ public abstract class Projectile extends GameObject
 		def.shape = projectileShape;
 		def.density = properties.mass;
 		def.friction = properties.friction;
-		collidableFilter = createCollidableFilter();
 		def.filter = new CollidableFilterBox2dAdapter(collidableFilter).toBox2dFilter();
-		this.targetMask = editTarget(new IntegerMask());
 
 		return def;
 	}
