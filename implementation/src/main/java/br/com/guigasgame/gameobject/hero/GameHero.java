@@ -46,7 +46,7 @@ public class GameHero extends GameObject
 		actionList = new ArrayList<GameHeroAction>();
 		collidableHero = new CollidableHero(playerID, position);
 		this.gameHeroInput = gameHeroInput;
-		gameHeroInput.setDeviceId(playerID - 1);
+		gameHeroInput.setDeviceId(playerID);
 
 		collidableHero.addListener(this);
 		collidableList.add(collidableHero);
@@ -230,7 +230,7 @@ public class GameHero extends GameObject
 
 	public IntegerMask getEnemiesMask()
 	{
-		return CollidableConstants.getOtherPlayersCategory(playerID).getMask();
+		return CollidableConstants.Category.getOtherPlayersCategory(playerID);
 	}
 
 }

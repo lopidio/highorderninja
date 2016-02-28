@@ -31,8 +31,8 @@ public class NinjaHookProjectile extends Projectile
 		hookIsAttached = false;
 		markToAttachHook = false;
 
-		targetMask = CollidableConstants.sceneryCategory.getMask();
-		collidableFilter = CollidableConstants.getRopeNodeCollidableFilter();
+		targetMask = CollidableConstants.Category.SCENERY.getMask();
+		collidableFilter = CollidableConstants.Filter.ROPE_NODE.getFilter();
 	}
 	
 	@Override
@@ -76,13 +76,16 @@ public class NinjaHookProjectile extends Projectile
 		RayCastHitAnyThing anyThing = new RayCastHitAnyThing(world, 
 				gameHero.getCollidableHero().getBody().getWorldCenter(),
 				collidable.getPosition(), 
-				CollidableConstants.sceneryCategory.getMask());
+				CollidableConstants.Category.SCENERY.getMask());
 		
 		anyThing.shoot();
 		if (anyThing.hasHit())
 		{
 			System.out.println("Wall is on the way");
-			markToDestroy();
+//			markToDestroy();
+			this.attachPoint = anyThing.getCallBackWrapper().point;
+			markToAttachHook = true;
+
 		}
 		if (ropeIsTooLong())
 		{

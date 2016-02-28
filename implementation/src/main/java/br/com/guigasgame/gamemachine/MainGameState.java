@@ -45,6 +45,7 @@ public class MainGameState implements GameState
 
 	public MainGameState() throws JAXBException
 	{
+		CollidableConstants.Category.display();
 		gameObjectsList = new ArrayList<>();
 
 		timeFactor = 1;
@@ -78,9 +79,9 @@ public class MainGameState implements GameState
 
 		
 		initializeGameObject(Arrays.asList(
-				new GameHero(1, new Vec2(10, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK)), 
-				new GameHero(2, new Vec2(40, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD)),
-				new GameHero(3, new Vec2(50, 10), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK))));
+				new GameHero(0, new Vec2(10, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK)), 
+				new GameHero(1, new Vec2(40, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD)),
+				new GameHero(2, new Vec2(50, 10), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK))));
 	}
 
 	private Body createGround(Vec2 position, Vec2 size)
@@ -94,7 +95,7 @@ public class MainGameState implements GameState
 		shape.setAsBox(size.x, size.y);
 		FixtureDef fixtureDef = new FixtureDef();
 
-		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.getSceneryCollidablefilter()).toBox2dFilter();
+		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.Filter.SCENERY).toBox2dFilter();
 
 		fixtureDef.density = 0;
 		fixtureDef.shape = shape;

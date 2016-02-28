@@ -33,7 +33,7 @@ public class CollidableHero extends Collidable
 		bodyDef.type = BodyType.DYNAMIC;
 
 		sensorsController = new HeroSensorsController();
-		filter = new CollidableFilterBox2dAdapter(CollidableConstants.getPlayerFilter(playerID)).toBox2dFilter();
+		filter = new CollidableFilterBox2dAdapter(CollidableConstants.Filter.getPlayerFilter(playerID)).toBox2dFilter();
 	}
 
 	public void loadAndAttachFixturesToBody()

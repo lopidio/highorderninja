@@ -19,7 +19,7 @@ public class Shuriken extends Projectile
 		owner = gameHero;
 		collisionCounter = 0;
 		targetMask = gameHero.getEnemiesMask();
-		collidableFilter = (CollidableConstants.getShurikenCollidableFilter().removeCollisionWith(CollidableConstants.getPlayerCategory(owner.getPlayerID())));
+		collidableFilter = CollidableConstants.Filter.SHURIKEN.getFilter().removeCollisionWith(CollidableConstants.Category.getPlayerCategory(owner.getPlayerID()));
 	}
 
 	@Override

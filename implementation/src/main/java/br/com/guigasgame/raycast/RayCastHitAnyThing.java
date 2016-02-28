@@ -12,6 +12,7 @@ public class RayCastHitAnyThing extends RayCast implements RayCastCallback
 	
 	private boolean hit;
 	private IntegerMask mask;
+	private RayCastCallBackWrapper callBackWrapper;
 	
 	public RayCastHitAnyThing(World world, Vec2 from, Vec2 to, IntegerMask integerMask)
 	{
@@ -33,6 +34,7 @@ public class RayCastHitAnyThing extends RayCast implements RayCastCallback
 		IntegerMask fixtureMask = new IntegerMask(fixture.getFilterData().categoryBits);
 		if (mask.matches(fixtureMask.value))
 		{
+			callBackWrapper = new RayCastCallBackWrapper(fixture, point, normal, fraction);
 			hit = true;
 			return 0;
 		}
@@ -43,6 +45,10 @@ public class RayCastHitAnyThing extends RayCast implements RayCastCallback
 	{
 		return hit;
 	}
-	
+
+	public RayCastCallBackWrapper getCallBackWrapper()
+	{
+		return callBackWrapper;
+	}
 
 }

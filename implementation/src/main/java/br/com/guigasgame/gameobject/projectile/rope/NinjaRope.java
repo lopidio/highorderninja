@@ -198,7 +198,7 @@ public class NinjaRope implements CollidableContactListener
 		RayCastClosestFixture rayCastClosestFixture = new RayCastClosestFixture(world, 
 				gameHero.getWorldCenter(),
 				position, 
-				CollidableConstants.getRopeBodyCollidableFilter().getCollider());
+				CollidableConstants.Filter.ROPE_BODY.getFilter().getCollider());
 		rayCastClosestFixture.shoot();
 		if (rayCastClosestFixture.getCallBackWrapper() != null)
 		{
@@ -217,7 +217,7 @@ public class NinjaRope implements CollidableContactListener
 		RayCastClosestFixture closestFixture = new RayCastClosestFixture(world,
 				gameHero.getWorldCenter(),
 				position, 
-				CollidableConstants.ropeNodeCategory.getMask());
+				CollidableConstants.Category.ROPE_NODE.getMask());
 		closestFixture.shoot();
 		if (closestFixture.getCallBackWrapper() != null)
 		{
@@ -331,7 +331,8 @@ public class NinjaRope implements CollidableContactListener
 		fixtureDef.restitution = 0.0f;
 		fixtureDef.shape = shape;
 		fixtureDef.density = 0f;
-		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.getRopeBodyCollidableFilter()).toBox2dFilter();
+		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.Filter.ROPE_BODY).toBox2dFilter();
+		
 
 		
 		Body body = world.createBody(bodyDef);
@@ -371,7 +372,7 @@ public class NinjaRope implements CollidableContactListener
 		fixtureDef.restitution = 0.0f;
 		fixtureDef.shape = shape;
 		fixtureDef.density = 0f;
-		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.getRopeBodyCollidableFilter()).toBox2dFilter();
+		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.Filter.ROPE_BODY).toBox2dFilter();
 		ropeBodiesList.lastElement().destroyFixture(ropeBodiesList.lastElement().getFixtureList());
 		ropeBodiesList.lastElement().createFixture(fixtureDef);
 		ropeBodiesList.lastElement().setTransform(center, 0);
@@ -421,7 +422,7 @@ public class NinjaRope implements CollidableContactListener
 		fixtureDef.restitution = 0.0f;
 		fixtureDef.shape = shape;
 		fixtureDef.density = 2.f;
-		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.getRopeNodeCollidableFilter()).toBox2dFilter();
+		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.Filter.ROPE_NODE).toBox2dFilter();
 	}
 	
 	private Body createBodyAt(Vec2 position)
