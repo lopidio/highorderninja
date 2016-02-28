@@ -1,15 +1,21 @@
 package br.com.guigasgame.gamemachine;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
-import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
+
+import br.com.guigasgame.gameobject.hero.GameHeroProperties;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
+import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputDevice;
 
 
 public class GameMachine
@@ -23,7 +29,13 @@ public class GameMachine
 	public static void main(String[] args) throws Exception
 	{
 		GameMachine gameMachine = new GameMachine();
-		MainGameState mainGameState = new MainGameState();
+
+		List<GameHeroProperties> herosProperties = new ArrayList<>();
+		herosProperties.add(new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0, new Vec2(10, 5)));
+		herosProperties.add(new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1, new Vec2(40, 5)));
+		herosProperties.add(new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2, new Vec2(50, 5)));
+		MainGameState mainGameState = new MainGameState(herosProperties);
+
 		gameMachine.popState();
 		gameMachine.addState(mainGameState);
 		gameMachine.execute();

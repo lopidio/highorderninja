@@ -33,6 +33,7 @@ public class NinjaHookProjectile extends Projectile
 
 		targetMask = CollidableConstants.Category.SCENERY.getMask();
 		collidableFilter = CollidableConstants.Filter.ROPE_NODE.getFilter();
+		setAnimationsColor(gameHero.getHeroProperties().getColor());
 	}
 	
 	@Override
@@ -99,7 +100,7 @@ public class NinjaHookProjectile extends Projectile
 			return;
 
 		collidable.getBody().setType(BodyType.STATIC);
-		ninjaRope = new NinjaRope(world, properties, attachPoint, gameHero.getCollidableHero().getBody());
+		ninjaRope = new NinjaRope(world, properties, attachPoint, gameHero.getCollidableHero().getBody(), gameHero.getHeroProperties().getColor());
 		
 		System.out.println("Hook attached");
 		hookIsAttached = true;

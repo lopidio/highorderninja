@@ -31,8 +31,7 @@ import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHero;
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputDevice;
+import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 
 
 public class MainGameState implements GameState
@@ -43,7 +42,7 @@ public class MainGameState implements GameState
 
 	List<GameObject> gameObjectsList;
 
-	public MainGameState() throws JAXBException
+	public MainGameState(List<GameHeroProperties> herosProperties) throws JAXBException
 	{
 		CollidableConstants.Category.display();
 		gameObjectsList = new ArrayList<>();
@@ -78,10 +77,10 @@ public class MainGameState implements GameState
 		createGround(new Vec2(21.5f, 27), new Vec2(.5f, 5)); //|
 
 		
-		initializeGameObject(Arrays.asList(
-				new GameHero(0, new Vec2(10, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK)), 
-				new GameHero(1, new Vec2(40, 5), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD)),
-				new GameHero(2, new Vec2(50, 10), GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK))));
+		for( GameHeroProperties gameHeroProperties : herosProperties )
+		{
+			initializeGameObject(Arrays.asList(new GameHero(gameHeroProperties)));
+		}
 	}
 
 	private Body createGround(Vec2 position, Vec2 size)

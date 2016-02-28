@@ -17,7 +17,7 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 public abstract class GameObject implements CollidableContactListener, UpdatableFromTime, Drawable
 {
 
-	protected Vec2 position;
+//	protected Vec2 position;
 	protected List<Collidable> collidableList;
 	protected List<Drawable> drawableList;
 	protected boolean alive;
