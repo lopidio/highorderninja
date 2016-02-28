@@ -6,29 +6,32 @@ import java.util.Stack;
 import java.util.Vector;
 
 import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jbox2d.dynamics.joints.Joint;
 
 import br.com.guigasgame.collision.CollidableConstants;
+import br.com.guigasgame.collision.CollidableContactListener;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.gameobject.projectile.ProjectileProperties;
 import br.com.guigasgame.raycast.RayCastClosestFixture;
-import br.com.guigasgame.raycast.RayCastHitAnyThing;
 
 
-public class NinjaRope
+public class NinjaRope implements CollidableContactListener
 {
 	private static final float MIN_DISTANCE_BETWEEN_NODES = 0.1f;
 	
 	private Vector<DistanceJoint> jointVector;
-	private List<Body> bodyList;
+	private Vector<Body> ropeBodiesList;
+	private List<Body> nodeList;
 	
 	private boolean canGrow;
 	private World world;
@@ -44,6 +47,8 @@ public class NinjaRope
 	private boolean prevBlock;
 	private boolean alignCondition;
 	private boolean blockCondition;
+
+	private boolean markToDestroy;
 	
 	public NinjaRope(World world, ProjectileProperties ropeProperties, Vec2 hookPosition, Body gameHero)
 	{
@@ -53,8 +58,9 @@ public class NinjaRope
 		this.gameHero = gameHero;
 		initializeDefinitions();
 		
-		bodyList = new ArrayList<>();
+		nodeList = new ArrayList<>();
 		jointVector = new Vector<>();
+		ropeBodiesList = new Vector<>();
 		movingDirectionOfNode = new Stack<Boolean>();
 		createBodyAt(hookPosition);
 		createJoint(getLastBody(), gameHero);
@@ -62,17 +68,17 @@ public class NinjaRope
 	
 	private Body getLastBody()
 	{
-		if (bodyList.size() < 1)
+		if (nodeList.size() < 1)
 			return null;
-		return bodyList.get(bodyList.size() - 1);
+		return nodeList.get(nodeList.size() - 1);
 	}
 	
 	
 	private Body getPrevLastBody()
 	{
-		if (bodyList.size() < 2)
+		if (nodeList.size() < 2)
 			return null;
-		return bodyList.get(bodyList.size() - 2);
+		return nodeList.get(nodeList.size() - 2);
 	}
 	
 	public void destroy()
@@ -82,7 +88,11 @@ public class NinjaRope
 		{
 			world.destroyJoint(joint);
 		}
-		for( Body body : bodyList )
+		for( Body body : nodeList )
+		{
+			world.destroyBody(body);
+		}
+		for( Body body : ropeBodiesList )
 		{
 			world.destroyBody(body);
 		}
@@ -90,30 +100,16 @@ public class NinjaRope
 
 	public void update(float deltaTime)
 	{
+		if (markToDestroy)
+		{
+			destroy();
+			return;
+		}
 		float attachedSize = calculateRopeSize();
 		canGrow = attachedSize <= ropeProperties.maxDistance;
 		
 		checkJointRemotion();
 		checkJointDivision();
-		checkCutTheRope();
-		
-	}
-
-	private void checkCutTheRope()
-	{
-		for (Joint joint : jointVector)
-		{
-			RayCastHitAnyThing hitAnyThing = new RayCastHitAnyThing(world, 
-													joint.getBodyA().getWorldCenter(),
-													joint.getBodyB().getWorldCenter(),
-													CollidableConstants.getShurikenCollidableFilter().getCategory().getMask());
-			hitAnyThing.shoot();
-			if (hitAnyThing.hasHit())
-			{
-				System.out.println("Cut the rope");
-				destroy();
-			}
-		}
 	}
 
 	private void checkJointDivision()
@@ -127,20 +123,20 @@ public class NinjaRope
 	{
 		if (jointVector.size() > 1)
 		{
-			System.out.println("-------------------------------------------");
-			int i = 0;
-			for (Body body : bodyList) {
-				System.out.println("Nodes position: " + body.getWorldCenter() + ". CW: " + movingDirectionOfNode.get(i++));
-			}
-			System.out.println("From: " + gameHero.getWorldCenter() + " | To: " + getPrevLastBody().getWorldCenter());
+//			System.out.println("-------------------------------------------");
+//			int i = 0;
+//			for (Body body : bodyList) {
+//				System.out.println("Nodes position: " + body.getWorldCenter() + ". CW: " + movingDirectionOfNode.get(i++));
+//			}
+//			System.out.println("From: " + gameHero.getWorldCenter() + " | To: " + getPrevLastBody().getWorldCenter());
 			
 			boolean isAligned = isAligned(getPrevLastBody().getWorldCenter());
 			boolean hasBlock = jointCollidesWithBlock(getPrevLastBody().getWorldCenter()) != null;//hasBlockPoint != null;
 			
-			System.out.println("isAligned: " + isAligned + 
-					". hasBlock: " + hasBlock +
-					". CW: " + isMovingClockwiseDirection()
-					);
+//			System.out.println("isAligned: " + isAligned + 
+//					". hasBlock: " + hasBlock +
+//					". CW: " + isMovingClockwiseDirection()
+//					);
 			
 			if (prevAlign && !isAligned) //instante de desalinhamento
 			{
@@ -159,9 +155,9 @@ public class NinjaRope
 				blockCondition = false;
 				if (isMovingClockwiseDirection() != movingDirectionOfNode.lastElement())
 				{
-					System.out.println("Removing body");
+//					System.out.println("Removing body");
 					unifyLastJoints();
-					System.out.println("Body count: " + bodyList.size());
+//					System.out.println("Body count: " + bodyList.size());
 				}
 				
 			}
@@ -201,16 +197,16 @@ public class NinjaRope
 		closestFixture.shoot();
 		if (closestFixture.getCallBackWrapper() != null)
 		{
-			System.out.println("Category: "+ Integer.toBinaryString(closestFixture.getCallBackWrapper().fixture.getFilterData().categoryBits) +
-					". Mine: " + Integer.toBinaryString(CollidableConstants.ropeNodeCategory.getMask().value) + 
-					". Distance: " + closestFixture.getCallBackWrapper().point.sub(position).length());
+//			System.out.println("Category: "+ Integer.toBinaryString(closestFixture.getCallBackWrapper().fixture.getFilterData().categoryBits) +
+//					". Mine: " + Integer.toBinaryString(CollidableConstants.ropeNodeCategory.getMask().value) + 
+//					". Distance: " + closestFixture.getCallBackWrapper().point.sub(position).length());
 			if (closestFixture.getCallBackWrapper().fixture.getBody() == getLastBody())
 			{
 				return closestFixture.getCallBackWrapper().point.sub(position).length() > 0.1;//MIN_DISTANCE_BETWEEN_NODES;//ALIGN_TOLLERANCE;
 			}
 			else
 			{
-				System.out.println("OTHER BODY");
+//				System.out.println("OTHER BODY");
 			}
 		}
 		return false;
@@ -262,9 +258,11 @@ public class NinjaRope
 		jointVector.remove(last);
 		jointVector.remove(prevLast);
 
-		bodyList.remove(last.getBodyA());
+		nodeList.remove(last.getBodyA());
 		world.destroyBody(last.getBodyA());
-
+		
+		world.destroyBody(ropeBodiesList.lastElement());
+		ropeBodiesList.remove(ropeBodiesList.lastElement());
 
 		createJoint(prevLast.getBodyA(), gameHero);
 	}
@@ -280,6 +278,49 @@ public class NinjaRope
 		return joint;
 	}
 
+
+	private void createRopeBodyFromBodies(Body bodyA, Body bodyB)
+	{
+		//REFACTOR THIS!
+		Vec2 dist = bodyA.getPosition().sub(bodyB.getPosition()); 
+		Vec2 center = bodyB.getPosition().clone();
+		center.addLocal(dist.mul(0.5f));
+		
+		float angle = (float) Math.asin(dist.x/dist.length());
+		
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.STATIC;
+		bodyDef.position = center;
+		
+		PolygonShape shape = new PolygonShape();
+		shape.setAsBox(0.2f, dist.length()*0.5f, new Vec2(), angle);
+		
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.restitution = 0.0f;
+		fixtureDef.shape = shape;
+		fixtureDef.density = 0f;
+		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.getRopeBodyCollidableFilter()).toBox2dFilter();
+
+		
+		Body body = world.createBody(bodyDef);
+		body.setUserData(this);
+		body.createFixture(fixtureDef);
+
+		
+		ropeBodiesList.add(body);		
+	}
+	
+	@Override
+	public void beginContact(Object me, Object other, Contact contact)
+	{
+		System.out.println("Cut the rope");
+		markToDestroy();
+	}
+
+	private void markToDestroy()
+	{
+		markToDestroy = true;
+	}
 
 	public void shorten()
 	{
@@ -315,8 +356,8 @@ public class NinjaRope
 		body.setUserData(this);
 		body.createFixture(fixtureDef);
 
-		bodyList.add(body);
-		System.out.println("------------------------------------------\nCreateNode. Count: " + bodyList.size() + ". CW: " + movingDirectionOfNode.lastElement());
+		nodeList.add(body);
+		System.out.println("------------------------------------------\nCreateNode. Count: " + nodeList.size() + ". CW: " + movingDirectionOfNode.lastElement());
 		return body;
 	}
 
@@ -327,6 +368,7 @@ public class NinjaRope
 		world.destroyJoint(jointVector.lastElement());
 		jointVector.remove(jointVector.lastElement());
 		createJoint(getPrevLastBody(), getLastBody());
+		createRopeBodyFromBodies(getPrevLastBody(), getLastBody());
 		createJoint(getLastBody(), gameHero);
 	}
 

@@ -144,9 +144,9 @@ public class CollidableConstants
 	///What I collide with
 	private final static CollidableFilter sceneryCollidableFilter		= new CollidableFilter(sceneryCategory).addCollisionWithEveryThing();
 	
-	private final static CollidableFilter shurikenCollidableFilter		= new CollidableFilter(shurikenCategory).addCollisionWith(herosCategory).and(sceneryCategory).and(shurikenCategory);
+	private final static CollidableFilter shurikenCollidableFilter		= new CollidableFilter(shurikenCategory).addCollisionWith(herosCategory).and(sceneryCategory).and(shurikenCategory).and(ropeBodyCategory);
 	
-	private final static CollidableFilter ropeBodyCollidableFilter 		= new CollidableFilter(ropeBodyCategory).addCollisionWith(sceneryCategory);
+	private final static CollidableFilter ropeBodyCollidableFilter 		= new CollidableFilter(ropeBodyCategory).addCollisionWith(sceneryCategory).and(shurikenCategory);
 
 	private final static CollidableFilter ropeNodeCollidableFilter 		= new CollidableFilter(ropeNodeCategory).addCollisionWith(sceneryCategory).and(ropeNodeCategory);
 
