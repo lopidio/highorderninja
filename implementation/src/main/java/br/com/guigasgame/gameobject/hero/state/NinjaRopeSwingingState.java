@@ -24,12 +24,6 @@ public class NinjaRopeSwingingState extends HeroState
 	}
 	
 	@Override
-	protected void rope()
-	{
-		//do nothing
-	}
-	
-	@Override
 	protected void stateOnQuit()
 	{
 		releaseRope();
@@ -51,63 +45,28 @@ public class NinjaRopeSwingingState extends HeroState
 	}
 
 
-//	@Override
-//	protected void releaseRope()
-//	{
-//		super.releaseRope();
-//		if (gameHero.getCollidableHero().isAscending())
-//			setState(new JumpingHeroState(gameHero));
-//		else if (gameHero.getCollidableHero().isFallingDown())
-//			setState(new FallingHeroState(gameHero));
-//			
-////		if (gameHero.getCollidableHero().isTouchingGround() && !gameHero.getCollidableHero().isFallingDown())
-//		{
-//			setState(new StandingHeroState(gameHero));
-//		}
-////		else
-////		{
-////		}
-//		ninjaRope.markToDestroy();
-//	}
-	
-	
 	@Override
 	public void stateUpdate(float deltaTime)
 	{
 		ninjaRope.update(deltaTime);
-		Side currentSide = gameHero.getForwardSide();
-		Side newSide = Side.LEFT;
-		if (gameHero.getCollidableHero().getBodyLinearVelocity().x > 0)
-		{
-			newSide = Side.RIGHT;
-		}
-//		if (gameHero.isTouchingGround())
-//			releaseRope();
-
-		if (newSide != currentSide)
-		{
-//			gameHero.addAction(new SideOrientationHeroSetter(newSide, heroStatesProperties));
-		}
-
+		if (!ninjaRope.isAlive())
+			releaseRope();
 	}
 	
 	@Override
 	protected void move(Side side)
 	{
-		if (gameHero.getCollidableHero().getPosition().y > ninjaRope.getHookPosition().y)
+		Vec2 tangent = gameHero.getCollidableHero().getBody().getLinearVelocity().clone();
+		
+		if ((side == Side.RIGHT && tangent.x >= 0) || (side == Side.LEFT && tangent.x <= 0))
 		{
-			Vec2 tangent = gameHero.getCollidableHero().getBody().getLinearVelocity().clone();
-			
-			if ((side == Side.RIGHT && tangent.x >= 0) || (side == Side.LEFT && tangent.x <= 0))
-			{
-				gameHero.addAction(new SwingFasterAction(heroStatesProperties, side));
-			}
-			else
-			{
-				gameHero.addAction(new SwingSlowerAction(heroStatesProperties));
-			}
-			
+			gameHero.addAction(new SwingFasterAction(heroStatesProperties, side));
 		}
+		else
+		{
+			gameHero.addAction(new SwingSlowerAction(heroStatesProperties));
+		}
+		
 		if (gameHero.getForwardSide() != side)
 			gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
 	}

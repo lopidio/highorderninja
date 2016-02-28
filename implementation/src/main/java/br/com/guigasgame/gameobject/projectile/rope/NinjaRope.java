@@ -21,6 +21,7 @@ import org.jbox2d.dynamics.joints.Joint;
 import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableContactListener;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
+import br.com.guigasgame.gamemachine.GameMachine;
 import br.com.guigasgame.gameobject.projectile.ProjectileProperties;
 import br.com.guigasgame.raycast.RayCastClosestFixture;
 
@@ -49,6 +50,11 @@ public class NinjaRope implements CollidableContactListener
 	private boolean blockCondition;
 
 	private boolean markToDestroy;
+	private boolean alive;
+
+	private float prevDistance;
+
+	private boolean prevIncreasingDistance;
 	
 	public NinjaRope(World world, ProjectileProperties ropeProperties, Vec2 hookPosition, Body gameHero)
 	{
@@ -56,6 +62,7 @@ public class NinjaRope implements CollidableContactListener
 		this.ropeProperties = ropeProperties;
 		this.hookPosition = hookPosition;
 		this.gameHero = gameHero;
+		alive = true;
 		initializeDefinitions();
 		
 		nodeList = new ArrayList<>();
@@ -64,6 +71,7 @@ public class NinjaRope implements CollidableContactListener
 		movingDirectionOfNode = new Stack<Boolean>();
 		createBodyAt(hookPosition);
 		createJoint(getLastBody(), gameHero);
+		createRopeBodyFromBodies(getLastBody(), gameHero);		
 	}
 	
 	private Body getLastBody()
@@ -84,6 +92,7 @@ public class NinjaRope implements CollidableContactListener
 	public void destroy()
 	{
 		System.out.println("Rope dies");
+		alive = false;
 		for( Joint joint : jointVector )
 		{
 			world.destroyJoint(joint);
@@ -108,6 +117,7 @@ public class NinjaRope implements CollidableContactListener
 		float attachedSize = calculateRopeSize();
 		canGrow = attachedSize <= ropeProperties.maxDistance;
 		
+		updateLastRopeBody();
 		checkJointRemotion();
 		checkJointDivision();
 	}
@@ -138,7 +148,10 @@ public class NinjaRope implements CollidableContactListener
 //					". CW: " + isMovingClockwiseDirection()
 //					);
 			
-			if (prevAlign && !isAligned) //instante de desalinhamento
+			float currentDistance = distanceToLastHook();
+			boolean increasingDistance = currentDistance > prevDistance;
+			
+			if (!increasingDistance && prevIncreasingDistance) //instante de desalinhamento
 			{
 				this.alignCondition = true;
 			}
@@ -164,9 +177,16 @@ public class NinjaRope implements CollidableContactListener
 			
 			this.prevBlock = hasBlock;
 			this.prevAlign = isAligned;
+			this.prevDistance = currentDistance;
+			this.prevIncreasingDistance = increasingDistance;
 			
 			}
 		return false;
+	}
+
+	private float distanceToLastHook()
+	{
+		return gameHero.getPosition().sub(nodeList.get(nodeList.size() - 1).getPosition()).lengthSquared();
 	}
 
 	private Vec2 jointCollidesWithBlock(Vec2 position)
@@ -204,15 +224,12 @@ public class NinjaRope implements CollidableContactListener
 			{
 				return closestFixture.getCallBackWrapper().point.sub(position).length() > 0.1;//MIN_DISTANCE_BETWEEN_NODES;//ALIGN_TOLLERANCE;
 			}
-			else
-			{
-//				System.out.println("OTHER BODY");
-			}
 		}
 		return false;
 	}
-
-	private boolean isMovingClockwiseDirection() 
+	
+	
+	private float centerRelativeAngle()
 	{
 		/*
 		 * 
@@ -228,8 +245,12 @@ public class NinjaRope implements CollidableContactListener
 		Vec2 centreDestination = destination.sub(centre);
 		
 		//RorL = CentreSourceX * CentreDestinationY - CentreSourceY * CentreDestinationX			
-		float angle = centreSource.x * centreDestination.y - centreSource.y * centreDestination.x;
-		return angle > 0;
+		return centreSource.x * centreDestination.y - centreSource.y * centreDestination.x;
+	}
+
+	private boolean isMovingClockwiseDirection() 
+	{
+		return centerRelativeAngle() > 0;
 	}
 
 
@@ -261,6 +282,9 @@ public class NinjaRope implements CollidableContactListener
 		nodeList.remove(last.getBodyA());
 		world.destroyBody(last.getBodyA());
 		
+//		world.destroyBody(ropeBodiesList.lastElement());
+//		ropeBodiesList.remove(ropeBodiesList.lastElement());
+
 		world.destroyBody(ropeBodiesList.lastElement());
 		ropeBodiesList.remove(ropeBodiesList.lastElement());
 
@@ -282,11 +306,15 @@ public class NinjaRope implements CollidableContactListener
 	private void createRopeBodyFromBodies(Body bodyA, Body bodyB)
 	{
 		//REFACTOR THIS!
-		Vec2 dist = bodyA.getPosition().sub(bodyB.getPosition()); 
+		Vec2 dist = bodyA.getPosition().clone().sub(bodyB.getPosition()); 
 		Vec2 center = bodyB.getPosition().clone();
 		center.addLocal(dist.mul(0.5f));
 		
-		float angle = (float) Math.asin(dist.x/dist.length());
+		float catAdj = dist.x;
+		if (dist.y >= 0)
+			catAdj *= -1;
+		
+		float angle = (float) Math.asin(catAdj/dist.length());
 		
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.STATIC;
@@ -309,6 +337,50 @@ public class NinjaRope implements CollidableContactListener
 		
 		ropeBodiesList.add(body);		
 	}
+
+	private void updateLastRopeBody()
+	{
+//		world.destroyBody(ropeBodiesList.lastElement());
+//		ropeBodiesList.remove(ropeBodiesList.lastElement());
+		Body bodyA = getLastBody();
+		Body bodyB = gameHero;
+		
+		//REFACTOR THIS!
+		Vec2 dist = bodyA.getPosition().clone().sub(bodyB.getPosition()); 
+		Vec2 center = bodyB.getPosition().clone();
+		center.addLocal(dist.mul(0.5f));
+		
+		float catAdj = dist.x;
+		if (dist.y >= 0)
+			catAdj *= -1;
+		
+		float angle = (float) Math.asin(catAdj/dist.length());
+		
+//		BodyDef bodyDef = new BodyDef();
+//		bodyDef.type = BodyType.STATIC;
+//		bodyDef.position = center;
+		
+		PolygonShape shape = new PolygonShape();
+		shape.setAsBox(0.2f, dist.length()*0.5f, new Vec2(), angle);
+		
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.restitution = 0.0f;
+		fixtureDef.shape = shape;
+		fixtureDef.density = 0f;
+		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.getRopeBodyCollidableFilter()).toBox2dFilter();
+		ropeBodiesList.lastElement().destroyFixture(ropeBodiesList.lastElement().getFixtureList());
+		ropeBodiesList.lastElement().createFixture(fixtureDef);
+		ropeBodiesList.lastElement().setTransform(center, 0);
+		
+		
+//		Body body = world.createBody(bodyDef);
+//		body.setUserData(this);
+//		body.createFixture(fixtureDef);
+
+		
+//		ropeBodiesList.add(body);		
+	}
+	
 	
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
@@ -364,12 +436,16 @@ public class NinjaRope implements CollidableContactListener
 
 	private void divideLink(Vec2 pointOfDivision)
 	{
+		world.destroyBody(ropeBodiesList.lastElement());
+		ropeBodiesList.remove(ropeBodiesList.lastElement());
+
 		createBodyAt(pointOfDivision);
 		world.destroyJoint(jointVector.lastElement());
 		jointVector.remove(jointVector.lastElement());
 		createJoint(getPrevLastBody(), getLastBody());
 		createRopeBodyFromBodies(getPrevLastBody(), getLastBody());
 		createJoint(getLastBody(), gameHero);
+		createRopeBodyFromBodies(getLastBody(), gameHero);
 	}
 
 	public Vec2 getHookPosition()
@@ -377,5 +453,11 @@ public class NinjaRope implements CollidableContactListener
 		return hookPosition;
 	}
 
+	
+	public boolean isAlive()
+	{
+		return alive;
+	}
+	
 	
 }

@@ -60,17 +60,13 @@ public class MainGameState implements GameState
 		createGround(new Vec2(14, 24), new Vec2(.5f, 8)); // |
 		createGround(new Vec2(8, 24), new Vec2(.5f, 8)); // |
 
-//		createGround(new Vec2(50, 24), new Vec2(4, .5f));
-//		createGround(new Vec2(50, 24), new Vec2(.5f, 4));
 
 
 		createGround(new Vec2(10, 8), new Vec2(3, .5f));
 
-		createGround(new Vec2(25, 8), new Vec2(3, .5f));
-		createGround(new Vec2(25, 13), new Vec2(.5f, .5f));
+		createGround(new Vec2(25, 6), new Vec2(.5f, .5f));
 		
-		createGround(new Vec2(40, 8), new Vec2(3, .5f));
-		createGround(new Vec2(40, 13), new Vec2(.5f, .5f));
+		createGround(new Vec2(40, 6), new Vec2(.5f, .5f));
 		
 		createGround(new Vec2(55, 8), new Vec2(3, .5f));
 
