@@ -4,6 +4,7 @@ import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.JumpPressingHelp;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.side.Side;
 
 
 class JumpingHeroState extends HeroState
@@ -15,8 +16,9 @@ class JumpingHeroState extends HeroState
 	{
 		super(gameHero, HeroStateIndex.HERO_ASCENDING);
 		doubleJumpAllowed = true;
+		
 	}
-
+	
 	@Override
 	protected void jump()
 	{
@@ -38,18 +40,30 @@ class JumpingHeroState extends HeroState
 		{
 			setState(new StandingHeroState(gameHero));
 		}
+		else if (gameHero.isTouchingWallAhead())
+		{
+			if (gameHero.getForwardSide() == Side.LEFT && gameHero.getCollidableHero().isGoingTo(Side.LEFT))
+			{
+				setState(new WallGrabHeroState(gameHero));
+			}
+			else if (gameHero.getForwardSide() == Side.RIGHT && gameHero.getCollidableHero().isGoingTo(Side.RIGHT))
+			{
+				setState(new WallGrabHeroState(gameHero));
+			}
+		}
 		
 	}
 	
 	@Override
-	protected void stateInputIsPressing(HeroInputKey inputValue)
+	public void stateInputIsPressing(HeroInputKey key)
 	{
-		if (inputValue == HeroInputKey.JUMP)
+		if (key == HeroInputKey.JUMP)
 		{
 			gameHero.addAction(new JumpPressingHelp(heroStatesProperties));
 		}
 	}
 
+	
 	@Override
 	protected void stateInputPressed(HeroInputKey inputValue)
 	{

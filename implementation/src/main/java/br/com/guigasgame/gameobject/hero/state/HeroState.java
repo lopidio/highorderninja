@@ -168,10 +168,11 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 
 	protected void move(Side side)
 	{
-		if (!gameHero.isTouchingWallAhead())
+		if (gameHero.isTouchingWallAhead() && gameHero.getCollidableHero().isGoingTo(side.opposite()))
 		{
-			gameHero.addAction(new MoveHeroAction(side, heroStatesProperties));
+			return;
 		}
+		gameHero.addAction(new MoveHeroAction(side, heroStatesProperties));
 	}
 
 	@Override

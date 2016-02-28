@@ -29,4 +29,11 @@ public enum Side
 		return horizontalValue;
 	}
 	public abstract Side opposite();
+	
+	public static Side fromHorizontalValue(int x)
+	{
+		if (x > 0)
+			return RIGHT;
+		return Side.LEFT;
+	}
 }

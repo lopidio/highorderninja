@@ -1,5 +1,6 @@
 package br.com.guigasgame.gameobject.projectile.rope;
 
+import org.jbox2d.collision.WorldManifold;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
@@ -22,6 +23,7 @@ public class NinjaHookProjectile extends Projectile
 	private boolean markToAttachHook;
 	private boolean hookIsAttached;
 	private NinjaRope ninjaRope;
+	private Vec2 attachPoint;
 
 	public NinjaHookProjectile(Vec2 direction, GameHero gameHero)
 	{
@@ -94,7 +96,8 @@ public class NinjaHookProjectile extends Projectile
 			return;
 
 		collidable.getBody().setType(BodyType.STATIC);
-		ninjaRope = new NinjaRope(world, properties, collidable.getBody().getPosition(), gameHero.getCollidableHero().getBody());
+		ninjaRope = new NinjaRope(world, properties, attachPoint, gameHero.getCollidableHero().getBody());
+
 		
 		System.out.println("Hook attached");
 		hookIsAttached = true;
@@ -131,6 +134,9 @@ public class NinjaHookProjectile extends Projectile
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
 	{
+		WorldManifold manifold = new WorldManifold();
+		contact.getWorldManifold(manifold);
+		this.attachPoint = manifold.points[0];
 		markToAttachHook = true;
 	}
 	

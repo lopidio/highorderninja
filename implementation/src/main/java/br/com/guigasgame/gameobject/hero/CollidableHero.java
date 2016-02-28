@@ -154,4 +154,13 @@ public class CollidableHero extends Collidable
 		body.setLinearVelocity(new Vec2());
 	}
 
+	public boolean isGoingTo(Side side)
+	{
+		if (side == Side.LEFT)
+			return body.getLinearVelocity().x < -WorldConstants.MOVING_TOLERANCE;
+		else if (side == Side.RIGHT)
+			return body.getLinearVelocity().x > WorldConstants.MOVING_TOLERANCE;
+		return false;
+	}
+
 }

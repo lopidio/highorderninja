@@ -23,7 +23,7 @@
 			<value>
 				<jump impulse="12.0" />
 				<maxSpeed>
-					<x>3</x>
+					<x>5</x>
 					<y>3</y>
 				</maxSpeed>
 			</value>
@@ -87,7 +87,7 @@
 				<rope />
 				<shoot />
 				<jump impulse="3.0" />
-				<move acceleration="1.0" />
+				<move acceleration="0.2" />
 				<maxSpeed>
 					<x>20</x>
 					<y>20</y>
@@ -95,7 +95,7 @@
 				<property>
 					<entry>
 						<key>jumpPressingHelp</key>
-						<value>3.2</value>
+						<value>3.0</value>
 					</entry>
 				</property>
 			</value>
