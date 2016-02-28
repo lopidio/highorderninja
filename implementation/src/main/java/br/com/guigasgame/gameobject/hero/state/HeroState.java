@@ -252,7 +252,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	{
 		for( Animation animation : animationList )
 		{
-			animation.setColor(Color.YELLOW);
+			animation.setColor(color);
 		}
 	}
 

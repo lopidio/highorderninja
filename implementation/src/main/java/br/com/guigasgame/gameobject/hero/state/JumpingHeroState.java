@@ -55,7 +55,7 @@ class JumpingHeroState extends HeroState
 	{
 		if (inputValue == HeroInputKey.ACTION)
 		{
-			setState(new DivingState(gameHero));
+			setState(new StopMovementState(gameHero));
 		}
 	}
 	

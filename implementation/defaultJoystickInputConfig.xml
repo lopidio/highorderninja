@@ -81,7 +81,7 @@
             <key>ACTION</key>
             <value>
                 <handlers xsi:type="joystickButtonInput">
-                    <joystickButtonCode>3</joystickButtonCode>
+                    <joystickButtonCode>2</joystickButtonCode>
                 </handlers>
             </value>
         </entry>

@@ -53,7 +53,7 @@
             <key>SLIDE</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>C</keysCode>
+                    <keysCode>S</keysCode>
                 </handlers>
             </value>
         </entry>
@@ -61,7 +61,7 @@
             <key>ACTION</key>
             <value>
                 <handlers xsi:type="keyboardInput">
-                    <keysCode>V</keysCode>
+                    <keysCode>C</keysCode>
                 </handlers>
             </value>
         </entry>
