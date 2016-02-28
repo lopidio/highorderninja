@@ -206,7 +206,8 @@ public class GameHero extends GameObject
 
 	public void shoot(Projectile projectile)
 	{
-		addChild(projectile);
+		if (projectile != null)
+			addChild(projectile);
 	}
 
 	public void addAction(GameHeroAction gameHeroAction)
