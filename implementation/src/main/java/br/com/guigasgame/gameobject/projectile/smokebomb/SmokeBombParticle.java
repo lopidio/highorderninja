@@ -38,7 +38,7 @@ public class SmokeBombParticle extends Projectile
 		FixtureDef def = createFixtureDef();
 		body.createFixture(def);
 		
-		direction.mulLocal(randomizeValueBetween(0, 0.2f));
+		direction.mulLocal(randomizeValueBetween(0.3f, 0.9f));
 		body.setGravityScale(randomizeValueBetween(-0.01f, 0.01f));
 		body.applyLinearImpulse(direction, body.getWorldCenter());
 	}
@@ -50,14 +50,14 @@ public class SmokeBombParticle extends Projectile
 		for( Drawable drawable : drawableList )
 		{
 			Animation animation = (Animation) drawable;
-			alpha = alpha*(1 - randomizeValueBetween(deltaTime/10, deltaTime/1));
+			alpha = alpha*(1 - randomizeValueBetween(deltaTime/100, deltaTime/2));
 			animation.setAlpha((int) alpha);
-			if (scale <= 30)
+			if (scale <= 40)
 			{
 				scale += deltaTime*1.01;
 				animation.scale(1 + scale);
 			}
-			if (alpha <= 10)
+			if (alpha <= 20)
 				markToDestroy();
 
 		}

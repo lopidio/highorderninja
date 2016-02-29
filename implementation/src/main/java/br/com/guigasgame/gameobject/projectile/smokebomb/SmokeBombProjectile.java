@@ -11,7 +11,7 @@ import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 
 public class SmokeBombProjectile extends Projectile
 {
-	private static int NUM_PARTICLES = 50;
+	private static int NUM_PARTICLES = 30;
 	private Color color;
 
 	public SmokeBombProjectile(Vec2 direction, Vec2 position, Color color)
@@ -35,8 +35,8 @@ public class SmokeBombProjectile extends Projectile
 		for (int i = 0; i < NUM_PARTICLES; ++i)
 		{
 			Vec2 direction = new Vec2();
-			direction.x = randomizeValueBetween(-1, 1);
-			direction.y = randomizeValueBetween(-0.5f, .5f);
+			direction.x = randomizeValueBetween(-0.3f, 0.3f);
+			direction.y = randomizeValueBetween(-0.5f, 0.5f);
 			SmokeBombParticle particle = new SmokeBombParticle(direction, position, color);
 			addChild(particle);
 		}

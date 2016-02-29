@@ -204,7 +204,6 @@ public class MainGameState implements GameState
 				iterator.remove();
 			}
 		}
-
 	}
 
 	@Override

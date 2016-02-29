@@ -47,9 +47,9 @@
             <key>SMOKE_BOMB_PARTICLE</key>
             <value>
                 <numBounces>1</numBounces>
-                <initialSpeed>3.0</initialSpeed>
+                <initialSpeed>6.0</initialSpeed>
                 <mass>1.0</mass>
-                <radius>0.15</radius>
+                <radius>0.3</radius>
                 <restitution>0.0</restitution>
                 <friction>5</friction>
                 <damage>0</damage>

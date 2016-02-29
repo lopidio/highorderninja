@@ -151,3 +151,5 @@ v SmokeBomb (player colloring)
 
 ShurikenBomb
 RayCastAnythingBut....
+
+Team class (Color, mask, enemiesMask, numPlayers)
