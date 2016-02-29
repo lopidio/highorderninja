@@ -1,4 +1,4 @@
-package br.com.guigasgame.gameobject.projectile;
+package br.com.guigasgame.gameobject.projectile.shuriken;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -7,6 +7,8 @@ import org.jbox2d.dynamics.contacts.Contact;
 import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.projectile.Projectile;
+import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 
 public class Shuriken extends Projectile
 {
@@ -29,6 +31,7 @@ public class Shuriken extends Projectile
 		Body otherBody = (Body) other;
 		if (otherBody.getUserData() != null)
 		{
+//			GameHero hit = (GameHero) otherBody.getUserData();
 			CollidableConstants.Category category = CollidableConstants.Category.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
 			System.out.println("Hit: " + category.name());
 			markToDestroy();

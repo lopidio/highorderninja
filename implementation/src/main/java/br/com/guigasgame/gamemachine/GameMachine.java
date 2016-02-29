@@ -34,6 +34,7 @@ public class GameMachine
 		herosProperties.add(new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0, new Vec2(10, 5)));
 		herosProperties.add(new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1, new Vec2(40, 5)));
 		herosProperties.add(new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2, new Vec2(50, 5)));
+
 		MainGameState mainGameState = new MainGameState(herosProperties);
 
 		gameMachine.popState();

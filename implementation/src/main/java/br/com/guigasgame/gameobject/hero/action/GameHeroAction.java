@@ -6,46 +6,46 @@ import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 public abstract class GameHeroAction
 {
 	protected final HeroStateProperties heroStateProperties;
-	protected final GameHeroAction decorator;
+	protected final GameHeroAction decorated;
 	
 	protected GameHeroAction(HeroStateProperties heroStateProperties)
 	{
 		this.heroStateProperties = heroStateProperties;
-		this.decorator = null;
+		this.decorated = null;
 	}
 	
 	public GameHeroAction(GameHeroAction decorator)
 	{
-		this.decorator = decorator;
+		this.decorated = decorator;
 		this.heroStateProperties = decorator.heroStateProperties;
 	}
 
 	
 	public GameHeroAction()
 	{
-		this.decorator = null;
+		this.decorated = null;
 		this.heroStateProperties = null;
 	}
 
 	public final void preExecute(GameHero gameHero)
 	{
-		if (decorator != null)
-			decorator.preExecute(gameHero);
+		if (decorated != null)
+			decorated.preExecute(gameHero);
 		childPreExecute(gameHero);
 	}
 	
 	public final void postExecute(GameHero gameHero)
 	{
-		if (decorator != null)
-			decorator.postExecute(gameHero);
+		if (decorated != null)
+			decorated.postExecute(gameHero);
 		childPostExecute(gameHero);
 	}
 
 	public boolean canExecute(GameHero hero)
 	{
-		if (decorator != null)
+		if (decorated != null)
 		{
-			if (decorator.canExecute(hero))
+			if (decorated.canExecute(hero))
 			{
 				return childCanExecute(hero);
 			}
@@ -59,8 +59,8 @@ public abstract class GameHeroAction
 	
 	public final void execute(GameHero gameHero)
 	{
-		if (decorator != null)
-			decorator.execute(gameHero);
+		if (decorated != null)
+			decorated.execute(gameHero);
 		childExecute(gameHero);
 	}
 

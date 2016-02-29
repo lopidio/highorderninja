@@ -105,7 +105,7 @@ public class CollidableConstants
 		
 		public static CollidableFilter getPlayerFilter(int playerID)
 		{
-			return new CollidableFilter(Category.getPlayerCategory(playerID)).addCollisionWith(Category.HEROS).and(Category.SCENERY).and(Category.SHURIKEN);
+			return new CollidableFilter(Category.getPlayerCategory(playerID)).addCollisionWith(Category.SCENERY).and(Category.SHURIKEN);
 
 		}
 		
