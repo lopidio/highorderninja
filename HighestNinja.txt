@@ -146,8 +146,8 @@ v Get category from filter (enumeration)
 v Projectile aimer refactoring (bug fixing). It aims even when there is a obstacle among
 v GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
 v Aimer aims worse when target is inside a smokebomb area
+v GameHero receives GameHeroProperties(?) {Color, input, ID, initial position...} at constructor
+v SmokeBomb (player colloring)
 
-GameHero receives GameHeroProperties(?) {Color, input, ID, initial position...} at constructor
-SmokeBomb (player colloring)
 ShurikenBomb
 RayCastAnythingBut....

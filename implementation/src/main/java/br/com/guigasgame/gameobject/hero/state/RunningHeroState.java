@@ -3,7 +3,9 @@ package br.com.guigasgame.gameobject.hero.state;
 import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.side.Side;
 
 
 class RunningHeroState extends HeroState
@@ -46,5 +48,10 @@ class RunningHeroState extends HeroState
 		{
 			setState(new FallingHeroState(gameHero));
 		}
+
+		Side side = gameHero.getCollidableHero().movingToSide();
+		if (side != Side.UNKNOWN && side != gameHero.getForwardSide())
+			gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
+
 	}
 }

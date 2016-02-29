@@ -3,7 +3,6 @@ package br.com.guigasgame.side;
 public enum Side
 {
 	LEFT(-1) {
-
 		@Override
 		public Side opposite()
 		{
@@ -15,6 +14,14 @@ public enum Side
 		public Side opposite()
 		{
 			return LEFT;
+		}
+	}, 
+	
+	UNKNOWN(0) {
+		@Override
+		public Side opposite()
+		{
+			return Side.UNKNOWN;
 		}
 	};
 	

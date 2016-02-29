@@ -153,11 +153,6 @@ public class GameHero extends GameObject
 		return forwardSide;
 	}
 
-	public int getPlayerID()
-	{
-		return heroProperties.getPlayerId();
-	}
-
 	public void setForwardSide(Side side)
 	{
 		for( Animation animation : animationList )
@@ -201,11 +196,6 @@ public class GameHero extends GameObject
 	public List<Animation> getAnimation()
 	{
 		return animationList;
-	}
-
-	public IntegerMask getEnemiesMask()
-	{
-		return heroProperties.getEnemiesMask();
 	}
 
 	public Projectile getItem(Vec2 pointingDirection)

@@ -162,17 +162,33 @@ public class CollidableHero extends Collidable
 			return body.getLinearVelocity().x > WorldConstants.MOVING_TOLERANCE;
 		return false;
 	}
+	
+	public Side movingToSide()
+	{
+		if (body.getLinearVelocity().x < -WorldConstants.MOVING_TOLERANCE)
+			return Side.LEFT;
+		if (body.getLinearVelocity().x > WorldConstants.MOVING_TOLERANCE)
+			return Side.RIGHT;
+		return Side.UNKNOWN;
+	}
 
 	public void putRopeSwingingProperties()
 	{
-		fixtureMap.get(FixtureSensorID.FEET).setFriction(1f);
-		fixtureMap.get(FixtureSensorID.FEET).setRestitution(0);
+		for( Fixture fixture : fixtureMap.values() )
+		{
+			fixture.setFriction(1f);
+			fixture.setRestitution(0);
+		}
+
 	}
 
 	public void takeOutRopeSwingingProperties()
 	{
-		fixtureMap.get(FixtureSensorID.FEET).setFriction(0);
-		fixtureMap.get(FixtureSensorID.FEET).setRestitution(.5f);
+		for( Fixture fixture : fixtureMap.values() )
+		{
+			fixture.setFriction(0f);
+			fixture.setRestitution(0.5f);
+		}
 	}
 
 }
