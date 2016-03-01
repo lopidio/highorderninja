@@ -26,9 +26,9 @@ import org.jsfml.window.event.Event.Type;
 
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidableConstants;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.CollisionManager;
+import br.com.guigasgame.collision.GameCollidableCategory;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
@@ -45,7 +45,7 @@ public class MainGameState implements GameState
 
 	public MainGameState(List<HeroTeam> teams) throws JAXBException
 	{
-		CollidableConstants.Category.display();
+		GameCollidableCategory.display();
 		gameObjectsList = new ArrayList<>();
 
 		timeFactor = 1;
@@ -98,7 +98,7 @@ public class MainGameState implements GameState
 		shape.setAsBox(size.x, size.y);
 		FixtureDef fixtureDef = new FixtureDef();
 
-		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableConstants.Filter.SCENERY).toBox2dFilter();
+		fixtureDef.filter = new CollidableFilterBox2dAdapter(GameCollidableCategory.SCENERY).toBox2dFilter();
 
 		fixtureDef.density = 0;
 		fixtureDef.shape = shape;

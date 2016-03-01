@@ -1,10 +1,12 @@
 package br.com.guigasgame.gameobject.projectile.shuriken;
 
+import java.util.List;
+
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 
-import br.com.guigasgame.collision.CollidableConstants;
+import br.com.guigasgame.collision.GameCollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
@@ -21,7 +23,7 @@ public class Shuriken extends Projectile
 		owner = gameHero;
 		collisionCounter = 0;
 		targetMask = gameHero.getHeroProperties().getEnemiesMask();
-		collidableFilter = CollidableConstants.Filter.SHURIKEN.getFilter().removeCollisionWith(CollidableConstants.Category.getPlayerCategory(owner.getHeroProperties().getPlayerId()));
+		collidableFilter = GameCollidableCategory.SHURIKEN.getFilter().removeCollisionWith(GameCollidableCategory.getPlayerCategory(owner.getHeroProperties().getPlayerId()));
 		setAnimationsColor(gameHero.getHeroProperties().getColor());
 	}
 
@@ -32,8 +34,11 @@ public class Shuriken extends Projectile
 		if (otherBody.getUserData() != null)
 		{
 //			GameHero hit = (GameHero) otherBody.getUserData();
-			CollidableConstants.Category category = CollidableConstants.Category.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
-			System.out.println("Hit: " + category.name());
+			List<GameCollidableCategory> categoryList = GameCollidableCategory.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
+			for( GameCollidableCategory category : categoryList )
+			{
+				System.out.println("Hit: " + category.name());
+			}
 			markToDestroy();
 		}
 		++collisionCounter;

@@ -1,6 +1,5 @@
 package br.com.guigasgame.collision;
 
-import br.com.guigasgame.collision.CollidableConstants.Category;
 import br.com.guigasgame.collision.CollidableFilterManipulator.CollidableFilterAddingCollision;
 import br.com.guigasgame.collision.CollidableFilterManipulator.CollidableFilterRemovingCollision;
 
@@ -8,7 +7,7 @@ import br.com.guigasgame.collision.CollidableFilterManipulator.CollidableFilterR
 public class CollidableFilter 
 {
 	///What I am
-	protected final IntegerMask category;
+	protected IntegerMask category;
 
 	///What I collide with
 	protected IntegerMask collider;
@@ -19,9 +18,15 @@ public class CollidableFilter
 		collider = new IntegerMask(collidesWith.value);
 	}
 
-	public CollidableFilter(Category category)
+	public CollidableFilter(GameCollidableCategory category)
 	{
-		this.category = category.getMask();
+		this.category = category.getCategoryMask();
+		collider = new IntegerMask();
+	}
+
+	public CollidableFilter()
+	{
+		this.category = new IntegerMask();
 		collider = new IntegerMask();
 	}
 
@@ -45,14 +50,19 @@ public class CollidableFilter
 		return category;
 	}
 	
+	public void setCategory(IntegerMask categoryMask)
+	{
+		category = categoryMask;
+	}
+
 	public IntegerMask getCollider()
 	{
 		return collider;
 	}
 	
-	public CollidableFilterAddingCollision addCollisionWith(Category category)
+	public CollidableFilterAddingCollision addCollisionWith(GameCollidableCategory category)
 	{
-		return new CollidableFilterAddingCollision(this.category, category.getMask());
+		return new CollidableFilterAddingCollision(this.category, category.getCategoryMask());
 	}
 
 	public CollidableFilterAddingCollision addCollisionWithEveryThing()
@@ -61,14 +71,14 @@ public class CollidableFilter
 	}
 	
 	
-	public CollidableFilterRemovingCollision removeCollisionWith(Category category) 
+	public CollidableFilterRemovingCollision removeCollisionWith(GameCollidableCategory category) 
 	{
-		return new CollidableFilterRemovingCollision(this.category, collider.clear(category.getMask().value));
+		return new CollidableFilterRemovingCollision(this.category, collider.clear(category.getCategoryMask().value));
 	}
 
 	public CollidableFilterRemovingCollision removeCollisionWith(IntegerMask category) 
 	{
 		return new CollidableFilterRemovingCollision(this.category, collider.clear(category.value));
 	}
-	
+
 }

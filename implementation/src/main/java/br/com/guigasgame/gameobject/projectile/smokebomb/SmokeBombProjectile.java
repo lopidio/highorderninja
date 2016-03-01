@@ -5,7 +5,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.jsfml.graphics.Color;
 
-import br.com.guigasgame.collision.CollidableConstants;
+import br.com.guigasgame.collision.GameCollidableCategory;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 
@@ -18,8 +18,8 @@ public class SmokeBombProjectile extends Projectile
 	{
 		super(ProjectileIndex.SMOKE_BOMB_PROJECTILE, direction, position);
 
-		targetMask = CollidableConstants.Category.SCENERY.getMask();
-		collidableFilter = CollidableConstants.Filter.SMOKE_BOMB.getFilter();
+		targetMask = GameCollidableCategory.SCENERY.getCategoryMask();
+		collidableFilter = GameCollidableCategory.SMOKE_BOMB.getFilter();
 		this.color = color;
 		setAnimationsColor(color);
 	}

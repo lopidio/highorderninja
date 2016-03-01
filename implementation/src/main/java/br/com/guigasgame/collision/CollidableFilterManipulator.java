@@ -1,7 +1,5 @@
 package br.com.guigasgame.collision;
 
-import br.com.guigasgame.collision.CollidableConstants.Category;
-
 public class CollidableFilterManipulator 
 {
 
@@ -11,13 +9,13 @@ public class CollidableFilterManipulator
 		{
 			super(collidableCategory, collidesWith);
 		}
-		public CollidableFilterAddingCollision and(Category category)
+		public CollidableFilterAddingCollision and(GameCollidableCategory category)
 		{
-			return new CollidableFilterAddingCollision(this.category, collider.set(category.getMask().value));
+			return new CollidableFilterAddingCollision(this.category, collider.set(category.getCategoryMask().value));
 		}
-		public CollidableFilterRemovingCollision except(Category category)
+		public CollidableFilterRemovingCollision except(GameCollidableCategory category)
 		{
-			return new CollidableFilterRemovingCollision(this.category, collider.clear(category.getMask().value));
+			return new CollidableFilterRemovingCollision(this.category, collider.clear(category.getCategoryMask().value));
 		}
 	}
 	
@@ -28,14 +26,14 @@ public class CollidableFilterManipulator
 			super(collidableCategory, collidesWith);
 		}
 		
-		public CollidableFilterRemovingCollision and(Category category)
+		public CollidableFilterRemovingCollision and(GameCollidableCategory category)
 		{
-			return new CollidableFilterRemovingCollision(this.category, collider.clear(category.getMask().value));
+			return new CollidableFilterRemovingCollision(this.category, collider.clear(category.getCategoryMask().value));
 		}		
 
-		public CollidableFilterAddingCollision except(Category category)
+		public CollidableFilterAddingCollision except(GameCollidableCategory category)
 		{
-			return new CollidableFilterAddingCollision(this.category, collider.set(category.getMask().value));
+			return new CollidableFilterAddingCollision(this.category, collider.set(category.getCategoryMask().value));
 		}		
 
 	}
