@@ -32,6 +32,7 @@ import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHero;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
+import br.com.guigasgame.team.HeroTeam;
 
 
 public class MainGameState implements GameState
@@ -42,7 +43,7 @@ public class MainGameState implements GameState
 
 	List<GameObject> gameObjectsList;
 
-	public MainGameState(List<GameHeroProperties> herosProperties) throws JAXBException
+	public MainGameState(List<HeroTeam> teams) throws JAXBException
 	{
 		CollidableConstants.Category.display();
 		gameObjectsList = new ArrayList<>();
@@ -77,9 +78,12 @@ public class MainGameState implements GameState
 		createGround(new Vec2(21.5f, 27), new Vec2(.5f, 5)); //|
 
 		
-		for( GameHeroProperties gameHeroProperties : herosProperties )
+		for( HeroTeam team : teams )
 		{
-			initializeGameObject(Arrays.asList(new GameHero(gameHeroProperties)));
+			List<GameHeroProperties> heros = team.getHerosList();
+			for (GameHeroProperties gameHeroProperties : heros) {
+				initializeGameObject(Arrays.asList(new GameHero(gameHeroProperties)));
+			}
 		}
 	}
 

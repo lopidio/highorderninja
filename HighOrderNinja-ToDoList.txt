@@ -38,6 +38,7 @@ v GameObject has list of collidables and drawables (CompositorDrawable?)(Composi
 v Aimer aims worse when target is inside a smokebomb area
 v GameHero receives GameHeroProperties(?) {Color, input, ID, initial position...} at constructor
 v SmokeBomb (player colloring)
+v Team class (Color, playersMask, enemiesMask, numPlayers, totalPoints, gameHeroPropertiesList)
 
 Get category from filter (one enumeration)
 
@@ -46,6 +47,6 @@ ShurikenBomb
 RayCastAnythingBut....
 
 MatchProperties (given to MainGameStateConstructos. Has: deathmatch or teammatch, numMaxShurikens, maxTime, itemsAvailable, friendlyFire, scene, goalScore...)
-Team class (Color, mask, enemiesMask, numPlayers, points, gameHeroPropertiesList)
-HeroProperties add: team, FragStatistics
-FragStatistics: totalShoots, deaths, kills, score
+Every GameHero object instantiates it's own frag statistics... At the end of each round, that fragStatistics is read by the team...
+HeroProperties add: team
+FragStatistics: totalShoots, deaths, kills, suicides

@@ -16,6 +16,7 @@ import org.jsfml.window.event.Event;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputDevice;
+import br.com.guigasgame.team.HeroTeam;
 
 
 public class GameMachine
@@ -30,12 +31,36 @@ public class GameMachine
 	{
 		GameMachine gameMachine = new GameMachine();
 
-		List<GameHeroProperties> herosProperties = new ArrayList<>();
-		herosProperties.add(new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0, new Vec2(10, 5)));
-		herosProperties.add(new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1, new Vec2(40, 5)));
-		herosProperties.add(new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2, new Vec2(50, 5)));
+		List<HeroTeam> teams = new ArrayList<>();
+		
+		HeroTeam teamAlpha = new HeroTeam(0);
+		HeroTeam teamBravo = new HeroTeam(1);
+		HeroTeam teamCharlie = new HeroTeam(2);
+		
+		GameHeroProperties playerOne = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
+		playerOne.setSpawnPosition(new Vec2(10, 5));
+		teamAlpha.addGameHero(playerOne);
+		
+		GameHeroProperties playerTwo = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
+		playerTwo.setSpawnPosition(new Vec2(40, 5));
+		teamBravo.addGameHero(playerTwo);
+		
+		
+		GameHeroProperties playerThree = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
+		playerThree.setSpawnPosition(new Vec2(50, 18));
+		teamCharlie.addGameHero(playerThree);
 
-		MainGameState mainGameState = new MainGameState(herosProperties);
+		
+		teams.add(teamAlpha);
+		teams.add(teamBravo);
+		teams.add(teamCharlie);
+		
+		for (HeroTeam heroTeam : teams) 
+		{
+			heroTeam.setUp();
+		}
+
+		MainGameState mainGameState = new MainGameState(teams);
 
 		gameMachine.popState();
 		gameMachine.addState(mainGameState);
@@ -61,7 +86,7 @@ public class GameMachine
 //			System.out.println(list.toString());
 //		}
 		
-		renderWindow = new RenderWindow(new VideoMode(1366,  768, 32), "Test");//, Window.FULLSCREEN); //Window.TRANSPARENT
+		renderWindow = new RenderWindow(new VideoMode(1600, 900, 32), "Test");//, Window.FULLSCREEN); //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		
