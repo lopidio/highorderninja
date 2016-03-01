@@ -30,7 +30,9 @@ public class Shuriken extends Projectile
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
 	{
+		Body myBody = (Body) me;
 		Body otherBody = (Body) other;
+		System.out.println("Impact: " + myBody.getLinearVelocity().sub(otherBody.getLinearVelocity()).length()); //times properties.damage??
 		if (otherBody.getUserData() != null)
 		{
 //			GameHero hit = (GameHero) otherBody.getUserData();

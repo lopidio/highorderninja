@@ -88,12 +88,14 @@ public enum GameCollidableCategory
 	{
 		for( GameCollidableCategory category : GameCollidableCategory.values() )
 		{
-			System.out.println("Category "
-					+ category.name() + ":\t"
-					+ Integer.toBinaryString(category.getCategoryMask().value)
-					+ "\t\t-> " 
-					+ Integer.toBinaryString(category.getFilter().getCollider().value)
-					);
+			String msg = "Category " + category.name() + ":\t";
+			List<GameCollidableCategory> categoryList = GameCollidableCategory.fromMask(category.filter.collider.value);
+			for( GameCollidableCategory gameCollidableCategory : categoryList )
+			{
+				msg += gameCollidableCategory.name() + "; ";
+			}
+
+			System.out.println(msg);
 		}
 	}
 
