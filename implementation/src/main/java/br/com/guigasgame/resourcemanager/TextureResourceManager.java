@@ -24,7 +24,7 @@ public class TextureResourceManager extends ResourceManager<String, Texture>
 
 	@Override
 	protected Texture loadResource(String key)
-			throws UnableTLoadResourceException, IOException
+			throws IOException
 	{
 		Texture texture = new Texture();
 

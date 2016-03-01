@@ -28,7 +28,7 @@ public abstract class ResourceManager<Key, Value>
 					return resource;
 				}
 			}
-			catch (UnableTLoadResourceException | IOException e)
+			catch (IOException e)
 			{
 				e.printStackTrace();
 			}
@@ -42,5 +42,5 @@ public abstract class ResourceManager<Key, Value>
 	}
 
 	protected abstract Value loadResource(Key key)
-			throws UnableTLoadResourceException, IOException;
+			throws IOException;
 }
