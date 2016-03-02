@@ -21,7 +21,7 @@ import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
 
 
-public class GameHero extends GameObject
+public class RoundGameHero extends GameObject
 {
 
 	private Side forwardSide;
@@ -34,7 +34,7 @@ public class GameHero extends GameObject
 
 	private String lastActionName;
 
-	public GameHero(GameHeroProperties properties)
+	public RoundGameHero(GameHeroProperties properties)
 	{
 		this.heroProperties = properties;
 		forwardSide = Side.RIGHT;

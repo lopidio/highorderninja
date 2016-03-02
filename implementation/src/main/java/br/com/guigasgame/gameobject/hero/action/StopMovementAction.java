@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.action;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 
 
@@ -13,7 +13,7 @@ public class StopMovementAction extends GameHeroAction
 	}
 
 	@Override
-	protected void childExecute(GameHero hero)
+	protected void childExecute(RoundGameHero hero)
 	{
 		hero.getCollidableHero().stopMovement();
 	}

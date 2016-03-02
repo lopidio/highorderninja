@@ -2,7 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jsfml.graphics.Color;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -12,7 +12,7 @@ import br.com.guigasgame.side.Side;
 class DuckingState extends HeroState
 {
 
-	protected DuckingState(GameHero gameHero)
+	protected DuckingState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_DUCKING);
 		setAnimationsColor(Color.BLUE);

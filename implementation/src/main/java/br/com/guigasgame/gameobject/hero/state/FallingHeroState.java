@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
 
@@ -8,7 +8,7 @@ import br.com.guigasgame.side.Side;
 class FallingHeroState extends HeroState
 {
 
-	public FallingHeroState(GameHero gameHero)
+	public FallingHeroState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_FALLING);
 	}

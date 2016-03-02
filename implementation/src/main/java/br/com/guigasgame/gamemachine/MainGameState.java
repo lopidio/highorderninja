@@ -30,7 +30,7 @@ import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.collision.GameCollidableCategory;
 import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -82,7 +82,7 @@ public class MainGameState implements GameState
 		{
 			List<GameHeroProperties> heros = team.getHerosList();
 			for (GameHeroProperties gameHeroProperties : heros) {
-				initializeGameObject(Arrays.asList(new GameHero(gameHeroProperties)));
+				initializeGameObject(Arrays.asList(new RoundGameHero(gameHeroProperties)));
 			}
 		}
 	}

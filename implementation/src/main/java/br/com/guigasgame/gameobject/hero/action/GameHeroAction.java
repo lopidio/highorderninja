@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.action;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 
 public abstract class GameHeroAction
@@ -27,21 +27,21 @@ public abstract class GameHeroAction
 		this.heroStateProperties = null;
 	}
 
-	public final void preExecute(GameHero gameHero)
+	public final void preExecute(RoundGameHero gameHero)
 	{
 		if (decorated != null)
 			decorated.preExecute(gameHero);
 		childPreExecute(gameHero);
 	}
 	
-	public final void postExecute(GameHero gameHero)
+	public final void postExecute(RoundGameHero gameHero)
 	{
 		if (decorated != null)
 			decorated.postExecute(gameHero);
 		childPostExecute(gameHero);
 	}
 
-	public boolean canExecute(GameHero hero)
+	public boolean canExecute(RoundGameHero hero)
 	{
 		if (decorated != null)
 		{
@@ -57,26 +57,26 @@ public abstract class GameHeroAction
 		}
 	}
 	
-	public final void execute(GameHero gameHero)
+	public final void execute(RoundGameHero gameHero)
 	{
 		if (decorated != null)
 			decorated.execute(gameHero);
 		childExecute(gameHero);
 	}
 
-	protected abstract void childExecute(GameHero hero);
+	protected abstract void childExecute(RoundGameHero hero);
 
-	protected void childPreExecute(GameHero hero)
+	protected void childPreExecute(RoundGameHero hero)
 	{
 		//Hook method
 	}
 	
-	protected void childPostExecute(GameHero hero)
+	protected void childPostExecute(RoundGameHero hero)
 	{
 		//Hook method
 	}
 	
-	protected boolean childCanExecute(GameHero hero)
+	protected boolean childCanExecute(RoundGameHero hero)
 	{
 		return true;
 	}

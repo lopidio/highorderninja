@@ -2,7 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jsfml.graphics.Color;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideImpulseAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
@@ -11,7 +11,7 @@ public class AirSpinHeroState extends HeroState
 
 	private float secondsRemaining;
 
-	public AirSpinHeroState(GameHero gameHero)
+	public AirSpinHeroState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_AIR_SPIN);
 		setAnimationsColor(Color.BLUE);

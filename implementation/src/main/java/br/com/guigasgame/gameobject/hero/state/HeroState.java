@@ -10,7 +10,7 @@ import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
@@ -26,12 +26,12 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 public abstract class HeroState implements InputListener<HeroInputKey>, UpdatableFromTime
 {
 
-	protected final GameHero gameHero;
+	protected final RoundGameHero gameHero;
 	protected HeroStateProperties heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
 	protected List<Animation> animationList;
 
-	protected HeroState(GameHero gameHero, HeroStateIndex heroIndex)
+	protected HeroState(RoundGameHero gameHero, HeroStateIndex heroIndex)
 	{
 		super();
 		this.heroStatesProperties = HeroStatesPropertiesPool.getStateProperties(heroIndex);
@@ -247,7 +247,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		return inputMap.get(key);
 	}
 
-	public boolean canExecute(GameHero hero)
+	public boolean canExecute(RoundGameHero hero)
 	{
 		//Hook method
 		return true;

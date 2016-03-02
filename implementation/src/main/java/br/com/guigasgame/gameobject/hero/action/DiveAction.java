@@ -2,7 +2,7 @@ package br.com.guigasgame.gameobject.hero.action;
 
 import org.jbox2d.common.Vec2;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 
 public class DiveAction extends GameHeroAction
 {
@@ -13,13 +13,13 @@ public class DiveAction extends GameHeroAction
 	}
 
 	@Override
-	public boolean childCanExecute(GameHero hero)
+	public boolean childCanExecute(RoundGameHero hero)
 	{
 		return heroStateProperties.property.get("diveImpulse") != null;
 	}
 	
 	@Override
-	public void childExecute(GameHero gameHero)
+	public void childExecute(RoundGameHero gameHero)
 	{
 		Vec2 impulse = new Vec2(0, heroStateProperties.property.get("diveImpulse"));
 		gameHero.getCollidableHero().applyImpulse(impulse);

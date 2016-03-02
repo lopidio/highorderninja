@@ -2,7 +2,7 @@ package br.com.guigasgame.gameobject.hero.action;
 
 import org.jbox2d.common.Vec2;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 
 
@@ -14,13 +14,13 @@ public class SwingSlowerAction extends GameHeroAction
 	}
 
 	@Override
-	public boolean childCanExecute(GameHero hero)
+	public boolean childCanExecute(RoundGameHero hero)
 	{
 		return (heroStateProperties.move != null);
 	}
 
 	@Override
-	public void childExecute(GameHero gameHero)
+	public void childExecute(RoundGameHero gameHero)
 	{
 		Vec2 tangent = gameHero.getCollidableHero().getBody().getLinearVelocity().clone();
 		tangent.normalize();

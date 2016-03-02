@@ -2,7 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jsfml.graphics.Color;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.ShootRopeAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -14,7 +14,7 @@ public class RopeShootingState extends HeroState
 
 	private NinjaHookProjectile ninjaHook;
 
-	public RopeShootingState(GameHero gameHero)
+	public RopeShootingState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE_SHOOTING);
 

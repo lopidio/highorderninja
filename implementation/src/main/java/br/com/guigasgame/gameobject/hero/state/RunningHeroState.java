@@ -2,7 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jbox2d.common.Vec2;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
@@ -11,7 +11,7 @@ import br.com.guigasgame.side.Side;
 class RunningHeroState extends HeroState
 {
 
-	protected RunningHeroState(GameHero gameHero)
+	protected RunningHeroState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_RUNNING);
 	}

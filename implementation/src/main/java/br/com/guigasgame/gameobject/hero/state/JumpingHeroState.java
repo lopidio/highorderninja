@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.JumpPressingHelp;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -12,7 +12,7 @@ class JumpingHeroState extends HeroState
 
 	private boolean doubleJumpAllowed;
 
-	protected JumpingHeroState(GameHero gameHero)
+	protected JumpingHeroState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_ASCENDING);
 		doubleJumpAllowed = true;

@@ -2,7 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jsfml.graphics.Color;
 
-import br.com.guigasgame.gameobject.hero.GameHero;
+import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.DiveAction;
 import br.com.guigasgame.gameobject.hero.action.StopMovementAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -11,7 +11,7 @@ import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 public class DivingState extends HeroState
 {
 
-	protected DivingState(GameHero gameHero)
+	protected DivingState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_DIVING);
 		setAnimationsColor(Color.MAGENTA);
