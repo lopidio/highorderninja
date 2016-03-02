@@ -7,6 +7,7 @@ import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.GameCollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
+import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 
 public class HeroTeam 
@@ -102,6 +103,15 @@ public class HeroTeam
 	public IntegerMask getEnemiesMask(int playerID) 
 	{
 		return enemiesMask;
+	}
+	
+	public void displayFrags()
+	{
+		for( GameHeroProperties gameHeroProperties : herosList )
+		{
+			RoundFragCounter roundFragCounter = gameHeroProperties.getFragCounter();
+			System.out.println("Shoots: " + roundFragCounter.getShootsOnTarget() + "/" + roundFragCounter.getShoots());
+		}
 	}
 	
 }

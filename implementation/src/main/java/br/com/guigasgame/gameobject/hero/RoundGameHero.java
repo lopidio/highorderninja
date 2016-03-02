@@ -5,11 +5,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.contacts.Contact;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.IntegerMask;
+import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
@@ -30,6 +33,7 @@ public class RoundGameHero extends GameObject
 	private List<Animation> animationList;
 	private GameHeroInputMap gameHeroInput;
 	private final GameHeroProperties heroProperties;
+	private RoundFragCounter fragCounter;
 	private HeroState state;
 
 	private String lastActionName;
@@ -46,6 +50,7 @@ public class RoundGameHero extends GameObject
 		collidableHero.addListener(this);
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
+		fragCounter = new RoundFragCounter();
 	}
 
 	public HeroState getState()
@@ -175,7 +180,10 @@ public class RoundGameHero extends GameObject
 	public void shoot(Projectile projectile)
 	{
 		if (projectile != null)
+		{
+			fragCounter.incrementShoots();
 			addChild(projectile);
+		}
 	}
 
 	public void addAction(GameHeroAction gameHeroAction)
@@ -207,5 +215,30 @@ public class RoundGameHero extends GameObject
 	{
 		return heroProperties;
 	}
+	
+	@Override
+	public void beginContact(Object me, Object other, Contact contact)
+	{
+		Body myBody = (Body) me;
+		Body otherBody = (Body) other;
+//		float maxValue = properties.initialSpeed*otherBody.getMass();
+		System.out.println("Hero Impact: " + myBody.getLinearVelocity().sub(otherBody.getLinearVelocity()).length());
+	}
 
+	public void hitOnTarget()
+	{
+		fragCounter.incrementShootsOnTarget();
+	}
+
+	
+	public RoundFragCounter getFragCounter()
+	{
+		return fragCounter;
+	}
+	
+	@Override
+	public void onDestroy()
+	{
+		this.heroProperties.updateFragCounter(fragCounter);
+	}
 }

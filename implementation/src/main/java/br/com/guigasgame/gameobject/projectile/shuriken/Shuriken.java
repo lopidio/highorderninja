@@ -30,12 +30,12 @@ public class Shuriken extends Projectile
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
 	{
-		Body myBody = (Body) me;
 		Body otherBody = (Body) other;
-		System.out.println("Impact: " + myBody.getLinearVelocity().sub(otherBody.getLinearVelocity()).length()); //times properties.damage??
 		if (otherBody.getUserData() != null)
 		{
-//			GameHero hit = (GameHero) otherBody.getUserData();
+//			CollidableHero hit = (CollidableHero) otherBody.getUserData();
+//			hit.getRoundGameHero()
+			owner.hitOnTarget();
 			List<GameCollidableCategory> categoryList = GameCollidableCategory.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
 			for( GameCollidableCategory category : categoryList )
 			{

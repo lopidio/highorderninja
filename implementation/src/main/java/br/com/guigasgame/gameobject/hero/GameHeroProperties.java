@@ -4,6 +4,7 @@ import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.IntegerMask;
+import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -18,6 +19,7 @@ public class GameHeroProperties
 	private Color color;
 	private Vec2 spawnPosition;
 	private HeroTeam heroTeam;
+	private RoundFragCounter fragCounter;
 
 	public GameHeroProperties(GameHeroInputMap gameHeroInput, int id)
 	{
@@ -79,7 +81,7 @@ public class GameHeroProperties
 
 	public IntegerMask getEnemiesMask()
 	{
-		return heroTeam.getEnemiesMask();
+		return heroTeam.getEnemiesMask(playerId);
 	}
 
 	public Vec2 getInitialPosition()
@@ -87,4 +89,14 @@ public class GameHeroProperties
 		return spawnPosition;
 	}
 
+	public void updateFragCounter(RoundFragCounter fragCounter)
+	{
+		this.fragCounter = fragCounter;
+	}
+
+	public RoundFragCounter getFragCounter()
+	{
+		return fragCounter;
+	}
+	
 }

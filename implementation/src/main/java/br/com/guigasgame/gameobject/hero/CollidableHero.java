@@ -21,7 +21,6 @@ import br.com.guigasgame.side.Side;
 
 public class CollidableHero extends Collidable
 {
-
 	private Map<FixtureSensorID, Fixture> fixtureMap;
 	private HeroSensorsController sensorsController;
 	private Filter filter;

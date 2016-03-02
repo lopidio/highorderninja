@@ -50,7 +50,6 @@ public class GameMachine
 		playerThree.setSpawnPosition(new Vec2(50, 18));
 		teamCharlie.addGameHero(playerThree);
 
-		
 		teams.add(teamAlpha);
 		teams.add(teamBravo);
 		teams.add(teamCharlie);
