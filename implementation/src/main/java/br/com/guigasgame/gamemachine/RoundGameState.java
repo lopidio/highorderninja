@@ -35,7 +35,7 @@ import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 import br.com.guigasgame.team.HeroTeam;
 
 
-public class MainGameState implements GameState
+public class RoundGameState implements GameState
 {
 
 	World world;
@@ -43,7 +43,7 @@ public class MainGameState implements GameState
 
 	List<GameObject> gameObjectsList;
 
-	public MainGameState(List<HeroTeam> teams) throws JAXBException
+	public RoundGameState(List<HeroTeam> teams) throws JAXBException
 	{
 		GameCollidableCategory.display();
 		gameObjectsList = new ArrayList<>();

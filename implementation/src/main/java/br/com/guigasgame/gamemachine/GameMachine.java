@@ -11,6 +11,7 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
+import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
 
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
@@ -45,7 +46,6 @@ public class GameMachine
 		playerTwo.setSpawnPosition(new Vec2(40, 5));
 		teamBravo.addGameHero(playerTwo);
 		
-		
 		GameHeroProperties playerThree = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
 		playerThree.setSpawnPosition(new Vec2(50, 18));
 		teamCharlie.addGameHero(playerThree);
@@ -60,10 +60,10 @@ public class GameMachine
 			heroTeam.setUp();
 		}
 
-		MainGameState mainGameState = new MainGameState(teams);
+		RoundGameState roundGameState = new RoundGameState(teams);
 
 		gameMachine.popState();
-		gameMachine.addState(mainGameState);
+		gameMachine.addState(roundGameState);
 		gameMachine.execute();
 	}
 
@@ -72,7 +72,7 @@ public class GameMachine
 		if (gameStates.size() > 0) gameStates.remove(gameStates.lastElement());
 	}
 
-	private void addState(MainGameState gameState)
+	private void addState(GameState gameState)
 	{
 		gameState.enterState(renderWindow);
 		gameStates.add(gameState);

@@ -10,18 +10,13 @@ import br.com.guigasgame.team.HeroTeam;
 public class GameHeroProperties
 {
 	private final GameHeroInputMap gameHeroInput;
-
 	private final int maxLife;
-	private int life;
 	private final int numMaxShurikens;
-	private int numShurikens;
-
-	
+	private final int numMaxSmokeBomb;
 	private final int playerId;
+	
 	private Color color;
-	
 	private Vec2 spawnPosition;
-	
 	private HeroTeam heroTeam;
 
 	public GameHeroProperties(GameHeroInputMap gameHeroInput, int id)
@@ -30,10 +25,9 @@ public class GameHeroProperties
 		this.playerId = id;
 
 		maxLife = 100;
-		life = maxLife;
 		
 		numMaxShurikens = 5;
-		numShurikens = numMaxShurikens;
+		numMaxSmokeBomb = 5;
 		spawnPosition = new Vec2();
 	}
 	
@@ -58,19 +52,14 @@ public class GameHeroProperties
 		return maxLife;
 	}
 	
-	public int getLife()
-	{
-		return life;
-	}
-	
 	public int getNumMaxShurikens()
 	{
 		return numMaxShurikens;
 	}
 	
-	public int getNumShurikens()
+	public int getNumMaxSmokeBomb()
 	{
-		return numShurikens;
+		return numMaxSmokeBomb;
 	}
 
 	public int getPlayerId()
@@ -90,7 +79,7 @@ public class GameHeroProperties
 
 	public IntegerMask getEnemiesMask()
 	{
-		return new IntegerMask(255);//heroTeam.getEnemiesMask();
+		return heroTeam.getEnemiesMask();
 	}
 
 	public Vec2 getInitialPosition()
