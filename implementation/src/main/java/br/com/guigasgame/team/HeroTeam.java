@@ -96,7 +96,7 @@ public class HeroTeam
 		return teamMask;
 	}
 
-	public IntegerMask getEnemiesMask() 
+	public IntegerMask getEnemiesMask(int playerID) 
 	{
 		return enemiesMask;
 	}

@@ -1,5 +1,8 @@
 package br.com.guigasgame.box2d.debug;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jbox2d.common.Vec2;
 import org.jsfml.system.Vector2f;
 
@@ -13,6 +16,17 @@ public class WorldConstants
 	public static Vector2f physicsToSfmlCoordinates(Vec2 box2dVector)
 	{
 		return new Vector2f(box2dVector.x * SCALE, box2dVector.y * SCALE);
+	}
+
+	public static List<Vector2f> physicsToSfmlCoordinates(List<Vec2> box2dVector)
+	{
+		List<Vector2f> retorno = new ArrayList<Vector2f>();
+		for (Vec2 vec2 : box2dVector) 
+		{
+			retorno.add(physicsToSfmlCoordinates(vec2));
+		}
+		
+		return retorno;
 	}
 
 	public static Vec2 sfmlToPhysicsCoordinates(Vector2f sfmlVector)
