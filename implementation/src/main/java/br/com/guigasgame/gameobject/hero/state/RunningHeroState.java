@@ -44,9 +44,12 @@ class RunningHeroState extends HeroState
 		{
 			setState(new StandingHeroState(gameHero));
 		}
-		else if (gameHero.getCollidableHero().isFallingDown() && !gameHero.isTouchingGround())
+		else if (!gameHero.isTouchingGround())
 		{
-			setState(new FallingHeroState(gameHero));
+			if (gameHero.getCollidableHero().isFallingDown())
+				setState(new FallingHeroState(gameHero));
+			if (gameHero.getCollidableHero().isAscending())
+				setState(new JumpingHeroState(gameHero));
 		}
 
 		Side side = gameHero.getCollidableHero().movingToSide();

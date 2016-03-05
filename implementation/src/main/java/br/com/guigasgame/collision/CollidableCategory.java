@@ -7,9 +7,9 @@ import java.util.List;
 public enum CollidableCategory
 {
 	SCENERY(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing()),
-	ROPE_NODE(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
-	ROPE_BODY(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
 	SHURIKEN(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing()),
+	ROPE_NODE(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
+	ROPE_BODY(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN)),
 	SMOKE_BOMB(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
 	HEROS(		getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN), true);
 

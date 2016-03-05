@@ -101,14 +101,14 @@ public class SceneryFile
 		bodyShape.addRectangleShape(new RectangleShape(new Point(20, 300), new Point(20, 440))); //left wall
 		bodyShape.addRectangleShape(new RectangleShape(new Point(1340, 300), new Point(20, 440))); //right wall
 
-		bodyShape.addRectangleShape(new RectangleShape(new Point(280, 480), new Point(10, 160))); // |
-		bodyShape.addRectangleShape(new RectangleShape(new Point(160, 480), new Point(10, 160))); // |
+//		bodyShape.addRectangleShape(new RectangleShape(new Point(280, 480), new Point(10, 160))); // |
+		bodyShape.addRectangleShape(new RectangleShape(new Point(160, 480), new Point(10, 170))); // |
 
-//		bodyShape.addRectangleShape(new RectangleShape(new Point(200, 160), new Point(60, 10)));
-		bodyShape.addCircleShape(new CircleShape(new Point(200, 200), 50));
+		bodyShape.addRectangleShape(new RectangleShape(new Point(200, 160), new Point(60, 10)));
+//		bodyShape.addCircleShape(new CircleShape(new Point(200, 200), 50));
 //		bodyShape.addRectangleShape(new RectangleShape(new Point(500, 120), new Point(10, 10)));
-		bodyShape.addTriangleShape(new TriangleShape(new Point(500,  120), new Point(540,  120), new Point(520,  150)));
-		bodyShape.addTriangleShape(new TriangleShape(new Point(800,  120), new Point(840,  120), new Point(820,  150)));
+		bodyShape.addTriangleShape(new TriangleShape(new Point(500,  120), new Point(660,  120), new Point(580,  150)));
+		bodyShape.addTriangleShape(new TriangleShape(new Point(800,  120), new Point(960,  120), new Point(880,  150)));
 //		bodyShape.addRectangleShape(new RectangleShape(new Point(800, 120), new Point(10, 10)));
 //		bodyShape.addRectangleShape(new RectangleShape(new Point(1100, 160), new Point(60, 10)));
 		bodyShape.addCircleShape(new CircleShape(new Point(1100, 200), 50));
@@ -116,7 +116,7 @@ public class SceneryFile
 		bodyShape.addRectangleShape(new RectangleShape(new Point(800, 640), new Point(380, 10))); //middle floor
 		bodyShape.addRectangleShape(new RectangleShape(new Point(950, 540), new Point(400, 10))); //middle floor
 		bodyShape.addRectangleShape(new RectangleShape(new Point(660, 440), new Point(240, 10))); //middle floor
-		bodyShape.addTriangleShape(new TriangleShape(new Point(420,  440), new Point(460,  390), new Point(520,  440)));
+		bodyShape.addTriangleShape(new TriangleShape(new Point(419,  440), new Point(420,  370), new Point(600,  440)));
 		bodyShape.addRectangleShape(new RectangleShape(new Point(430, 540), new Point(10, 100))); //|
 
 		

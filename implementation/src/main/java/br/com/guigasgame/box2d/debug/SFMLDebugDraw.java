@@ -30,8 +30,8 @@ public class SFMLDebugDraw extends DebugDraw
 	// - 255 range)
 	Color makeColor(Color3f color)
 	{
-		return new Color((int) (color.x * 255), (int) (color.y * 255),
-				(int) (color.z * 255));
+		return new Color((int) (color.x * 255), (int) (color.y
+				* 255), (int) (color.z * 255));
 	}
 
 	@Override
@@ -56,25 +56,22 @@ public class SFMLDebugDraw extends DebugDraw
 	public void drawSegment(Vec2 arg0, Vec2 arg1, Color3f arg2)
 	{
 		VertexArray line = new VertexArray();
-		line.add(new Vertex(WorldConstants
-				.physicsToSfmlCoordinates(arg0), makeColor(arg2)));
-		line.add(new Vertex(WorldConstants
-				.physicsToSfmlCoordinates(arg1), makeColor(arg2)));
+		line.add(new Vertex(WorldConstants.physicsToSfmlCoordinates(arg0), makeColor(arg2)));
+		line.add(new Vertex(WorldConstants.physicsToSfmlCoordinates(arg1), makeColor(arg2)));
 		line.setPrimitiveType(PrimitiveType.LINES);
 
 		renderWindow.draw(line);
 	}
 
 	@Override
-	public void drawSolidCircle(Vec2 center, float radius, Vec2 axis,
-			Color3f color)
+	public void drawSolidCircle(Vec2 center, float radius, Vec2 axis, Color3f color)
 	{
 		// no converion in cordinates of center and upper left corner, Circle in
 		// sfml is managed by default with the center
 		CircleShape circle = new CircleShape(radius * WorldConstants.SCALE);
-		circle.setPosition(center.x * WorldConstants.SCALE - radius
-				* WorldConstants.SCALE, center.y * WorldConstants.SCALE
-				- radius * WorldConstants.SCALE);
+		circle.setPosition(center.x * WorldConstants.SCALE
+				- radius * WorldConstants.SCALE, center.y * WorldConstants.SCALE
+						- radius * WorldConstants.SCALE);
 		circle.setFillColor(Color.mul(makeColor(color), Color.BLUE));
 		circle.setOutlineColor(makeColor(color));
 		circle.setOutlineThickness(4.f);
@@ -95,11 +92,11 @@ public class SFMLDebugDraw extends DebugDraw
 			Vec2 vertex = vertices[i];
 			if (vertex.length() > 0 && i < polygon.getPointCount())
 			{
-				polygon.setPoint(i, WorldConstants
-						.physicsToSfmlCoordinates(vertex));
+				polygon.setPoint(i, WorldConstants.physicsToSfmlCoordinates(vertex));
 			}
 		}
-		polygon.setFillColor(Color.mul(makeColor(color), new Color(0, 100, 0)));//,Color.mul(Color.YELLOW, Color.WHITE)));
+		polygon.setFillColor(Color.mul(makeColor(color), new Color(0, 100, 0)));// ,Color.mul(Color.YELLOW,
+																				// Color.WHITE)));
 		polygon.setOutlineColor(Color.BLACK);
 		polygon.setOutlineThickness(1.0f);
 		renderWindow.draw(polygon);
@@ -119,7 +116,7 @@ public class SFMLDebugDraw extends DebugDraw
 	@Override
 	public void drawTransform(Transform xf)
 	{
-//		float lineProportion = 0.4f;
+		// float lineProportion = 0.4f;
 		// Vec2 p1 = xf.p, p2;
 		//
 		// // red (X axis)

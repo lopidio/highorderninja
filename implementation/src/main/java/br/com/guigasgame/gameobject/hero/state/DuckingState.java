@@ -21,12 +21,14 @@ class DuckingState extends HeroState
 	@Override
 	public void stateOnEnter()
 	{
+		//TODO has to be an action
 		gameHero.getCollidableHero().disableCollision(FixtureSensorID.HEAD);
 	}
 
 	@Override
 	protected void stateOnQuit()
 	{
+		//TODO has to be an action
 		gameHero.getCollidableHero().enableCollision(FixtureSensorID.HEAD);
 	}
 

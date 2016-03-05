@@ -11,8 +11,9 @@ import org.jbox2d.dynamics.FixtureDef;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.collision.CollidableFilter;
+import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.math.Vector2;
@@ -23,7 +24,7 @@ public class CollidableHero extends Collidable
 {
 	private Map<FixtureSensorID, Fixture> fixtureMap;
 	private HeroSensorsController sensorsController;
-	private Filter filter;
+	private CollidableFilter filter;
 
 	public CollidableHero(int playerID, Vec2 position)
 	{
@@ -32,7 +33,7 @@ public class CollidableHero extends Collidable
 		bodyDef.type = BodyType.DYNAMIC;
 
 		sensorsController = new HeroSensorsController();
-		filter = new CollidableFilterBox2dAdapter(CollidableCategory.getPlayerFilter(playerID)).toBox2dFilter();
+		filter = CollidableCategory.getPlayerFilter(playerID);
 	}
 
 	public void loadAndAttachFixturesToBody()
@@ -44,7 +45,15 @@ public class CollidableHero extends Collidable
 		for( Map.Entry<FixtureSensorID, FixtureDef> entry : fixtureDefMap.entrySet() )
 		{
 			FixtureDef def = entry.getValue();
-			def.filter = filter;
+			if (def.isSensor)
+			{
+				def.filter = new CollidableFilterBox2dAdapter(filter.removeCollisionWith(CollidableCategory.HEROS)).toBox2dFilter();
+			}
+			else
+			{
+				def.filter = new CollidableFilterBox2dAdapter(filter).toBox2dFilter();
+			}
+			
 			
 			Fixture fixture = body.createFixture(def);
 			fixtureMap.put(entry.getKey(), fixture);
@@ -133,14 +142,14 @@ public class CollidableHero extends Collidable
 	public void disableCollision(FixtureSensorID sensorID)
 	{
 		Filter newFilter = new Filter();
-		newFilter.categoryBits = filter.categoryBits;
+		newFilter.categoryBits = filter.getCategory().value;
 		newFilter.maskBits = 0;
 		fixtureMap.get(sensorID).setFilterData(newFilter);
 	}
 
 	public void enableCollision(FixtureSensorID sensorID)
 	{
-		fixtureMap.get(sensorID).setFilterData(filter);
+		fixtureMap.get(sensorID).setFilterData(new CollidableFilterBox2dAdapter(filter).toBox2dFilter());
 	}
 
 	public Vec2 getBodyLinearVelocity()

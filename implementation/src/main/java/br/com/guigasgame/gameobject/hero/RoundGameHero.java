@@ -48,7 +48,6 @@ public class RoundGameHero extends GameObject
 		this.gameHeroInput = properties.getGameHeroInput();
 		gameHeroInput.setDeviceId(properties.getPlayerId());
 
-		collidableHero.addListener(this);
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
 		fragCounter = new RoundFragCounter();

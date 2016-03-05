@@ -32,9 +32,12 @@ public class SuperRunningState extends HeroState
 		{
 			setState(new StandingHeroState(gameHero));
 		}
-		else if (gameHero.getCollidableHero().isFallingDown())
+		else if (!gameHero.isTouchingGround())
 		{
-			setState(new FallingHeroState(gameHero));
+			if (gameHero.getCollidableHero().isFallingDown())
+				setState(new FallingHeroState(gameHero));
+			if (gameHero.getCollidableHero().isAscending())
+				setState(new JumpingHeroState(gameHero));
 		}
 		else if (!isHeroInputPressed(HeroInputKey.ACTION) && secondsRemaining <= 0)
 		{
