@@ -1,4 +1,4 @@
-package br.com.guigasgame.shape.parser;
+package br.com.guigasgame.scenery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+
+import br.com.guigasgame.shape.CircleShape;
+import br.com.guigasgame.shape.RectangleShape;
+import br.com.guigasgame.shape.TriangleShape;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public class SceneryShapes 

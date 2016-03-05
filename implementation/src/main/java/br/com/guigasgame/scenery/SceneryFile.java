@@ -1,4 +1,4 @@
-package br.com.guigasgame.shape.parser;
+package br.com.guigasgame.scenery;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,6 +15,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.guigasgame.file.FilenameConstants;
+import br.com.guigasgame.shape.CircleShape;
+import br.com.guigasgame.shape.Point;
+import br.com.guigasgame.shape.RectangleShape;
+import br.com.guigasgame.shape.TriangleShape;
 
 
 @XmlRootElement

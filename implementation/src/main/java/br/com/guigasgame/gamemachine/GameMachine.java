@@ -17,7 +17,7 @@ import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputDevice;
 import br.com.guigasgame.scenery.Scenery;
-import br.com.guigasgame.shape.parser.SceneryFile;
+import br.com.guigasgame.scenery.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
 
 

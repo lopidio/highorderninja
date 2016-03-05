@@ -14,12 +14,10 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
-import br.com.guigasgame.shape.parser.CircleShape;
-import br.com.guigasgame.shape.parser.Point;
-import br.com.guigasgame.shape.parser.RectangleShape;
-import br.com.guigasgame.shape.parser.SceneryFile;
-import br.com.guigasgame.shape.parser.SceneryShapes;
-import br.com.guigasgame.shape.parser.TriangleShape;
+import br.com.guigasgame.shape.CircleShape;
+import br.com.guigasgame.shape.Point;
+import br.com.guigasgame.shape.RectangleShape;
+import br.com.guigasgame.shape.TriangleShape;
 
 public class Scenery extends GameObject
 {

@@ -1,4 +1,4 @@
-package br.com.guigasgame.shape.parser;
+package br.com.guigasgame.shape;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

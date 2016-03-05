@@ -1,4 +1,4 @@
-package br.com.guigasgame.shape.parser;
+package br.com.guigasgame.shape;
 
 public class Point 
 {
