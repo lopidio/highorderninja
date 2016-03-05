@@ -28,6 +28,16 @@ public class WorldConstants
 		
 		return retorno;
 	}
+	
+	public static float toBox2dWorld(float x)
+	{
+		return x/SCALE;
+	}
+
+	public static float toSfmlWorld(float x)
+	{
+		return x*SCALE;
+	}
 
 	public static Vec2 sfmlToPhysicsCoordinates(Vector2f sfmlVector)
 	{

@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.NONE)
-public class CircleShape  extends Shape
+public class CircleShape extends Shape
 {
 	@XmlElement
 	private Point center;

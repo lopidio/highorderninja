@@ -11,12 +11,14 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
-import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
 
+import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputDevice;
+import br.com.guigasgame.scenery.Scenery;
+import br.com.guigasgame.shape.parser.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
 
 
@@ -59,7 +61,9 @@ public class GameMachine
 			heroTeam.setUp();
 		}
 
-		RoundGameState roundGameState = new RoundGameState(teams);
+		Scenery scenery = new Scenery(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
+		
+		RoundGameState roundGameState = new RoundGameState(teams, scenery);
 
 		gameMachine.popState();
 		gameMachine.addState(roundGameState);
@@ -85,7 +89,7 @@ public class GameMachine
 //			System.out.println(list.toString());
 //		}
 		
-		renderWindow = new RenderWindow(new VideoMode(1600, 900, 32), "Test");//, Window.FULLSCREEN); //Window.TRANSPARENT
+		renderWindow = new RenderWindow(new VideoMode(1366, 768, 32), "High order ninja");//, Window.FULLSCREEN); //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		
@@ -116,7 +120,7 @@ public class GameMachine
 		    if ( iterationTime > 0.25f )
 		    	iterationTime = 0.25f;    
 		    
-			renderWindow.clear(new Color(128,  128, 128));
+			renderWindow.clear();//new Color(128,  128, 128));
 			handleEvents();
 			
 			remainingAcumulator += iterationTime;

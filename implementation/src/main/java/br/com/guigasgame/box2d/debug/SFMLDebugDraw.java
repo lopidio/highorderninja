@@ -93,7 +93,7 @@ public class SFMLDebugDraw extends DebugDraw
 		for( int i = 0; i < vertices.length; i++ )
 		{
 			Vec2 vertex = vertices[i];
-			if (vertex.length() > 0)
+			if (vertex.length() > 0 && i < polygon.getPointCount())
 			{
 				polygon.setPoint(i, WorldConstants
 						.physicsToSfmlCoordinates(vertex));

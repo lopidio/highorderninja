@@ -8,24 +8,27 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class Shape 
 {
 	@XmlAttribute(required=true)
-	protected String property;
+	protected boolean deadly;
 
-	public Shape() {
+	public Shape() 
+	{
 		super();
-	}
-
-	public Shape(String property) {
-		super();
-		this.property = property;
-	}
-
-	public String getProperty() {
-		return property;
-	}
-
-	public void setProperty(String property) {
-		this.property = property;
 	}
 	
+	public Shape(boolean deadly)
+	{
+		this.deadly = deadly;
+	}
+	
+	public boolean isDeadly()
+	{
+		return deadly;
+	}
+	
+	public void setDeadly(boolean deadly)
+	{
+		this.deadly = deadly;
+	}
+
 	
 }

@@ -44,6 +44,7 @@ public class RoundGameHero extends GameObject
 		forwardSide = Side.RIGHT;
 		actionList = new ArrayList<GameHeroAction>();
 		collidableHero = new CollidableHero(properties.getPlayerId(), properties.getInitialPosition());
+		collidableHero.addListener(this);
 		this.gameHeroInput = properties.getGameHeroInput();
 		gameHeroInput.setDeviceId(properties.getPlayerId());
 

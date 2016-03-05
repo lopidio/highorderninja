@@ -28,7 +28,7 @@ import br.com.guigasgame.raycast.RayCastClosestFixture;
 
 public class NinjaRope implements CollidableContactListener
 {
-	private static final float MIN_DISTANCE_BETWEEN_NODES = 0.1f;
+	private static final float MIN_DISTANCE_BETWEEN_NODES = 0.5f;
 	
 	private Vector<DistanceJoint> jointVector;
 	private Vector<Body> ropeBodiesList;

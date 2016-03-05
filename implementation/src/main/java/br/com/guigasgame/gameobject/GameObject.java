@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.RenderWindow;
 
@@ -14,10 +13,11 @@ import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class GameObject implements CollidableContactListener, UpdatableFromTime, Drawable
+public abstract class GameObject
+		implements CollidableContactListener, UpdatableFromTime, Drawable
 {
 
-//	protected Vec2 position;
+	// protected Vec2 position;
 	protected List<Collidable> collidableList;
 	protected List<Drawable> drawableList;
 	protected boolean alive;
@@ -75,11 +75,17 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 	{
 		return collidableList;
 	}
-	
+
 	@Override
-	public void draw(RenderWindow renderWindow) 
+	public void update(float deltaTime)
 	{
-		for (Drawable drawable : drawableList) 
+		
+	}
+
+	@Override
+	public void draw(RenderWindow renderWindow)
+	{
+		for( Drawable drawable : drawableList )
 		{
 			drawable.draw(renderWindow);
 		}
@@ -87,7 +93,7 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 
 	public void attachToWorld(World world)
 	{
-		for (Collidable collidable : collidableList) 
+		for( Collidable collidable : collidableList )
 		{
 			collidable.attachToWorld(world);
 		}

@@ -1,111 +1,139 @@
 package br.com.guigasgame.shape.parser;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.guigasgame.file.FilenameConstants;
+
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class SceneryFile 
+public class SceneryFile
 {
+
 	@XmlElement
-	private BodyShape bodyShape;
+	private SceneryShapes sceneryShapes;
 	@XmlElement
 	private List<Point> spawnPoint;
 	@XmlElement
 	private List<Point> itemSpots;
-	
-	public SceneryFile() {
+	@XmlAttribute
+	private String textureName;
+
+	public SceneryFile()
+	{
 		super();
 	}
-
-	public SceneryFile(BodyShape bodyShapes, List<Point> spawnPoint, List<Point> itemSpots) {
-		super();
-		this.bodyShape = bodyShapes;
+	
+	public SceneryFile(SceneryShapes sceneryShapes, List<Point> spawnPoint, List<Point> itemSpots, String textureName)
+	{
+		this.sceneryShapes = sceneryShapes;
 		this.spawnPoint = spawnPoint;
 		this.itemSpots = itemSpots;
+		this.textureName = textureName;
 	}
 
-
-
-
-	public BodyShape getBodyShapes() {
-		return bodyShape;
-	}
-
-
-
-
-	public void setBodyShapes(BodyShape bodyShape) {
-		this.bodyShape = bodyShape;
-	}
-
-
-
-
-	public List<Point> getSpawnPoint() {
+	public List<Point> getSpawnPoint()
+	{
 		return spawnPoint;
 	}
 
-
-
-
-	public void setSpawnPoint(List<Point> spawnPoint) {
+	public void setSpawnPoint(List<Point> spawnPoint)
+	{
 		this.spawnPoint = spawnPoint;
 	}
 
-
-
-
-	public List<Point> getItemSpots() {
+	public List<Point> getItemSpots()
+	{
 		return itemSpots;
 	}
 
-
-
-
-	public void setItemSpots(List<Point> itemSpots) {
+	public void setItemSpots(List<Point> itemSpots)
+	{
 		this.itemSpots = itemSpots;
 	}
+	
+	
+	public String getTextureName()
+	{
+		return textureName;
+	}
+	
+	
+	public SceneryShapes getSceneryShapes()
+	{
+		return sceneryShapes;
+	}
 
-
-
+	
+	public void setSceneryShapes(SceneryShapes sceneryShapes)
+	{
+		this.sceneryShapes = sceneryShapes;
+	}
+	
+	public static SceneryFile loadFromFile(String filename) throws Exception
+	{
+		JAXBContext jaxbContext = JAXBContext.newInstance(SceneryFile.class);
+		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+		
+		SceneryFile sceneryFile = (SceneryFile) jaxbUnmarshaller.unmarshal(new File(filename));
+		return sceneryFile;
+	}
 
 	public static void main(String[] args) throws JAXBException
 	{
 
-		BodyShape bodyShape = new BodyShape();
-		bodyShape.addCircleShape(new CircleShape(new Point(98, 65), 2.f));
-		bodyShape.addCircleShape(new CircleShape(new Point(982, 165), 22.f));
-		
-		RectangleShape rectangleShape = new RectangleShape(new Point(65, 53), new Point(56, 45));
-		rectangleShape.setProperty("Deadly");
-		bodyShape.addRectangleShape(rectangleShape);
+		SceneryShapes bodyShape = new SceneryShapes();
 
+		bodyShape.addRectangleShape(new RectangleShape(new Point(300, 760), new Point(1040, 20))); //ground
+		bodyShape.addRectangleShape(new RectangleShape(new Point(300, 0), new Point(1040, 10))); //ceil
+		bodyShape.addRectangleShape(new RectangleShape(new Point(20, 300), new Point(20, 440))); //left wall
+		bodyShape.addRectangleShape(new RectangleShape(new Point(1340, 300), new Point(20, 440))); //right wall
+
+		bodyShape.addRectangleShape(new RectangleShape(new Point(280, 480), new Point(10, 160))); // |
+		bodyShape.addRectangleShape(new RectangleShape(new Point(160, 480), new Point(10, 160))); // |
+
+//		bodyShape.addRectangleShape(new RectangleShape(new Point(200, 160), new Point(60, 10)));
+		bodyShape.addCircleShape(new CircleShape(new Point(200, 200), 50));
+//		bodyShape.addRectangleShape(new RectangleShape(new Point(500, 120), new Point(10, 10)));
+		bodyShape.addTriangleShape(new TriangleShape(new Point(500,  120), new Point(540,  120), new Point(520,  150)));
+		bodyShape.addTriangleShape(new TriangleShape(new Point(800,  120), new Point(840,  120), new Point(820,  150)));
+//		bodyShape.addRectangleShape(new RectangleShape(new Point(800, 120), new Point(10, 10)));
+//		bodyShape.addRectangleShape(new RectangleShape(new Point(1100, 160), new Point(60, 10)));
+		bodyShape.addCircleShape(new CircleShape(new Point(1100, 200), 50));
+		
+		bodyShape.addRectangleShape(new RectangleShape(new Point(800, 640), new Point(380, 10))); //middle floor
+		bodyShape.addRectangleShape(new RectangleShape(new Point(950, 540), new Point(400, 10))); //middle floor
+		bodyShape.addRectangleShape(new RectangleShape(new Point(660, 440), new Point(240, 10))); //middle floor
+		bodyShape.addTriangleShape(new TriangleShape(new Point(420,  440), new Point(460,  390), new Point(520,  440)));
+		bodyShape.addRectangleShape(new RectangleShape(new Point(430, 540), new Point(10, 100))); //|
+
+		
+		
 		List<Point> spawnPoint = new ArrayList<Point>();
-		spawnPoint.add(new Point(112, 483));
-		spawnPoint.add(new Point(1321, 1543));
-		spawnPoint.add(new Point(1524, 3643));
-		
-		
+    	spawnPoint.add(new Point(200, 10));
+		spawnPoint.add(new Point(800, 10));
+		spawnPoint.add(new Point(1000, 360));
+
 		List<Point> itemSpots = new ArrayList<Point>();
 		itemSpots.add(new Point(12, 43));
-		itemSpots.add(new Point(121, 143));
-		itemSpots.add(new Point(124, 343));
-		
-		SceneryFile sceneryFile = new SceneryFile(bodyShape, spawnPoint, itemSpots);
+
+		SceneryFile sceneryFile = new SceneryFile(bodyShape, spawnPoint, itemSpots, "darkStoneTexture.jpg");
 
 		try
 		{
-			JAXBContext context = JAXBContext
-					.newInstance(SceneryFile.class);
+			JAXBContext context = JAXBContext.newInstance(SceneryFile.class);
 			Marshaller m = context.createMarshaller(); // for pretty-print XML
 														// in JAXB
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -114,21 +142,12 @@ public class SceneryFile
 			m.marshal(sceneryFile, System.out);
 
 			// Write to File
-			// m.marshal(anim, new File("ninjaSmooth.xml"));
+			 m.marshal(sceneryFile, new File(FilenameConstants.getSceneryFilename()));
 		}
 		catch (JAXBException e)
 		{
 			e.printStackTrace();
 		}
-
-		// @SuppressWarnings("unchecked")
-		// AnimationPropertiesFile<HeroAnimationsIndex> fromFile =
-		// ((AnimationPropertiesFile<HeroAnimationsIndex>)
-		// AnimationPropertiesFile
-		// .loadFromFile("oi.txt"));
-		// System.out.println(fromFile.textureFilename);
-
 	}
-	
-	
+
 }

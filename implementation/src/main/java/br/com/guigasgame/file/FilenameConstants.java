@@ -61,4 +61,9 @@ public class FilenameConstants
 		}
 	}
 
+	public static String getSceneryFilename()
+	{
+		return "sceneryFile.xml";
+	}
+
 }

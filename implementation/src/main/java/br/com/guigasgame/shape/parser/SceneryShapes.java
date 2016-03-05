@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.NONE)
-public class BodyShape 
+public class SceneryShapes 
 {
 	@XmlElement
 	private List<CircleShape> circles;
@@ -17,14 +17,14 @@ public class BodyShape
 	@XmlElement
 	private List<RectangleShape> rectangles;
 
-	public BodyShape(List<CircleShape> circles, List<TriangleShape> triangles, List<RectangleShape> rectangless) {
+	public SceneryShapes(List<CircleShape> circles, List<TriangleShape> triangles, List<RectangleShape> rectangless) {
 		super();
 		this.circles = circles;
 		this.triangles = triangles;
 		this.rectangles = rectangless;
 	}
 
-	public BodyShape() {
+	public SceneryShapes() {
 		this.circles = new ArrayList<CircleShape>();
 		this.triangles = new ArrayList<TriangleShape>();
 		this.rectangles = new ArrayList<RectangleShape>();
@@ -38,7 +38,7 @@ public class BodyShape
 		return triangles;
 	}
 
-	public List<RectangleShape> getRectangless() {
+	public List<RectangleShape> getRectangles() {
 		return rectangles;
 	}
 	

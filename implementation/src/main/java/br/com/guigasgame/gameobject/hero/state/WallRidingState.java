@@ -39,5 +39,9 @@ public class WallRidingState extends HeroState
 		{
 			setState(new BackFlipHeroState(gameHero));
 		}
+		if (!gameHero.isTouchingWallAhead())
+		{
+			setState(new JumpingHeroState(gameHero));
+		}
 	}
 }

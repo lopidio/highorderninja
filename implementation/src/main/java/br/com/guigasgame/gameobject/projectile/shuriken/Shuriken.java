@@ -41,7 +41,7 @@ public class Shuriken extends Projectile
 			{
 				System.out.println("Hit: " + category.name());
 			}
-			markToDestroy();
+//			markToDestroy();
 		}
 		++collisionCounter;
 		if (collisionCounter >= properties.numBounces)
