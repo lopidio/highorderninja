@@ -18,7 +18,7 @@ public class CollidableFilter
 		collider = new IntegerMask(collidesWith.value);
 	}
 
-	public CollidableFilter(GameCollidableCategory category)
+	public CollidableFilter(CollidableCategory category)
 	{
 		this.category = category.getCategoryMask();
 		collider = new IntegerMask();
@@ -60,18 +60,23 @@ public class CollidableFilter
 		return collider;
 	}
 	
-	public CollidableFilterAddingCollision addCollisionWith(GameCollidableCategory category)
+	public CollidableFilterAddingCollision addCollisionWith(CollidableCategory category)
 	{
-		return new CollidableFilterAddingCollision(this.category, category.getCategoryMask());
+		return new CollidableFilterAddingCollision(this.category, collider.set(category.getCategoryMask().value));
+	}
+	
+	CollidableFilterAddingCollision addCollisionWith(IntegerMask mask)
+	{
+		return new CollidableFilterAddingCollision(this.category, collider.set(mask.value));
 	}
 
-	public CollidableFilterAddingCollision addCollisionWithEveryThing()
+	public CollidableFilter addCollisionWithEveryThing()
 	{
-		return new CollidableFilterAddingCollision(this.category, new IntegerMask().setAll());
+		return new CollidableFilter(this.category, new IntegerMask().setAll());
 	}
 	
 	
-	public CollidableFilterRemovingCollision removeCollisionWith(GameCollidableCategory category) 
+	public CollidableFilterRemovingCollision removeCollisionWith(CollidableCategory category) 
 	{
 		return new CollidableFilterRemovingCollision(this.category, collider.clear(category.getCategoryMask().value));
 	}

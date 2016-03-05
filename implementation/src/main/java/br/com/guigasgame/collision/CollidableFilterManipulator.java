@@ -9,11 +9,11 @@ public class CollidableFilterManipulator
 		{
 			super(collidableCategory, collidesWith);
 		}
-		public CollidableFilterAddingCollision and(GameCollidableCategory category)
+		public CollidableFilterAddingCollision and(CollidableCategory category)
 		{
 			return new CollidableFilterAddingCollision(this.category, collider.set(category.getCategoryMask().value));
 		}
-		public CollidableFilterRemovingCollision except(GameCollidableCategory category)
+		public CollidableFilterRemovingCollision except(CollidableCategory category)
 		{
 			return new CollidableFilterRemovingCollision(this.category, collider.clear(category.getCategoryMask().value));
 		}
@@ -26,12 +26,12 @@ public class CollidableFilterManipulator
 			super(collidableCategory, collidesWith);
 		}
 		
-		public CollidableFilterRemovingCollision and(GameCollidableCategory category)
+		public CollidableFilterRemovingCollision and(CollidableCategory category)
 		{
 			return new CollidableFilterRemovingCollision(this.category, collider.clear(category.getCategoryMask().value));
 		}		
 
-		public CollidableFilterAddingCollision except(GameCollidableCategory category)
+		public CollidableFilterAddingCollision except(CollidableCategory category)
 		{
 			return new CollidableFilterAddingCollision(this.category, collider.set(category.getCategoryMask().value));
 		}		

@@ -5,7 +5,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.CollidableFilter;
-import br.com.guigasgame.collision.GameCollidableCategory;
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.raycast.RayCastCallBackWrapper;
@@ -104,7 +104,7 @@ public class ProjectileAimer
 		
 		
 		RayCastClosestFixture closestFixture = new RayCastClosestFixture(bodysWorld, initialPosition, initialPosition.add(pointTo), 
-			 collidableFilter.getCollider().set(GameCollidableCategory.SMOKE_BOMB.getCategoryMask().value)); //Smoke bomb ahead
+			 collidableFilter.getCollider().set(CollidableCategory.SMOKE_BOMB.getCategoryMask().value)); //Smoke bomb ahead
 		
 		closestFixture.shoot();
 		RayCastCallBackWrapper response = closestFixture.getCallBackWrapper();

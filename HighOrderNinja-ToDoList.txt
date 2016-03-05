@@ -40,6 +40,7 @@ v GameHero receives GameHeroProperties(?) {Color, input, ID, initial position...
 v SmokeBomb (player colloring)
 v Team class (Color, playersMask, enemiesMask, numPlayers, totalPoints, gameHeroPropertiesList)
 v Get category from filter (one enumeration)
+v Scenery (http://www.jsonschema2pojo.org/) (http://akinuri.deviantart.com/art/Metal-Textures-221702846)(http://miss-marlies.deviantart.com/art/Textures-dirt-grass-sand-and-water-335479475)
 
 
 ShurikenBomb
@@ -51,6 +52,5 @@ HeroProperties add: team
 FragStatistics: totalShoots, deaths, kills, suicides
 
 DynamicBackground
-Scenery (http://www.jsonschema2pojo.org/) (http://akinuri.deviantart.com/art/Metal-Textures-221702846)(http://miss-marlies.deviantart.com/art/Textures-dirt-grass-sand-and-water-335479475)
 AnimationFile refactoring
 StateFile refactoring (enable and disable animations at runtime)

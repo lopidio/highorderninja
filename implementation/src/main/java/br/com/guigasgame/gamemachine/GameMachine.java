@@ -6,7 +6,6 @@ import java.util.Stack;
 import java.util.Vector;
 
 import org.jbox2d.common.Vec2;
-import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;

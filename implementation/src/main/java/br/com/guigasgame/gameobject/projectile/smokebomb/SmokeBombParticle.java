@@ -6,7 +6,7 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.animation.Animation;
-import br.com.guigasgame.collision.GameCollidableCategory;
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
@@ -19,7 +19,7 @@ public class SmokeBombParticle extends Projectile
 	public SmokeBombParticle(Vec2 direction, Vec2 position, Color color)
 	{
 		super(ProjectileIndex.SMOKE_BOMB_PARTICLE, direction, position);
-		collidableFilter = GameCollidableCategory.SMOKE_BOMB.getFilter();
+		collidableFilter = CollidableCategory.SMOKE_BOMB.getFilter();
 		alpha = 255;
 		scale = 1;
 		setAnimationsColor(color);

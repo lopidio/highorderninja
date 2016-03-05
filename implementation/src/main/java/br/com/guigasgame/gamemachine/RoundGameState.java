@@ -22,7 +22,7 @@ import org.jsfml.window.event.Event.Type;
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollisionManager;
-import br.com.guigasgame.collision.GameCollidableCategory;
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
@@ -40,7 +40,7 @@ public class RoundGameState implements GameState
 
 	public RoundGameState(List<HeroTeam> teams, Scenery scenery) throws JAXBException
 	{
-		GameCollidableCategory.display();
+		CollidableCategory.display();
 		gameObjectsList = new ArrayList<>();
 
 		timeFactor = 1;
@@ -54,7 +54,8 @@ public class RoundGameState implements GameState
 		for( HeroTeam team : teams )
 		{
 			List<GameHeroProperties> heros = team.getHerosList();
-			for (GameHeroProperties gameHeroProperties : heros) {
+			for (GameHeroProperties gameHeroProperties : heros) 
+			{
 				initializeGameObject(Arrays.asList(new RoundGameHero(gameHeroProperties)));
 			}
 		}

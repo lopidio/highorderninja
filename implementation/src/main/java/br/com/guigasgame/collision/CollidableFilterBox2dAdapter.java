@@ -28,7 +28,7 @@ public class CollidableFilterBox2dAdapter
 		this.collider = new IntegerMask();
 	}
 
-	public CollidableFilterBox2dAdapter(GameCollidableCategory filter) 
+	public CollidableFilterBox2dAdapter(CollidableCategory filter) 
 	{
 		this(filter.getFilter());
 	}

@@ -6,7 +6,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 
-import br.com.guigasgame.collision.GameCollidableCategory;
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
@@ -23,7 +23,7 @@ public class Shuriken extends Projectile
 		owner = gameHero;
 		collisionCounter = 0;
 		targetMask = gameHero.getHeroProperties().getEnemiesMask();
-		collidableFilter = GameCollidableCategory.SHURIKEN.getFilter().removeCollisionWith(GameCollidableCategory.getPlayerCategory(owner.getHeroProperties().getPlayerId()));
+		collidableFilter = CollidableCategory.SHURIKEN.getFilter().removeCollisionWith(CollidableCategory.getPlayerCategory(owner.getHeroProperties().getPlayerId()));
 		setAnimationsColor(gameHero.getHeroProperties().getColor());
 	}
 
@@ -36,8 +36,8 @@ public class Shuriken extends Projectile
 //			CollidableHero hit = (CollidableHero) otherBody.getUserData();
 //			hit.getRoundGameHero()
 			owner.hitOnTarget();
-			List<GameCollidableCategory> categoryList = GameCollidableCategory.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
-			for( GameCollidableCategory category : categoryList )
+			List<CollidableCategory> categoryList = CollidableCategory.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
+			for( CollidableCategory category : categoryList )
 			{
 				System.out.println("Hit: " + category.name());
 			}

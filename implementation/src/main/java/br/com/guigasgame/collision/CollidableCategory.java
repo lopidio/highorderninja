@@ -4,24 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 ///What I am
-public enum GameCollidableCategory
+public enum CollidableCategory
 {
 	SCENERY(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing()),
 	ROPE_NODE(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
 	ROPE_BODY(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
 	SHURIKEN(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing()),
 	SMOKE_BOMB(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
-	HEROS(		getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN));
+	HEROS(		getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN), true);
 
 	private final static int NUM_MAX_PLAYERS = 8;
 	private static int categoriesUsed = 0;
 
 	final CollidableFilter filter;
 
-	private GameCollidableCategory(IntegerMask categoryMask, CollidableFilter filter)
+	private CollidableCategory(IntegerMask categoryMask, CollidableFilter filter, boolean selfColision)
 	{
-		this.filter = filter;
 		filter.setCategory(categoryMask);
+		if (selfColision)
+			this.filter = filter.addCollisionWith(categoryMask);
+		else
+			this.filter = filter;
+	}
+
+	private CollidableCategory(IntegerMask categoryMask, CollidableFilter filter)
+	{
+		this(categoryMask, filter, false);
 	}
 
 	public CollidableFilter getFilter()
@@ -34,10 +42,10 @@ public enum GameCollidableCategory
 		return filter.getCategory();
 	}
 
-	public static List<GameCollidableCategory> fromMask(int value)
+	public static List<CollidableCategory> fromMask(int value)
 	{
-		List<GameCollidableCategory> retorno = new ArrayList<>();
-		for( GameCollidableCategory category : GameCollidableCategory.values() )
+		List<CollidableCategory> retorno = new ArrayList<>();
+		for( CollidableCategory category : CollidableCategory.values() )
 		{
 			if (category.getCategoryMask().matches(value))
 				retorno.add(category);
@@ -86,11 +94,11 @@ public enum GameCollidableCategory
 
 	public static void display()
 	{
-		for( GameCollidableCategory category : GameCollidableCategory.values() )
+		for( CollidableCategory category : CollidableCategory.values() )
 		{
 			String msg = "Category " + category.name() + ":\t";
-			List<GameCollidableCategory> categoryList = GameCollidableCategory.fromMask(category.filter.collider.value);
-			for( GameCollidableCategory gameCollidableCategory : categoryList )
+			List<CollidableCategory> categoryList = CollidableCategory.fromMask(category.filter.collider.value);
+			for( CollidableCategory gameCollidableCategory : categoryList )
 			{
 				msg += gameCollidableCategory.name() + "; ";
 			}

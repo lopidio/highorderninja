@@ -6,7 +6,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
-import br.com.guigasgame.collision.GameCollidableCategory;
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
@@ -31,8 +31,8 @@ public class NinjaHookProjectile extends Projectile
 		hookIsAttached = false;
 		markToAttachHook = false;
 
-		targetMask = GameCollidableCategory.SCENERY.getCategoryMask();
-		collidableFilter = GameCollidableCategory.ROPE_NODE.getFilter();
+		targetMask = CollidableCategory.SCENERY.getCategoryMask();
+		collidableFilter = CollidableCategory.ROPE_NODE.getFilter();
 		setAnimationsColor(gameHero.getHeroProperties().getColor());
 	}
 	
@@ -77,7 +77,7 @@ public class NinjaHookProjectile extends Projectile
 		RayCastHitAnyThing anyThing = new RayCastHitAnyThing(world, 
 				gameHero.getCollidableHero().getBody().getWorldCenter(),
 				collidable.getPosition(), 
-				GameCollidableCategory.SCENERY.getCategoryMask());
+				CollidableCategory.SCENERY.getCategoryMask());
 		
 		anyThing.shoot();
 		if (anyThing.hasHit())

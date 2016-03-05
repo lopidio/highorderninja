@@ -6,7 +6,7 @@ import org.jbox2d.dynamics.BodyType;
 
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
-import br.com.guigasgame.collision.GameCollidableCategory;
+import br.com.guigasgame.collision.CollidableCategory;
 
 public class SceneryShapeCollidable extends Collidable
 {
@@ -21,7 +21,7 @@ public class SceneryShapeCollidable extends Collidable
 	public void addFixture(Shape shape)
 	{
 		body.createFixture(shape, 0).
-				setFilterData(new CollidableFilterBox2dAdapter(GameCollidableCategory.SCENERY).toBox2dFilter());
+				setFilterData(new CollidableFilterBox2dAdapter(CollidableCategory.SCENERY).toBox2dFilter());
 	}
 	
 }

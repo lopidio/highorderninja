@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jsfml.graphics.Color;
 
-import br.com.guigasgame.collision.GameCollidableCategory;
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
@@ -25,7 +25,7 @@ public class HeroTeam
 	{
 		teamId = id;
 		teamMask = new IntegerMask();
-		enemiesMask = GameCollidableCategory.getAllPlayersCategory();
+		enemiesMask = CollidableCategory.getAllPlayersCategory();
 //		totalScore = 0;
 		herosList = new ArrayList<GameHeroProperties>();
 		color = getTeamColor();
@@ -33,7 +33,7 @@ public class HeroTeam
 	
 	public void addGameHero(GameHeroProperties gameHeroProperties)
 	{
-		final IntegerMask mask = GameCollidableCategory.getPlayerCategory(gameHeroProperties.getPlayerId());
+		final IntegerMask mask = CollidableCategory.getPlayerCategory(gameHeroProperties.getPlayerId());
 		teamMask = teamMask.set(mask.value);
 		enemiesMask = enemiesMask.clear(mask.value);
 		herosList.add(gameHeroProperties);
@@ -41,7 +41,7 @@ public class HeroTeam
 	
 	public void removeGameHero(GameHeroProperties gameHeroProperties)
 	{
-		final IntegerMask mask = GameCollidableCategory.getPlayerCategory(gameHeroProperties.getPlayerId());
+		final IntegerMask mask = CollidableCategory.getPlayerCategory(gameHeroProperties.getPlayerId());
 		teamMask = teamMask.clear(mask.value);
 		enemiesMask = enemiesMask.set(mask.value);
 		herosList.remove(gameHeroProperties);
