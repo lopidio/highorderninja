@@ -1,6 +1,6 @@
 package br.com.guigasgame.file;
 
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputDevice;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
 
 
 public class FilenameConstants

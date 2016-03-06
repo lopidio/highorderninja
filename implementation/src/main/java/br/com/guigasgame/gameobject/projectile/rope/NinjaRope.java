@@ -19,9 +19,9 @@ import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jbox2d.dynamics.joints.Joint;
 import org.jsfml.graphics.Color;
 
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableContactListener;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
-import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.gameobject.projectile.ProjectileProperties;
 import br.com.guigasgame.raycast.RayCastClosestFixture;
 

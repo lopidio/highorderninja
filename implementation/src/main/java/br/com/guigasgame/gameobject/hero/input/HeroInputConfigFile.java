@@ -1,4 +1,4 @@
-package br.com.guigasgame.gameobject.input.hero;
+package br.com.guigasgame.gameobject.hero.input;
 
 import java.io.File;
 import java.util.HashMap;
@@ -20,8 +20,8 @@ import org.jsfml.window.Joystick;
 import org.jsfml.window.Keyboard.Key;
 
 import br.com.guigasgame.file.FilenameConstants;
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputDevice;
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.input.InputController;
 import br.com.guigasgame.input.JoystickAxisInput;
 import br.com.guigasgame.input.JoystickButtonInput;

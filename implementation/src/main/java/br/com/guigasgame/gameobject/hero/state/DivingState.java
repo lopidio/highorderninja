@@ -1,9 +1,9 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.DiveAction;
 import br.com.guigasgame.gameobject.hero.action.StopMovementAction;
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 
 
 public class DivingState extends HeroState

@@ -4,8 +4,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
-import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.raycast.RayCastCallBackWrapper;

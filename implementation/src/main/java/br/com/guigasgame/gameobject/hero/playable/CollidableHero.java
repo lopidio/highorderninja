@@ -1,4 +1,4 @@
-package br.com.guigasgame.gameobject.hero;
+package br.com.guigasgame.gameobject.hero.playable;
 
 import java.util.HashMap;
 import java.util.Map;

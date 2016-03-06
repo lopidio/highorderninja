@@ -1,4 +1,4 @@
-package br.com.guigasgame.gameobject.hero;
+package br.com.guigasgame.gameobject.hero.playable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,9 +15,9 @@ import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
 import br.com.guigasgame.gameobject.item.GameItem;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.shuriken.Shuriken;
@@ -95,7 +95,7 @@ public class PlayableGameHero extends GameObject
 		gameItems.clear();
 	}
 
-	public void adjustSpritePosition()
+	private void adjustSpritePosition()
 	{
 		final Vector2f vector2f = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
 		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
@@ -219,7 +219,7 @@ public class PlayableGameHero extends GameObject
 		return animationList;
 	}
 
-	public Projectile getItem(Vec2 pointingDirection)
+	public Projectile getSmokeBomb(Vec2 pointingDirection)
 	{
 		return new SmokeBombProjectile(pointingDirection, collidableHero.getBody().getWorldCenter(), heroProperties.getColor());
 	}

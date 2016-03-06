@@ -8,7 +8,7 @@ import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.gameobject.hero.PlayableGameHero;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 
 
 public abstract class GameItem extends GameObject

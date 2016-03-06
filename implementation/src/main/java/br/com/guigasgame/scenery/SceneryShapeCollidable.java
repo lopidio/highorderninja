@@ -5,8 +5,8 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
 
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 
 public class SceneryShapeCollidable extends Collidable
 {

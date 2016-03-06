@@ -8,7 +8,7 @@ import org.jsfml.graphics.Color;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.frag.RoundFragCounter;
-import br.com.guigasgame.gameobject.hero.GameHeroProperties;
+import br.com.guigasgame.gameobject.hero.playable.GameHeroProperties;
 
 
 public class HeroTeam

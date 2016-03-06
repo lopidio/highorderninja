@@ -9,13 +9,15 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
-import br.com.guigasgame.gameobject.hero.PlayableGameHero;
+import br.com.guigasgame.gameobject.hero.action.AnimationListSetterAction;
+import br.com.guigasgame.gameobject.hero.action.HeroStateAlternativeSetterAction;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.action.ShootAction;
 import br.com.guigasgame.gameobject.hero.action.UseItemAction;
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.input.InputListener;
 import br.com.guigasgame.math.Vector2;
 import br.com.guigasgame.side.Side;
@@ -82,7 +84,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 
 	public final void onEnter()
 	{
-		gameHero.setAnimationList(animationList);
+		gameHero.addAction(new AnimationListSetterAction(animationList));
 		stateOnEnter();
 	}
 
@@ -116,7 +118,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	
 	private void shootItem()
 	{
-		gameHero.addAction(new UseItemAction(heroStatesProperties, gameHero.getItem(pointingDirection())));
+		gameHero.addAction(new UseItemAction(heroStatesProperties, gameHero.getSmokeBomb(pointingDirection())));
 	}
 
 	@Override

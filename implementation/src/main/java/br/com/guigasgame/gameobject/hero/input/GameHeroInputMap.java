@@ -1,4 +1,4 @@
-package br.com.guigasgame.gameobject.input.hero;
+package br.com.guigasgame.gameobject.hero.input;
 
 import java.util.Map;
 import java.util.Map.Entry;

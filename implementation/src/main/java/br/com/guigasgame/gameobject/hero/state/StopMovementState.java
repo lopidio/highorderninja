@@ -1,7 +1,7 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.StopMovementAction;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 
 
 public class StopMovementState extends HeroState

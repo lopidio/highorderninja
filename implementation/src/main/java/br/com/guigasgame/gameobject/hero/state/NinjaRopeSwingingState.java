@@ -2,11 +2,11 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jbox2d.common.Vec2;
 
-import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.action.SwingFasterAction;
 import br.com.guigasgame.gameobject.hero.action.SwingSlowerAction;
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.projectile.rope.NinjaRope;
 import br.com.guigasgame.side.Side;
 

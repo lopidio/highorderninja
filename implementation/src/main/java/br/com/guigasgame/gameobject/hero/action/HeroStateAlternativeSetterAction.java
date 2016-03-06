@@ -1,7 +1,7 @@
-package br.com.guigasgame.gameobject.hero.state;
+package br.com.guigasgame.gameobject.hero.action;
 
-import br.com.guigasgame.gameobject.hero.PlayableGameHero;
-import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.gameobject.hero.state.HeroState;
 
 
 public class HeroStateAlternativeSetterAction extends GameHeroAction

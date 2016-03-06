@@ -1,11 +1,11 @@
-package br.com.guigasgame.gameobject.hero;
+package br.com.guigasgame.gameobject.hero.playable;
 
 import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.frag.RoundFragCounter;
-import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.team.HeroTeam;
 
 public class GameHeroProperties

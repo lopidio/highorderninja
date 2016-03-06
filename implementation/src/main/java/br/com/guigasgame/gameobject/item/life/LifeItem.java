@@ -7,9 +7,9 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableCategory;
-import br.com.guigasgame.gameobject.hero.CollidableHero;
-import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.RegeneratesLifeAction;
+import br.com.guigasgame.gameobject.hero.playable.CollidableHero;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.item.GameItem;
 import br.com.guigasgame.gameobject.item.GameItemIndex;
 
