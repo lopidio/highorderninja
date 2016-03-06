@@ -9,7 +9,6 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
-import br.com.guigasgame.gameobject.hero.action.AnimationListSetterAction;
 import br.com.guigasgame.gameobject.hero.action.HeroStateAlternativeSetterAction;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
@@ -84,7 +83,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 
 	public final void onEnter()
 	{
-		gameHero.addAction(new AnimationListSetterAction(animationList));
+		gameHero.setAnimationList(animationList);
 		stateOnEnter();
 	}
 
@@ -261,9 +260,9 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		return true;
 	}
 
-	public void getPropertyOfPreviousState(HeroState state)
+	private void getPropertyOfPreviousState(HeroState heroState)
 	{
-		this.inputMap = state.inputMap;
+		this.inputMap = heroState.inputMap;
 	}
 
 	public boolean isAnimationsFinished()

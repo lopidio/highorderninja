@@ -49,7 +49,7 @@ public class CollidableHero extends Collidable
 			FixtureDef def = entry.getValue();
 			if (def.isSensor)
 			{
-				def.filter = new CollidableFilterBox2dAdapter(filter.removeCollisionWith(CollidableCategory.HEROS)).toBox2dFilter();
+				def.filter = new CollidableFilterBox2dAdapter(filter.removeCollisionWithEveryThing().except(CollidableCategory.SCENERY)).toBox2dFilter();
 			}
 			else
 			{

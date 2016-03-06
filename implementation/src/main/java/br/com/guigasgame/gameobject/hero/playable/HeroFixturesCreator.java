@@ -12,7 +12,9 @@ import org.jbox2d.dynamics.FixtureDef;
 
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 
-class HeroFixturesCreator {
+
+class HeroFixturesCreator
+{
 
 	@XmlElement
 	private Map<FixtureSensorID, FixtureDef> fixtures;
@@ -20,7 +22,8 @@ class HeroFixturesCreator {
 	/**
 	 * DO NOT USE
 	 */
-	public HeroFixturesCreator() {
+	public HeroFixturesCreator()
+	{
 		fixtures = new HashMap<>();
 
 		createHeadFixture();
@@ -52,13 +55,13 @@ class HeroFixturesCreator {
 	// return null;
 	// }
 
-
-
-	public Map<FixtureSensorID, FixtureDef> getFixturesMap() {
+	public Map<FixtureSensorID, FixtureDef> getFixturesMap()
+	{
 		return fixtures;
 	}
 
-	private void createHeadFixture() {
+	private void createHeadFixture()
+	{
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(0.25f, 0.5f, new Vec2(0, -1.5f), 0);
 
@@ -68,21 +71,23 @@ class HeroFixturesCreator {
 		fixtures.put(FixtureSensorID.HEAD, def);
 	}
 
-	private void createBodyFixture() {
+	private void createBodyFixture()
+	{
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(0.25f, 0.6f, new Vec2(0, -0.5f), 0);
 
 		FixtureDef def = new FixtureDef();
 		def.shape = shape;
-		def.density = 2.f;		
+		def.density = 2.f;
 		fixtures.put(FixtureSensorID.BODY, def);
 	}
 
-	private void createFeetFixture() {
+	private void createFeetFixture()
+	{
 		CircleShape feetShape = new CircleShape();
-//		feetShape.setRadius(0.35f);
+		// feetShape.setRadius(0.35f);
 		feetShape.setRadius(0.3f);
-		
+
 		FixtureDef def = new FixtureDef();
 		def.restitution = 0.0f;
 		def.friction = 0.95f;
@@ -92,58 +97,63 @@ class HeroFixturesCreator {
 		fixtures.put(FixtureSensorID.FEET, def);
 	}
 
-	private void createBottomSensor() {
+	private void createBottomSensor()
+	{
 		PolygonShape bottomShape = new PolygonShape();
 		bottomShape.setAsBox(0.2f, 0.4f, new Vec2(0, 0f), 0);
-		
+
 		FixtureDef def = new FixtureDef();
 		def.isSensor = true;
 		def.shape = bottomShape;
-		def.density = 0;		
+		def.density = 0;
 		fixtures.put(FixtureSensorID.BOTTOM_SENSOR, def);
 	}
 
-	private void createBottomLeftSensor() {
+	private void createBottomLeftSensor()
+	{
 		PolygonShape bottomLeftShape = new PolygonShape();
 		bottomLeftShape.setAsBox(0.2f, 0.3f, new Vec2(-0.5f - 0.1f, -1f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
 		fixtureDef.shape = bottomLeftShape;
-		fixtureDef.density = 0;		
+		fixtureDef.density = 0;
 		fixtures.put(FixtureSensorID.LEFT_BOTTOM_SENSOR, fixtureDef);
 	}
 
-	private void createBottomRightSensor() {
+	private void createBottomRightSensor()
+	{
 		PolygonShape rightLeftShape = new PolygonShape();
 		rightLeftShape.setAsBox(0.2f, 0.3f, new Vec2(0.5f + 0.1f, -1f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
 		fixtureDef.shape = rightLeftShape;
-		fixtureDef.density = 0;		
+		fixtureDef.density = 0;
 		fixtures.put(FixtureSensorID.RIGHT_BOTTOM_SENSOR, fixtureDef);
 	}
-	
-	private void createTopLeftSensor() {
+
+	private void createTopLeftSensor()
+	{
 		PolygonShape topLeftShape = new PolygonShape();
 		topLeftShape.setAsBox(0.2f, 0.3f, new Vec2(-0.5f - 0.1f, -1.7f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
 		fixtureDef.shape = topLeftShape;
-		fixtureDef.density = 0;		
+		fixtureDef.density = 0;
 		fixtures.put(FixtureSensorID.LEFT_TOP_SENSOR, fixtureDef);
 	}
 
-	private void createTopRightSensor() {
+	private void createTopRightSensor()
+	{
 		PolygonShape topRightShape = new PolygonShape();
 		topRightShape.setAsBox(0.2f, 0.3f, new Vec2(0.5f + 0.1f, -1.7f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
 		fixtureDef.shape = topRightShape;
-		fixtureDef.density = 0;		
+		fixtureDef.density = 0;
 		fixtures.put(FixtureSensorID.RIGHT_TOP_SENSOR, fixtureDef);
 	}
 

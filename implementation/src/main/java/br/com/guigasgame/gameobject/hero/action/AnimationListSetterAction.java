@@ -20,6 +20,7 @@ public class AnimationListSetterAction extends GameHeroAction
 	protected void childExecute(PlayableGameHero hero)
 	{
 		hero.setAnimationList(animationList);
+		hero.setForwardSide(hero.getForwardSide());
 	}
 
 }

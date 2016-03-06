@@ -39,6 +39,7 @@ public class GameMachine
 		HeroTeam teamAlpha = new HeroTeam(0);
 		HeroTeam teamBravo = new HeroTeam(1);
 		HeroTeam teamCharlie = new HeroTeam(2);
+		HeroTeam teamDelta = new HeroTeam(23);
 		
 		GameHeroProperties playerOne = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
 		teamAlpha.addGameHero(playerOne);
@@ -55,6 +56,7 @@ public class GameMachine
 		teams.add(teamAlpha);
 		teams.add(teamBravo);
 		teams.add(teamCharlie);
+		teams.add(teamDelta);
 		
 		for (HeroTeam heroTeam : teams) 
 		{

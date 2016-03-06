@@ -9,8 +9,7 @@ import br.com.guigasgame.side.Side;
 
 public class DiagonalJumpAction extends GameHeroAction
 {
-
-	Side side;
+	private Side side;
 
 	public DiagonalJumpAction(HeroStateProperties heroStateProperties, Side side)
 	{

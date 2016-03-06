@@ -1,6 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.ShootRopeAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
@@ -52,7 +51,7 @@ public class RopeShootingState extends HeroState
 	{
 		if (ninjaHook.isHookAttached())
 		{
-			gameHero.addAction(new HeroStateSetterAction(new NinjaRopeSwingingState(gameHero, ninjaHook.getNinjaRope())));
+			setState(new NinjaRopeSwingingState(gameHero, ninjaHook.getNinjaRope()));
 			ninjaHook.markToDestroy();
 		}
 		else if (ninjaHook.isDead())

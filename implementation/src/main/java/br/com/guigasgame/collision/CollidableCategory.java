@@ -97,7 +97,7 @@ public enum CollidableCategory
 	{
 		for( CollidableCategory category : CollidableCategory.values() )
 		{
-			String msg = "Category " + category.name() + ":\t";
+			String msg = "Category " + category.name() + " \t"+Integer.toBinaryString(category.getCategoryMask().value)+":\t";
 			List<CollidableCategory> categoryList = CollidableCategory.fromMask(category.filter.collider.value);
 			for( CollidableCategory gameCollidableCategory : categoryList )
 			{

@@ -173,11 +173,11 @@ public class PlayableGameHero extends GameObject
 
 	public void setForwardSide(Side side)
 	{
+		forwardSide = side;
 		for( Animation animation : animationList )
 		{
 			animation.flipAnimation(side);
 		}
-		forwardSide = side;
 	}
 	
 	public boolean isTouchingGround()

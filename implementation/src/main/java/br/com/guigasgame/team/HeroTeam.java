@@ -78,9 +78,9 @@ public class HeroTeam
 			case 1:
 				return Color.BLUE;
 			case 2:
-				return Color.YELLOW;
-			case 3:
 				return Color.GREEN;
+			case 3:
+				return Color.YELLOW;
 			case 4:
 				return Color.CYAN;
 			case 5:

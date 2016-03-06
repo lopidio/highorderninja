@@ -75,6 +75,10 @@ public class CollidableFilter
 		return new CollidableFilter(this.category, new IntegerMask().setAll());
 	}
 	
+	public CollidableFilterRemovingCollision removeCollisionWithEveryThing()
+	{
+		return new CollidableFilterRemovingCollision(this.category, new IntegerMask());
+	}
 	
 	public CollidableFilterRemovingCollision removeCollisionWith(CollidableCategory category) 
 	{
