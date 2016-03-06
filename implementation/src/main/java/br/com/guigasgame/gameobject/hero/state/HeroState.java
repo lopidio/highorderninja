@@ -207,6 +207,13 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		gameHero.addAction(new HeroStateSetterAction(heroState));
 	}
 
+	protected final void setStateAndAlternative(HeroState heroState, HeroState alternativeState)
+	{
+		heroState.getPropertyOfPreviousState(this);
+		alternativeState.getPropertyOfPreviousState(this);
+		gameHero.addAction(new HeroStateAlternativeSetterAction(heroState, alternativeState));
+	}
+
 	public final Vector2 getMaxSpeed()
 	{
 		return heroStatesProperties.maxSpeed;

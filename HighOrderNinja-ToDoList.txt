@@ -43,6 +43,7 @@ v Get category from filter (one enumeration)
 v Scenery (http://www.jsonschema2pojo.org/) (http://akinuri.deviantart.com/art/Metal-Textures-221702846)(http://miss-marlies.deviantart.com/art/Textures-dirt-grass-sand-and-water-335479475)
 v DynamicBackground
 v GameItem
+v Airspin/SuperRunning herostate.xml conditions to enter
 
 ShurikenBomb
 RayCastAnythingBut....
@@ -55,7 +56,6 @@ FragStatistics: totalShoots, deaths, kills, suicides
 ?? SmokeBomb refactoring (real particles system)
 
 GameItemController (manages item creations)
-Airspin state.xml conditions to enter
 Think about what to do: action+wallgrab; action+ducking
 Background refactoring (to use AnimationCentralPool)(to have Foreground objects)(regenerateInterval...)
 Scenery handle deadly obstacles

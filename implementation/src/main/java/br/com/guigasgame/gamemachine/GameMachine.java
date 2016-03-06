@@ -44,13 +44,12 @@ public class GameMachine
 		teamAlpha.addGameHero(playerOne);
 		
 		GameHeroProperties playerTwo = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
-		teamBravo.addGameHero(playerTwo);
-		
 		GameHeroProperties playerThree = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
-		teamCharlie.addGameHero(playerThree);
+		teamBravo.addGameHero(playerTwo);
+		teamBravo.addGameHero(playerThree);
+		
 
 		GameHeroProperties playerFour = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
-		teamCharlie.addGameHero(playerThree);
 		teamCharlie.addGameHero(playerFour);
 
 		teams.add(teamAlpha);

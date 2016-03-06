@@ -7,15 +7,28 @@ import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 public class SuperRunningState extends HeroState 
 {
 	private float secondsRemaining;
+	private Float minHorizontalSpeed;
 
 	protected SuperRunningState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_SUPER_RUNNING);
-//		setAnimationsColor(Color.MAGENTA);
-		
 		Float duration = heroStatesProperties.property.get("minDuration");
-		secondsRemaining = duration != null? duration.floatValue(): 0.5f;		
+		secondsRemaining = duration != null? duration.floatValue(): 0.5f;
+		
+		minHorizontalSpeed = heroStatesProperties.property.get("minHorizontalSpeed");
+		if (minHorizontalSpeed == null)
+			minHorizontalSpeed = 10f;
+
 	}
+	
+	@Override
+	public boolean canExecute(RoundGameHero hero)
+	{
+		if (Math.abs(hero.getCollidableHero().getBodyLinearVelocity().x) >= minHorizontalSpeed)
+			return true;
+		return false;
+	}
+
 	
 	@Override
 	protected void stateDoubleTapInput(HeroInputKey inputValue)

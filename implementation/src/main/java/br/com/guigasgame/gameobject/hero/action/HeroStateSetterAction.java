@@ -7,7 +7,7 @@ import br.com.guigasgame.gameobject.hero.state.HeroState;
 public class HeroStateSetterAction extends GameHeroAction
 {
 
-	HeroState newState;
+	private HeroState newState;
 
 	public HeroStateSetterAction(HeroState newState)
 	{

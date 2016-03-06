@@ -1,7 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jbox2d.common.Vec2;
-
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -21,10 +19,7 @@ class RunningHeroState extends HeroState
 	{
 		if (inputValue == HeroInputKey.ACTION)
 		{
-			if (gameHero.getCollidableHero().getBodyLinearVelocity().length() >= new Vec2(heroStatesProperties.maxSpeed.x, 0).length()*0.99) //99%
-			{
-				setState(new SuperRunningState(gameHero));
-			}			
+			setState(new SuperRunningState(gameHero));
 		}
 	}
 

@@ -32,7 +32,7 @@ public class AirSpinHeroState extends HeroState
 	{
 		if (hero.isTouchingWallAhead())
 			return true;
-		if (hero.getCollidableHero().getBodyLinearVelocity().x >= minHorizontalSpeed)
+		if (Math.abs(hero.getCollidableHero().getBodyLinearVelocity().x) >= minHorizontalSpeed)
 			return true;
 		return false;
 	}
