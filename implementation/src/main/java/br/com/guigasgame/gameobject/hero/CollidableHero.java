@@ -25,15 +25,17 @@ public class CollidableHero extends Collidable
 	private Map<FixtureSensorID, Fixture> fixtureMap;
 	private HeroSensorsController sensorsController;
 	private CollidableFilter filter;
+	private final PlayableGameHero playableHero;
 
-	public CollidableHero(int playerID, Vec2 position)
+	public CollidableHero(int playerId, Vec2 initialPosition, PlayableGameHero playableGameHero)
 	{
-		super(position);
+		super(initialPosition);
+		this.playableHero = playableGameHero;
 		bodyDef.fixedRotation = true;
 		bodyDef.type = BodyType.DYNAMIC;
-
+		
 		sensorsController = new HeroSensorsController();
-		filter = CollidableCategory.getPlayerFilter(playerID);
+		filter = CollidableCategory.getPlayerFilter(playerId);
 	}
 
 	public void loadAndAttachFixturesToBody()
@@ -197,6 +199,11 @@ public class CollidableHero extends Collidable
 			fixture.setFriction(0f);
 			fixture.setRestitution(0.5f);
 		}
+	}
+
+	public PlayableGameHero getPlayableHero()
+	{
+		return playableHero;
 	}
 
 }

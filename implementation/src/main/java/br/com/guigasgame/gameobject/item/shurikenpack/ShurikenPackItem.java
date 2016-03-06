@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.item.GameItem;
 import br.com.guigasgame.gameobject.item.GameItemIndex;
 
@@ -32,5 +33,10 @@ public class ShurikenPackItem extends GameItem
 		}
 	}
 
+	@Override
+	public void acts(PlayableGameHero playableGameHero)
+	{
+		// TODO Auto-generated method stub
+	}
 
 }

@@ -18,6 +18,7 @@ import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap;
+import br.com.guigasgame.gameobject.item.GameItem;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.shuriken.Shuriken;
 import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
@@ -37,16 +38,18 @@ public class PlayableGameHero extends GameObject
 	private HeroState state;
 
 	private String lastActionName;
+	private List<GameItem> gameItems;
 
 	public PlayableGameHero(GameHeroProperties properties)
 	{
 		this.heroProperties = properties;
 		forwardSide = Side.RIGHT;
 		actionList = new ArrayList<GameHeroAction>();
-		collidableHero = new CollidableHero(properties.getPlayerId(), properties.getInitialPosition());
+		collidableHero = new CollidableHero(properties.getPlayerId(), properties.getInitialPosition(), this);
 		collidableHero.addListener(this);
 		this.gameHeroInput = properties.getGameHeroInput();
 		gameHeroInput.setDeviceId(properties.getPlayerId());
+		gameItems = new ArrayList<>();
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
@@ -76,10 +79,20 @@ public class PlayableGameHero extends GameObject
 		state.update(deltaTime);
 		gameHeroInput.update(deltaTime);
 
+		updateItemsList();
 		updateActionList();
 
 		collidableHero.checkSpeedLimits(state.getMaxSpeed());
 		adjustSpritePosition();
+	}
+
+	private void updateItemsList()
+	{
+		for( GameItem item : gameItems )
+		{
+			item.acts(this);
+		}
+		gameItems.clear();
 	}
 
 	public void adjustSpritePosition()
@@ -240,5 +253,15 @@ public class PlayableGameHero extends GameObject
 	public void onDestroy()
 	{
 		this.heroProperties.updateFragCounter(fragCounter);
+	}
+
+	public void regeneratesLife()
+	{
+		System.out.println("Life regenerated");
+	}
+
+	public void addItem(GameItem item)
+	{
+		gameItems.add(item);
 	}
 }

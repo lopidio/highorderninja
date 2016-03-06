@@ -8,9 +8,10 @@ import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.GameObject;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 
 
-public class GameItem extends GameObject
+public abstract class GameItem extends GameObject
 {
 
 	protected final GameItemIndex index;
@@ -85,5 +86,7 @@ public class GameItem extends GameObject
 			markToDestroy();
 
 	}
+	
+	public abstract void acts(PlayableGameHero playableGameHero);
 
 }
