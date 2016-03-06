@@ -14,7 +14,7 @@ public class BackgroundGameObject implements UpdatableFromTime, Drawable
 {
 
 	private Animation animation;
-	private final Vector2f factor;
+	private final Vector2f speed;
 	private final float distanceFromCamera;
 	private final boolean regenerate;
 	private boolean markToregenerate;
@@ -28,7 +28,7 @@ public class BackgroundGameObject implements UpdatableFromTime, Drawable
 		regenerate = backgroundItem.isRegenerate();
 		
 		distanceFromCamera = backgroundItem.getDistanceFromCamera();
-		factor = Vector2f.div(pointToSfmlVector2(backgroundItem.getSpeed()), distanceFromCamera);
+		speed = pointToSfmlVector2(backgroundItem.getSpeed());
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class BackgroundGameObject implements UpdatableFromTime, Drawable
 	@Override
 	public void update(float deltaTime)
 	{
-		animation.move(Vector2f.mul(factor, deltaTime));
+		animation.move(Vector2f.mul(speed, deltaTime));
 		animation.update(deltaTime);
 		if (markToregenerate)
 		{

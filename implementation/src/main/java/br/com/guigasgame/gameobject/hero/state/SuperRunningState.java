@@ -20,6 +20,15 @@ public class SuperRunningState extends HeroState
 	}
 	
 	@Override
+	protected void stateDoubleTapInput(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.ACTION)
+		{
+			setState(new StopMovementState(gameHero));
+		}
+	}
+	
+	@Override
 	public void stateUpdate(float deltaTime)
 	{
 		secondsRemaining -= deltaTime;

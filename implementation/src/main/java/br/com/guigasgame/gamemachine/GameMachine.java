@@ -5,11 +5,9 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
-import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
-import org.jsfml.window.Mouse;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
