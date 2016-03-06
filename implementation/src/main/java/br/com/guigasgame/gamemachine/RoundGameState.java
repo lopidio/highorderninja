@@ -22,13 +22,13 @@ import org.jsfml.window.event.Event.Type;
 import br.com.guigasgame.background.Background;
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
-import br.com.guigasgame.gameobject.item.GameItem;
-import br.com.guigasgame.gameobject.item.GameItemIndex;
+import br.com.guigasgame.gameobject.item.life.LifeItem;
+import br.com.guigasgame.gameobject.item.shurikenpack.ShurikenPackItem;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -123,11 +123,11 @@ public class RoundGameState implements GameState
 			}
 			if (event.asKeyEvent().key == Key.M)
 			{
-				initializeGameObject(Arrays.asList(new GameItem(GameItemIndex.SHURIKEN_PACK, new Vec2(40, 15))));
+				initializeGameObject(Arrays.asList(new ShurikenPackItem(new Vec2(40, 15))));
 			}
 			if (event.asKeyEvent().key == Key.N)
 			{
-				initializeGameObject(Arrays.asList(new GameItem(GameItemIndex.LIFE, new Vec2(23, 15))));
+				initializeGameObject(Arrays.asList(new LifeItem(new Vec2(23, 15))));
 			}
 
 		}

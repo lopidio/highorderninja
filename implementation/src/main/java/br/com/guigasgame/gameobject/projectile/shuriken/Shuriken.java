@@ -39,7 +39,7 @@ public class Shuriken extends Projectile
 			List<CollidableCategory> categoryList = CollidableCategory.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
 			for( CollidableCategory category : categoryList )
 			{
-				System.out.println("Hit: " + category.name());
+				System.out.println("Shuriken collided with: " + category.name());
 			}
 //			markToDestroy();
 		}

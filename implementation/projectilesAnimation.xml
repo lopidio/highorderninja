@@ -11,8 +11,8 @@
 				<textureSpriteRect>
 					<left>0</left>
 					<top>0</top>
-					<width>16</width>
-					<height>4</height>
+					<width>32</width>
+					<height>8</height>
 				</textureSpriteRect>
 			</value>
 		</entry>
@@ -55,7 +55,7 @@
 				<secondsPerFrame>0.1</secondsPerFrame>
 				<textureSpriteRect>
 					<left>0</left>
-					<top>4</top>
+					<top>8</top>
 					<width>64</width>
 					<height>12</height>
 				</textureSpriteRect>

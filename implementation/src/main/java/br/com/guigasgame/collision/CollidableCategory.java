@@ -11,8 +11,8 @@ public enum CollidableCategory
 	ROPE_NODE(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
 	ROPE_BODY(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN)),
 	SMOKE_BOMB(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
-	HEROS(		getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN)),
-	GAME_ITEMS(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN).and(HEROS),	true);
+	GAME_ITEMS(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing().removeCollisionWith(ROPE_BODY).and(ROPE_NODE).and(SMOKE_BOMB)),
+	HEROS(		getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN).and(GAME_ITEMS));
 
 	private final static int NUM_MAX_PLAYERS = 8;
 	private static int categoriesUsed = 0;
