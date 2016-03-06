@@ -43,15 +43,12 @@ public class GameMachine
 		HeroTeam teamCharlie = new HeroTeam(2);
 		
 		GameHeroProperties playerOne = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
-		playerOne.setSpawnPosition(new Vec2(10, 5));
 		teamAlpha.addGameHero(playerOne);
 		
 		GameHeroProperties playerTwo = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
-		playerTwo.setSpawnPosition(new Vec2(40, 5));
 		teamBravo.addGameHero(playerTwo);
 		
 		GameHeroProperties playerThree = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
-		playerThree.setSpawnPosition(new Vec2(50, 18));
 		teamCharlie.addGameHero(playerThree);
 
 		teams.add(teamAlpha);

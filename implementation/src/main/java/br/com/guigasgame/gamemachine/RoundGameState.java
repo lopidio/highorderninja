@@ -21,6 +21,7 @@ import org.jsfml.window.event.Event.Type;
 
 import br.com.guigasgame.background.Background;
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
+import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
@@ -41,6 +42,7 @@ public class RoundGameState implements GameState
 
 	private List<GameObject> gameObjectsList;
 	private Background background;
+	private Scenery scenery;
 
 	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background) throws JAXBException
 	{
@@ -53,6 +55,7 @@ public class RoundGameState implements GameState
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
 		this.background = background;
+		this.scenery = scenery;
 		
 		initializeGameObject(Arrays.asList(scenery));
 		
@@ -61,6 +64,7 @@ public class RoundGameState implements GameState
 			List<GameHeroProperties> heros = team.getHerosList();
 			for (GameHeroProperties gameHeroProperties : heros) 
 			{
+				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				initializeGameObject(Arrays.asList(new RoundGameHero(gameHeroProperties)));
 			}
 		}
@@ -123,11 +127,11 @@ public class RoundGameState implements GameState
 			}
 			if (event.asKeyEvent().key == Key.M)
 			{
-				initializeGameObject(Arrays.asList(new ShurikenPackItem(new Vec2(40, 15))));
+				initializeGameObject(Arrays.asList(new ShurikenPackItem(WorldConstants.sfmlToPhysicsCoordinates(scenery.getRandomItemSpot()))));
 			}
 			if (event.asKeyEvent().key == Key.N)
 			{
-				initializeGameObject(Arrays.asList(new LifeItem(new Vec2(23, 15))));
+				initializeGameObject(Arrays.asList(new LifeItem(WorldConstants.sfmlToPhysicsCoordinates(scenery.getRandomItemSpot()))));
 			}
 
 		}

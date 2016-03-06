@@ -24,6 +24,8 @@ public class Scenery extends GameObject
 	private final Texture texture;
 	private List<Shape> box2dShapes;
 	private SceneryShapeCollidable shapeCollidable;
+	private List<Point> itemSpots;
+	private List<Point> spawnPoints;
 	
 	public Scenery(SceneryFile sceneryFile)
 	{
@@ -34,6 +36,8 @@ public class Scenery extends GameObject
 		box2dShapes = new ArrayList<>();
 		
 		SceneryShapes sceneryShapes = sceneryFile.getSceneryShapes();
+		itemSpots = sceneryFile.getItemSpots();
+		spawnPoints = sceneryFile.getSpawnPoint();
 		
 		addRectangleShapes(sceneryShapes);
 		addCircleShapes(sceneryShapes);
@@ -156,8 +160,21 @@ public class Scenery extends GameObject
 		}
 		box2dShapes.clear();
 	}
-
 	
+	public Vector2f popRandomSpawnPoint()
+	{
+		int randIndex = (int) (Math.random()*spawnPoints.size());
+		Vector2f retorno = pointToSfmlVector2(spawnPoints.get(randIndex));
+		spawnPoints.remove(randIndex);
+		return retorno;
+	}
+	
+	public Vector2f getRandomItemSpot()
+	{
+		int randIndex = (int) (Math.random()*itemSpots.size());
+		return pointToSfmlVector2(itemSpots.get(randIndex));
+	}
+
 	private static Vector2f pointToSfmlVector2(Point point)
 	{
 		return new Vector2f(point.getX(), point.getY());
