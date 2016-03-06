@@ -49,6 +49,10 @@ public class GameMachine
 		GameHeroProperties playerThree = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
 		teamCharlie.addGameHero(playerThree);
 
+		GameHeroProperties playerFour = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
+		teamCharlie.addGameHero(playerThree);
+		teamCharlie.addGameHero(playerFour);
+
 		teams.add(teamAlpha);
 		teams.add(teamBravo);
 		teams.add(teamCharlie);

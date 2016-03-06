@@ -163,6 +163,10 @@
         <x>1000</x>
         <y>360</y>
     </spawnPoint>
+    <spawnPoint>
+        <x>200</x>
+        <y>360</y>
+    </spawnPoint>
     <itemSpots>
         <x>800</x>
         <y>300</y>
