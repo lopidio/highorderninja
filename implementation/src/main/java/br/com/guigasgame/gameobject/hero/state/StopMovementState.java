@@ -13,7 +13,7 @@ public class StopMovementState extends HeroState
 
 	protected StopMovementState(RoundGameHero gameHero)
 	{
-		super(gameHero, HeroStateIndex.HERO_DIVING);
+		super(gameHero, HeroStateIndex.HERO_STOP);
 		setAnimationsColor(Color.YELLOW);
 		secondsRemaining = 0.5f;
 	}
@@ -22,6 +22,13 @@ public class StopMovementState extends HeroState
 	protected void stateOnEnter()
 	{
 		gameHero.addAction(new StopMovementAction(heroStatesProperties));
+	}
+	
+	@Override
+	protected void shoot()
+	{
+		super.shoot();
+		setState(new FallingHeroState(gameHero));
 	}
 	
 	@Override

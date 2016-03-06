@@ -171,6 +171,11 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 		sprite.setScale(new Vector2f(scale, scale));
 	}
 
+	public void scale(Vector2f scale)
+	{
+		sprite.setScale(scale);
+	}
+
 	@Override
 	public void setPosition(Vector2f origin)
 	{

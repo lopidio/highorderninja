@@ -23,14 +23,23 @@ public class GameItem extends GameObject
 		this.index = index;
 		this.properties = GameItemPropertiesPool.getGameItemProperties(index);
 
-		Animation animation = Animation.createAnimation(AnimationsCentralPool.getGameItemsAnimationRepository().getAnimationsProperties(index));
 		collidable = new GameItemCollidable(position, properties);
 		collidable.addListener(this);
 		collidableList.add(collidable);
 
 		lifeTime = properties.lifeTime;
 
+		initializeAnimation();
+
+	}
+
+	private void initializeAnimation()
+	{
+		
+		Animation animation = Animation.createAnimation(AnimationsCentralPool.getGameItemsAnimationRepository().getAnimationsProperties(index));
 		drawableList.add(animation);
+		float animationWidth = animation.getWidth(); 
+		
 	}
 
 	@Override

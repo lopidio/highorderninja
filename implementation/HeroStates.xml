@@ -128,6 +128,23 @@
 			</value>
 		</entry>
 		<entry>
+			<key>HERO_STOP</key>
+			<value>
+				<shoot />
+				<rope />
+				<maxSpeed>
+					<x>20</x>
+					<y>100</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>diveImpulse</key>
+						<value>30</value>
+					</entry>
+				</property>
+			</value>
+		</entry>
+		<entry>
 			<key>HERO_DUCKING</key>
 			<value>
 				<jump impulse="15.0" />
@@ -170,7 +187,7 @@
 						<key>impulse</key>
 						<value>5</value>
 					</entry>
-				</property>				
+				</property>
 			</value>
 		</entry>
 		<entry>
@@ -189,7 +206,7 @@
 						<key>spinImpulse</key>
 						<value>13</value>
 					</entry>
-				</property>				
+				</property>
 			</value>
 		</entry>
 	</statesMap>

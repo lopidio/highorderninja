@@ -17,7 +17,7 @@ public enum HeroStateIndex
 	
 	HERO_DUCKING,
 	HERO_DIVING,
-	HERO_STOPDIVING,
+	HERO_STOP,
 	HERO_ROPE, 
 	
 	
