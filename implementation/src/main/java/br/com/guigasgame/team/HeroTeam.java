@@ -10,35 +10,41 @@ import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 
-public class HeroTeam 
+
+public class HeroTeam
 {
+
 	private final Color color;
 	private final int teamId;
-	
+
 	private IntegerMask teamMask;
 	private IntegerMask enemiesMask;
-//	private int totalScore;
-	
+	// private int totalScore;
+
 	private List<GameHeroProperties> herosList;
-	
+
 	public HeroTeam(int id)
 	{
 		teamId = id;
 		teamMask = new IntegerMask();
 		enemiesMask = CollidableCategory.getAllPlayersCategory();
-//		totalScore = 0;
+		// totalScore = 0;
 		herosList = new ArrayList<GameHeroProperties>();
 		color = getTeamColor();
 	}
-	
+
 	public void addGameHero(GameHeroProperties gameHeroProperties)
 	{
-		final IntegerMask mask = CollidableCategory.getPlayerCategory(gameHeroProperties.getPlayerId());
-		teamMask = teamMask.set(mask.value);
-		enemiesMask = enemiesMask.clear(mask.value);
-		herosList.add(gameHeroProperties);
+		if (!herosList.contains(gameHeroProperties))
+		{
+			final IntegerMask mask = CollidableCategory.getPlayerCategory(gameHeroProperties.getPlayerId());
+			teamMask = teamMask.set(mask.value);
+			enemiesMask = enemiesMask.clear(mask.value);
+			herosList.add(gameHeroProperties);
+
+		}
 	}
-	
+
 	public void removeGameHero(GameHeroProperties gameHeroProperties)
 	{
 		final IntegerMask mask = CollidableCategory.getPlayerCategory(gameHeroProperties.getPlayerId());
@@ -46,24 +52,24 @@ public class HeroTeam
 		enemiesMask = enemiesMask.set(mask.value);
 		herosList.remove(gameHeroProperties);
 	}
-	
+
 	public Color getColorOfPlayer(GameHeroProperties gameHeroProperties)
 	{
 		int index = herosList.indexOf(gameHeroProperties);
-		
-		int constant = 255/(herosList.size()*2);
-		int factor = constant* ((2*index)+1);
-		
+
+		int constant = 255 / (herosList.size() * 2);
+		int factor = constant * ((2 * index) + 1);
+
 		Color mult = new Color(factor, factor, factor);
 		return Color.add(color, mult);
-	}	
-	
-	public List<GameHeroProperties> getHerosList() 
+	}
+
+	public List<GameHeroProperties> getHerosList()
 	{
 		return herosList;
 	}
 
-	private Color getTeamColor() 
+	private Color getTeamColor()
 	{
 		switch (teamId)
 		{
@@ -87,31 +93,33 @@ public class HeroTeam
 		return Color.WHITE;
 	}
 
-	public void setUp() 
+	public void setUp()
 	{
-		for (GameHeroProperties gameHeroProperties : herosList) 
+		for( GameHeroProperties gameHeroProperties : herosList )
 		{
 			gameHeroProperties.setTeamConfigurations(this);
 		}
 	}
 
-	public IntegerMask getTeamMask() 
+	public IntegerMask getTeamMask()
 	{
 		return teamMask;
 	}
 
-	public IntegerMask getEnemiesMask(int playerID) 
+	public IntegerMask getEnemiesMask(int playerID)
 	{
 		return enemiesMask;
 	}
-	
+
 	public void displayFrags()
 	{
 		for( GameHeroProperties gameHeroProperties : herosList )
 		{
 			RoundFragCounter roundFragCounter = gameHeroProperties.getFragCounter();
-			System.out.println("Shoots: " + roundFragCounter.getShootsOnTarget() + "/" + roundFragCounter.getShoots());
+			System.out.println("Shoots: "
+					+ roundFragCounter.getShootsOnTarget() + "/"
+					+ roundFragCounter.getShoots());
 		}
 	}
-	
+
 }

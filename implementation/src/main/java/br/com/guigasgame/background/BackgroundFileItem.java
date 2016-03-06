@@ -2,6 +2,7 @@ package br.com.guigasgame.background;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 import br.com.guigasgame.animation.AnimationProperties;
@@ -22,12 +23,16 @@ public class BackgroundFileItem
 	@XmlElement
 	private float distanceFromCamera;
 
-	public BackgroundFileItem(AnimationProperties animationProperties, Point speed, Point origin, float distanceFromCamera)
+	@XmlAttribute
+	private boolean regenerate;
+
+	public BackgroundFileItem(AnimationProperties animationProperties, Point speed, Point origin, float distanceFromCamera, boolean regenerate)
 	{
 		this.animationProperties = animationProperties;
 		this.speed = speed;
 		this.origin = origin;
 		this.distanceFromCamera = distanceFromCamera;
+		this.regenerate = regenerate;
 	}
 
 	public BackgroundFileItem()
@@ -80,6 +85,18 @@ public class BackgroundFileItem
 	public void setDistanceFromCamera(float distanceFromCamera)
 	{
 		this.distanceFromCamera = distanceFromCamera;
+	}
+
+
+	public boolean isRegenerate()
+	{
+		return regenerate;
+	}
+
+	
+	public void setRegenerate(boolean regenerate)
+	{
+		this.regenerate = regenerate;
 	}
 	
 	

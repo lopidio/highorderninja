@@ -82,9 +82,9 @@ public class BackgroundFile
 		AnimationProperties cloud1Properties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(160, 0, 600, 200), true);
 		AnimationProperties cloud2Properties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 230, 400, 400), true);
 
-		backgroundItems.add(new BackgroundFileItem(moonProperties, new Point(10, 0), new Point(800, 100), 100));
-		backgroundItems.add(new BackgroundFileItem(cloud1Properties, new Point(-150, 0), new Point(1200, 200), 90));
-		backgroundItems.add(new BackgroundFileItem(cloud2Properties, new Point(200, 0), new Point(100, 150), 80));
+		backgroundItems.add(new BackgroundFileItem(moonProperties, new Point(10, 0), new Point(800, 100), 100, false));
+		backgroundItems.add(new BackgroundFileItem(cloud1Properties, new Point(-150, 0), new Point(1200, 200), 90, true));
+		backgroundItems.add(new BackgroundFileItem(cloud2Properties, new Point(200, 0), new Point(100, 150), 80, true));
 		
 		
 		BackgroundFile backgroundFile = new BackgroundFile(backgroundItems, "backGroundItems.png", "backGroundTexture.png");

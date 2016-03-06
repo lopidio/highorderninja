@@ -47,7 +47,8 @@ public class GameMachine
 		
 		GameHeroProperties playerTwo = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
 		playerTwo.setSpawnPosition(new Vec2(40, 5));
-		teamBravo.addGameHero(playerTwo);
+//		teamBravo.addGameHero(playerTwo);
+		teamAlpha.addGameHero(playerTwo);
 		
 		GameHeroProperties playerThree = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
 		playerThree.setSpawnPosition(new Vec2(50, 18));
