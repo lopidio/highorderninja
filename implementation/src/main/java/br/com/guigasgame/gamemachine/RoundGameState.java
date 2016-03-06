@@ -14,7 +14,6 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.Joystick;
-import org.jsfml.window.Joystick.Axis;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.Event.Type;
@@ -28,8 +27,7 @@ import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 import br.com.guigasgame.gameobject.hero.PlayableGameHero;
-import br.com.guigasgame.gameobject.item.life.LifeItem;
-import br.com.guigasgame.gameobject.item.shurikenpack.ShurikenPackItem;
+import br.com.guigasgame.gameobject.item.GameItemController;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -42,7 +40,7 @@ public class RoundGameState implements GameState
 
 	private List<GameObject> gameObjectsList;
 	private Background background;
-	private Scenery scenery;
+	private GameItemController gameItemController;
 
 	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background) throws JAXBException
 	{
@@ -55,7 +53,7 @@ public class RoundGameState implements GameState
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
 		this.background = background;
-		this.scenery = scenery;
+		gameItemController = new GameItemController(scenery);
 		
 		initializeGameObject(Arrays.asList(scenery));
 		
@@ -98,22 +96,22 @@ public class RoundGameState implements GameState
 		//Axis.U R3x
 		//Axis.R R3y
 
-		for ( int i = 0; i < 4; ++i)
-		{
-			if (Joystick.isConnected(i))
-			{
-				for( Axis axis : Axis.values() )
-				{
-					if (Joystick.getAxisPosition(i, axis) > 60 || Joystick.getAxisPosition(i, axis) < -60)
-					{
+//		for ( int i = 0; i < 4; ++i)
+//		{
+//			if (Joystick.isConnected(i))
+//			{
+//				for( Axis axis : Axis.values() )
+//				{
+//					if (Joystick.getAxisPosition(i, axis) > 60 || Joystick.getAxisPosition(i, axis) < -60)
+//					{
 //						if (axis != Axis.V)
 //							System.out.println("Joys(" + i + "): " + axis.toString() + " -> " + (Joystick.getAxisPosition(i, axis) > 0 ? 1 : -1));
-					}
-					
-				}
-				
-			}
-		}
+//					}
+//					
+//				}
+//				
+//			}
+//		}
 
 		if (event.type == Type.KEY_PRESSED)
 		{
@@ -125,20 +123,17 @@ public class RoundGameState implements GameState
 			{
 				timeFactor = 1;
 			}
-			if (event.asKeyEvent().key == Key.M)
-			{
-				initializeGameObject(Arrays.asList(new ShurikenPackItem(WorldConstants.sfmlToPhysicsCoordinates(scenery.getRandomItemSpot()))));
-			}
-			if (event.asKeyEvent().key == Key.N)
-			{
-				initializeGameObject(Arrays.asList(new LifeItem(WorldConstants.sfmlToPhysicsCoordinates(scenery.getRandomItemSpot()))));
-			}
 
 		}
 	}
 
 	private void verifyNewObjectsToLists()
 	{
+		if (gameItemController.hasItemToAdd())
+		{
+			initializeGameObject(gameItemController.getChildrenList());
+			gameItemController.clearItemToAddList();
+		}
 		List<GameObject> objsToAdd = new ArrayList<>();
 		objsToAdd.addAll(gameObjectsList);
 		for( GameObject gameObject : objsToAdd )
@@ -194,6 +189,7 @@ public class RoundGameState implements GameState
 		{
 			gameObject.update(updateTime);
 		}
+		gameItemController.update(deltaTime);
 
 		verifyNewObjectsToLists();
 		clearDeadObjects();

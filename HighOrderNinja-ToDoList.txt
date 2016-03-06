@@ -44,6 +44,7 @@ v Scenery (http://www.jsonschema2pojo.org/) (http://akinuri.deviantart.com/art/M
 v DynamicBackground
 v GameItem
 v Airspin/SuperRunning herostate.xml conditions to enter
+v GameItemController (manages item creations)
 
 ShurikenBomb
 RayCastAnythingBut....
@@ -55,7 +56,6 @@ FragStatistics: totalShoots, deaths, kills, suicides
 ?? StateFile refactoring (enable and disable animations at runtime) AnimationFile refactoring
 ?? SmokeBomb refactoring (real particles system)
 
-GameItemController (manages item creations)
 Think about what to do: action+wallgrab; action+ducking
 Background refactoring (to use AnimationCentralPool)(to have Foreground objects)(regenerateInterval...)
 Scenery handle deadly obstacles
