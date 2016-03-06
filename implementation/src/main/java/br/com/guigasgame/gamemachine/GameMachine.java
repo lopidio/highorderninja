@@ -9,6 +9,7 @@ import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
+import org.jsfml.window.Mouse;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
@@ -92,9 +93,11 @@ public class GameMachine
 //			System.out.println(list.toString());
 //		}
 		
+		
 		renderWindow = new RenderWindow(new VideoMode(1366, 768, 32), "High order ninja");//, Window.FULLSCREEN); //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
+		renderWindow.setMouseCursorVisible(false);
 		
 		isRunning = true;
 		gameStates = new Stack<GameState>();

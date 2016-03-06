@@ -27,7 +27,7 @@ public class WallRidingState extends HeroState
 			}
 			else
 			{
-				setState(new AirSpinHeroState(gameHero));
+				setState(new AirSpinHeroState(gameHero, gameHero.getForwardSide().opposite()));
 			}
 		}			
 	}	

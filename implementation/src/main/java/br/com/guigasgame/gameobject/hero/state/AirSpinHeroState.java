@@ -5,15 +5,18 @@ import org.jsfml.graphics.Color;
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideImpulseAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
+import br.com.guigasgame.side.Side;
 
 public class AirSpinHeroState extends HeroState
 {
 
+	private Side side;
 	private float secondsRemaining;
 
-	public AirSpinHeroState(RoundGameHero gameHero)
+	public AirSpinHeroState(RoundGameHero gameHero, Side side)
 	{
 		super(gameHero, HeroStateIndex.HERO_AIR_SPIN);
+		this.side = side;
 		setAnimationsColor(Color.BLUE);
 		
 		Float duration = heroStatesProperties.property.get("duration");
@@ -24,7 +27,7 @@ public class AirSpinHeroState extends HeroState
 	@Override
 	protected void stateOnEnter()
 	{
-		gameHero.addAction(new SideImpulseAction(heroStatesProperties, gameHero.getForwardSide().opposite()));
+		gameHero.addAction(new SideImpulseAction(heroStatesProperties, side));
 	}
 	
 	@Override

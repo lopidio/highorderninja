@@ -1,5 +1,7 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import org.jbox2d.common.Vec2;
+
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.hero.action.JumpPressingHelp;
@@ -69,7 +71,17 @@ class JumpingHeroState extends HeroState
 	{
 		if (inputValue == HeroInputKey.ACTION)
 		{
-			setState(new StopMovementState(gameHero));
+			if (gameHero.getCollidableHero().getBodyLinearVelocity().length() >= new Vec2(heroStatesProperties.maxSpeed.x, 0).length()*0.99)
+			{
+				if (isHeroInputPressed(HeroInputKey.LEFT))
+					setState(new AirSpinHeroState(gameHero, Side.LEFT));
+				else if (isHeroInputPressed(HeroInputKey.RIGHT))
+					setState(new AirSpinHeroState(gameHero, Side.RIGHT));
+				else
+					setState(new StopMovementState(gameHero));
+			}
+			else
+				setState(new StopMovementState(gameHero));
 		}
 	}
 	

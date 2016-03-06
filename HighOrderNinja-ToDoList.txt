@@ -50,8 +50,8 @@ MatchProperties (given to MainGameStateConstructos. Has: deathmatch or teammatch
 Every GameHero object instantiates it's own frag statistics... At the end of each round, that fragStatistics is read by the team...
 FragStatistics: totalShoots, deaths, kills, suicides
 
-AnimationFile refactoring
-StateFile refactoring (enable and disable animations at runtime)
+
+?? StateFile refactoring (enable and disable animations at runtime) AnimationFile refactoring
 SmokeBomb refactoring (real particles system)
 
 
