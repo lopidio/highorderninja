@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 
 
@@ -17,7 +17,7 @@ public class HeroStateAlternativeSetterAction extends GameHeroAction
 
 	
 	@Override
-	public boolean canExecute(RoundGameHero hero)
+	public boolean canExecute(PlayableGameHero hero)
 	{
 		if (nextState.canExecute(hero))
 			return true;
@@ -30,7 +30,7 @@ public class HeroStateAlternativeSetterAction extends GameHeroAction
 	}
 
 	@Override
-	public void childExecute(RoundGameHero gameHero)
+	public void childExecute(PlayableGameHero gameHero)
 	{
 		gameHero.setState(nextState);
 	}

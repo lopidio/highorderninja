@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.ShootRopeAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -12,7 +12,7 @@ public class RopeShootingState extends HeroState
 
 	private NinjaHookProjectile ninjaHook;
 
-	public RopeShootingState(RoundGameHero gameHero)
+	public RopeShootingState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE_SHOOTING);
 

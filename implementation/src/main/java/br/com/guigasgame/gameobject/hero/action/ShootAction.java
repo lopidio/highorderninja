@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.action;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 
@@ -17,13 +17,13 @@ public class ShootAction extends GameHeroAction
 	}
 	
 	@Override
-	public boolean childCanExecute(RoundGameHero hero)
+	public boolean childCanExecute(PlayableGameHero hero)
 	{
 		return (heroStateProperties.shoot != null);
 	}
 
 	@Override
-	public void childExecute(RoundGameHero gameHero)
+	public void childExecute(PlayableGameHero gameHero)
 	{
 		gameHero.shoot(projectile);
 	}

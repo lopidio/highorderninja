@@ -8,16 +8,16 @@ import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 
 public class Shuriken extends Projectile
 {
 	private int collisionCounter;
-	private RoundGameHero owner;
+	private PlayableGameHero owner;
 
-	public Shuriken(Vec2 direction, IntegerMask targetCategory, RoundGameHero gameHero)
+	public Shuriken(Vec2 direction, IntegerMask targetCategory, PlayableGameHero gameHero)
 	{
 		super(ProjectileIndex.SHURIKEN, direction, gameHero.getCollidableHero().getBody().getWorldCenter());
 		owner = gameHero;

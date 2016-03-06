@@ -1,11 +1,11 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.BackFlipAction;
 
 public class BackFlipHeroState extends HeroState
 {
-	protected BackFlipHeroState(RoundGameHero gameHero)
+	protected BackFlipHeroState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_BACKFLIPPING);
 //		setAnimationsColor(Color.BLACK);

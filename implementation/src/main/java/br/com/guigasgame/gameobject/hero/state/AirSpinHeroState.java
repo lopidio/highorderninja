@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideImpulseAction;
 import br.com.guigasgame.gameobject.hero.action.StopMovementAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -13,7 +13,7 @@ public class AirSpinHeroState extends HeroState
 	private float secondsRemaining;
 	private Float minHorizontalSpeed;
 
-	public AirSpinHeroState(RoundGameHero gameHero, Side side)
+	public AirSpinHeroState(PlayableGameHero gameHero, Side side)
 	{
 		super(gameHero, HeroStateIndex.HERO_AIR_SPIN);
 		this.side = side;
@@ -28,7 +28,7 @@ public class AirSpinHeroState extends HeroState
 	}
 	
 	@Override
-	public boolean canExecute(RoundGameHero hero)
+	public boolean canExecute(PlayableGameHero hero)
 	{
 		if (hero.isTouchingWallAhead())
 			return true;

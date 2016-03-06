@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
@@ -9,7 +9,7 @@ public class SuperRunningState extends HeroState
 	private float secondsRemaining;
 	private Float minHorizontalSpeed;
 
-	protected SuperRunningState(RoundGameHero gameHero)
+	protected SuperRunningState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_SUPER_RUNNING);
 		Float duration = heroStatesProperties.property.get("minDuration");
@@ -22,7 +22,7 @@ public class SuperRunningState extends HeroState
 	}
 	
 	@Override
-	public boolean canExecute(RoundGameHero hero)
+	public boolean canExecute(PlayableGameHero hero)
 	{
 		if (Math.abs(hero.getCollidableHero().getBodyLinearVelocity().x) >= minHorizontalSpeed)
 			return true;

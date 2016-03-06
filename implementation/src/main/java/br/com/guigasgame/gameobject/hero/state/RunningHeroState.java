@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
@@ -9,7 +9,7 @@ import br.com.guigasgame.side.Side;
 class RunningHeroState extends HeroState
 {
 
-	protected RunningHeroState(RoundGameHero gameHero)
+	protected RunningHeroState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_RUNNING);
 	}

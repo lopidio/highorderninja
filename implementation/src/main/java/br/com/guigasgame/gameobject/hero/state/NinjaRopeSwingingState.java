@@ -2,7 +2,7 @@ package br.com.guigasgame.gameobject.hero.state;
 
 import org.jbox2d.common.Vec2;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.action.SwingFasterAction;
 import br.com.guigasgame.gameobject.hero.action.SwingSlowerAction;
@@ -14,7 +14,7 @@ public class NinjaRopeSwingingState extends HeroState
 {
 	private NinjaRope ninjaRope;
 	
-	public NinjaRopeSwingingState(RoundGameHero gameHero, NinjaRope rope)
+	public NinjaRopeSwingingState(PlayableGameHero gameHero, NinjaRope rope)
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE);
 

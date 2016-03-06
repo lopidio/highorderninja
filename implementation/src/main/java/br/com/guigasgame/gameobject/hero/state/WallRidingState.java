@@ -1,13 +1,13 @@
 package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.DiagonalJumpAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 
 public class WallRidingState extends HeroState 
 {
-	protected WallRidingState(RoundGameHero gameHero)
+	protected WallRidingState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_WALLRIDING);
 //		super.setAnimationsColor(Color.YELLOW);

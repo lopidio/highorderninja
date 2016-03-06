@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.side.Side;
@@ -11,7 +11,7 @@ class SlidingHeroState extends HeroState
 
 	private float secondsRemaining;
 
-	protected SlidingHeroState(RoundGameHero gameHero)
+	protected SlidingHeroState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_SLIDING);
 		Float duration = heroStatesProperties.property.get("duration");

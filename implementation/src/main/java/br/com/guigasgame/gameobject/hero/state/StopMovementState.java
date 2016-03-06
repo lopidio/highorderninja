@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.action.StopMovementAction;
 
 
@@ -9,7 +9,7 @@ public class StopMovementState extends HeroState
 
 	private float secondsRemaining;
 
-	protected StopMovementState(RoundGameHero gameHero)
+	protected StopMovementState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_STOP);
 //		setAnimationsColor(Color.YELLOW);

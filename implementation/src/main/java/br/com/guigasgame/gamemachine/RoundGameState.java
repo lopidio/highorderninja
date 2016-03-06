@@ -27,7 +27,7 @@ import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.item.life.LifeItem;
 import br.com.guigasgame.gameobject.item.shurikenpack.ShurikenPackItem;
 import br.com.guigasgame.scenery.Scenery;
@@ -65,7 +65,7 @@ public class RoundGameState implements GameState
 			for (GameHeroProperties gameHeroProperties : heros) 
 			{
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
-				initializeGameObject(Arrays.asList(new RoundGameHero(gameHeroProperties)));
+				initializeGameObject(Arrays.asList(new PlayableGameHero(gameHeroProperties)));
 			}
 		}
 	}

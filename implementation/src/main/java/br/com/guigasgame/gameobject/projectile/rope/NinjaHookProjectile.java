@@ -7,7 +7,7 @@ import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableCategory;
-import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.PlayableGameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 import br.com.guigasgame.raycast.RayCastHitAnyThing;
@@ -15,7 +15,7 @@ import br.com.guigasgame.raycast.RayCastHitAnyThing;
 
 public class NinjaHookProjectile extends Projectile
 {
-	private final RoundGameHero gameHero;
+	private final PlayableGameHero gameHero;
 	private World world;
 
 	private boolean markToAttachHook;
@@ -23,7 +23,7 @@ public class NinjaHookProjectile extends Projectile
 	private NinjaRope ninjaRope;
 	private Vec2 attachPoint;
 
-	public NinjaHookProjectile(Vec2 direction, RoundGameHero gameHero)
+	public NinjaHookProjectile(Vec2 direction, PlayableGameHero gameHero)
 	{
 		super(ProjectileIndex.ROPE, direction, gameHero.getCollidableHero().getBody().getWorldCenter());
 		this.gameHero = gameHero;
