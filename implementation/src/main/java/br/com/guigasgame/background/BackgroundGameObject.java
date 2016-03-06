@@ -22,7 +22,7 @@ public class BackgroundGameObject implements UpdatableFromTime, Drawable
 		AnimationProperties properties = backgroundItem.getAnimationProperties();
 		properties.setTexture(texture);
 		animation = Animation.createAnimation(properties);
-		animation.setOrigin(pointToSfmlVector2(backgroundItem.getOrigin()));
+		animation.setPosition(pointToSfmlVector2(backgroundItem.getOrigin()));
 		
 		distanceFromCamera = backgroundItem.getDistanceFromCamera();
 		factor = Vector2f.div(pointToSfmlVector2(backgroundItem.getSpeed()), distanceFromCamera);
@@ -37,9 +37,7 @@ public class BackgroundGameObject implements UpdatableFromTime, Drawable
 	@Override
 	public void update(float deltaTime)
 	{
-		Vector2f adjustment = Vector2f.add(animation.getPosition(), Vector2f.mul(factor, deltaTime));
-		animation.setOrigin(adjustment);
-//		animation.addPosition(adjustment);
+		animation.move(Vector2f.mul(factor, deltaTime));
 		animation.update(deltaTime);
 	}
 	

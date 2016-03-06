@@ -64,7 +64,7 @@ public abstract class Projectile extends GameObject
 			for( Drawable drawable : drawableList )
 			{
 				Animation animation = (Animation) drawable;
-				animation.addPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
+				animation.setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
 				animation.update(deltaTime);
 			}
 		}

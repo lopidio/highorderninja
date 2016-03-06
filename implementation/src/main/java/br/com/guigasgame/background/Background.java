@@ -62,16 +62,15 @@ public class Background implements UpdatableFromTime, Drawable
 		{
 			BackgroundGameObject backgroundGameObject = new BackgroundGameObject(backgroundItem, itemsTexture);
 			backgroundGameObjects.add(backgroundGameObject);
-			drawableList.add(backgroundGameObject);
 		}
 	}
 	
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-		for( BackgroundGameObject gameObject : backgroundGameObjects )
+		for( Drawable drawable : drawableList )
 		{
-			gameObject.draw(renderWindow);
+			drawable.draw(renderWindow);
 		}
 	}
 

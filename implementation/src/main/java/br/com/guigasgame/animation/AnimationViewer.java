@@ -45,7 +45,7 @@ class AnimationViewer
 				maxHeight = 0;
 			}
 			
-			novaAnimacao.addPosition(new Vector2f(positionX, positionY));
+			novaAnimacao.move(new Vector2f(positionX, positionY));
 			
 			//Desloca horizontalmente
 			positionX += novaAnimacao.getWidth() + 20;

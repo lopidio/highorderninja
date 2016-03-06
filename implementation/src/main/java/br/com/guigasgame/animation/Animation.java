@@ -24,7 +24,6 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	private Rectangle frameRect;
 	private Sprite sprite;
 	private boolean finished;
-	private Vector2f origin;
 
 	// Private constructor
 	private Animation(AnimationProperties animationProperties)
@@ -54,7 +53,6 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 		
 		secondsSinceLastUpdate = 0;
 		currentFrameNumber = 0;
-		origin = new Vector2f(0, 0);
 		updateFrameRect();
 	}
 
@@ -174,16 +172,15 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	}
 
 	@Override
-	public void setOrigin(Vector2f origin)
+	public void setPosition(Vector2f origin)
 	{
-		this.origin = origin;
 		sprite.setPosition(origin);
 	}
 
 	@Override
-	public void addPosition(Vector2f graphicPosition)
+	public void move(Vector2f offset)
 	{
-		sprite.setPosition(Vector2f.add(origin, graphicPosition));
+		sprite.setPosition(Vector2f.add(sprite.getPosition(), offset));
 	}
 
 	public boolean isFinished()

@@ -123,7 +123,7 @@ public class GameMachine
 		    if ( iterationTime > 0.25f )
 		    	iterationTime = 0.25f;    
 		    
-			renderWindow.clear();//new Color(128,  128, 128));
+			renderWindow.clear();
 			handleEvents();
 			
 			remainingAcumulator += iterationTime;
