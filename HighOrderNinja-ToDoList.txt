@@ -59,6 +59,8 @@ GameItem
 Airspin state.xml conditions
 Think about what to do: action+wallgrab; action+ducking
 
+Background refactoring (to use AnimationCentralPool)
+
 
 
 

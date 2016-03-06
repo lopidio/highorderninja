@@ -18,7 +18,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import org.jsfml.graphics.Texture;
 
+import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.hero.state.HeroStateIndex;
+import br.com.guigasgame.gameobject.item.GameItemIndex;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 import br.com.guigasgame.math.Rect;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
@@ -28,7 +30,7 @@ import br.com.guigasgame.resourcemanager.TextureResourceManager;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso(
-{ HeroStateIndex.class, ProjectileIndex.class })
+{ HeroStateIndex.class, ProjectileIndex.class, GameItemIndex.class })
 public class AnimationPropertiesFile<Enum>
 {
 
@@ -96,14 +98,14 @@ public class AnimationPropertiesFile<Enum>
 	public static void main(String[] args) throws JAXBException
 	{
 
-		AnimationPropertiesFile<HeroStateIndex> anim = new AnimationPropertiesFile<>("ninja.bmp");
+		AnimationPropertiesFile<GameItemIndex> anim = new AnimationPropertiesFile<>(FilenameConstants.getItemsAnimationPropertiesFilename());
 
 		AnimationProperties animationProperties = new AnimationProperties((short) 2, (short) 3, (short) 12, new Rect(1, 4, 7, 8), true);
 
 		AnimationProperties nova = new AnimationProperties((short) 2, (short) 3,(short) 12, new Rect(1, 4, 7, 8), true);
 
-		anim.animationsMap.put(HeroStateIndex.HERO_STANDING,animationProperties);
-		anim.animationsMap.put(HeroStateIndex.HERO_RUNNING, nova);
+		anim.animationsMap.put(GameItemIndex.LIFE, animationProperties);
+		anim.animationsMap.put(GameItemIndex.SHURIKEN_PACK, nova);
 
 		try
 		{
@@ -117,19 +119,12 @@ public class AnimationPropertiesFile<Enum>
 			m.marshal(anim, System.out);
 
 			// Write to File
-			// m.marshal(anim, new File("ninjaSmooth.xml"));
+			 m.marshal(anim, new File(FilenameConstants.getItemsAnimationPropertiesFilename()));
 		}
 		catch (JAXBException e)
 		{
 			e.printStackTrace();
 		}
-
-		// @SuppressWarnings("unchecked")
-		// AnimationPropertiesFile<HeroAnimationsIndex> fromFile =
-		// ((AnimationPropertiesFile<HeroAnimationsIndex>)
-		// AnimationPropertiesFile
-		// .loadFromFile("oi.txt"));
-		// System.out.println(fromFile.textureFilename);
 
 	}
 

@@ -2,6 +2,7 @@ package br.com.guigasgame.file;
 
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputDevice;
 
+
 public class FilenameConstants
 {
 
@@ -15,7 +16,7 @@ public class FilenameConstants
 	private static String heroStatesFilename = "HeroStates.xml";
 	private static String projectilePropertiesFilename = "projectilesProperties.xml";
 	private static String projectileAnimationFilename = "projectilesAnimation.xml";
-	
+
 	public static String getProjectileAnimationFilename()
 	{
 		return projectileAnimationFilename;
@@ -25,7 +26,7 @@ public class FilenameConstants
 	{
 		if (playerID == 1)
 			return inputPlayerConfigFile1;
-		else //if (playerID == 0)
+		else // if (playerID == 0)
 			return inputPlayerConfigFile2;
 	}
 
@@ -49,15 +50,16 @@ public class FilenameConstants
 		return projectilePropertiesFilename;
 	}
 
-	public static String getInputPlayerConfigFromDevice(HeroInputDevice device) 
+	public static String getInputPlayerConfigFromDevice(HeroInputDevice device)
 	{
-		switch (device) {
-		case JOYSTICK:
-			return inputPlayerJoystick;
-		case KEYBOARD:
-			return inputPlayerKeyboard;
-		default:
-			return "";
+		switch (device)
+		{
+			case JOYSTICK:
+				return inputPlayerJoystick;
+			case KEYBOARD:
+				return inputPlayerKeyboard;
+			default:
+				return "";
 		}
 	}
 
@@ -69,6 +71,16 @@ public class FilenameConstants
 	public static String getBackgroundFilename()
 	{
 		return "backgroundFile.xml";
+	}
+
+	public static String getItemsPropertiesFilename()
+	{
+		return "itemsProperties.xml";
+	}
+
+	public static String getItemsAnimationPropertiesFilename()
+	{
+		return "itemsAnimations.xml";
 	}
 
 }

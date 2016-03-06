@@ -27,6 +27,8 @@ import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.GameHeroProperties;
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.item.GameItem;
+import br.com.guigasgame.gameobject.item.GameItemIndex;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -118,6 +120,14 @@ public class RoundGameState implements GameState
 			if (event.asKeyEvent().key == Key.O)
 			{
 				timeFactor = 1;
+			}
+			if (event.asKeyEvent().key == Key.M)
+			{
+				initializeGameObject(Arrays.asList(new GameItem(GameItemIndex.SHURIKEN_PACK, new Vec2(40, 15))));
+			}
+			if (event.asKeyEvent().key == Key.N)
+			{
+				initializeGameObject(Arrays.asList(new GameItem(GameItemIndex.LIFE, new Vec2(23, 15))));
 			}
 
 		}
