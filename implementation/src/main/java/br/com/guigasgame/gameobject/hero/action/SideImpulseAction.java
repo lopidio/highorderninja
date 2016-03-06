@@ -14,7 +14,7 @@ public class SideImpulseAction extends GameHeroAction
 
 	public SideImpulseAction(HeroStateProperties heroStatesProperties, Side side)
 	{
-		super(new StopMovementAction(heroStatesProperties));
+		super(heroStatesProperties);
 		this.side = side;
 	}
 	

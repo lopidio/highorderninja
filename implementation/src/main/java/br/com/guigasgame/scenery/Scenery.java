@@ -7,6 +7,7 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.ConvexShape;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
@@ -83,6 +84,8 @@ public class Scenery extends GameObject
 		ConvexShape shape = new ConvexShape();
 		shape.setPoints(pointA, pointB, pointC);
 		shape.setTexture(texture, true);
+		if (triangle.isDeadly())
+			shape.setFillColor(Color.RED);
 		return shape;
 	}
 
@@ -112,10 +115,13 @@ public class Scenery extends GameObject
 	private org.jsfml.graphics.Shape createSfmlCircle(CircleShape circleShape)
 	{
 		Vector2f position = pointToSfmlVector2(circleShape.getCenter());
+		
 		org.jsfml.graphics.Shape shape = new org.jsfml.graphics.CircleShape(circleShape.getRadius());
 		shape.setPosition(position);
 		shape.setOrigin(circleShape.getRadius(), circleShape.getRadius());
 		shape.setTexture(texture, true);
+		if (circleShape.isDeadly())
+			shape.setFillColor(Color.RED);
 		return shape;
 	}
 
@@ -150,6 +156,8 @@ public class Scenery extends GameObject
 		shape.setPosition(position);
 		shape.setOrigin(dimension.x/2, dimension.y/2);
 		shape.setTexture(texture, true);
+		if (rectangleShape.isDeadly())
+			shape.setFillColor(Color.RED);
 		
 		return shape;
 	}

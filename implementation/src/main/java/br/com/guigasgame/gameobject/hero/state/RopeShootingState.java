@@ -1,7 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jsfml.graphics.Color;
-
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.ShootRopeAction;
@@ -18,7 +16,7 @@ public class RopeShootingState extends HeroState
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE_SHOOTING);
 
-		setAnimationsColor(Color.GREEN);
+//		setAnimationsColor(Color.GREEN);
 	}
 	
 	@Override

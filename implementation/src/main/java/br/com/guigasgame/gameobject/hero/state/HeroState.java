@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.jbox2d.common.Vec2;
-import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
@@ -256,14 +255,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	public void getPropertyOfPreviousState(HeroState state)
 	{
 		this.inputMap = state.inputMap;
-	}
-
-	public void setAnimationsColor(Color color)
-	{
-//		for( Animation animation : animationList )
-//		{
-//			animation.setColor(color);
-//		}
 	}
 
 	public boolean isAnimationsFinished()

@@ -203,6 +203,10 @@
 						<value>0.5</value>
 					</entry>
 					<entry>
+						<key>minHorizontalSpeed</key>
+						<value>15</value>
+					</entry>
+					<entry>
 						<key>spinImpulse</key>
 						<value>13</value>
 					</entry>

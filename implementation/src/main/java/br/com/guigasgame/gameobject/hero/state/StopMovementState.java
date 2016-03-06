@@ -1,7 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jsfml.graphics.Color;
-
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.StopMovementAction;
 
@@ -14,7 +12,7 @@ public class StopMovementState extends HeroState
 	protected StopMovementState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_STOP);
-		setAnimationsColor(Color.YELLOW);
+//		setAnimationsColor(Color.YELLOW);
 		secondsRemaining = 0.5f;
 	}
 	

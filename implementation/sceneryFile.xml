@@ -22,7 +22,7 @@
                 <y>150</y>
             </pointC>
         </triangles>
-        <triangles deadly="false">
+        <triangles deadly="true">
             <pointA>
                 <x>800</x>
                 <y>120</y>
@@ -50,7 +50,7 @@
                 <y>440</y>
             </pointC>
         </triangles>
-        <rectangles deadly="false">
+        <rectangles deadly="true">
             <center>
                 <x>300</x>
                 <y>760</y>
@@ -80,7 +80,7 @@
                 <y>440</y>
             </halfDimension>
         </rectangles>
-        <rectangles deadly="false">
+        <rectangles deadly="true">
             <center>
                 <x>1340</x>
                 <y>300</y>
@@ -110,7 +110,7 @@
                 <y>10</y>
             </halfDimension>
         </rectangles>
-        <rectangles deadly="false">
+        <rectangles deadly="true">
             <center>
                 <x>800</x>
                 <y>640</y>

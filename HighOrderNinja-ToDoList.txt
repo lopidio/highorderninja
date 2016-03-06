@@ -42,6 +42,7 @@ v Team class (Color, playersMask, enemiesMask, numPlayers, totalPoints, gameHero
 v Get category from filter (one enumeration)
 v Scenery (http://www.jsonschema2pojo.org/) (http://akinuri.deviantart.com/art/Metal-Textures-221702846)(http://miss-marlies.deviantart.com/art/Textures-dirt-grass-sand-and-water-335479475)
 v DynamicBackground
+v GameItem
 
 ShurikenBomb
 RayCastAnythingBut....
@@ -50,16 +51,14 @@ MatchProperties (given to MainGameStateConstructos. Has: deathmatch or teammatch
 Every GameHero object instantiates it's own frag statistics... At the end of each round, that fragStatistics is read by the team...
 FragStatistics: totalShoots, deaths, kills, suicides
 
-
 ?? StateFile refactoring (enable and disable animations at runtime) AnimationFile refactoring
-SmokeBomb refactoring (real particles system)
+?? SmokeBomb refactoring (real particles system)
 
-
-GameItem
-Airspin state.xml conditions
+GameItemController (manages item creations)
+Airspin state.xml conditions to enter
 Think about what to do: action+wallgrab; action+ducking
-
 Background refactoring (to use AnimationCentralPool)(to have Foreground objects)(regenerateInterval...)
+Scenery handle deadly obstacles
 
 
 

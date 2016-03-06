@@ -6,7 +6,7 @@ import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 public abstract class GameHeroAction
 {
 	protected final HeroStateProperties heroStateProperties;
-	protected final GameHeroAction decorated;
+	protected GameHeroAction decorated;
 	
 	protected GameHeroAction(HeroStateProperties heroStateProperties)
 	{
@@ -14,12 +14,14 @@ public abstract class GameHeroAction
 		this.decorated = null;
 	}
 	
-	public GameHeroAction(GameHeroAction decorator)
+	public GameHeroAction addPrevAction(GameHeroAction decorator)
 	{
+		GameHeroAction decorated = decorator;
+		while (decorated != null)
+			decorated = decorated.decorated;
 		this.decorated = decorator;
-		this.heroStateProperties = decorator.heroStateProperties;
+		return this;
 	}
-
 	
 	public GameHeroAction()
 	{

@@ -1,7 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
 import org.jbox2d.common.Vec2;
-import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
@@ -19,7 +18,7 @@ public class NinjaRopeSwingingState extends HeroState
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE);
 
-		setAnimationsColor(Color.CYAN);
+//		setAnimationsColor(Color.CYAN);
 		this.ninjaRope = rope; 
 	}
 	

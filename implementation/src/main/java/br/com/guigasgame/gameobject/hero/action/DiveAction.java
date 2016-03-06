@@ -3,13 +3,14 @@ package br.com.guigasgame.gameobject.hero.action;
 import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
+import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 
 public class DiveAction extends GameHeroAction
 {
 
-	public DiveAction(GameHeroAction gameHeroAction)
+	public DiveAction(HeroStateProperties heroStatesProperties)
 	{
-		super(gameHeroAction);
+		super(heroStatesProperties);
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jsfml.graphics.Color;
-
 import br.com.guigasgame.gameobject.hero.RoundGameHero;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
 import br.com.guigasgame.gameobject.input.hero.GameHeroInputMap.HeroInputKey;
@@ -13,7 +11,7 @@ public class SuperRunningState extends HeroState
 	protected SuperRunningState(RoundGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_SUPER_RUNNING);
-		setAnimationsColor(Color.MAGENTA);
+//		setAnimationsColor(Color.MAGENTA);
 		
 		Float duration = heroStatesProperties.property.get("minDuration");
 		secondsRemaining = duration != null? duration.floatValue(): 0.5f;		
