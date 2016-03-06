@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.action;
 
-import br.com.guigasgame.gameobject.hero.PlayableGameHero;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
 
 
