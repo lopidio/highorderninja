@@ -52,6 +52,7 @@ FragStatistics: totalShoots, deaths, kills, suicides
 
 AnimationFile refactoring
 StateFile refactoring (enable and disable animations at runtime)
+SmokeBomb refactoring (real particles system)
 
 
 DynamicBackground

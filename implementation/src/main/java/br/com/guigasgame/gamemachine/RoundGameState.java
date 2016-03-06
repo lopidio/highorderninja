@@ -19,6 +19,7 @@ import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.Event.Type;
 
+import br.com.guigasgame.background.Background;
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollisionManager;
@@ -37,8 +38,9 @@ public class RoundGameState implements GameState
 	private float timeFactor;
 
 	private List<GameObject> gameObjectsList;
+	private Background background;
 
-	public RoundGameState(List<HeroTeam> teams, Scenery scenery) throws JAXBException
+	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background) throws JAXBException
 	{
 		CollidableCategory.display();
 		gameObjectsList = new ArrayList<>();
@@ -48,7 +50,8 @@ public class RoundGameState implements GameState
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
-
+		this.background = background;
+		
 		initializeGameObject(Arrays.asList(scenery));
 		
 		for( HeroTeam team : teams )
@@ -167,13 +170,15 @@ public class RoundGameState implements GameState
 	@Override
 	public void update(float deltaTime)
 	{
+		float updateTime = deltaTime * timeFactor;
 		// float deltaTime = timeMaster.getElapsedTime().asSeconds();
-		world.step(deltaTime * timeFactor, 8, 3);
+		world.step(updateTime, 8, 3);
 		world.clearForces();
-
+		
+		background.update(updateTime);
 		for( GameObject gameObject : gameObjectsList )
 		{
-			gameObject.update(deltaTime * timeFactor);
+			gameObject.update(updateTime);
 		}
 
 		verifyNewObjectsToLists();
@@ -183,6 +188,7 @@ public class RoundGameState implements GameState
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
+		background.draw(renderWindow);
 		world.drawDebugData();
 
 		for( GameObject gameObject : gameObjectsList )

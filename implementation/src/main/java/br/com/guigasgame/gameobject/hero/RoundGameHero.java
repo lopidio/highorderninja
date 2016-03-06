@@ -90,7 +90,7 @@ public class RoundGameHero extends GameObject
 		
 		for( Animation animation : animationList )
 		{
-			animation.setPosition(vector2f);
+			animation.addPosition(vector2f);
 			animation.setOrientation(angleInDegrees);
 		}
 

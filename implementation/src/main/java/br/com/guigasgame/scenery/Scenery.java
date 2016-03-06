@@ -62,7 +62,6 @@ public class Scenery extends GameObject
 										WorldConstants.sfmlToPhysicsCoordinates(pointA)};
 		
 		shape.set(vertices, vertices.length);
-		System.out.println(shape.getVertexCount() + ", " + shape.m_count);
 		return shape;
 
 	}
@@ -159,8 +158,7 @@ public class Scenery extends GameObject
 	}
 
 	
-	
-	private Vector2f pointToSfmlVector2(Point point)
+	private static Vector2f pointToSfmlVector2(Point point)
 	{
 		return new Vector2f(point.getX(), point.getY());
 	}

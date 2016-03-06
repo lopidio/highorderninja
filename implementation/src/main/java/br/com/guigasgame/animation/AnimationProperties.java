@@ -11,7 +11,7 @@ import br.com.guigasgame.math.Rect;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-class AnimationProperties
+public class AnimationProperties
 {
 
 	@XmlElement
@@ -40,7 +40,7 @@ class AnimationProperties
 		this.horizontal = true;
 	}
 
-	AnimationProperties(short numFrames, short numEntranceFrames,
+	public AnimationProperties(short numFrames, short numEntranceFrames,
 			float secondsPerFrame, Rect textureSpriteRect, boolean horizontal)
 	{
 		super();

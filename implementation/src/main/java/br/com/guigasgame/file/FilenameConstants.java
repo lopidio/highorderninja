@@ -66,4 +66,9 @@ public class FilenameConstants
 		return "sceneryFile.xml";
 	}
 
+	public static String getBackgroundFilename()
+	{
+		return "backgroundFile.xml";
+	}
+
 }

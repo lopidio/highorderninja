@@ -177,10 +177,11 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	public void setOrigin(Vector2f origin)
 	{
 		this.origin = origin;
+		sprite.setPosition(origin);
 	}
 
 	@Override
-	public void setPosition(Vector2f graphicPosition)
+	public void addPosition(Vector2f graphicPosition)
 	{
 		sprite.setPosition(Vector2f.add(origin, graphicPosition));
 	}
@@ -188,6 +189,12 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	public boolean isFinished()
 	{
 		return finished;
+	}
+
+	@Override
+	public Vector2f getPosition()
+	{
+		return sprite.getPosition();
 	}
 
 }

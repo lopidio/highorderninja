@@ -56,7 +56,6 @@ public class AnimationsCentralPool
 		}
 		catch (JAXBException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
