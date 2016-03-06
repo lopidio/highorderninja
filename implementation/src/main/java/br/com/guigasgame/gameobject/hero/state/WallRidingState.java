@@ -20,14 +20,14 @@ public class WallRidingState extends HeroState
 	{
 		if (heroStatesProperties.jump != null)
 		{
-			if (isHeroInputPressed(HeroInputKey.UP))
+			if (isHeroInputPressed(HeroInputKey.ACTION))
+			{
+				setState(new AirSpinHeroState(gameHero, gameHero.getForwardSide().opposite()));
+			}
+			else //if (isHeroInputPressed(HeroInputKey.UP))
 			{
 				gameHero.addAction(new DiagonalJumpAction(heroStatesProperties, gameHero.getForwardSide().opposite()));
 				setState(new JumpingHeroState(gameHero));
-			}
-			else
-			{
-				setState(new AirSpinHeroState(gameHero, gameHero.getForwardSide().opposite()));
 			}
 		}			
 	}	

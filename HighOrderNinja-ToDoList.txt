@@ -41,7 +41,7 @@ v SmokeBomb (player colloring)
 v Team class (Color, playersMask, enemiesMask, numPlayers, totalPoints, gameHeroPropertiesList)
 v Get category from filter (one enumeration)
 v Scenery (http://www.jsonschema2pojo.org/) (http://akinuri.deviantart.com/art/Metal-Textures-221702846)(http://miss-marlies.deviantart.com/art/Textures-dirt-grass-sand-and-water-335479475)
-
+v DynamicBackground
 
 ShurikenBomb
 RayCastAnythingBut....
@@ -55,4 +55,10 @@ FragStatistics: totalShoots, deaths, kills, suicides
 SmokeBomb refactoring (real particles system)
 
 
-DynamicBackground
+GameItem
+Airspin state.xml conditions
+Think about what to do: action+wallgrab; action+ducking
+
+
+
+
