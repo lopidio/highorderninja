@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <backgroundFile>
-    <backgroundItems>
+    <backgroundItems regenerate="false">
         <animationProperties horizontal="true">
             <numFrames>1</numFrames>
             <numEntranceFrames>0</numEntranceFrames>
@@ -22,7 +22,7 @@
         </origin>
         <distanceFromCamera>100.0</distanceFromCamera>
     </backgroundItems>
-    <backgroundItems>
+    <backgroundItems regenerate="true">
         <animationProperties horizontal="true">
             <numFrames>1</numFrames>
             <numEntranceFrames>0</numEntranceFrames>
@@ -44,7 +44,7 @@
         </origin>
         <distanceFromCamera>90.0</distanceFromCamera>
     </backgroundItems>
-    <backgroundItems>
+    <backgroundItems regenerate="true">
         <animationProperties horizontal="true">
             <numFrames>1</numFrames>
             <numEntranceFrames>0</numEntranceFrames>
