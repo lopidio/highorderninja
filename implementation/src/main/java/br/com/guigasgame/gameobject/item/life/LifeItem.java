@@ -36,6 +36,10 @@ public class LifeItem extends GameItem
 					CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
 					collidableHero.getPlayableHero().addItem(this);
 				}
+				else if (category == CollidableCategory.SHURIKEN)
+				{
+					markToDestroy();
+				}
 			}
 		}
 	}

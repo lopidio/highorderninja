@@ -50,6 +50,20 @@
                 <y>440</y>
             </pointC>
         </triangles>
+        <triangles deadly="true">
+            <pointA>
+                <x>40</x>
+                <y>700</y>
+            </pointA>
+            <pointB>
+                <x>120</x>
+                <y>750</y>
+            </pointB>
+            <pointC>
+                <x>40</x>
+                <y>750</y>
+            </pointC>
+        </triangles>
         <rectangles deadly="true">
             <center>
                 <x>300</x>
