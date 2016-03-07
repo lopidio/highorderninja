@@ -127,7 +127,6 @@ public class RoundGameState implements GameState
 			{
 				timeFactor = 1;
 			}
-
 		}
 	}
 

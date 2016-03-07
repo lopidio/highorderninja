@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.View;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
+import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
@@ -29,6 +32,7 @@ public class GameMachine
 	private boolean isRunning;
 	private RenderWindow renderWindow;
 	private Vector<GameState> gameStates;
+	private View view;
 
 	public static void main(String[] args) throws Exception
 	{
@@ -98,6 +102,9 @@ public class GameMachine
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		renderWindow.setMouseCursorVisible(false);
+
+		view = new View(new FloatRect(0, 0, 1366, 768));
+		renderWindow.setView(view);
 		
 		isRunning = true;
 		gameStates = new Stack<GameState>();
@@ -149,9 +156,23 @@ public class GameMachine
 			gameStates.lastElement().handleEvent(event);
 			if (event.type == Event.Type.KEY_PRESSED)
 			{
-				if (event.asKeyEvent().key != Keyboard.Key.ESCAPE)
+				if (event.asKeyEvent().key == Keyboard.Key.ESCAPE)
+				{
+					isRunning = false;
 					break;
-				isRunning = false;
+				}
+
+				if (event.asKeyEvent().key == Key.M)
+				{
+					view.zoom(1.1f);
+					renderWindow.setView(view);
+				}				
+				if (event.asKeyEvent().key == Key.N)
+				{
+					view.zoom(0.9f);
+					renderWindow.setView(view);
+				}				
+				
 			}
 			if (event.type == Event.Type.CLOSED)
 			{

@@ -58,7 +58,11 @@ FragStatistics: totalShoots, deaths, kills, suicides
 
 Think about what to do: action+wallgrab; action+ducking
 Background refactoring (X to use AnimationCentralPool (animation pool requires an enumeration)(to have Foreground objects)(regenerateInterval...)
-Scenery handle deadly obstacles
+Scenery handle deadly obstacles (to have THE background)
+Create Camera
+Create HUD (below player: life/shurikens/smokebomb)
+
+
 
 
 
