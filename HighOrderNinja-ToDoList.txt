@@ -57,7 +57,7 @@ FragStatistics: totalShoots, deaths, kills, suicides
 ?? SmokeBomb refactoring (real particles system)
 
 Think about what to do: action+wallgrab; action+ducking
-Background refactoring (to use AnimationCentralPool)(to have Foreground objects)(regenerateInterval...)
+Background refactoring (X to use AnimationCentralPool (animation pool requires an enumeration)(to have Foreground objects)(regenerateInterval...)
 Scenery handle deadly obstacles
 
 

@@ -41,6 +41,7 @@ public class RoundGameState implements GameState
 	private List<GameObject> gameObjectsList;
 	private Background background;
 	private GameItemController gameItemController;
+	private Scenery scenery;
 
 	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background) throws JAXBException
 	{
@@ -53,9 +54,12 @@ public class RoundGameState implements GameState
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
 		this.background = background;
+		this.scenery = scenery;
 		gameItemController = new GameItemController(scenery);
 		
-		initializeGameObject(Arrays.asList(scenery));
+		
+		scenery.attachToWorld(world);
+		scenery.onEnter();
 		
 		for( HeroTeam team : teams )
 		{
@@ -185,6 +189,7 @@ public class RoundGameState implements GameState
 		world.clearForces();
 		
 		background.update(updateTime);
+		scenery.update(deltaTime);
 		for( GameObject gameObject : gameObjectsList )
 		{
 			gameObject.update(updateTime);
@@ -198,12 +203,14 @@ public class RoundGameState implements GameState
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-		background.draw(renderWindow);
+		background.drawBackgroundItems(renderWindow);
 		world.drawDebugData();
 
 		for( GameObject gameObject : gameObjectsList )
 		{
 			gameObject.draw(renderWindow);
 		}
+		scenery.draw(renderWindow);
+		background.drawForegroundItems(renderWindow);
 	}
 }

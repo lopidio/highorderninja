@@ -12,47 +12,43 @@ import br.com.guigasgame.drawable.TextureDrawable;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class Background implements UpdatableFromTime, Drawable
+public class Background implements UpdatableFromTime
 {
 	private List<BackgroundGameObject> backgroundGameObjects;
+	private List<BackgroundGameObject> foregroundGameObjects;
 	private final Texture itemsTexture;
 	private final Texture backgroundTexture;
-	private List<Drawable> drawableList;
+	private TextureDrawable texturePanoramicDrawable;
+//	private List<Drawable> drawableList;
 
 	public Background(BackgroundFile backgroundFile)
 	{
 		backgroundGameObjects = new ArrayList<>();
+		foregroundGameObjects = new ArrayList<>();
 		itemsTexture = TextureResourceManager.getInstance().getResource(backgroundFile.getItemsTextureFilename());
 		itemsTexture.setSmooth(true);
 		backgroundTexture = TextureResourceManager.getInstance().getResource(backgroundFile.getBackgroundTextureFilename());
 		backgroundTexture.setSmooth(true);
-		drawableList = new ArrayList<>();
-		drawableList.add(new TextureDrawable(backgroundTexture));
+		
+		texturePanoramicDrawable = new TextureDrawable(backgroundTexture);
 		
 		initializeBackgroundItems(backgroundFile);
-		sortBackgroundItems();
-		addBackgroundItemsToDrawableList();
+		sortItems();
 	}
 
-	private void addBackgroundItemsToDrawableList()
+	private void sortItems()
 	{
-		for( BackgroundGameObject backgroundItem : backgroundGameObjects )
-		{
-			drawableList.add(backgroundItem);
-		}
-	}
-
-	private void sortBackgroundItems()
-	{
-		backgroundGameObjects.sort(new Comparator<BackgroundGameObject>()
+		Comparator<BackgroundGameObject> comparator = new Comparator<BackgroundGameObject>()
 		{
 			@Override
 			public int compare(BackgroundGameObject a, BackgroundGameObject b)
 			{
 				return (int) (b.getDistanceFromCamera() - a.getDistanceFromCamera());
 			}
-		});
+		};
 		
+		backgroundGameObjects.sort(comparator);
+		foregroundGameObjects.sort(comparator);
 	}
 
 	private void initializeBackgroundItems(BackgroundFile backgroundFile)
@@ -61,14 +57,25 @@ public class Background implements UpdatableFromTime, Drawable
 		for( BackgroundFileItem backgroundItem : backgroundItems )
 		{
 			BackgroundGameObject backgroundGameObject = new BackgroundGameObject(backgroundItem, itemsTexture);
-			backgroundGameObjects.add(backgroundGameObject);
+			if (backgroundGameObject.getDistanceFromCamera() > 0)
+				backgroundGameObjects.add(backgroundGameObject);
+			else
+				foregroundGameObjects.add(backgroundGameObject);
 		}
 	}
 	
-	@Override
-	public void draw(RenderWindow renderWindow)
+	public void drawBackgroundItems(RenderWindow renderWindow)
 	{
-		for( Drawable drawable : drawableList )
+		texturePanoramicDrawable.draw(renderWindow);
+		for( Drawable drawable : backgroundGameObjects )
+		{
+			drawable.draw(renderWindow);
+		}
+	}
+
+	public void drawForegroundItems(RenderWindow renderWindow)
+	{
+		for( Drawable drawable : foregroundGameObjects )
 		{
 			drawable.draw(renderWindow);
 		}
@@ -78,6 +85,10 @@ public class Background implements UpdatableFromTime, Drawable
 	public void update(float deltaTime)
 	{
 		for( BackgroundGameObject gameObject : backgroundGameObjects )
+		{
+			gameObject.update(deltaTime);
+		}
+		for( BackgroundGameObject gameObject : foregroundGameObjects )
 		{
 			gameObject.update(deltaTime);
 		}

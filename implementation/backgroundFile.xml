@@ -22,6 +22,28 @@
         </origin>
         <distanceFromCamera>100.0</distanceFromCamera>
     </backgroundItems>
+    <backgroundItems regenerate="false">
+        <animationProperties horizontal="true">
+            <numFrames>1</numFrames>
+            <numEntranceFrames>0</numEntranceFrames>
+            <secondsPerFrame>12.0</secondsPerFrame>
+            <textureSpriteRect>
+                <left>450</left>
+                <top>174</top>
+                <width>675</width>
+                <height>400</height>
+            </textureSpriteRect>
+        </animationProperties>
+        <speed>
+            <x>1</x>
+            <y>0</y>
+        </speed>
+        <origin>
+            <x>800</x>
+            <y>100</y>
+        </origin>
+        <distanceFromCamera>-100.0</distanceFromCamera>
+    </backgroundItems>
     <backgroundItems regenerate="true">
         <animationProperties horizontal="true">
             <numFrames>1</numFrames>
