@@ -62,7 +62,7 @@ Scenery handle deadly obstacles (to have THE background)
 Create Camera
 Create HUD (below player: life/shurikens/smokebomb)
 
-
+ProjectileAimer works with priority queue
 
 
 

@@ -21,6 +21,7 @@ import org.jsfml.window.event.Event.Type;
 import br.com.guigasgame.background.Background;
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.camera.CameraController;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
@@ -42,6 +43,7 @@ public class RoundGameState implements GameState
 	private Background background;
 	private GameItemController gameItemController;
 	private Scenery scenery;
+	private CameraController cameraController;
 
 	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background) throws JAXBException
 	{
@@ -56,7 +58,7 @@ public class RoundGameState implements GameState
 		this.background = background;
 		this.scenery = scenery;
 		gameItemController = new GameItemController(scenery);
-		
+		cameraController = new CameraController();
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
@@ -67,7 +69,9 @@ public class RoundGameState implements GameState
 			for (GameHeroProperties gameHeroProperties : heros) 
 			{
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
-				initializeGameObject(Arrays.asList(new PlayableGameHero(gameHeroProperties)));
+				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
+				initializeGameObject(Arrays.asList(gameHero));
+				cameraController.addHero(gameHero);
 			}
 		}
 	}
@@ -91,6 +95,8 @@ public class RoundGameState implements GameState
 		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
 //		 sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
+		cameraController.createView(renderWindow);
+
 	}
 
 	@Override
@@ -197,6 +203,7 @@ public class RoundGameState implements GameState
 
 		verifyNewObjectsToLists();
 		clearDeadObjects();
+		cameraController.update(deltaTime);
 	}
 
 	@Override
