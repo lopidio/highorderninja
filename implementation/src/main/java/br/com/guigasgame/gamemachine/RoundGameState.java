@@ -211,6 +211,8 @@ public class RoundGameState implements GameState
 	{
 		background.drawBackgroundItems(renderWindow);
 		world.drawDebugData();
+		
+//		cameraController.draw(renderWindow);
 
 		for( GameObject gameObject : gameObjectsList )
 		{

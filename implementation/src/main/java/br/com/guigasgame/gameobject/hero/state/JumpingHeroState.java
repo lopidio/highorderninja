@@ -69,9 +69,9 @@ class JumpingHeroState extends HeroState
 	{
 		if (inputValue == HeroInputKey.ACTION)
 		{
-			if (isHeroInputPressed(HeroInputKey.LEFT))
+			if (isHeroInputPressed(HeroInputKey.LEFT) && gameHero.getCollidableHero().isGoingTo(Side.LEFT))
 				setStateAndAlternative(new AirSpinHeroState(gameHero, Side.LEFT), new StopMovementState(gameHero));
-			else if (isHeroInputPressed(HeroInputKey.RIGHT))
+			else if (isHeroInputPressed(HeroInputKey.RIGHT) && gameHero.getCollidableHero().isGoingTo(Side.RIGHT))
 				setStateAndAlternative(new AirSpinHeroState(gameHero, Side.RIGHT), new StopMovementState(gameHero));
 			else
 				setState(new StopMovementState(gameHero));
