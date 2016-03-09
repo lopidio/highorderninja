@@ -38,17 +38,35 @@ public class CameraController implements UpdatableFromTime
 	@Override
 	public void update(float deltaTime)
 	{
-		//TODO currentZoom gets into math!!
 		Vector2f longestDistance = getLongestDistanceBetweenHeros();
-		System.out.println(longestDistance);
-		if (longestDistance.x > regularSize.x*0.8)
-			view.zoom(1.001f);
-//		if (longestDistance.y > regularSize.y*0.8)
-//			view.zoom(1.001f);
-//		if (longestDistance.x < regularSize.x*0.5)
-//			view.zoom(0.009f);
+		Vec2 longDistanceRatio = new Vec2(longestDistance.x / regularSize.x, longestDistance.y / regularSize.y);
+		float factor = getArea(view.getSize())/getRegularArea(); 
+		System.out.println("Factor: " + factor + ". Ratio: " + longDistanceRatio);
+		if ( factor < 1.3f && factor > 0.7)
+		{
+			if (longDistanceRatio.x > 0.7)
+				view.zoom(1.001f);
+			else if (longDistanceRatio.x < 0.4)
+				view.zoom(0.999f);
+
+			if (longDistanceRatio.y > 0.7)
+				view.zoom(1.001f);
+			else if (longDistanceRatio.y < 0.4)
+				view.zoom(0.999f);
+		}
+
 		view.setCenter(getCenterOfMass());
 		renderWindow.setView(view);
+	}
+	
+	public static float getArea(Vector2f vec)
+	{
+		return vec.x * vec.y;
+	}
+
+	public float getRegularArea()
+	{
+		return regularSize.x * regularSize.y;
 	}
 
 	public void createView(RenderWindow renderWindow)
