@@ -1,12 +1,8 @@
 package br.com.guigasgame.gameobject.item.shurikenpack;
 
-import java.util.List;
-
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.contacts.Contact;
 
-import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.gameobject.hero.action.AddShurikenPackAction;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.item.GameItem;
 import br.com.guigasgame.gameobject.item.GameItemIndex;
@@ -20,23 +16,11 @@ public class ShurikenPackItem extends GameItem
 	}
 	
 	@Override
-	public void beginContact(Object me, Object other, Contact contact)
-	{
-		Body otherBody = (Body) other;
-//		if (otherBody.getUserData() != null)
-		{
-			List<CollidableCategory> categoryList = CollidableCategory.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
-			for( CollidableCategory category : categoryList )
-			{
-				System.out.println("ShurikenPackItem collided with: " + category.name());
-			}
-		}
-	}
-
-	@Override
 	public void acts(PlayableGameHero playableGameHero)
 	{
-		// TODO Auto-generated method stub
+		playableGameHero.addAction(new AddShurikenPackAction());
+		markToDestroy();
 	}
+
 
 }

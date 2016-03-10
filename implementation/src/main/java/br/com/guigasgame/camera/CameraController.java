@@ -21,7 +21,6 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private List<PlayableGameHero> heros;
 	private View view;
 	private RenderWindow renderWindow;
-//	private Vector2i regularSize;
 //	private FloatRect innerWindow;
 //	private FloatRect outterWindow;
 	private Shape outterShape;
@@ -105,11 +104,11 @@ public class CameraController implements UpdatableFromTime, Drawable
 //		regularSize = renderWindow.getSize();
 		
 		Vector2f size = new Vector2f(renderWindow.getSize());
-		Vector2f innerSize = Vector2f.mul(size, 0.6f);
-		Vector2f outterSize = Vector2f.mul(size, 0.9f);
+		Vector2f innerSize = Vector2f.mul(size, 0.55f);
+		Vector2f outterSize = Vector2f.mul(size, 0.80f);
 //		innerWindow = new FloatRect(renderWindow.getView().getCenter(), innerSize);
 //		outterWindow = new FloatRect(renderWindow.getView().getCenter(), outterSize);
-
+		
 		innerShape = createSfmlRectangle(innerSize, renderWindow.getView().getCenter());
 		innerShape.setOutlineColor(new Color(200, 0, 0, 100));
 		innerShape.setFillColor(new Color(200, 200, 0, 100));

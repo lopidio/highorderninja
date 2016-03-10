@@ -112,7 +112,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	
 	protected void shoot()
 	{
-		gameHero.addAction(new ShootAction(heroStatesProperties, gameHero.getShuriken(pointingDirection())));
+		gameHero.addAction(new ShootAction(heroStatesProperties, pointingDirection()));
 	}
 	
 	private void shootItem()
@@ -144,10 +144,6 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	@Override
 	public final void isPressing(HeroInputKey inputValue)
 	{
-//		if (inputValue == HeroInputKey.SHOOT)
-//		{
-//			System.out.println("Aiming!");
-//		}			
 		if (inputValue == HeroInputKey.LEFT)
 		{
 			if (heroStatesProperties.move != null)

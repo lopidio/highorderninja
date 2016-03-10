@@ -1,19 +1,19 @@
 package br.com.guigasgame.gameobject.hero.action;
 
+import org.jbox2d.common.Vec2;
+
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.state.HeroStateProperties;
-import br.com.guigasgame.gameobject.projectile.Projectile;
-
 
 
 public class ShootAction extends GameHeroAction
 {
-	Projectile projectile;	
+	Vec2 pointingDirection;
 
-	public ShootAction(HeroStateProperties heroStateProperties, Projectile projectile)
+	public ShootAction(HeroStateProperties heroStateProperties, Vec2 pointingDirection)
 	{
 		super(heroStateProperties);
-		this.projectile = projectile;
+		this.pointingDirection = pointingDirection;
 	}
 	
 	@Override
@@ -25,7 +25,8 @@ public class ShootAction extends GameHeroAction
 	@Override
 	public void childExecute(PlayableGameHero gameHero)
 	{
-		gameHero.shoot(projectile);
+		;
+		gameHero.shoot(gameHero.getShuriken(pointingDirection));
 	}
 
 }

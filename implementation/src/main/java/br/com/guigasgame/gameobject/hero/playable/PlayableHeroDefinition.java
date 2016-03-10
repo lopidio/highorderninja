@@ -4,6 +4,8 @@ import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.IntegerMask;
+import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
+import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributesController;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -15,6 +17,7 @@ public class PlayableHeroDefinition
 	private Color color;
 	private Vec2 spawnPosition;
 	private HeroTeam heroTeam;
+	private RoundHeroAttributesController roundHeroAttributesController;
 
 	public PlayableHeroDefinition(GameHeroInputMap gameHeroInput, int id)
 	{
@@ -63,6 +66,16 @@ public class PlayableHeroDefinition
 	public Vec2 getInitialPosition()
 	{
 		return spawnPosition;
+	}
+
+	public RoundHeroAttributesController getAttributesController()
+	{
+		return roundHeroAttributesController;
+	}
+
+	public void createAttributesController(RoundHeroAttributes roundHeroAttributes)
+	{
+		roundHeroAttributesController = new RoundHeroAttributesController(roundHeroAttributes);		
 	}
 
 }

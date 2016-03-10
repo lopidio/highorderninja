@@ -26,9 +26,11 @@ import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
+import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemController;
+import br.com.guigasgame.round.hud.PlayableAttributesHud;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -44,8 +46,9 @@ public class RoundGameState implements GameState
 	private GameItemController gameItemController;
 	private Scenery scenery;
 	private CameraController cameraController;
+	private List<PlayableAttributesHud> hudList;
 
-	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background) throws JAXBException
+	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background, RoundHeroAttributes roundHeroAttributes) throws JAXBException
 	{
 		CollidableCategory.display();
 		gameObjectsList = new ArrayList<>();
@@ -62,6 +65,7 @@ public class RoundGameState implements GameState
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
+		hudList = new ArrayList<>();
 		
 		for( HeroTeam team : teams )
 		{
@@ -69,7 +73,11 @@ public class RoundGameState implements GameState
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
+				gameHeroProperties.createAttributesController(roundHeroAttributes);
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
+				PlayableAttributesHud hud = new PlayableAttributesHud(gameHero);
+				hudList.add(hud);
+				gameHero.addAttributesControllerListener(hud);
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addHero(gameHero);
 			}
@@ -199,10 +207,15 @@ public class RoundGameState implements GameState
 		{
 			gameObject.update(updateTime);
 		}
+		for( PlayableAttributesHud hud : hudList )
+		{
+			hud.update(deltaTime);
+		}
 		gameItemController.update(deltaTime);
 
 		verifyNewObjectsToLists();
 		clearDeadObjects();
+		
 		cameraController.update(deltaTime);
 	}
 
@@ -210,7 +223,7 @@ public class RoundGameState implements GameState
 	public void draw(RenderWindow renderWindow)
 	{
 		background.drawBackgroundItems(renderWindow);
-//		world.drawDebugData();
+		world.drawDebugData();
 		
 //		cameraController.draw(renderWindow);
 
@@ -218,7 +231,14 @@ public class RoundGameState implements GameState
 		{
 			gameObject.draw(renderWindow);
 		}
+		
 		scenery.draw(renderWindow);
 		background.drawForegroundItems(renderWindow);
+		
+		for( PlayableAttributesHud hud : hudList )
+		{
+			hud.draw(renderWindow);
+		}
+
 	}
 }

@@ -15,7 +15,6 @@ import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.attributes.playable.HeroRoundAttributesListener;
-import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributesController;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
@@ -27,7 +26,7 @@ import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
 
 
-public class PlayableGameHero extends GameObject implements HeroRoundAttributesListener
+public class PlayableGameHero extends GameObject
 {
 
 	private Side forwardSide;
@@ -53,8 +52,7 @@ public class PlayableGameHero extends GameObject implements HeroRoundAttributesL
 		this.gameHeroInput = properties.getGameHeroInput();
 		gameHeroInput.setDeviceId(properties.getPlayerId());
 		gameItems = new ArrayList<>();
-		attributesController = new RoundHeroAttributesController(new RoundHeroAttributes(100, 5, 3, 3, 3));
-		attributesController.addListener(this);
+		attributesController = properties.getAttributesController();
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
@@ -203,6 +201,8 @@ public class PlayableGameHero extends GameObject implements HeroRoundAttributesL
 			fragCounter.incrementShoots();
 			addChild(projectile);
 		}
+		else
+			System.out.println("No ammo");
 	}
 
 	public void addAction(GameHeroAction gameHeroAction)
@@ -282,21 +282,13 @@ public class PlayableGameHero extends GameObject implements HeroRoundAttributesL
 		gameItems.add(item);
 	}
 
-	@Override
-	public void lifeChanged(int current, int max) 
+	public void refillShurikenPack()
 	{
-		System.out.println("Life changed: " + current + "/" + max);
+		attributesController.refillShuriken();
 	}
 
-	@Override
-	public void shurikenNumChanged(int current, int max) 
+	public void addAttributesControllerListener(HeroRoundAttributesListener attributesListener)
 	{
-		System.out.println("Shuriken number changed: " + current + "/" + max);
-	}
-
-	@Override
-	public void smokeBombChanged(int current, int max) 
-	{
-		System.out.println("SmokeBomb number changed: " + current + "/" + max);
+		attributesController.addListener(attributesListener);
 	}
 }

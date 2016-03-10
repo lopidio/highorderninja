@@ -17,7 +17,7 @@ public class RoundHeroAttributes
 		this.smokeBombTimeInterval = smokeBombTimeInterval;
 	}
 
-	public RoundHeroAttributes(RoundHeroAttributes other) 
+	private RoundHeroAttributes(RoundHeroAttributes other) 
 	{
 		this.life = other.life;
 		this.numShurikens = other.numShurikens;
@@ -74,6 +74,12 @@ public class RoundHeroAttributes
 	public void setSmokeBombTimeInterval(float smokeBombTimeInterval) 
 	{
 		this.smokeBombTimeInterval = smokeBombTimeInterval;
+	}
+	
+	@Override
+	protected RoundHeroAttributes clone()
+	{
+		return new RoundHeroAttributes(this);
 	}
 	
 }

@@ -11,10 +11,10 @@ public class RoundHeroAttributesController implements UpdatableFromTime
 	private final RoundHeroAttributes currentValueAttributes;
 	private final List<HeroRoundAttributesListener> listeners;
 	
-	public RoundHeroAttributesController(RoundHeroAttributes fullValueAttributes) 
+	public RoundHeroAttributesController(RoundHeroAttributes attributes) 
 	{
-		this.fullValueAttributes = fullValueAttributes;
-		currentValueAttributes = new RoundHeroAttributes(fullValueAttributes);
+		this.fullValueAttributes = attributes.clone();
+		currentValueAttributes = attributes.clone();
 		listeners = new ArrayList<HeroRoundAttributesListener>();
 	}
 	
@@ -32,10 +32,9 @@ public class RoundHeroAttributesController implements UpdatableFromTime
 		notifyListenersLifeHasChanged();
 	}
 	
-	public void addNumShuriken(int shurikensToAdd)
+	public void refillShuriken()
 	{
-		int newShurikenNumber = currentValueAttributes.getNumShurikens() + shurikensToAdd;
-		currentValueAttributes.setNumShurikens(Math.min(newShurikenNumber, fullValueAttributes.getNumShurikens()));
+		currentValueAttributes.setNumShurikens(fullValueAttributes.getNumShurikens());
 		notifyListenersShurikenNumberHasChanged();
 	}
 	
@@ -47,10 +46,9 @@ public class RoundHeroAttributesController implements UpdatableFromTime
 		currentValueAttributes.shurikenTimeInterval = 0;
 	}
 	
-	public void addNumSmokeBomb(int smokeBombToAdd)
+	public void refillSmokeBomb()
 	{
-		int newSmokeBombNumber = currentValueAttributes.getNumSmokeBomb() + smokeBombToAdd;
-		currentValueAttributes.setNumSmokeBomb(Math.min(newSmokeBombNumber, fullValueAttributes.getNumSmokeBomb()));
+		currentValueAttributes.setNumSmokeBomb(fullValueAttributes.getNumSmokeBomb());
 		notifyListenersSmokeBombNumberHasChanged();
 	}
 	
