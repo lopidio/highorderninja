@@ -3,7 +3,6 @@ package br.com.guigasgame.camera;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RectangleShape;
@@ -144,7 +143,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 
 		float biggestX = smallestX;
 		float biggestY = smallestY;
-
+	
 		for( int i = 1; i < heros.size(); ++i)
 		{
 			Vector2f point = WorldConstants.physicsToSfmlCoordinates(heros.get(i).getCollidableHero().getBody().getWorldCenter());

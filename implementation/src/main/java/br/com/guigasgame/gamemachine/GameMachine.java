@@ -16,7 +16,7 @@ import br.com.guigasgame.background.BackgroundFile;
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
-import br.com.guigasgame.gameobject.hero.playable.GameHeroProperties;
+import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.scenery.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
@@ -41,18 +41,22 @@ public class GameMachine
 		HeroTeam teamCharlie = new HeroTeam(2);
 		HeroTeam teamDelta = new HeroTeam(23);
 		
-		GameHeroProperties playerOne = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
+		PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
 		teamAlpha.addGameHero(playerOne);
 		
-		GameHeroProperties playerTwo = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
-		GameHeroProperties playerThree = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
+		PlayableHeroDefinition playerTwo = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
+		PlayableHeroDefinition playerThree = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
 		teamBravo.addGameHero(playerTwo);
 		teamBravo.addGameHero(playerThree);
 		
 
-		GameHeroProperties playerFour = new GameHeroProperties(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
+		PlayableHeroDefinition playerFour = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
 		teamCharlie.addGameHero(playerFour);
 
+//		PlayableHeroDefinition playerFive = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 4);
+//		teamDelta.addGameHero(playerFive);
+
+		
 		teams.add(teamAlpha);
 		teams.add(teamBravo);
 		teams.add(teamCharlie);

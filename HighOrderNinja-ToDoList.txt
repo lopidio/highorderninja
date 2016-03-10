@@ -46,7 +46,7 @@ v GameItem
 v Airspin/SuperRunning herostate.xml conditions to enter
 v GameItemController (manages item creations)
 v Airspin bug wrong side
-T Create Camera
+T Create Camera (handle resize)
 
 
 ShurikenBomb
@@ -60,7 +60,7 @@ FragStatistics: totalShoots, deaths, kills, suicides
 ?? SmokeBomb refactoring (real particles system)
 
 Scenery handle deadly obstacles (to have THE background) (as many textures as wanted)
-Background refactoring (X to use AnimationCentralPool (animation pool requires an enumeration)(to have Foreground objects)(regenerateInterval...)
+Background refactoring (to have Foreground objects)(regenerateInterval...) (as many textures as wanted)
 
 
 Think about what to do: action+wallgrab; action+ducking
@@ -68,10 +68,6 @@ Think about what to do: action+wallgrab; action+ducking
 
 Create HUD (below player: life/shurikens/smokebomb) (Interface. Abstract factory?)
 
-ProjectileAimer works with priority queue
+ProjectileAimer works with priority queue (shurikens aim at player>items?)
 
-
-
-
-
-
+Add life regeneration value (xml) to lifeItem

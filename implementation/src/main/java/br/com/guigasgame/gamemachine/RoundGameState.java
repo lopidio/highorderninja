@@ -26,7 +26,7 @@ import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.gameobject.hero.playable.GameHeroProperties;
+import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.item.GameItemController;
 import br.com.guigasgame.scenery.Scenery;
@@ -65,8 +65,8 @@ public class RoundGameState implements GameState
 		
 		for( HeroTeam team : teams )
 		{
-			List<GameHeroProperties> heros = team.getHerosList();
-			for (GameHeroProperties gameHeroProperties : heros) 
+			List<PlayableHeroDefinition> heros = team.getHerosList();
+			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
@@ -210,7 +210,7 @@ public class RoundGameState implements GameState
 	public void draw(RenderWindow renderWindow)
 	{
 		background.drawBackgroundItems(renderWindow);
-		world.drawDebugData();
+//		world.drawDebugData();
 		
 //		cameraController.draw(renderWindow);
 

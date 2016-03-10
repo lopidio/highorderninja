@@ -170,6 +170,10 @@
         <y>100</y>
     </spawnPoint>
     <spawnPoint>
+        <x>300</x>
+        <y>150</y>
+    </spawnPoint>
+    <spawnPoint>
         <x>800</x>
         <y>100</y>
     </spawnPoint>
