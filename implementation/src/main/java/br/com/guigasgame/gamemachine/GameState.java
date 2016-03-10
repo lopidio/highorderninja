@@ -31,7 +31,7 @@ public interface GameState
 
 	}
 
-	public default void handleEvent(Event event)
+	public default void handleEvent(Event event, RenderWindow renderWindow)
 	{
 
 	}

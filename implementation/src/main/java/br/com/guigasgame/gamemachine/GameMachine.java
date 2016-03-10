@@ -151,7 +151,7 @@ public class GameMachine
 		Iterable<Event> events = renderWindow.pollEvents();
 		for( Event event : events )
 		{
-			gameStates.lastElement().handleEvent(event);
+			gameStates.lastElement().handleEvent(event, renderWindow);
 			if (event.type == Event.Type.KEY_PRESSED)
 			{
 				if (event.asKeyEvent().key == Keyboard.Key.ESCAPE)

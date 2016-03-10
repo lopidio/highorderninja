@@ -12,7 +12,9 @@ import org.jbox2d.callbacks.DebugDraw;
 import org.jbox2d.common.OBBViewportTransform;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.View;
 import org.jsfml.window.Joystick;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
@@ -30,7 +32,7 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemController;
-import br.com.guigasgame.round.hud.PlayableAttributesHud;
+import br.com.guigasgame.round.hud.HeroAttributesHud;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -46,7 +48,7 @@ public class RoundGameState implements GameState
 	private GameItemController gameItemController;
 	private Scenery scenery;
 	private CameraController cameraController;
-	private List<PlayableAttributesHud> hudList;
+	private List<HeroAttributesHud> hudList;
 
 	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background, RoundHeroAttributes roundHeroAttributes) throws JAXBException
 	{
@@ -75,7 +77,7 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.createAttributesController(roundHeroAttributes);
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
-				PlayableAttributesHud hud = new PlayableAttributesHud(gameHero);
+				HeroAttributesHud hud = new HeroAttributesHud(gameHero);
 				hudList.add(hud);
 				gameHero.addAttributesControllerListener(hud);
 				initializeGameObject(Arrays.asList(gameHero));
@@ -108,7 +110,7 @@ public class RoundGameState implements GameState
 	}
 
 	@Override
-	public void handleEvent(Event event)
+	public void handleEvent(Event event, RenderWindow renderWindow)
 	{
 		//Axis.Z R2/L2
 		//Axis.U R3x
@@ -142,6 +144,15 @@ public class RoundGameState implements GameState
 				timeFactor = 1;
 			}
 		}
+		
+		// catch the resize events
+	    if (event.type == Type.RESIZED)
+	    {
+	        // update the view to the new size of the window
+	        FloatRect visibleArea = new FloatRect(0, 0, event.asSizeEvent().size.x, event.asSizeEvent().size.y);
+	        renderWindow.setView(new View(visibleArea));
+	        cameraController.createView(renderWindow);
+	    }
 	}
 
 	private void verifyNewObjectsToLists()
@@ -207,7 +218,7 @@ public class RoundGameState implements GameState
 		{
 			gameObject.update(updateTime);
 		}
-		for( PlayableAttributesHud hud : hudList )
+		for( HeroAttributesHud hud : hudList )
 		{
 			hud.update(deltaTime);
 		}
@@ -235,7 +246,7 @@ public class RoundGameState implements GameState
 		scenery.draw(renderWindow);
 		background.drawForegroundItems(renderWindow);
 		
-		for( PlayableAttributesHud hud : hudList )
+		for( HeroAttributesHud hud : hudList )
 		{
 			hud.draw(renderWindow);
 		}

@@ -12,13 +12,13 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.HeroRoundAttributes
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class PlayableAttributesHud implements HeroRoundAttributesListener, Drawable, UpdatableFromTime
+public class HeroAttributesHud implements HeroRoundAttributesListener, Drawable, UpdatableFromTime
 {
 	private PlayableGameHero gameHero;
 	private RectangleShape fullShurikenShape;
 	private RectangleShape currentShurikenShape;
 
-	public PlayableAttributesHud(PlayableGameHero gameHero)
+	public HeroAttributesHud(PlayableGameHero gameHero)
 	{
 		this.gameHero = gameHero;
 
