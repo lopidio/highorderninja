@@ -4,32 +4,23 @@ import org.jbox2d.common.Vec2;
 import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.IntegerMask;
-import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.team.HeroTeam;
 
-public class GameHeroProperties
+public class PlayableHeroDefinition
 {
 	private final GameHeroInputMap gameHeroInput;
-	private final int maxLife;
-	private final int numMaxShurikens;
-	private final int numMaxSmokeBomb;
 	private final int playerId;
 	
 	private Color color;
 	private Vec2 spawnPosition;
 	private HeroTeam heroTeam;
-	private RoundFragCounter fragCounter;
 
-	public GameHeroProperties(GameHeroInputMap gameHeroInput, int id)
+	public PlayableHeroDefinition(GameHeroInputMap gameHeroInput, int id)
 	{
 		this.gameHeroInput = gameHeroInput;
 		this.playerId = id;
 
-		maxLife = 100;
-		
-		numMaxShurikens = 5;
-		numMaxSmokeBomb = 5;
 		spawnPosition = new Vec2();
 	}
 	
@@ -47,21 +38,6 @@ public class GameHeroProperties
 	public GameHeroInputMap getGameHeroInput()
 	{
 		return gameHeroInput;
-	}
-
-	public int getMaxLife()
-	{
-		return maxLife;
-	}
-	
-	public int getNumMaxShurikens()
-	{
-		return numMaxShurikens;
-	}
-	
-	public int getNumMaxSmokeBomb()
-	{
-		return numMaxSmokeBomb;
 	}
 
 	public int getPlayerId()
@@ -89,14 +65,4 @@ public class GameHeroProperties
 		return spawnPosition;
 	}
 
-	public void updateFragCounter(RoundFragCounter fragCounter)
-	{
-		this.fragCounter = fragCounter;
-	}
-
-	public RoundFragCounter getFragCounter()
-	{
-		return fragCounter;
-	}
-	
 }

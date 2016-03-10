@@ -7,8 +7,7 @@ import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
-import br.com.guigasgame.frag.RoundFragCounter;
-import br.com.guigasgame.gameobject.hero.playable.GameHeroProperties;
+import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 
 
 public class HeroTeam
@@ -21,7 +20,7 @@ public class HeroTeam
 	private IntegerMask enemiesMask;
 	// private int totalScore;
 
-	private List<GameHeroProperties> herosList;
+	private List<PlayableHeroDefinition> herosList;
 
 	public HeroTeam(int id)
 	{
@@ -29,11 +28,11 @@ public class HeroTeam
 		teamMask = new IntegerMask();
 		enemiesMask = CollidableCategory.getAllPlayersCategory();
 		// totalScore = 0;
-		herosList = new ArrayList<GameHeroProperties>();
+		herosList = new ArrayList<PlayableHeroDefinition>();
 		color = getTeamColor();
 	}
 
-	public void addGameHero(GameHeroProperties gameHeroProperties)
+	public void addGameHero(PlayableHeroDefinition gameHeroProperties)
 	{
 		if (!herosList.contains(gameHeroProperties))
 		{
@@ -45,7 +44,7 @@ public class HeroTeam
 		}
 	}
 
-	public void removeGameHero(GameHeroProperties gameHeroProperties)
+	public void removeGameHero(PlayableHeroDefinition gameHeroProperties)
 	{
 		final IntegerMask mask = CollidableCategory.getPlayerCategory(gameHeroProperties.getPlayerId());
 		teamMask = teamMask.clear(mask.value);
@@ -53,7 +52,7 @@ public class HeroTeam
 		herosList.remove(gameHeroProperties);
 	}
 
-	public Color getColorOfPlayer(GameHeroProperties gameHeroProperties)
+	public Color getColorOfPlayer(PlayableHeroDefinition gameHeroProperties)
 	{
 		int index = herosList.indexOf(gameHeroProperties);
 
@@ -64,7 +63,7 @@ public class HeroTeam
 		return Color.add(color, mult);
 	}
 
-	public List<GameHeroProperties> getHerosList()
+	public List<PlayableHeroDefinition> getHerosList()
 	{
 		return herosList;
 	}
@@ -95,7 +94,7 @@ public class HeroTeam
 
 	public void setUp()
 	{
-		for( GameHeroProperties gameHeroProperties : herosList )
+		for( PlayableHeroDefinition gameHeroProperties : herosList )
 		{
 			gameHeroProperties.setTeamConfigurations(this);
 		}
@@ -109,17 +108,6 @@ public class HeroTeam
 	public IntegerMask getEnemiesMask(int playerID)
 	{
 		return enemiesMask;
-	}
-
-	public void displayFrags()
-	{
-		for( GameHeroProperties gameHeroProperties : herosList )
-		{
-			RoundFragCounter roundFragCounter = gameHeroProperties.getFragCounter();
-			System.out.println("Shoots: "
-					+ roundFragCounter.getShootsOnTarget() + "/"
-					+ roundFragCounter.getShoots());
-		}
 	}
 
 }

@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.jsfml.system.Vector2f;
 
@@ -15,6 +14,9 @@ import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
+import br.com.guigasgame.gameobject.hero.attributes.playable.HeroRoundAttributesListener;
+import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
+import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributesController;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
@@ -25,7 +27,7 @@ import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
 
 
-public class PlayableGameHero extends GameObject
+public class PlayableGameHero extends GameObject implements HeroRoundAttributesListener
 {
 
 	private Side forwardSide;
@@ -33,14 +35,15 @@ public class PlayableGameHero extends GameObject
 	private CollidableHero collidableHero;
 	private List<Animation> animationList;
 	private GameHeroInputMap gameHeroInput;
-	private final GameHeroProperties heroProperties;
+	private final PlayableHeroDefinition heroProperties;
 	private RoundFragCounter fragCounter;
 	private HeroState state;
 
 	private String lastActionName;
 	private List<GameItem> gameItems;
+	private RoundHeroAttributesController attributesController;
 
-	public PlayableGameHero(GameHeroProperties properties)
+	public PlayableGameHero(PlayableHeroDefinition properties)
 	{
 		this.heroProperties = properties;
 		forwardSide = Side.RIGHT;
@@ -50,6 +53,8 @@ public class PlayableGameHero extends GameObject
 		this.gameHeroInput = properties.getGameHeroInput();
 		gameHeroInput.setDeviceId(properties.getPlayerId());
 		gameItems = new ArrayList<>();
+		attributesController = new RoundHeroAttributesController(new RoundHeroAttributes(100, 5, 3, 3, 3));
+		attributesController.addListener(this);
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
@@ -83,6 +88,7 @@ public class PlayableGameHero extends GameObject
 		updateActionList();
 
 		collidableHero.checkSpeedLimits(state.getMaxSpeed());
+		attributesController.update(deltaTime);
 		adjustSpritePosition();
 	}
 
@@ -211,7 +217,12 @@ public class PlayableGameHero extends GameObject
 
 	public Projectile getShuriken(Vec2 pointingDirection)
 	{
-		return new Shuriken(pointingDirection, new IntegerMask(), this);
+		if (attributesController.canShootShuriken())
+		{
+			attributesController.shootShuriken();
+			return new Shuriken(pointingDirection, new IntegerMask(), this);
+		}
+		return null;
 	}
 
 	public List<Animation> getAnimation()
@@ -221,10 +232,15 @@ public class PlayableGameHero extends GameObject
 
 	public Projectile getSmokeBomb(Vec2 pointingDirection)
 	{
-		return new SmokeBombProjectile(pointingDirection, collidableHero.getBody().getWorldCenter(), heroProperties.getColor());
+		if (attributesController.canShootSmokeBomb())
+		{
+			attributesController.shootShuriken();
+			return new SmokeBombProjectile(pointingDirection, collidableHero.getBody().getWorldCenter(), heroProperties.getColor());
+		}
+		return null;		
 	}
 
-	public GameHeroProperties getHeroProperties()
+	public PlayableHeroDefinition getHeroProperties()
 	{
 		return heroProperties;
 	}
@@ -232,10 +248,10 @@ public class PlayableGameHero extends GameObject
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
 	{
-		Body myBody = (Body) me;
-		Body otherBody = (Body) other;
+//		Body myBody = (Body) me;
+//		Body otherBody = (Body) other;
 //		float maxValue = properties.initialSpeed*otherBody.getMass();
-		System.out.println("Hero Impact: " + myBody.getLinearVelocity().sub(otherBody.getLinearVelocity()).length());
+//		System.out.println("Hero Impact: " + myBody.getLinearVelocity().sub(otherBody.getLinearVelocity()).length());
 	}
 
 	public void hitOnTarget()
@@ -252,16 +268,35 @@ public class PlayableGameHero extends GameObject
 	@Override
 	public void onDestroy()
 	{
-		this.heroProperties.updateFragCounter(fragCounter);
+//		this.heroProperties.updateFragCounter(fragCounter);
 	}
 
-	public void regeneratesLife()
+	public void regeneratesLife(int lifeToAdd)
 	{
+		attributesController.addLife(lifeToAdd);
 		System.out.println("Life regenerated");
 	}
 
 	public void addItem(GameItem item)
 	{
 		gameItems.add(item);
+	}
+
+	@Override
+	public void lifeChanged(int current, int max) 
+	{
+		System.out.println("Life changed: " + current + "/" + max);
+	}
+
+	@Override
+	public void shurikenNumChanged(int current, int max) 
+	{
+		System.out.println("Shuriken number changed: " + current + "/" + max);
+	}
+
+	@Override
+	public void smokeBombChanged(int current, int max) 
+	{
+		System.out.println("SmokeBomb number changed: " + current + "/" + max);
 	}
 }

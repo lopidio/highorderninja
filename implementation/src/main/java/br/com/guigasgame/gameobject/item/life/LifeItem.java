@@ -47,7 +47,7 @@ public class LifeItem extends GameItem
 	@Override
 	public void acts(PlayableGameHero playableGameHero)
 	{
-		playableGameHero.addAction(new RegeneratesLifeAction());
+		playableGameHero.addAction(new RegeneratesLifeAction(100));
 		markToDestroy();
 	}
 
