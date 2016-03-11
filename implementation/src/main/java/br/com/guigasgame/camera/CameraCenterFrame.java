@@ -8,33 +8,33 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 
-public class CameraCenterSmallestRect 
+public class CameraCenterFrame 
 {
-	private List<Body> bodies;
+	private List<Body> bodiesToControl;
 	private float biggestY;
 	private float biggestX;
 	private float smallestY;
 	private float smallestX;
 
-	public CameraCenterSmallestRect() 
+	public CameraCenterFrame() 
 	{
-		bodies = new ArrayList<>();
+		bodiesToControl = new ArrayList<>();
 	}
 	
 	private void update()
 	{
-		if (bodies.size() <= 0)
+		if (bodiesToControl.size() <= 0)
 			return;
-		Vector2f first = WorldConstants.physicsToSfmlCoordinates(bodies.get(0).getWorldCenter());
+		Vector2f first = WorldConstants.physicsToSfmlCoordinates(bodiesToControl.get(0).getWorldCenter());
 		smallestX = first.x;
 		smallestY = first.y;
 
 		biggestX = smallestX;
 		biggestY = smallestY;
 	
-		for( int i = 1; i < bodies.size(); ++i)
+		for( int i = 1; i < bodiesToControl.size(); ++i)
 		{
-			Vector2f point = WorldConstants.physicsToSfmlCoordinates(bodies.get(i).getWorldCenter());
+			Vector2f point = WorldConstants.physicsToSfmlCoordinates(bodiesToControl.get(i).getWorldCenter());
 
 			if (point.x > biggestX)
 				biggestX = point.x;
@@ -50,12 +50,12 @@ public class CameraCenterSmallestRect
 	
 	public void addBody(Body body)
 	{
-		bodies.add(body);
+		bodiesToControl.add(body);
 	}
 
 	public void removeBody(Body body)
 	{
-		bodies.remove(body);
+		bodiesToControl.remove(body);
 	}
 	
 	public Vector2f getSize()

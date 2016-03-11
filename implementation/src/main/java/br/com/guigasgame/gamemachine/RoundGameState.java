@@ -32,6 +32,7 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemController;
+import br.com.guigasgame.round.hud.HeroAttributesBarBellowHud;
 import br.com.guigasgame.round.hud.HeroAttributesHud;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
@@ -77,11 +78,11 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.createAttributesController(roundHeroAttributes);
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
-				HeroAttributesHud hud = new HeroAttributesHud(gameHero);
+				HeroAttributesBarBellowHud hud = new HeroAttributesBarBellowHud(gameHero);
 				hudList.add(hud);
 				gameHero.addAttributesControllerListener(hud);
 				initializeGameObject(Arrays.asList(gameHero));
-				cameraController.addHero(gameHero);
+				cameraController.addBodyToControl(gameHero.getCollidableHero().getBody());
 			}
 		}
 	}

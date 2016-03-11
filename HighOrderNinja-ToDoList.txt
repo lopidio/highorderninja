@@ -67,7 +67,7 @@ Think about what to do: action+wallgrab; action+ducking
 
 
 Create HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, timetoCharge) (Interface. Abstract factory?)
+No ammo bug (trying to shoot in time interval)
 
 ProjectileAimer works with priority queue (shurikens aim at player>items?)
-
 Add life regeneration value (xml) to lifeItem
