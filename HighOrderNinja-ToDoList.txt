@@ -66,7 +66,7 @@ Background refactoring (to have Foreground objects)(regenerateInterval...) (as m
 Think about what to do: action+wallgrab; action+ducking
 
 
-Create HUD (below player: life/shurikens/smokebomb) (Interface. Abstract factory?)
+Create HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, timetoCharge) (Interface. Abstract factory?)
 
 ProjectileAimer works with priority queue (shurikens aim at player>items?)
 

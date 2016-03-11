@@ -47,7 +47,6 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 		frameRect.x = animationProperties.textureSpriteRect.left;
 		frameRect.y = animationProperties.textureSpriteRect.top;	
 
-		
 		sprite = new Sprite(animationProperties.texture);
 		sprite.setOrigin(frameRect.width / 2, frameRect.height / 2);
 		
