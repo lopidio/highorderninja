@@ -32,8 +32,8 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemController;
-import br.com.guigasgame.round.hud.HeroAttributesBarsBellowHudController;
 import br.com.guigasgame.round.hud.HeroAttributesHudController;
+import br.com.guigasgame.round.hud.barbellow.HeroAttributesBarsBellowHudController;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
 

@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud;
+package br.com.guigasgame.round.hud.barbellow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.round.hud.HeroAttributesHudController;
 
 public class HeroAttributesBarsBellowHudController extends HeroAttributesHudController
 {

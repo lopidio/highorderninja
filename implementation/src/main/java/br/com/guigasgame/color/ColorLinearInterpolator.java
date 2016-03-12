@@ -81,10 +81,23 @@ public class ColorLinearInterpolator extends ColorInterpolator
 	@Override
 	public void interpolateFromColor(ColorBlender color, float duration)
 	{
+		if (!hasFinished())
+		{
+			forceFinalize();
+		}
+			
 		this.duration = duration;
 		interpolators.add(new LinearInterpolator(color.getR(), sourceColor.getR(), duration));
 		interpolators.add(new LinearInterpolator(color.getG(), sourceColor.getG(), duration));
 		interpolators.add(new LinearInterpolator(color.getB(), sourceColor.getB(), duration));
+	}
+
+	private void forceFinalize()
+	{
+		currentColor = new ColorBlender(interpolators.get(0).getDestiny(),
+										interpolators.get(1).getDestiny(),
+										interpolators.get(2).getDestiny());
+		interpolators.clear();
 	}
 
 }

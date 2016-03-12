@@ -4,13 +4,10 @@ public class LinearInterpolator extends Interpolator
 {
 	private final float ratioPerSecond;
 	private float remaining;
-	private float destiny;
 
 	public LinearInterpolator(float source, float destiny, float duration)
 	{
-		super(source);
-
-		this.destiny = destiny;
+		super(source, destiny);
 		remaining = destiny - source;
 		ratioPerSecond = remaining / duration;
 		remaining = Math.abs(remaining);

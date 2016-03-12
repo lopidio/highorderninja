@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud;
+package br.com.guigasgame.round.hud.barbellow;
 
 import org.jsfml.system.Vector2f;
 
@@ -15,19 +15,17 @@ public class LifeAttributeBarBellowHud extends HeroAttributeBarBellowHud
 	@Override
 	public void gotFull(HeroAttribute heroAttribute)
 	{
-		innerColor.interpolateFromColor(innerColor.getCurrentColor().darken(2f), 0.5f);
-	}
-
-	@Override
-	public void gotEmpty(HeroAttribute heroAttribute)
-	{
+		innerColor.interpolateFromColor(ColorBlender.YELLOW, 0.5f);
 	}
 
 	@Override
 	public void changed(HeroAttribute heroAttribute, float value)
 	{
-		// TODO Auto-generated method stub
-		
+		adjustBarsLength(heroAttribute);
+		if (value < 0)
+		{
+			innerColor.interpolateFromColor(innerColor.getCurrentColor().darken(2f), 0.5f);
+		}
 	}
 
 }

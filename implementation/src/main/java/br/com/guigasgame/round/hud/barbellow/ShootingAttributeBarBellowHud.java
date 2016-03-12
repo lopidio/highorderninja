@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud;
+package br.com.guigasgame.round.hud.barbellow;
 
 import org.jsfml.system.Vector2f;
 
@@ -16,7 +16,7 @@ public class ShootingAttributeBarBellowHud extends HeroAttributeBarBellowHud
 	@Override
 	public void gotFull(HeroAttribute heroAttribute)
 	{
-		innerColor.interpolateFromColor(innerColor.getCurrentColor().lighten(2f), 0.5f);
+		innerColor.interpolateFromColor(innerColor.getCurrentColor().darken(10), 0.5f);
 	}
 
 	@Override
@@ -35,9 +35,7 @@ public class ShootingAttributeBarBellowHud extends HeroAttributeBarBellowHud
 	public void changed(HeroAttribute heroAttribute, float value)
 	{
 		innerColor.interpolateFromColor(innerColor.getCurrentColor().darken(2f), 0.5f);
-		final float ratio = heroAttribute.getCurrentValue()/heroAttribute.getMaxValue();
-		final Vector2f newSize = new Vector2f(SIZE.x*ratio, SIZE.y);
-		current.setSize(newSize);
+		adjustBarsLength(heroAttribute);
 	}
 
 }

@@ -45,7 +45,7 @@ public class HeroAttribute implements UpdatableFromTime
 		if (currentValue <= 0)
 			return false;
 		currentValue -= value;
-		notifyChange(this, value);
+		notifyChange(this, -value);
 		if (currentValue <= 0)
 		{
 			currentValue = 0;

@@ -4,11 +4,20 @@ package br.com.guigasgame.gameobject.hero.attributes;
 public interface HeroAttributeListener
 {
 
-	void gotFull(HeroAttribute heroAttribute);
+	default void gotFull(HeroAttribute heroAttribute)
+	{
+		
+	}
 
-	void gotEmpty(HeroAttribute heroAttribute);
+	default void gotEmpty(HeroAttribute heroAttribute)
+	{
+		
+	}
 
-	void changed(HeroAttribute heroAttribute, float value);
+	default void changed(HeroAttribute heroAttribute, float value)
+	{
+		
+	}
 
 	default void shootingIncrement(HeroShootingAttribute heroShootingAttribute, float value)
 	{

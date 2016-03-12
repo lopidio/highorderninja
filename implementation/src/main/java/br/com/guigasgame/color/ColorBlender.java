@@ -72,7 +72,7 @@ public class ColorBlender
 		this.a = Math.min(255, a);
 	}
 
-	public Color getColor()
+	public Color getSfmlColor()
 	{
 		return new Color((int)r, (int)g, (int)b, (int)a);
 	}
