@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jbox2d.dynamics.Body;
+import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RectangleShape;
@@ -21,7 +22,10 @@ public class CameraController implements UpdatableFromTime, Drawable
 {
 	private static final float INNER_FRAME_SCALE = 0.55f;
 	private static final float OUTTER_FRAME_SCALE = 0.80f;
+	private static final float ZOOM_OUT_FACTOR = 1.005f;
+	private static final float ZOOM_IN_FACTOR = 0.985f;
 	
+	private final br.com.guigasgame.math.FloatRect sceneryBoundaries;
 	private List<Body> bodiesToControl;
 	private View view;
 	private RenderWindow renderWindow;
@@ -30,6 +34,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private CameraCenterFrame centerFrame;
 	public CameraController(Scenery scenery)
 	{
+		sceneryBoundaries = scenery.getBoundaries();
 		bodiesToControl = new ArrayList<>();
 		centerFrame = new CameraCenterFrame();
 		
@@ -54,31 +59,73 @@ public class CameraController implements UpdatableFromTime, Drawable
 			return;
 		
 		centerFrame.update(deltaTime);
-		final float zoomOutFactor = 1.005f;
-		final float zoomInFactor = 0.985f;
-		if (isOnePlayerOutsideOutterWindow())
-		{
-			view.zoom(zoomOutFactor);
-			innerFrame.scale(zoomOutFactor, zoomOutFactor);
-			outterFrame.scale(zoomOutFactor, zoomOutFactor);
-
-		}
-		if (isEveryPlayerInsideInnerWindow() && innerFrame.getScale().x > 0.9f)
-		{
-			view.zoom(zoomInFactor);
-			innerFrame.scale(zoomInFactor, zoomInFactor);
-			outterFrame.scale(zoomInFactor, zoomInFactor);
-		}
+		checkZoomOut();
+		checkZoomIn();
 		
-		Vector2f center = centerFrame.getCenter();
 
-		view.setCenter(center);
-		innerFrame.setPosition(center);
-		outterFrame.setPosition(center);
+		Vector2f focusCenter = centerFrame.getCenter();
+		adjustZoomFrameCenter(innerFrame, focusCenter);
+		adjustZoomFrameCenter(outterFrame, focusCenter);
+		view.setCenter(adjustCenterToSceneBoundaries(focusCenter, view.getSize()));
+
 		renderWindow.setView(view);
 	}
 	
-	private boolean isEveryPlayerInsideInnerWindow()
+	private void adjustZoomFrameCenter(Shape frame, Vector2f center)
+	{
+		FloatRect frameGlobalBound = frame.getGlobalBounds();
+		frame.setPosition(adjustCenterToSceneBoundaries(center, 
+				new Vector2f(frameGlobalBound.width,
+							frameGlobalBound.height)));
+	}
+
+	private Vector2f adjustCenterToSceneBoundaries(Vector2f focusCenter, Vector2f viewSize)
+	{
+		float xCenter = focusCenter.x;
+		float yCenter = focusCenter.y;
+		if (focusCenter.y + viewSize.y/2 > sceneryBoundaries.top + sceneryBoundaries.height)
+		{
+			yCenter = sceneryBoundaries.top + sceneryBoundaries.height - viewSize.y/2;
+		}
+		else if (focusCenter.y - viewSize.y/2 < sceneryBoundaries.top)
+		{
+			yCenter = sceneryBoundaries.top + viewSize.y/2;
+		}
+		
+		if (focusCenter.x + viewSize.x/2 > sceneryBoundaries.left + sceneryBoundaries.width)
+		{
+			xCenter = sceneryBoundaries.left + sceneryBoundaries.width - viewSize.x/2;
+		}
+		else if (focusCenter.x - viewSize.x/2 < sceneryBoundaries.left)
+		{
+			xCenter = sceneryBoundaries.left + viewSize.x/2;
+		}
+		
+		return new Vector2f(xCenter, yCenter);
+	}
+
+	private void checkZoomIn()
+	{
+		if (isEveryPlayerInsideInnerFrame() && innerFrame.getScale().x > 0.9f)
+		{
+			view.zoom(ZOOM_IN_FACTOR);
+			innerFrame.scale(ZOOM_IN_FACTOR, ZOOM_IN_FACTOR);
+			outterFrame.scale(ZOOM_IN_FACTOR, ZOOM_IN_FACTOR);
+		}
+	}
+
+	private void checkZoomOut()
+	{
+		if (isOnePlayerOutsideOutterFrame())
+		{
+			view.zoom(ZOOM_OUT_FACTOR);
+			innerFrame.scale(ZOOM_OUT_FACTOR, ZOOM_OUT_FACTOR);
+			outterFrame.scale(ZOOM_OUT_FACTOR, ZOOM_OUT_FACTOR);
+
+		}
+	}
+	
+	private boolean isEveryPlayerInsideInnerFrame()
 	{
 		for( Body body : bodiesToControl )
 		{
@@ -88,7 +135,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 		return true;
 	}
 
-	private boolean isOnePlayerOutsideOutterWindow()
+	private boolean isOnePlayerOutsideOutterFrame()
 	{
 		for( Body body : bodiesToControl )
 		{
@@ -134,6 +181,9 @@ public class CameraController implements UpdatableFromTime, Drawable
 		renderWindow.draw(innerFrame);
 		renderWindow.draw(outterFrame);
 		
+		Shape circle = new CircleShape(3);
+		circle.setPosition(centerFrame.getCenter());
+		renderWindow.draw(circle);
 		
 		Shape smallest = new RectangleShape(centerFrame.getSize());
 		smallest.setFillColor(new Color(200, 200, 0, 100));

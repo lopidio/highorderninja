@@ -64,10 +64,10 @@ public class RoundGameState implements GameState
 		this.background = background;
 		this.scenery = scenery;
 		gameItemController = new GameItemCreationController(scenery);
-		cameraController = new CameraController(scenery);
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
+		cameraController = new CameraController(scenery);
 		hudList = new ArrayList<>();
 		
 		initializeHeros(teams, scenery, roundHeroAttributes);

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.jbox2d.collision.AABB;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.ConvexShape;
@@ -15,6 +17,7 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
+import br.com.guigasgame.math.FloatRect;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
 import br.com.guigasgame.shape.CircleShape;
 import br.com.guigasgame.shape.Point;
@@ -194,6 +197,26 @@ public class Scenery extends GameObject
 	private static Vector2f pointToSfmlVector2(Point point)
 	{
 		return new Vector2f(point.getX(), point.getY());
+	}
+	
+	public FloatRect getBoundaries()
+	{
+		AABB aabb = new AABB();
+		for (Fixture fixtureIterator = shapeCollidable.getBody().getFixtureList(); fixtureIterator != null; fixtureIterator = fixtureIterator.getNext()) 
+		{
+			aabb.combine(aabb, fixtureIterator.getAABB(0));
+		}
+		
+		Vec2[] vertices = {new Vec2(), new Vec2(), new Vec2(), new Vec2()};
+		aabb.getVertices(vertices);
+
+		final Vector2f lower = WorldConstants.physicsToSfmlCoordinates(vertices[0]);
+		final Vector2f upper = WorldConstants.physicsToSfmlCoordinates(vertices[2]);
+		FloatRect retorno = new FloatRect(	lower.x,
+											lower.y, 
+											upper.x - lower.x, 
+											upper.y - lower.y);
+		return retorno;
 	}
 
 	public Collection<? extends Point> getItemsSpots()
