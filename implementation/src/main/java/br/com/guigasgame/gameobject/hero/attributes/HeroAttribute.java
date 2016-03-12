@@ -71,6 +71,8 @@ public class HeroAttribute implements UpdatableFromTime
 
 	private void notifyChange(HeroAttribute heroAttribute, float value)
 	{
+		if (value == 0)
+			return;
 		for( HeroAttributeListener heroAttributeListener : listeners )
 		{
 			heroAttributeListener.changed(this, value);
@@ -89,7 +91,7 @@ public class HeroAttribute implements UpdatableFromTime
 	{
 		for( HeroAttributeListener heroAttributeListener : listeners )
 		{
-			heroAttributeListener.isFull(this);
+			heroAttributeListener.gotFull(this);
 		}
 	}
 	

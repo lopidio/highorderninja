@@ -33,7 +33,7 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemController;
 import br.com.guigasgame.round.hud.HeroAttributesBarsBellowHudController;
-import br.com.guigasgame.round.hud.HeroAttributesHud;
+import br.com.guigasgame.round.hud.HeroAttributesHudController;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -49,7 +49,7 @@ public class RoundGameState implements GameState
 	private GameItemController gameItemController;
 	private Scenery scenery;
 	private CameraController cameraController;
-	private List<HeroAttributesHud> hudList;
+	private List<HeroAttributesHudController> hudList;
 
 	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background, RoundHeroAttributes roundHeroAttributes) throws JAXBException
 	{
@@ -84,7 +84,7 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setHeroAttributes(roundHeroAttributes.clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
 				HeroAttributesBarsBellowHudController hud = new HeroAttributesBarsBellowHudController(gameHero);
-				hud.addAsListener(gameHeroProperties.getRoundHeroAttributes());
+				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
 				hudList.add(hud);
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addBodyToControl(gameHero.getCollidableHero().getBody());
@@ -224,7 +224,7 @@ public class RoundGameState implements GameState
 		{
 			gameObject.update(updateTime);
 		}
-		for( HeroAttributesHud hud : hudList )
+		for( HeroAttributesHudController hud : hudList )
 		{
 			hud.update(deltaTime);
 		}
@@ -252,7 +252,7 @@ public class RoundGameState implements GameState
 		scenery.draw(renderWindow);
 		background.drawForegroundItems(renderWindow);
 		
-		for( HeroAttributesHud hud : hudList )
+		for( HeroAttributesHudController hud : hudList )
 		{
 			hud.draw(renderWindow);
 		}

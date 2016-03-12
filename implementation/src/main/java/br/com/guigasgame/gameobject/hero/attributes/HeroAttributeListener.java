@@ -4,7 +4,7 @@ package br.com.guigasgame.gameobject.hero.attributes;
 public interface HeroAttributeListener
 {
 
-	void isFull(HeroAttribute heroAttribute);
+	void gotFull(HeroAttribute heroAttribute);
 
 	void gotEmpty(HeroAttribute heroAttribute);
 
