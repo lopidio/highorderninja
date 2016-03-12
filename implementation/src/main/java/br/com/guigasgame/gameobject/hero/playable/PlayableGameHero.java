@@ -16,6 +16,7 @@ import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
+import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
 import br.com.guigasgame.gameobject.item.GameItem;
@@ -285,8 +286,12 @@ public class PlayableGameHero extends GameObject
 		heroAttributes.getShurikens().refill();
 	}
 
-	public void getHit(float damage)
+	public void getHit(float damage, FixtureSensorID fixtureSensorID)
 	{
+		if (fixtureSensorID == FixtureSensorID.HEAD)
+		{
+			damage *= 4;
+		}
 		heroAttributes.getLife().decrement(damage);
 	}
 

@@ -49,7 +49,7 @@ v Airspin bug wrong side
 v Create Camera (handle resize)
 v No ammo bug (trying to shoot in time interval)
 
-CCreate HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, timetoCharge) (Interface. Abstract factory?)
+v Create HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, timetoCharge) (Interface. Abstract factory?)
 
 
 ShurikenBomb
