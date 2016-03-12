@@ -3,33 +3,38 @@ package br.com.guigasgame.gameobject.item;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.jbox2d.common.Vec2;
+import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.item.life.LifeItem;
 import br.com.guigasgame.gameobject.item.shurikenpack.ShurikenPackItem;
 import br.com.guigasgame.scenery.Scenery;
+import br.com.guigasgame.shape.Point;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public class GameItemController implements UpdatableFromTime
+public class GameItemCreationController implements UpdatableFromTime
 {
-
+	private List<Point> itemsSpots;
 	private Collection<GameObject> itemsToAdd;
-	private Map<GameItemIndex, GameItemCreator> itemsMap;
-	private Scenery scenery;
+	private Map<GameItemIndex, GameItemCreatorTimeCounter> itemsMap;
 
-	public GameItemController(Scenery scenery)
+	public GameItemCreationController(Scenery scenery)
 	{
-		this.scenery = scenery;
+		itemsSpots = new ArrayList<>();
+		itemsSpots.addAll(scenery.getItemsSpots());
 		itemsToAdd = new ArrayList<>();
 
 		itemsMap = new HashMap<>();
 		for( GameItemIndex items : GameItemIndex.values() )
 		{
-			itemsMap.put(items, new GameItemCreator(GameItemPropertiesPool.getGameItemProperties(items).period));
+			itemsMap.put(items, new GameItemCreatorTimeCounter(GameItemPropertiesPool.getGameItemProperties(items).period));
 		}
 
 	}
@@ -37,12 +42,12 @@ public class GameItemController implements UpdatableFromTime
 	@Override
 	public void update(float deltaTime)
 	{
-		for( Entry<GameItemIndex, GameItemCreator> entry : itemsMap.entrySet() )
+		for( Entry<GameItemIndex, GameItemCreatorTimeCounter> entry : itemsMap.entrySet() )
 		{
 			entry.getValue().update(deltaTime);
 			if (entry.getValue().isTimeToCreate())
 			{
-				entry.getValue().reset();
+				entry.getValue().resetCounter();
 				GameObject itemToAdd = createItem(entry.getKey());
 				if (itemToAdd != null)
 					itemsToAdd.add(itemToAdd);
@@ -56,13 +61,19 @@ public class GameItemController implements UpdatableFromTime
 		GameObject retorno = null;
 		if (key == GameItemIndex.SHURIKEN_PACK)
 		{
-			retorno = new ShurikenPackItem(WorldConstants.sfmlToPhysicsCoordinates(scenery.getRandomItemSpot()));
+			retorno = new ShurikenPackItem(getRandomItemSpot());
 		}
 		else if (key == GameItemIndex.LIFE)
 		{
-			retorno = new LifeItem(WorldConstants.sfmlToPhysicsCoordinates(scenery.getRandomItemSpot()));
+			retorno = new LifeItem(getRandomItemSpot());
 		}
 		return retorno;
+	}
+	
+	private Vec2 getRandomItemSpot()
+	{
+		int randIndex = (int) (Math.random()*itemsSpots.size());
+		return WorldConstants.sfmlToPhysicsCoordinates(new Vector2f(itemsSpots.get(randIndex).getX(), itemsSpots.get(randIndex).getY()));
 	}
 
 	public boolean hasItemToAdd()

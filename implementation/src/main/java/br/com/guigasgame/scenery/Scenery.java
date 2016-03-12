@@ -1,6 +1,7 @@
 package br.com.guigasgame.scenery;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -190,14 +191,13 @@ public class Scenery extends GameObject
 		return retorno;
 	}
 	
-	public Vector2f getRandomItemSpot()
-	{
-		int randIndex = (int) (Math.random()*itemSpots.size());
-		return pointToSfmlVector2(itemSpots.get(randIndex));
-	}
-
 	private static Vector2f pointToSfmlVector2(Point point)
 	{
 		return new Vector2f(point.getX(), point.getY());
+	}
+
+	public Collection<? extends Point> getItemsSpots()
+	{
+		return itemSpots;
 	}
 }

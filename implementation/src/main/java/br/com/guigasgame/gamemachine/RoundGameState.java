@@ -31,7 +31,7 @@ import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
-import br.com.guigasgame.gameobject.item.GameItemController;
+import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.hud.HeroAttributesHudController;
 import br.com.guigasgame.round.hud.barbellow.HeroAttributesBarsBellowHudController;
 import br.com.guigasgame.scenery.Scenery;
@@ -46,7 +46,7 @@ public class RoundGameState implements GameState
 
 	private List<GameObject> gameObjectsList;
 	private Background background;
-	private GameItemController gameItemController;
+	private GameItemCreationController gameItemController;
 	private Scenery scenery;
 	private CameraController cameraController;
 	private List<HeroAttributesHudController> hudList;
@@ -63,8 +63,8 @@ public class RoundGameState implements GameState
 		world.setContactListener(new CollisionManager());
 		this.background = background;
 		this.scenery = scenery;
-		gameItemController = new GameItemController(scenery);
-		cameraController = new CameraController();
+		gameItemController = new GameItemCreationController(scenery);
+		cameraController = new CameraController(scenery);
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();

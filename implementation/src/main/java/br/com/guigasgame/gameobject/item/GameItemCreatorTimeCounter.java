@@ -3,14 +3,14 @@ package br.com.guigasgame.gameobject.item;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-class GameItemCreator implements UpdatableFromTime
+class GameItemCreatorTimeCounter implements UpdatableFromTime
 {
 
 	private final float period;
 	private float remainingSeconds;
 	private boolean createTime;
 
-	public GameItemCreator(float period)
+	public GameItemCreatorTimeCounter(float period)
 	{
 		this.period = period;
 		remainingSeconds = period;
@@ -30,7 +30,7 @@ class GameItemCreator implements UpdatableFromTime
 		return createTime;
 	}
 
-	public void reset()
+	public void resetCounter()
 	{
 		remainingSeconds = period;
 		createTime = false;

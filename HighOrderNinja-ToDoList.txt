@@ -55,7 +55,7 @@ CCreate HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, tim
 ShurikenBomb
 RayCastAnythingBut....
 
-MatchProperties (given to MainGameStateConstructos. Has: deathmatch or teammatch, numMaxShurikens, maxTime, itemsAvailable, friendlyFire, scene, goalScore...)
+RoundProperties (given to RoundGameStateConstructos. Has: deathmatch or teammatch, numMaxShurikens, maxTime, itemsAvailable, friendlyFire, scene, goalScore...)
 Every GameHero object instantiates it's own frag statistics... At the end of each round, that fragStatistics is read by the team...
 FragStatistics: totalShoots, deaths, kills, suicides
 
