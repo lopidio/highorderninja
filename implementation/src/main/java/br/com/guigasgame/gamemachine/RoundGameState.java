@@ -32,7 +32,7 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemController;
-import br.com.guigasgame.round.hud.HeroAttributesBarBellowHud;
+import br.com.guigasgame.round.hud.HeroAttributesBarsBellowHudController;
 import br.com.guigasgame.round.hud.HeroAttributesHud;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
@@ -70,6 +70,11 @@ public class RoundGameState implements GameState
 		scenery.onEnter();
 		hudList = new ArrayList<>();
 		
+		initializeHeros(teams, scenery, roundHeroAttributes);
+	}
+
+	private void initializeHeros(List<HeroTeam> teams, Scenery scenery, RoundHeroAttributes roundHeroAttributes)
+	{
 		for( HeroTeam team : teams )
 		{
 			List<PlayableHeroDefinition> heros = team.getHerosList();
@@ -78,9 +83,9 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.setHeroAttributes(roundHeroAttributes.clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
-				HeroAttributesBarBellowHud hud = new HeroAttributesBarBellowHud(gameHero);
+				HeroAttributesBarsBellowHudController hud = new HeroAttributesBarsBellowHudController(gameHero);
+				hud.addAsListener(gameHeroProperties.getRoundHeroAttributes());
 				hudList.add(hud);
-				gameHeroProperties.getRoundHeroAttributes().addListener(hud);
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addBodyToControl(gameHero.getCollidableHero().getBody());
 			}
@@ -237,7 +242,7 @@ public class RoundGameState implements GameState
 		background.drawBackgroundItems(renderWindow);
 		world.drawDebugData();
 		
-		cameraController.draw(renderWindow);
+//		cameraController.draw(renderWindow);
 
 		for( GameObject gameObject : gameObjectsList )
 		{

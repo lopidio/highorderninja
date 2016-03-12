@@ -8,6 +8,8 @@ import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
+import br.com.guigasgame.gameobject.hero.action.GetHitAction;
+import br.com.guigasgame.gameobject.hero.playable.CollidableHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
@@ -39,9 +41,16 @@ public class Shuriken extends Projectile
 			List<CollidableCategory> categoryList = CollidableCategory.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
 			for( CollidableCategory category : categoryList )
 			{
-				System.out.println("Shuriken collided with: " + category.name());
+//				System.out.println("Shuriken collided with: " + category.name());
+				if (category == CollidableCategory.HEROS)
+				{
+					CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
+					PlayableGameHero playableGameHero = collidableHero.getPlayableHero();
+					playableGameHero.addAction(new GetHitAction(properties.damage));
+					markToDestroy();
+				}
+
 			}
-//			markToDestroy();
 		}
 		++collisionCounter;
 		if (collisionCounter >= properties.numBounces)

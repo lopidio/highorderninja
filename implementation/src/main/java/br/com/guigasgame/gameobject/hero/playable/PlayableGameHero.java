@@ -273,7 +273,6 @@ public class PlayableGameHero extends GameObject
 	public void regeneratesLife(int lifeToAdd)
 	{
 		heroAttributes.getLife().increment(lifeToAdd);
-		System.out.println("Life regenerated");
 	}
 
 	public void addItem(GameItem item)
@@ -284,6 +283,16 @@ public class PlayableGameHero extends GameObject
 	public void refillShurikenPack()
 	{
 		heroAttributes.getShurikens().refill();
+	}
+
+	public void getHit(float damage)
+	{
+		heroAttributes.getLife().decrement(damage);
+	}
+
+	public Vector2f getMassCenter()
+	{
+		return WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
 	}
 
 }

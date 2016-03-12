@@ -47,7 +47,10 @@ public class HeroAttribute implements UpdatableFromTime
 		currentValue -= value;
 		notifyChange(this, value);
 		if (currentValue <= 0)
+		{
+			currentValue = 0;
 			notifyIsEmpty();
+		}
 		return true;
 	}
 
@@ -57,7 +60,10 @@ public class HeroAttribute implements UpdatableFromTime
 			return false;
 		currentValue += value;
 		if (currentValue >= maxValue)
+		{
+			currentValue = maxValue;
 			notifyGotFull();
+		}
 
 		notifyChange(this, value);
 		return true;

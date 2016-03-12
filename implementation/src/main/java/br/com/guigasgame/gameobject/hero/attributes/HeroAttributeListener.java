@@ -10,8 +10,14 @@ public interface HeroAttributeListener
 
 	void changed(HeroAttribute heroAttribute, float value);
 
-	void shootingIncrement(HeroShootingAttribute heroShootingAttribute, float value);
+	default void shootingIncrement(HeroShootingAttribute heroShootingAttribute, float value)
+	{
+		
+	}
 
-	void shootingIsAble(HeroShootingAttribute heroShootingAttribute);
+	default void shootingIsAble(HeroShootingAttribute heroShootingAttribute)
+	{
+		
+	}
 
 }

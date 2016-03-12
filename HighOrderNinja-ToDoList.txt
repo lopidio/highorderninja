@@ -71,3 +71,5 @@ No ammo bug (trying to shoot in time interval)
 
 ProjectileAimer works with priority queue (shurikens aim at player>items?)
 Add life regeneration value (xml) to lifeItem
+
+SmokeBomb as shader

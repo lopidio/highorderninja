@@ -65,7 +65,7 @@ public abstract class GameItem extends GameObject
 		List<CollidableCategory> categoryList = CollidableCategory.fromMask(otherBody.getFixtureList().getFilterData().categoryBits);
 		for( CollidableCategory category : categoryList )
 		{
-			System.out.println("Item collided with: " + category.name());
+//			System.out.println("Item collided with: " + category.name());
 			if (category == CollidableCategory.HEROS)
 			{
 				CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
