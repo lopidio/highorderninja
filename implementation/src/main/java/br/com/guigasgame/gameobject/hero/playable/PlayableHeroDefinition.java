@@ -5,7 +5,6 @@ import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
-import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributesController;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -17,7 +16,7 @@ public class PlayableHeroDefinition
 	private Color color;
 	private Vec2 spawnPosition;
 	private HeroTeam heroTeam;
-	private RoundHeroAttributesController roundHeroAttributesController;
+	private RoundHeroAttributes roundHeroAttributes;
 
 	public PlayableHeroDefinition(GameHeroInputMap gameHeroInput, int id)
 	{
@@ -68,14 +67,15 @@ public class PlayableHeroDefinition
 		return spawnPosition;
 	}
 
-	public RoundHeroAttributesController getAttributesController()
+	public RoundHeroAttributes getRoundHeroAttributes()
 	{
-		return roundHeroAttributesController;
+		return roundHeroAttributes;
 	}
 
-	public void createAttributesController(RoundHeroAttributes roundHeroAttributes)
+	public void setHeroAttributes(RoundHeroAttributes roundHeroAttributes)
 	{
-		roundHeroAttributesController = new RoundHeroAttributesController(roundHeroAttributes);		
+		this.roundHeroAttributes = roundHeroAttributes;
 	}
+
 
 }

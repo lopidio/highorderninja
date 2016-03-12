@@ -14,6 +14,8 @@ import org.jsfml.window.event.Event;
 import br.com.guigasgame.background.Background;
 import br.com.guigasgame.background.BackgroundFile;
 import br.com.guigasgame.file.FilenameConstants;
+import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
+import br.com.guigasgame.gameobject.hero.attributes.HeroShootingAttribute;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
@@ -72,7 +74,12 @@ public class GameMachine
 		
 		Background background = new Background(BackgroundFile.loadFromFile(FilenameConstants.getBackgroundFilename()));
 		
-		RoundGameState roundGameState = new RoundGameState(teams, scenery, background, new RoundHeroAttributes(100, 5, 3, 1, 1));
+		
+		HeroAttribute life = new HeroAttribute(100, 5);
+		HeroShootingAttribute shuriken = new HeroShootingAttribute(10, 2);
+		HeroShootingAttribute smokeBomb = new HeroShootingAttribute(5, 5);
+		RoundHeroAttributes roundHeroAttributes = new RoundHeroAttributes(life, shuriken, smokeBomb);
+		RoundGameState roundGameState = new RoundGameState(teams, scenery, background, roundHeroAttributes );
 
 		gameMachine.popState();
 		gameMachine.addState(roundGameState);

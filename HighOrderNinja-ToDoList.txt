@@ -59,7 +59,7 @@ FragStatistics: totalShoots, deaths, kills, suicides
 ?? StateFile refactoring (enable and disable animations at runtime) AnimationFile refactoring
 ?? SmokeBomb refactoring (real particles system)
 
-Scenery handle deadly obstacles (to have THE background) (as many textures as wanted)
+Scenery handle deadly obstacles (to have THE background) (as many textures as wanted) (add scene boundaries)
 Background refactoring (to have Foreground objects)(regenerateInterval...) (as many textures as wanted)
 
 

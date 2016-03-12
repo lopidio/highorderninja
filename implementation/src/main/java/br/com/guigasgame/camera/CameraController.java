@@ -51,6 +51,8 @@ public class CameraController implements UpdatableFromTime, Drawable
 	{
 		if (bodiesToControl.size() <= 0)
 			return;
+		
+		centerFrame.update(deltaTime);
 		final float zoomOutFactor = 1.005f;
 		final float zoomInFactor = 0.985f;
 		if (isOnePlayerOutsideOutterWindow())

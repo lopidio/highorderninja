@@ -7,10 +7,12 @@ import org.jbox2d.dynamics.Body;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class CameraCenterFrame 
+public class CameraCenterFrame implements UpdatableFromTime
 {
 	private List<Body> bodiesToControl;
+	private Vector2f center;
 	private float biggestY;
 	private float biggestX;
 	private float smallestY;
@@ -19,12 +21,20 @@ public class CameraCenterFrame
 	public CameraCenterFrame() 
 	{
 		bodiesToControl = new ArrayList<>();
+		center = new Vector2f(0, 0);
 	}
 	
-	private void update()
+	public void update(float deltaTime)
 	{
 		if (bodiesToControl.size() <= 0)
 			return;
+
+		updateBoundaries();
+		calculateNewCenter();
+	}
+
+	private void updateBoundaries()
+	{
 		Vector2f first = WorldConstants.physicsToSfmlCoordinates(bodiesToControl.get(0).getWorldCenter());
 		smallestX = first.x;
 		smallestY = first.y;
@@ -46,6 +56,14 @@ public class CameraCenterFrame
 			else if (point.y < smallestY)
 				smallestY = point.y;
 		}
+	}
+
+	private void calculateNewCenter()
+	{
+		final Vector2f newCenter = new Vector2f(smallestX + biggestX/2, smallestY + biggestY/2);
+		final Vector2f difference = Vector2f.sub(newCenter, center);
+		final Vector2f interpolizer = Vector2f.mul(difference, 0.5f);
+		center = Vector2f.add(center, interpolizer);
 	}
 	
 	public void addBody(Body body)
@@ -70,9 +88,7 @@ public class CameraCenterFrame
 	
 	public Vector2f getCenter() 
 	{
-		update();
-		return new Vector2f(smallestX + biggestX/2, smallestY + biggestY/2);
+		return center;
 	}
-	
 	
 }

@@ -76,11 +76,11 @@ public class RoundGameState implements GameState
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
-				gameHeroProperties.createAttributesController(roundHeroAttributes);
+				gameHeroProperties.setHeroAttributes(roundHeroAttributes.clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
 				HeroAttributesBarBellowHud hud = new HeroAttributesBarBellowHud(gameHero);
 				hudList.add(hud);
-				gameHero.addAttributesControllerListener(hud);
+				gameHeroProperties.getRoundHeroAttributes().addListener(hud);
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addBodyToControl(gameHero.getCollidableHero().getBody());
 			}

@@ -14,8 +14,7 @@ import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
-import br.com.guigasgame.gameobject.hero.attributes.playable.HeroRoundAttributesListener;
-import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributesController;
+import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
@@ -40,7 +39,7 @@ public class PlayableGameHero extends GameObject
 
 	private String lastActionName;
 	private List<GameItem> gameItems;
-	private RoundHeroAttributesController attributesController;
+	private RoundHeroAttributes heroAttributes;
 
 	public PlayableGameHero(PlayableHeroDefinition properties)
 	{
@@ -52,7 +51,7 @@ public class PlayableGameHero extends GameObject
 		this.gameHeroInput = properties.getGameHeroInput();
 		gameHeroInput.setDeviceId(properties.getPlayerId());
 		gameItems = new ArrayList<>();
-		attributesController = properties.getAttributesController();
+		heroAttributes = properties.getRoundHeroAttributes();
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
@@ -86,7 +85,7 @@ public class PlayableGameHero extends GameObject
 		updateActionList();
 
 		collidableHero.checkSpeedLimits(state.getMaxSpeed());
-		attributesController.update(deltaTime);
+		heroAttributes.update(deltaTime);
 		adjustSpritePosition();
 	}
 
@@ -217,9 +216,9 @@ public class PlayableGameHero extends GameObject
 
 	public Projectile getShuriken(Vec2 pointingDirection)
 	{
-		if (attributesController.canShootShuriken())
+		if (heroAttributes.getShurikens().isAbleToShoot())
 		{
-			attributesController.shootShuriken();
+			heroAttributes.getShurikens().decrement(1);
 			return new Shuriken(pointingDirection, new IntegerMask(), this);
 		}
 		return null;
@@ -232,9 +231,9 @@ public class PlayableGameHero extends GameObject
 
 	public Projectile getSmokeBomb(Vec2 pointingDirection)
 	{
-		if (attributesController.canShootSmokeBomb())
+		if (heroAttributes.getSmokeBomb().isAbleToShoot())
 		{
-			attributesController.shootShuriken();
+			heroAttributes.getSmokeBomb().decrement(1);
 			return new SmokeBombProjectile(pointingDirection, collidableHero.getBody().getWorldCenter(), heroProperties.getColor());
 		}
 		return null;		
@@ -273,7 +272,7 @@ public class PlayableGameHero extends GameObject
 
 	public void regeneratesLife(int lifeToAdd)
 	{
-		attributesController.addLife(lifeToAdd);
+		heroAttributes.getLife().increment(lifeToAdd);
 		System.out.println("Life regenerated");
 	}
 
@@ -284,11 +283,7 @@ public class PlayableGameHero extends GameObject
 
 	public void refillShurikenPack()
 	{
-		attributesController.refillShuriken();
+		heroAttributes.getShurikens().refill();
 	}
 
-	public void addAttributesControllerListener(HeroRoundAttributesListener attributesListener)
-	{
-		attributesController.addListener(attributesListener);
-	}
 }

@@ -130,7 +130,7 @@ public class ProjectileAimer
 			if (finalRaycastAimer.isWorseThan(newOne))
 			{
 				finalRaycastAimer = newOne;
-				System.out.println("There is a best direction and it's better than the previous one. (distance: " + finalRaycastAimer.direction.length() + ". variation: " + variationAngle + ")");
+//				System.out.println("There is a best direction and it's better than the previous one. (distance: " + finalRaycastAimer.direction.length() + ". variation: " + variationAngle + ")");
 			}
 		}
 	}

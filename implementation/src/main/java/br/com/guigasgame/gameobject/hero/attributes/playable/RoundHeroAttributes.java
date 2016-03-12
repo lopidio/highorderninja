@@ -1,85 +1,56 @@
 package br.com.guigasgame.gameobject.hero.attributes.playable;
 
-public class RoundHeroAttributes 
+import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
+import br.com.guigasgame.gameobject.hero.attributes.HeroAttributeListener;
+import br.com.guigasgame.gameobject.hero.attributes.HeroShootingAttribute;
+import br.com.guigasgame.updatable.UpdatableFromTime;
+
+public class RoundHeroAttributes implements UpdatableFromTime
 {
-	protected int life;
-	protected int numShurikens;
-	protected int numSmokeBomb;
-	protected float shurikenTimeInterval;
-	protected float smokeBombTimeInterval;
-	
-	public RoundHeroAttributes(int life, int numShurikens, int numSmokeBomb, float shurikenTimeInterval, float smokeBombTimeInterval) 
+	protected HeroAttribute life;
+	protected HeroShootingAttribute shurikens;
+	protected HeroShootingAttribute smokeBomb;
+
+	public RoundHeroAttributes(HeroAttribute life, HeroShootingAttribute shurikens, HeroShootingAttribute smokeBomb)
 	{
 		this.life = life;
-		this.numShurikens = numShurikens;
-		this.numSmokeBomb = numSmokeBomb;
-		this.shurikenTimeInterval = shurikenTimeInterval;
-		this.smokeBombTimeInterval = smokeBombTimeInterval;
+		this.shurikens = shurikens;
+		this.smokeBomb = smokeBomb;
 	}
 
-	private RoundHeroAttributes(RoundHeroAttributes other) 
-	{
-		this.life = other.life;
-		this.numShurikens = other.numShurikens;
-		this.numSmokeBomb = other.numSmokeBomb;
-		this.shurikenTimeInterval = other.shurikenTimeInterval;
-		this.smokeBombTimeInterval = other.smokeBombTimeInterval;
-	}
-	
-	public int getLife()
+	public HeroAttribute getLife()
 	{
 		return life;
 	}
-	
-	public int getNumShurikens()
-	{
-		return numShurikens;
-	}
-	
-	public int getNumSmokeBomb()
-	{
-		return numSmokeBomb;
-	}
 
-	public float getShurikenTimeInterval() 
+	public HeroShootingAttribute getShurikens()
 	{
-		return shurikenTimeInterval;
-	}
-
-	public float getSmokeBombTimeInterval() 
-	{
-		return smokeBombTimeInterval;
-	}
-
-	public void setLife(int life) 
-	{
-		this.life = life;
-	}
-
-	public void setNumShurikens(int numShurikens) 
-	{
-		this.numShurikens = numShurikens;
-	}
-
-	public void setNumSmokeBomb(int numSmokeBomb) 
-	{
-		this.numSmokeBomb = numSmokeBomb;
-	}
-
-	public void setShurikenTimeInterval(float shurikenTimeInterval) 
-	{
-		this.shurikenTimeInterval = shurikenTimeInterval;
-	}
-
-	public void setSmokeBombTimeInterval(float smokeBombTimeInterval) 
-	{
-		this.smokeBombTimeInterval = smokeBombTimeInterval;
+		return shurikens;
 	}
 	
+	public HeroShootingAttribute getSmokeBomb()
+	{
+		return smokeBomb;
+	}
+
 	@Override
-	protected RoundHeroAttributes clone()
+	public void update(float deltaTime)
 	{
-		return new RoundHeroAttributes(this);
+		life.update(deltaTime);
+		shurikens.update(deltaTime);
+		smokeBomb.update(deltaTime);
+	}
+
+	public void addListener(HeroAttributeListener listener)
+	{
+		life.addListener(listener);
+		shurikens.addListener(listener);
+		smokeBomb.addListener(listener);
 	}
 	
+	public RoundHeroAttributes clone()
+	{
+		return new RoundHeroAttributes(life.clone(), (HeroShootingAttribute)shurikens.clone(), (HeroShootingAttribute)smokeBomb.clone());
+	}
+
 }
