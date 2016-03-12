@@ -77,6 +77,7 @@ public class RoundGameState implements GameState
 	{
 		for( HeroTeam team : teams )
 		{
+//			team.setFriendlyFire(true);
 			List<PlayableHeroDefinition> heros = team.getHerosList();
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{

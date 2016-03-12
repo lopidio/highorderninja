@@ -52,14 +52,14 @@ public class PlayableHeroDefinition
 		return color;
 	}
 
-	public IntegerMask getTeamMask()
+	public IntegerMask getHitTeamMask()
 	{
-		return heroTeam.getTeamMask();
+		return heroTeam.getHitTeamMask(playerId);
 	}
 
-	public IntegerMask getEnemiesMask()
+	public IntegerMask getHitEnemiesMask()
 	{
-		return heroTeam.getEnemiesMask(playerId);
+		return heroTeam.getHitEnemiesMask();
 	}
 
 	public Vec2 getInitialPosition()

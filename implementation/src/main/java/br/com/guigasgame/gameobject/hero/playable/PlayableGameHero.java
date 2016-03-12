@@ -295,4 +295,14 @@ public class PlayableGameHero extends GameObject
 		return WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
 	}
 
+	public boolean canShootShuriken()
+	{
+		return heroAttributes.getShurikens().isAbleToShoot();
+	}
+
+	public boolean canUseItem()
+	{
+		return heroAttributes.getSmokeBomb().isAbleToShoot();
+	}
+
 }

@@ -18,6 +18,7 @@ public class HeroTeam
 
 	private IntegerMask teamMask;
 	private IntegerMask enemiesMask;
+	private boolean friendlyFire;
 	// private int totalScore;
 
 	private List<PlayableHeroDefinition> herosList;
@@ -30,6 +31,11 @@ public class HeroTeam
 		// totalScore = 0;
 		herosList = new ArrayList<PlayableHeroDefinition>();
 		color = getTeamColor();
+	}
+
+	public void setFriendlyFire(boolean friendlyFire)
+	{
+		this.friendlyFire = friendlyFire;
 	}
 
 	public void addGameHero(PlayableHeroDefinition gameHeroProperties)
@@ -100,12 +106,15 @@ public class HeroTeam
 		}
 	}
 
-	public IntegerMask getTeamMask()
+	public IntegerMask getHitTeamMask(int playerId)
 	{
-		return teamMask;
+		if (!friendlyFire)
+			return teamMask;
+		else
+			return CollidableCategory.getPlayerCategory(playerId);
 	}
 
-	public IntegerMask getEnemiesMask(int playerID)
+	public IntegerMask getHitEnemiesMask()
 	{
 		return enemiesMask;
 	}

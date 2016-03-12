@@ -19,13 +19,12 @@ public class ShootAction extends GameHeroAction
 	@Override
 	public boolean childCanExecute(PlayableGameHero hero)
 	{
-		return (heroStateProperties.shoot != null);
+		return (heroStateProperties.shoot != null && hero.canShootShuriken());
 	}
 
 	@Override
 	public void childExecute(PlayableGameHero gameHero)
 	{
-		;
 		gameHero.shoot(gameHero.getShuriken(pointingDirection));
 	}
 

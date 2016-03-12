@@ -85,7 +85,5 @@ public class HeroShootingAttribute extends HeroAttribute
 	{
 		return currentIntervalBetweenShots >= maxIntervalBetweenShots && isGreaterThanZero();
 	}
-	
-	
 
 }
