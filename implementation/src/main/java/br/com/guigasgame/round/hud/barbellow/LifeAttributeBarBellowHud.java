@@ -7,9 +7,9 @@ import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
 
 public class LifeAttributeBarBellowHud extends HeroAttributeBarBellowHud
 {
-	public LifeAttributeBarBellowHud(ColorBlender color, Vector2f offset)
+	public LifeAttributeBarBellowHud(ColorBlender color, Vector2f offset, Vector2f size)
 	{
-		super(color, offset);
+		super(color, offset, size);
 	}
 
 	@Override

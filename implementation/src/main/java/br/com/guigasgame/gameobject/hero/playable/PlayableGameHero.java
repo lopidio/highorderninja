@@ -108,7 +108,7 @@ public class PlayableGameHero extends GameObject
 		for( Animation animation : animationList )
 		{
 			animation.setPosition(vector2f);
-			animation.setOrientation(angleInDegrees);
+			animation.setRotation(angleInDegrees);
 		}
 
 	}
@@ -198,11 +198,8 @@ public class PlayableGameHero extends GameObject
 	{
 		if (projectile != null)
 		{
-			fragCounter.incrementShoots();
 			addChild(projectile);
 		}
-		else
-			System.out.println("No ammo");
 	}
 
 	public void addAction(GameHeroAction gameHeroAction)
@@ -219,6 +216,7 @@ public class PlayableGameHero extends GameObject
 	{
 		if (heroAttributes.getShurikens().isAbleToShoot())
 		{
+			fragCounter.incrementShoots();
 			heroAttributes.getShurikens().decrement(1);
 			return new Shuriken(pointingDirection, new IntegerMask(), this);
 		}

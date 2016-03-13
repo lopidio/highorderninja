@@ -32,6 +32,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private Shape outterFrame;
 	private Shape innerFrame;
 	private CameraCenterFrame centerFrame;
+	
 	public CameraController(Scenery scenery)
 	{
 		sceneryBoundaries = scenery.getBoundaries();

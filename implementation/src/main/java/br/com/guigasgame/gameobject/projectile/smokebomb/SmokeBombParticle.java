@@ -51,6 +51,7 @@ public class SmokeBombParticle extends Projectile
 		{
 			Animation animation = (Animation) drawable;
 			alpha = alpha*(1 - randomizeValueBetween(deltaTime/100, deltaTime/2));
+			animation.setRotation(randomizeValueBetween(0, 180));
 			animation.setAlpha((int) alpha);
 			if (scale <= 40)
 			{

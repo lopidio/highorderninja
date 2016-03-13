@@ -48,9 +48,10 @@ v GameItemController (manages item creations)
 v Airspin bug wrong side
 v Create Camera (handle resize)
 v No ammo bug (trying to shoot in time interval)
-
 v Create HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, timetoCharge) (Interface. Abstract factory?)
 
+
+Identify body part hit by shuriken
 
 ShurikenBomb
 RayCastAnythingBut....
@@ -72,4 +73,4 @@ Think about what to do: action+wallgrab; action+ducking
 ProjectileAimer works with priority queue (shurikens aim at player>items?)
 Add life regeneration value (xml) to lifeItem
 
-SmokeBomb as shader
+SmokeBomb as shader (that's harder than what I thought)

@@ -18,7 +18,7 @@ public class UseItemAction extends GameHeroAction
 	@Override
 	public boolean childCanExecute(PlayableGameHero hero)
 	{
-		return (heroStateProperties.shoot != null && hero.canUseItem());
+		return (heroStateProperties.shoot != null);
 	}
 
 	@Override

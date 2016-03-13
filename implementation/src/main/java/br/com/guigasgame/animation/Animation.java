@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.io.IOException;
 
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.ConstTexture;
 import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
@@ -128,7 +129,7 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	}
 	
 	
-	public void setOrientation(float angleInDegrees)
+	public void setRotation(float angleInDegrees)
 	{
 		sprite.setRotation(angleInDegrees);
 	}
@@ -196,6 +197,17 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	public Vector2f getPosition()
 	{
 		return sprite.getPosition();
+	}
+
+	public Sprite getSprite()
+	{
+		return sprite;
+	}
+
+	public ConstTexture getTexture()
+	{
+		// TODO Auto-generated method stub
+		return sprite.getTexture();
 	}
 
 }

@@ -8,9 +8,9 @@ import br.com.guigasgame.gameobject.hero.attributes.HeroShootingAttribute;
 
 public class ShootingAttributeBarBellowHud extends HeroAttributeBarBellowHud
 {
-	public ShootingAttributeBarBellowHud(ColorBlender color, Vector2f offset)
+	public ShootingAttributeBarBellowHud(ColorBlender color, Vector2f offset, Vector2f size)
 	{
-		super(color, offset);
+		super(color, offset, size);
 	}
 	
 	@Override

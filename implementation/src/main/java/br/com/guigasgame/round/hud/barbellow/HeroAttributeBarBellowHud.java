@@ -14,8 +14,7 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public abstract class HeroAttributeBarBellowHud implements HeroAttributeListener, Drawable, UpdatableFromTime
 {
-	public static final Vector2f SIZE = new Vector2f(40, 5);
-	
+	protected Vector2f size;
 	protected ColorInterpolator innerColor;
 	protected ColorInterpolator outterColor;
 	private RectangleShape innerShape;
@@ -23,21 +22,22 @@ public abstract class HeroAttributeBarBellowHud implements HeroAttributeListener
 	private final Vector2f offset;
 	
 
-	public HeroAttributeBarBellowHud(ColorBlender color, Vector2f offset)
+	public HeroAttributeBarBellowHud(ColorBlender color, Vector2f offset, Vector2f size)
 	{
 		this.offset = offset;
+		this.size = size;
 		
 		innerColor = new ColorLinearInterpolator(color);
 		outterColor = new ColorLinearInterpolator(color.darken(1.5f));
 		
-		innerShape = new RectangleShape(SIZE);
+		innerShape = new RectangleShape(size);
 		innerShape.setOrigin(0, innerShape.getSize().y / 2);
 		innerShape.setFillColor(innerColor.getCurrentColor().getSfmlColor());
 
-		outterShape = new RectangleShape(new Vector2f(SIZE.x + 2, SIZE.y + 2));
+		outterShape = new RectangleShape(new Vector2f(size.x + 2, size.y + 2));
 		outterShape.setOrigin(Vector2f.mul(outterShape.getSize(), 0.5f));
 		outterShape.setFillColor(outterColor.getCurrentColor().getSfmlColor());
-		outterShape.setOutlineColor(outterColor.getCurrentColor().darken(2).getSfmlColor());
+		outterShape.setOutlineColor(outterColor.getCurrentColor().darken(3).getSfmlColor());
 		outterShape.setOutlineThickness(1f);
 	}
 	
@@ -45,7 +45,7 @@ public abstract class HeroAttributeBarBellowHud implements HeroAttributeListener
 	{
 		final Vector2f offsetCenter = Vector2f.add(center, offset);
 		outterShape.setPosition(offsetCenter);
-		innerShape.setPosition(offsetCenter.x - SIZE.x/2, offsetCenter.y);
+		innerShape.setPosition(offsetCenter.x - size.x/2, offsetCenter.y);
 	}
 	
 	@Override
@@ -67,7 +67,7 @@ public abstract class HeroAttributeBarBellowHud implements HeroAttributeListener
 	protected void adjustBarsLength(HeroAttribute heroAttribute)
 	{
 		final float ratio = heroAttribute.getCurrentValue()/heroAttribute.getMaxValue();
-		final Vector2f newSize = new Vector2f(SIZE.x*ratio, SIZE.y);
+		final Vector2f newSize = new Vector2f(size.x*ratio, size.y);
 		innerShape.setSize(newSize);
 	}
 

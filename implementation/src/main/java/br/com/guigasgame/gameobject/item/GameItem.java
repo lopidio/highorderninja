@@ -91,7 +91,7 @@ public abstract class GameItem extends GameObject
 				Animation animation = (Animation) drawable;
 				animation.setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
 				animation.update(deltaTime);
-				animation.setOrientation(angleInDegrees);
+				animation.setRotation(angleInDegrees);
 			}
 			if (lifeTime / properties.lifeTime < 0.4) // Less than 20% of
 														// lifeTime left
