@@ -1,11 +1,11 @@
-package br.com.guigasgame.round.hud.barbellow;
+package br.com.guigasgame.round.hud.moving.barbellow;
 
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
 
-public class LifeAttributeBarBellowHud extends HeroAttributeBarBellowHud
+class LifeAttributeBarBellowHud extends HeroAttributeBarBellowHud
 {
 	public LifeAttributeBarBellowHud(ColorBlender color, Vector2f offset, Vector2f size)
 	{

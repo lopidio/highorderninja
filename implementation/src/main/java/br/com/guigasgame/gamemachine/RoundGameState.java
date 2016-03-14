@@ -32,8 +32,10 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
-import br.com.guigasgame.round.hud.HeroAttributesHudController;
-import br.com.guigasgame.round.hud.barbellow.HeroAttributesBarsBellowHudController;
+import br.com.guigasgame.round.hud.controller.HeroAttributesHudController;
+import br.com.guigasgame.round.hud.controller.HeroAttributesMovingHudController;
+import br.com.guigasgame.round.hud.moving.barbellow.HeroAttributesBarsBellowHudController;
+import br.com.guigasgame.round.hud.moving.barbellow.HeroAttributesCircleAndBarsBellowHudController;
 import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -75,6 +77,7 @@ public class RoundGameState implements GameState
 
 	private void initializeHeros(List<HeroTeam> teams, Scenery scenery, RoundHeroAttributes roundHeroAttributes)
 	{
+		int i = 1;
 		for( HeroTeam team : teams )
 		{
 //			team.setFriendlyFire(true);
@@ -84,12 +87,17 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.setHeroAttributes(roundHeroAttributes.clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
-				HeroAttributesBarsBellowHudController hud = new HeroAttributesBarsBellowHudController(gameHero);
+				HeroAttributesMovingHudController hud = null;
+				if (i >= teams.size()/2)
+					hud = new HeroAttributesBarsBellowHudController(gameHero);
+				else //if (i > teams.size())
+					hud = new HeroAttributesCircleAndBarsBellowHudController(gameHero);
 				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
 				hudList.add(hud);
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addBodyToControl(gameHero.getCollidableHero().getBody());
 			}
+			++i;
 		}
 	}
 

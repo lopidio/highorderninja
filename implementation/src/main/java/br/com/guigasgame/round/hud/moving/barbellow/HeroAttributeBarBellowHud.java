@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud.barbellow;
+package br.com.guigasgame.round.hud.moving.barbellow;
 
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderWindow;
@@ -7,12 +7,10 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.color.ColorInterpolator;
 import br.com.guigasgame.color.ColorLinearInterpolator;
-import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
-import br.com.guigasgame.gameobject.hero.attributes.HeroAttributeListener;
-import br.com.guigasgame.updatable.UpdatableFromTime;
+import br.com.guigasgame.round.hud.moving.HeroAttributeMovingHud;
 
-public abstract class HeroAttributeBarBellowHud implements HeroAttributeListener, Drawable, UpdatableFromTime
+abstract class HeroAttributeBarBellowHud extends HeroAttributeMovingHud
 {
 	protected Vector2f size;
 	protected ColorInterpolator innerColor;
@@ -41,7 +39,7 @@ public abstract class HeroAttributeBarBellowHud implements HeroAttributeListener
 		outterShape.setOutlineThickness(1f);
 	}
 	
-	public void setCenter(Vector2f center)
+	public void updatePosition(Vector2f center)
 	{
 		final Vector2f offsetCenter = Vector2f.add(center, offset);
 		outterShape.setPosition(offsetCenter);

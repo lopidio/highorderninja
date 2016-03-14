@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud;
+package br.com.guigasgame.round.hud.controller;
 
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
