@@ -20,7 +20,6 @@ import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.Event.Type;
 
-import br.com.guigasgame.background.Background;
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.CameraController;
@@ -47,24 +46,21 @@ public class RoundGameState implements GameState
 	private float timeFactor;
 
 	private List<GameObject> gameObjectsList;
-	private Background background;
 	private GameItemCreationController gameItemController;
 	private Scenery scenery;
 	private CameraController cameraController;
 	private List<HeroAttributesHudController> hudList;
 
-	public RoundGameState(List<HeroTeam> teams, Scenery scenery, Background background, RoundHeroAttributes roundHeroAttributes) throws JAXBException
+	public RoundGameState(List<HeroTeam> teams, Scenery scenery, RoundHeroAttributes roundHeroAttributes) throws JAXBException
 	{
 		CollidableCategory.display();
 		gameObjectsList = new ArrayList<>();
-
+		this.scenery = scenery;
 		timeFactor = 1;
 
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
-		this.background = background;
-		this.scenery = scenery;
 		gameItemController = new GameItemCreationController(scenery);
 		
 		scenery.attachToWorld(world);
@@ -227,7 +223,6 @@ public class RoundGameState implements GameState
 		world.step(updateTime, 8, 3);
 		world.clearForces();
 		
-		background.update(updateTime);
 		scenery.update(deltaTime);
 		for( GameObject gameObject : gameObjectsList )
 		{
@@ -248,7 +243,7 @@ public class RoundGameState implements GameState
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-		background.drawBackgroundItems(renderWindow);
+		scenery.drawBackgroundItems(renderWindow);
 		world.drawDebugData();
 		
 //		cameraController.draw(renderWindow);
@@ -259,7 +254,7 @@ public class RoundGameState implements GameState
 		}
 		
 		scenery.draw(renderWindow);
-		background.drawForegroundItems(renderWindow);
+		scenery.drawForegroundItems(renderWindow);
 		
 		for( HeroAttributesHudController hud : hudList )
 		{

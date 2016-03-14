@@ -12,9 +12,11 @@ import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.ConvexShape;
+import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
+import br.com.guigasgame.background.Background;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.math.FloatRect;
@@ -32,6 +34,7 @@ public class Scenery extends GameObject
 	private List<Point> itemSpots;
 	final private List<Point> spawnPoints;
 	private List<Point> remainingSpawnPoints;
+	private Background background;
 	
 	public Scenery(SceneryFile sceneryFile)
 	{
@@ -222,5 +225,26 @@ public class Scenery extends GameObject
 	public Collection<? extends Point> getItemsSpots()
 	{
 		return itemSpots;
+	}
+
+	public void setBackground(Background background)
+	{
+		this.background = background;
+	}
+	
+	@Override
+	public void update(float deltaTime)
+	{
+		background.update(deltaTime);
+	}
+
+	public void drawBackgroundItems(RenderWindow renderWindow)
+	{
+		background.drawBackgroundItems(renderWindow);
+	}
+
+	public void drawForegroundItems(RenderWindow renderWindow)
+	{
+		background.drawForegroundItems(renderWindow);
 	}
 }

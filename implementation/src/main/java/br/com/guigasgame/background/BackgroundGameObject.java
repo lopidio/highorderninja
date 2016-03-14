@@ -19,7 +19,7 @@ public class BackgroundGameObject implements UpdatableFromTime, Drawable
 	private final boolean regenerate;
 	private boolean markToregenerate;
 
-	public BackgroundGameObject(BackgroundFileItem backgroundItem, Texture texture)
+	public BackgroundGameObject(BackgroundItemProperties backgroundItem, Texture texture)
 	{
 		AnimationProperties properties = backgroundItem.getAnimationProperties();
 		properties.setTexture(texture);

@@ -73,13 +73,13 @@ public class GameMachine
 		Scenery scenery = new Scenery(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 		
 		Background background = new Background(BackgroundFile.loadFromFile(FilenameConstants.getBackgroundFilename()));
-		
+		scenery.setBackground(background);
 		
 		HeroAttribute life = new HeroAttribute(100, 5);
 		HeroShootingAttribute shuriken = new HeroShootingAttribute(10, 2);
 		HeroShootingAttribute smokeBomb = new HeroShootingAttribute(5, 5);
 		RoundHeroAttributes roundHeroAttributes = new RoundHeroAttributes(life, shuriken, smokeBomb);
-		RoundGameState roundGameState = new RoundGameState(teams, scenery, background, roundHeroAttributes );
+		RoundGameState roundGameState = new RoundGameState(teams, scenery, roundHeroAttributes );
 
 		gameMachine.popState();
 		gameMachine.addState(roundGameState);

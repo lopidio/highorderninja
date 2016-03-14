@@ -53,8 +53,8 @@ public class Background implements UpdatableFromTime
 
 	private void initializeBackgroundItems(BackgroundFile backgroundFile)
 	{
-		List<BackgroundFileItem> backgroundItems = backgroundFile.getBackgroundItems();
-		for( BackgroundFileItem backgroundItem : backgroundItems )
+		List<BackgroundItemProperties> backgroundItems = backgroundFile.getBackgroundItems();
+		for( BackgroundItemProperties backgroundItem : backgroundItems )
 		{
 			BackgroundGameObject backgroundGameObject = new BackgroundGameObject(backgroundItem, itemsTexture);
 			if (backgroundGameObject.getDistanceFromCamera() > 0)

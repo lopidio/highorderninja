@@ -9,7 +9,7 @@ import br.com.guigasgame.animation.AnimationProperties;
 import br.com.guigasgame.shape.Point;
 
 @XmlAccessorType(XmlAccessType.NONE)
-public class BackgroundFileItem
+public class BackgroundItemProperties
 {
 	@XmlElement
 	private AnimationProperties animationProperties;
@@ -26,7 +26,7 @@ public class BackgroundFileItem
 	@XmlAttribute
 	private boolean regenerate;
 
-	public BackgroundFileItem(AnimationProperties animationProperties, Point speed, Point origin, float distanceFromCamera, boolean regenerate)
+	public BackgroundItemProperties(AnimationProperties animationProperties, Point speed, Point origin, float distanceFromCamera, boolean regenerate)
 	{
 		this.animationProperties = animationProperties;
 		this.speed = speed;
@@ -35,7 +35,7 @@ public class BackgroundFileItem
 		this.regenerate = regenerate;
 	}
 
-	public BackgroundFileItem()
+	public BackgroundItemProperties()
 	{
 	}
 

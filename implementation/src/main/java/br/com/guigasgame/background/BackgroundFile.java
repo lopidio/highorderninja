@@ -23,7 +23,7 @@ import br.com.guigasgame.shape.Point;
 public class BackgroundFile
 {
 	@XmlElement
-	List<BackgroundFileItem> backgroundItems;
+	List<BackgroundItemProperties> backgroundItems;
 	
 	@XmlElement
 	private String textureFilename;
@@ -31,7 +31,7 @@ public class BackgroundFile
 	@XmlElement
 	private String backgroundFilename;
 
-	public BackgroundFile(List<BackgroundFileItem> backgroundItems, String textureFilename, String backgroundFilename)
+	public BackgroundFile(List<BackgroundItemProperties> backgroundItems, String textureFilename, String backgroundFilename)
 	{
 		this.backgroundItems = backgroundItems;
 		this.textureFilename = textureFilename;
@@ -44,12 +44,12 @@ public class BackgroundFile
 		textureFilename = new String();
 	}
 	
-	public void addBackgrounItem(BackgroundFileItem backgroundItem)
+	public void addBackgrounItem(BackgroundItemProperties backgroundItem)
 	{
 		backgroundItems.add(backgroundItem);
 	}
 
-	public List<BackgroundFileItem> getBackgroundItems()
+	public List<BackgroundItemProperties> getBackgroundItems()
 	{
 		return backgroundItems;
 	}
@@ -77,14 +77,14 @@ public class BackgroundFile
 	public static void main(String[] args) throws JAXBException
 	{
 
-		List<BackgroundFileItem> backgroundItems = new ArrayList<>();
+		List<BackgroundItemProperties> backgroundItems = new ArrayList<>();
 		AnimationProperties moonProperties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 0, 160, 160), true);
 		AnimationProperties cloud1Properties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(160, 0, 600, 200), true);
 		AnimationProperties cloud2Properties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 230, 400, 400), true);
 
-		backgroundItems.add(new BackgroundFileItem(moonProperties, new Point(10, 0), new Point(800, 100), 100, false));
-		backgroundItems.add(new BackgroundFileItem(cloud1Properties, new Point(-150, 0), new Point(1200, 200), 90, true));
-		backgroundItems.add(new BackgroundFileItem(cloud2Properties, new Point(200, 0), new Point(100, 150), 80, true));
+		backgroundItems.add(new BackgroundItemProperties(moonProperties, new Point(10, 0), new Point(800, 100), 100, false));
+		backgroundItems.add(new BackgroundItemProperties(cloud1Properties, new Point(-150, 0), new Point(1200, 200), 90, true));
+		backgroundItems.add(new BackgroundItemProperties(cloud2Properties, new Point(200, 0), new Point(100, 150), 80, true));
 		
 		
 		BackgroundFile backgroundFile = new BackgroundFile(backgroundItems, "backGroundItems.png", "backGroundTexture.png");
