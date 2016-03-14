@@ -95,6 +95,11 @@ public class HeroAttribute implements UpdatableFromTime
 		}
 	}
 	
+	public float getRegeneratesPerSecond()
+	{
+		return regeneratesPerSecond;
+	}
+
 	public float getMaxValue()
 	{
 		return maxValue;
@@ -115,8 +120,8 @@ public class HeroAttribute implements UpdatableFromTime
 		listeners.remove(listener);
 	}
 
-	public boolean isGreaterThanZero()
+	public boolean isGreaterThanOne()
 	{
-		return currentValue > 0;
+		return currentValue >= 1;
 	}
 }

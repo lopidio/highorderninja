@@ -7,16 +7,16 @@ public class HeroShootingAttribute extends HeroAttribute
 	private float maxIntervalBetweenShots;
 	private float currentIntervalBetweenShots;
 
-	public HeroShootingAttribute(float maxValue, float intervalBetweenShoot)
+	public HeroShootingAttribute(float maxValue, float intervalBetweenShoot, float regeneratesPerSecond)
 	{
-		super(maxValue, 0);
+		super(maxValue, regeneratesPerSecond);
 		maxIntervalBetweenShots = intervalBetweenShoot;
 	}
 	
 	@Override
 	public HeroAttribute clone()
 	{
-		return new HeroShootingAttribute(getMaxValue(), maxIntervalBetweenShots);
+		return new HeroShootingAttribute(getMaxValue(), maxIntervalBetweenShots, getRegeneratesPerSecond());
 	}
 	
 	@Override
@@ -83,7 +83,7 @@ public class HeroShootingAttribute extends HeroAttribute
 
 	public boolean isAbleToShoot()
 	{
-		return currentIntervalBetweenShots >= maxIntervalBetweenShots && isGreaterThanZero();
+		return currentIntervalBetweenShots >= maxIntervalBetweenShots && isGreaterThanOne();
 	}
 
 }

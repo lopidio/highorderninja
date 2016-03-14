@@ -76,12 +76,6 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 	}
 
 	@Override
-	public void update(float deltaTime)
-	{
-		
-	}
-
-	@Override
 	public void draw(RenderWindow renderWindow)
 	{
 		for( Drawable drawable : drawableList )

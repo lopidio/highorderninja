@@ -42,7 +42,7 @@ public class GameMachine
 		HeroTeam teamAlpha = new HeroTeam(0);
 		HeroTeam teamBravo = new HeroTeam(1);
 		HeroTeam teamCharlie = new HeroTeam(2);
-		HeroTeam teamDelta = new HeroTeam(23);
+		HeroTeam teamDelta = new HeroTeam(3);
 		
 		PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
 		teamAlpha.addGameHero(playerOne);
@@ -56,8 +56,8 @@ public class GameMachine
 		PlayableHeroDefinition playerFour = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
 		teamCharlie.addGameHero(playerFour);
 
-//		PlayableHeroDefinition playerFive = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 4);
-//		teamDelta.addGameHero(playerFive);
+		PlayableHeroDefinition playerFive = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 4);
+		teamDelta.addGameHero(playerFive);
 
 		
 		teams.add(teamAlpha);
@@ -76,8 +76,8 @@ public class GameMachine
 		scenery.setBackground(background);
 		
 		HeroAttribute life = new HeroAttribute(100, 5);
-		HeroShootingAttribute shuriken = new HeroShootingAttribute(10, 2);
-		HeroShootingAttribute smokeBomb = new HeroShootingAttribute(5, 5);
+		HeroShootingAttribute shuriken = new HeroShootingAttribute(10, 2, 0);
+		HeroShootingAttribute smokeBomb = new HeroShootingAttribute(1, 3, 0.2f);
 		RoundHeroAttributes roundHeroAttributes = new RoundHeroAttributes(life, shuriken, smokeBomb);
 		RoundGameState roundGameState = new RoundGameState(teams, scenery, roundHeroAttributes );
 

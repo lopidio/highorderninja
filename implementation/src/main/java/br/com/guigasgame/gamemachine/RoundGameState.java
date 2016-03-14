@@ -73,7 +73,7 @@ public class RoundGameState implements GameState
 
 	private void initializeHeros(List<HeroTeam> teams, Scenery scenery, RoundHeroAttributes roundHeroAttributes)
 	{
-		int i = 1;
+		int i = 0;
 		for( HeroTeam team : teams )
 		{
 //			team.setFriendlyFire(true);
@@ -244,7 +244,7 @@ public class RoundGameState implements GameState
 	public void draw(RenderWindow renderWindow)
 	{
 		scenery.drawBackgroundItems(renderWindow);
-		world.drawDebugData();
+//		world.drawDebugData();
 		
 //		cameraController.draw(renderWindow);
 
