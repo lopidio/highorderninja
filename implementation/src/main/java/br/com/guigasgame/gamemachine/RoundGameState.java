@@ -244,7 +244,7 @@ public class RoundGameState implements GameState
 	public void draw(RenderWindow renderWindow)
 	{
 		scenery.drawBackgroundItems(renderWindow);
-//		world.drawDebugData();
+		world.drawDebugData();
 		
 //		cameraController.draw(renderWindow);
 

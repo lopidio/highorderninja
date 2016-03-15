@@ -36,11 +36,12 @@ public class ColorLinearInterpolator extends ColorInterpolator
 
 	private void updateColor()
 	{
-		if (interpolators.size() == 3)
+		if (interpolators.size() == 4)
 		{
 			currentColor.setR(interpolators.get(0).getCurrent());
 			currentColor.setG(interpolators.get(1).getCurrent());
 			currentColor.setB(interpolators.get(2).getCurrent());
+			currentColor.setA(interpolators.get(3).getCurrent());
 		}
 	}
 	
@@ -76,6 +77,7 @@ public class ColorLinearInterpolator extends ColorInterpolator
 		interpolators.add(new LinearInterpolator(sourceColor.getR(), color.getR(), duration));
 		interpolators.add(new LinearInterpolator(sourceColor.getG(), color.getG(), duration));
 		interpolators.add(new LinearInterpolator(sourceColor.getB(), color.getB(), duration));
+		interpolators.add(new LinearInterpolator(sourceColor.getA(), color.getA(), duration));
 	}
 
 	@Override
@@ -90,13 +92,15 @@ public class ColorLinearInterpolator extends ColorInterpolator
 		interpolators.add(new LinearInterpolator(color.getR(), sourceColor.getR(), duration));
 		interpolators.add(new LinearInterpolator(color.getG(), sourceColor.getG(), duration));
 		interpolators.add(new LinearInterpolator(color.getB(), sourceColor.getB(), duration));
+		interpolators.add(new LinearInterpolator(color.getA(), sourceColor.getA(), duration));
 	}
 
 	private void forceFinalize()
 	{
 		currentColor = new ColorBlender(interpolators.get(0).getDestiny(),
 										interpolators.get(1).getDestiny(),
-										interpolators.get(2).getDestiny());
+										interpolators.get(2).getDestiny(),
+										interpolators.get(3).getDestiny());
 		interpolators.clear();
 	}
 
