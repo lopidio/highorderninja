@@ -1,4 +1,4 @@
-package br.com.guigasgame.background;
+package br.com.guigasgame.scenery.background;
 
 import java.util.ArrayList;
 import java.util.Comparator;

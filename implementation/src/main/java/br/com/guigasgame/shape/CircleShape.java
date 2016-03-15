@@ -20,9 +20,9 @@ public class CircleShape extends Shape
 		radius = 0;
 	}
 
-	public CircleShape(Point center, float radius)
+	public CircleShape(Point center, float radius, String textureFilename)
 	{
-		super();
+		super(textureFilename);
 		this.center = center;
 		this.radius = radius;
 	}

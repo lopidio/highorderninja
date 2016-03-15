@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+import javax.xml.bind.JAXBException;
+
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
-import br.com.guigasgame.background.Background;
-import br.com.guigasgame.background.BackgroundFile;
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
 import br.com.guigasgame.gameobject.hero.attributes.HeroShootingAttribute;
@@ -20,8 +20,8 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
-import br.com.guigasgame.scenery.Scenery;
-import br.com.guigasgame.scenery.SceneryFile;
+import br.com.guigasgame.scenery.creation.SceneryCreator;
+import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
 
 
@@ -37,8 +37,34 @@ public class GameMachine
 	{
 		GameMachine gameMachine = new GameMachine();
 
+		RoundGameState roundGameState = setupRoundState();
+
+		gameMachine.popState();
+		gameMachine.addState(roundGameState);
+		gameMachine.execute();
+	}
+
+	private static RoundGameState setupRoundState() throws Exception, JAXBException {
 		List<HeroTeam> teams = new ArrayList<>();
 		
+		setupTeams(teams);
+
+		SceneryCreator scenery = new SceneryCreator(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
+		
+		RoundHeroAttributes roundHeroAttributes = setupAttributes();
+		RoundGameState roundGameState = new RoundGameState(teams, scenery, roundHeroAttributes );
+		return roundGameState;
+	}
+
+	private static RoundHeroAttributes setupAttributes() {
+		HeroAttribute life = new HeroAttribute(100, 5);
+		HeroShootingAttribute shuriken = new HeroShootingAttribute(10, 2, 0);
+		HeroShootingAttribute smokeBomb = new HeroShootingAttribute(1, 3, 0.2f);
+		RoundHeroAttributes roundHeroAttributes = new RoundHeroAttributes(life, shuriken, smokeBomb);
+		return roundHeroAttributes;
+	}
+
+	private static void setupTeams(List<HeroTeam> teams) {
 		HeroTeam teamAlpha = new HeroTeam(0);
 		HeroTeam teamBravo = new HeroTeam(1);
 		HeroTeam teamCharlie = new HeroTeam(2);
@@ -69,21 +95,6 @@ public class GameMachine
 		{
 			heroTeam.setUp();
 		}
-
-		Scenery scenery = new Scenery(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
-		
-		Background background = new Background(BackgroundFile.loadFromFile(FilenameConstants.getBackgroundFilename()));
-		scenery.setBackground(background);
-		
-		HeroAttribute life = new HeroAttribute(100, 5);
-		HeroShootingAttribute shuriken = new HeroShootingAttribute(10, 2, 0);
-		HeroShootingAttribute smokeBomb = new HeroShootingAttribute(1, 3, 0.2f);
-		RoundHeroAttributes roundHeroAttributes = new RoundHeroAttributes(life, shuriken, smokeBomb);
-		RoundGameState roundGameState = new RoundGameState(teams, scenery, roundHeroAttributes );
-
-		gameMachine.popState();
-		gameMachine.addState(roundGameState);
-		gameMachine.execute();
 	}
 
 	private void popState()
@@ -166,18 +177,6 @@ public class GameMachine
 					isRunning = false;
 					break;
 				}
-
-//				if (event.asKeyEvent().key == Key.M)
-//				{
-//					view.zoom(1.1f);
-//					renderWindow.setView(view);
-//				}				
-//				if (event.asKeyEvent().key == Key.N)
-//				{
-//					view.zoom(0.9f);
-//					renderWindow.setView(view);
-//				}				
-				
 			}
 			if (event.type == Event.Type.CLOSED)
 			{

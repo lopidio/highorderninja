@@ -33,7 +33,7 @@ public abstract class ResourceManager<Key, Value>
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return resource;
 	}
 
 	protected final void addResource(Key key, Value resource)

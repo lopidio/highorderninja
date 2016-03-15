@@ -45,6 +45,7 @@ public abstract class GameItem extends GameObject
 
 		Animation animation = Animation.createAnimation(AnimationsCentralPool.getGameItemsAnimationRepository().getAnimationsProperties(index));
 		drawableList.add(animation);
+		//TODO SCALE!
 		float animationWidth = animation.getWidth();
 
 	}

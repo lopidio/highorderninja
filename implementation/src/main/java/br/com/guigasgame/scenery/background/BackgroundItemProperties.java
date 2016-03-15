@@ -1,4 +1,4 @@
-package br.com.guigasgame.background;
+package br.com.guigasgame.scenery.background;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

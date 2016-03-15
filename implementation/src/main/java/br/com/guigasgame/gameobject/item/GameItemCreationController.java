@@ -14,21 +14,20 @@ import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.item.life.LifeItem;
 import br.com.guigasgame.gameobject.item.shurikenpack.ShurikenPackItem;
-import br.com.guigasgame.scenery.Scenery;
-import br.com.guigasgame.shape.Point;
+import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
 public class GameItemCreationController implements UpdatableFromTime
 {
-	private List<Point> itemsSpots;
+	private List<Vector2f> itemsSpots;
 	private Collection<GameObject> itemsToAdd;
 	private Map<GameItemIndex, GameItemCreatorTimeCounter> itemsMap;
 
-	public GameItemCreationController(Scenery scenery)
+	public GameItemCreationController(SceneController scenery)
 	{
 		itemsSpots = new ArrayList<>();
-		itemsSpots.addAll(scenery.getItemsSpots());
+		itemsSpots.addAll(scenery.getItemSpots());
 		itemsToAdd = new ArrayList<>();
 
 		itemsMap = new HashMap<>();
@@ -73,7 +72,7 @@ public class GameItemCreationController implements UpdatableFromTime
 	private Vec2 getRandomItemSpot()
 	{
 		int randIndex = (int) (Math.random()*itemsSpots.size());
-		return WorldConstants.sfmlToPhysicsCoordinates(new Vector2f(itemsSpots.get(randIndex).getX(), itemsSpots.get(randIndex).getY()));
+		return WorldConstants.sfmlToPhysicsCoordinates(new Vector2f(itemsSpots.get(randIndex).x , itemsSpots.get(randIndex).y));
 	}
 
 	public boolean hasItemToAdd()

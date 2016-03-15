@@ -1,68 +1,48 @@
-package br.com.guigasgame.scenery;
+package br.com.guigasgame.scenery.creation;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import org.jbox2d.collision.AABB;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Fixture;
-import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.ConvexShape;
-import org.jsfml.graphics.RenderWindow;
-import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
-import br.com.guigasgame.background.Background;
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.math.FloatRect;
+import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
 import br.com.guigasgame.shape.CircleShape;
 import br.com.guigasgame.shape.Point;
 import br.com.guigasgame.shape.RectangleShape;
 import br.com.guigasgame.shape.TriangleShape;
 
-public class Scenery extends GameObject
+public class SceneShapeCreator 
 {
-	private final Texture texture;
 	private List<Shape> box2dShapes;
-	private SceneryShapeCollidable shapeCollidable;
-	private List<Point> itemSpots;
-	final private List<Point> spawnPoints;
-	private List<Point> remainingSpawnPoints;
-	private Background background;
-	
-	public Scenery(SceneryFile sceneryFile)
+	private List<Drawable> drawableList;
+
+	public SceneShapeCreator(SceneryShapes sceneryShapes) 
 	{
-		texture = TextureResourceManager.getInstance().getResource(sceneryFile.getTextureName());
-		shapeCollidable = new SceneryShapeCollidable(new Vec2());
-		collidableList.add(shapeCollidable);
-		
 		box2dShapes = new ArrayList<>();
-		
-		SceneryShapes sceneryShapes = sceneryFile.getSceneryShapes();
-		itemSpots = sceneryFile.getItemSpots();
-		spawnPoints = sceneryFile.getSpawnPoint();
-		
-		remainingSpawnPoints = new ArrayList<>();
-		fillRemaingSpawnPoints();
-		
-		
+		drawableList = new ArrayList<>();
+
 		addRectangleShapes(sceneryShapes);
 		addCircleShapes(sceneryShapes);
 		addTriangleShapes(sceneryShapes);
 	}
-
+	public List<Shape> getBox2dShapes() 
+	{
+		return box2dShapes;
+	}
+	
 	private void addTriangleShapes(SceneryShapes sceneryShapes)
 	{
 		List<TriangleShape> triangleShapes = sceneryShapes.getTriangles();
 		for( TriangleShape triangle : triangleShapes )
 		{
-			drawableList.add(new DrawableTile(createSfmlTriangle(triangle)));
+			drawableList.add(new DrawableShape(createSfmlTriangle(triangle)));
 			box2dShapes.add(createBox2dTriangle(triangle));
 		}
 	}
@@ -89,8 +69,8 @@ public class Scenery extends GameObject
 		Vector2f pointB = pointToSfmlVector2(triangle.getPointB());
 		Vector2f pointC = pointToSfmlVector2(triangle.getPointC());
 		ConvexShape shape = new ConvexShape();
+		shape.setTexture(TextureResourceManager.getInstance().getResource(triangle.getTextureName()));
 		shape.setPoints(pointA, pointB, pointC);
-		shape.setTexture(texture, true);
 		if (triangle.isDeadly())
 			shape.setFillColor(Color.RED);
 		return shape;
@@ -101,7 +81,7 @@ public class Scenery extends GameObject
 		List<CircleShape> circleShapes = sceneryShapes.getCircles();
 		for( CircleShape circleShape : circleShapes )
 		{
-			drawableList.add(new DrawableTile(createSfmlCircle(circleShape)));
+			drawableList.add(new DrawableShape(createSfmlCircle(circleShape)));
 			box2dShapes.add(createBox2dCircle(circleShape));
 		}
 	}
@@ -125,8 +105,8 @@ public class Scenery extends GameObject
 		
 		org.jsfml.graphics.Shape shape = new org.jsfml.graphics.CircleShape(circleShape.getRadius());
 		shape.setPosition(position);
+		shape.setTexture(TextureResourceManager.getInstance().getResource(circleShape.getTextureName()));
 		shape.setOrigin(circleShape.getRadius(), circleShape.getRadius());
-		shape.setTexture(texture, true);
 		if (circleShape.isDeadly())
 			shape.setFillColor(Color.RED);
 		return shape;
@@ -137,7 +117,7 @@ public class Scenery extends GameObject
 		List<RectangleShape> rectangleShapes = sceneryShapes.getRectangles();
 		for( RectangleShape rectangleShape : rectangleShapes )
 		{
-			drawableList.add(new DrawableTile(createSfmlRectangle(rectangleShape)));
+			drawableList.add(new DrawableShape(createSfmlRectangle(rectangleShape)));
 			box2dShapes.add(createBox2dRectangle(rectangleShape));
 		}
 		
@@ -160,41 +140,18 @@ public class Scenery extends GameObject
 		Vector2f dimension = pointToSfmlVector2(rectangleShape.getHalfDimension());
 		dimension = Vector2f.mul(dimension, 2);
 		org.jsfml.graphics.Shape shape = new org.jsfml.graphics.RectangleShape(dimension);
+		shape.setTexture(TextureResourceManager.getInstance().getResource(rectangleShape.getTextureName()));
 		shape.setPosition(position);
 		shape.setOrigin(dimension.x/2, dimension.y/2);
-		shape.setTexture(texture, true);
 		if (rectangleShape.isDeadly())
 			shape.setFillColor(Color.RED);
 		
 		return shape;
 	}
 	
-	@Override
-	public void attachToWorld(World world)
+	public List<Drawable> getDrawableList() 
 	{
-		super.attachToWorld(world);
-		for( Shape shape : box2dShapes )
-		{
-			shapeCollidable.addListener(this);
-			shapeCollidable.addFixture(shape);
-		}
-		box2dShapes.clear();
-	}
-
-	
-	private void fillRemaingSpawnPoints()
-	{
-		remainingSpawnPoints.addAll(spawnPoints);
-	}
-
-	public Vector2f popRandomSpawnPoint()
-	{
-		if (remainingSpawnPoints.size() == 0)
-			fillRemaingSpawnPoints();
-		int randIndex = (int) (Math.random()*remainingSpawnPoints.size());
-		Vector2f retorno = pointToSfmlVector2(remainingSpawnPoints.get(randIndex));
-		remainingSpawnPoints.remove(randIndex);
-		return retorno;
+		return drawableList;
 	}
 	
 	private static Vector2f pointToSfmlVector2(Point point)
@@ -202,49 +159,5 @@ public class Scenery extends GameObject
 		return new Vector2f(point.getX(), point.getY());
 	}
 	
-	public FloatRect getBoundaries()
-	{
-		AABB aabb = new AABB();
-		for (Fixture fixtureIterator = shapeCollidable.getBody().getFixtureList(); fixtureIterator != null; fixtureIterator = fixtureIterator.getNext()) 
-		{
-			aabb.combine(aabb, fixtureIterator.getAABB(0));
-		}
-		
-		Vec2[] vertices = {new Vec2(), new Vec2(), new Vec2(), new Vec2()};
-		aabb.getVertices(vertices);
-
-		final Vector2f lower = WorldConstants.physicsToSfmlCoordinates(vertices[0]);
-		final Vector2f upper = WorldConstants.physicsToSfmlCoordinates(vertices[2]);
-		FloatRect retorno = new FloatRect(	lower.x,
-											lower.y, 
-											upper.x - lower.x, 
-											upper.y - lower.y);
-		return retorno;
-	}
-
-	public Collection<? extends Point> getItemsSpots()
-	{
-		return itemSpots;
-	}
-
-	public void setBackground(Background background)
-	{
-		this.background = background;
-	}
 	
-	@Override
-	public void update(float deltaTime)
-	{
-		background.update(deltaTime);
-	}
-
-	public void drawBackgroundItems(RenderWindow renderWindow)
-	{
-		background.drawBackgroundItems(renderWindow);
-	}
-
-	public void drawForegroundItems(RenderWindow renderWindow)
-	{
-		background.drawForegroundItems(renderWindow);
-	}
 }

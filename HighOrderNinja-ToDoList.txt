@@ -64,6 +64,9 @@ FragStatistics: totalShoots, deaths, kills, suicides
 ?? SmokeBomb refactoring (real particles system)
 
 Scenery handle deadly obstacles (v to have THE background) (as many textures as wanted) (add scene boundaries)
+Subdivide:
+	SceneryShapeCreator (shape and drawables list)
+	BackgroundFile
 Background refactoring (to have Foreground objects)(regenerateInterval...) (as many textures as wanted)
 
 

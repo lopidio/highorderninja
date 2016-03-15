@@ -10,14 +10,23 @@ public class Shape
 	@XmlAttribute(required=true)
 	protected boolean deadly;
 
+	@XmlAttribute(required=true)
+	protected String textureName;
+
 	public Shape() 
 	{
 		super();
 	}
 	
-	public Shape(boolean deadly)
+	public Shape(boolean deadly, String textureName)
 	{
 		this.deadly = deadly;
+		this.textureName = textureName;
+	}
+	
+	public Shape(String textureName)
+	{
+		this.textureName = textureName;
 	}
 	
 	public boolean isDeadly()
@@ -30,5 +39,10 @@ public class Shape
 		this.deadly = deadly;
 	}
 
+	public String getTextureName() 
+	{
+		return textureName;
+	}
+	
 	
 }

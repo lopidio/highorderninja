@@ -1,16 +1,16 @@
-package br.com.guigasgame.scenery;
+package br.com.guigasgame.scenery.creation;
 
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Shape;
 
 import br.com.guigasgame.drawable.Drawable;
 
-public class DrawableTile implements Drawable
+public class DrawableShape implements Drawable
 {
 
 	private Shape drawableShape;
 	
-	public DrawableTile(Shape drawableShape)
+	public DrawableShape(Shape drawableShape)
 	{
 		this.drawableShape = drawableShape;
 	}

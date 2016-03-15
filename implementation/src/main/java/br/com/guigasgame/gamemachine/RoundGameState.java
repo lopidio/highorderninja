@@ -35,7 +35,8 @@ import br.com.guigasgame.round.hud.controller.HeroAttributesHudController;
 import br.com.guigasgame.round.hud.controller.HeroAttributesMovingHudController;
 import br.com.guigasgame.round.hud.moving.barbellow.HeroAttributesBarsBellowHudController;
 import br.com.guigasgame.round.hud.moving.barbellow.HeroAttributesCircleAndBarsBellowHudController;
-import br.com.guigasgame.scenery.Scenery;
+import br.com.guigasgame.scenery.SceneController;
+import br.com.guigasgame.scenery.creation.SceneryCreator;
 import br.com.guigasgame.team.HeroTeam;
 
 
@@ -47,15 +48,15 @@ public class RoundGameState implements GameState
 
 	private List<GameObject> gameObjectsList;
 	private GameItemCreationController gameItemController;
-	private Scenery scenery;
+	private SceneController scenery;
 	private CameraController cameraController;
 	private List<HeroAttributesHudController> hudList;
 
-	public RoundGameState(List<HeroTeam> teams, Scenery scenery, RoundHeroAttributes roundHeroAttributes) throws JAXBException
+	public RoundGameState(List<HeroTeam> teams, SceneryCreator sceneryCreator, RoundHeroAttributes roundHeroAttributes) throws JAXBException
 	{
 		CollidableCategory.display();
 		gameObjectsList = new ArrayList<>();
-		this.scenery = scenery;
+		this.scenery = new SceneController(sceneryCreator);
 		timeFactor = 1;
 
 		Vec2 gravity = new Vec2(0, (float) 9.8);
@@ -65,13 +66,13 @@ public class RoundGameState implements GameState
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
-		cameraController = new CameraController(scenery);
+		cameraController = new CameraController(scenery.getBoundaries());
 		hudList = new ArrayList<>();
 		
 		initializeHeros(teams, scenery, roundHeroAttributes);
 	}
 
-	private void initializeHeros(List<HeroTeam> teams, Scenery scenery, RoundHeroAttributes roundHeroAttributes)
+	private void initializeHeros(List<HeroTeam> teams, SceneController scenery, RoundHeroAttributes roundHeroAttributes)
 	{
 		int i = 0;
 		for( HeroTeam team : teams )

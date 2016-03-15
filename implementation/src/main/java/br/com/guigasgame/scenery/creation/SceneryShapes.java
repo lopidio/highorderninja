@@ -1,4 +1,4 @@
-package br.com.guigasgame.scenery;
+package br.com.guigasgame.scenery.creation;
 
 import java.util.ArrayList;
 import java.util.List;

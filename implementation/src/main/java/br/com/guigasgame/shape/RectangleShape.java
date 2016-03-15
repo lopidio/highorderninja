@@ -21,8 +21,9 @@ public class RectangleShape extends Shape
 		halfDimension = new Point();
 	}
 	
-	public RectangleShape(Point center, Point halfDimension) {
-		super();
+	public RectangleShape(Point center, Point halfDimension, String textureFilename) 
+	{
+		super(textureFilename);
 		this.center = center;
 		this.halfDimension = halfDimension;
 	}
@@ -39,6 +40,5 @@ public class RectangleShape extends Shape
 	public void setHalfDimension(Point halfDimension) {
 		this.halfDimension = halfDimension;
 	}
-	
-	
+
 }

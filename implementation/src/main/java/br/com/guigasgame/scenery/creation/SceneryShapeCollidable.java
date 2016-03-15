@@ -1,4 +1,4 @@
-package br.com.guigasgame.scenery;
+package br.com.guigasgame.scenery.creation;
 
 import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;

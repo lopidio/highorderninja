@@ -22,9 +22,9 @@ public class TriangleShape  extends Shape
 		pointC = new Point();
 	}
 	
-	public TriangleShape(Point pointA, Point pointB, Point pointC) 
+	public TriangleShape(Point pointA, Point pointB, Point pointC, String textureFilename) 
 	{
-		super();
+		super(textureFilename);
 		this.pointA = pointA;
 		this.pointB = pointB;
 		this.pointC = pointC;

@@ -15,7 +15,6 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.scenery.Scenery;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class CameraController implements UpdatableFromTime, Drawable
@@ -33,9 +32,9 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private Shape innerFrame;
 	private CameraCenterFrame centerFrame;
 	
-	public CameraController(Scenery scenery)
+	public CameraController(br.com.guigasgame.math.FloatRect sceneBoundaries)
 	{
-		sceneryBoundaries = scenery.getBoundaries();
+		sceneryBoundaries = sceneBoundaries;
 		bodiesToControl = new ArrayList<>();
 		centerFrame = new CameraCenterFrame();
 		
