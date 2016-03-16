@@ -38,6 +38,20 @@
         </triangles>
         <triangles deadly="false" textureName="darkStoneTexture.jpg">
             <pointA>
+                <x>20.0</x>
+                <y>600.0</y>
+            </pointA>
+            <pointB>
+                <x>20.0</x>
+                <y>750.0</y>
+            </pointB>
+            <pointC>
+                <x>180.0</x>
+                <y>750.0</y>
+            </pointC>
+        </triangles>
+        <triangles deadly="false" textureName="darkStoneTexture.jpg">
+            <pointA>
                 <x>419.0</x>
                 <y>440.0</y>
             </pointA>

@@ -63,14 +63,23 @@ public class CameraController implements UpdatableFromTime, Drawable
 		checkZoomIn();
 		
 
-		Vector2f focusCenter = centerFrame.getCenter();
+		final Vector2f focusCenter = centerFrame.getCenter();
 		adjustZoomFrameCenter(innerFrame, focusCenter);
 		adjustZoomFrameCenter(outterFrame, focusCenter);
-		view.setCenter(adjustCenterToSceneBoundaries(focusCenter, view.getSize()));
+		
+		final Vector2f newCameraCenter = adjustCenterToSceneBoundaries(focusCenter, view.getSize()); 
+		interpolateToNewCenter(newCameraCenter);
 
 		renderWindow.setView(view);
 	}
 	
+	private void interpolateToNewCenter(Vector2f newCameraCenter)
+	{
+		final Vector2f interpolator = Vector2f.mul(Vector2f.sub(newCameraCenter, view.getCenter()), 0.2f); //a + (b - a)*factor
+		final Vector2f ultimate = Vector2f.add(interpolator, view.getCenter());
+		view.setCenter(ultimate);		
+	}
+
 	private void adjustZoomFrameCenter(Shape frame, Vector2f center)
 	{
 		FloatRect frameGlobalBound = frame.getGlobalBounds();
