@@ -136,9 +136,9 @@ public class SceneryFile
 		AnimationProperties cloud2Properties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 230, 400, 400), true);
 
 		backgroundItems.add(new BackgroundItemProperties(back, new Point(0, 0), 1000, "backGroundTexture.png"));
-		backgroundItems.add(new BackgroundItemProperties(moonProperties, new Point(10, 0), new Point(800, 100), 100, false, "backGroundItems.png"));
-		backgroundItems.add(new BackgroundItemProperties(cloud1Properties, new Point(-150, 0), new Point(1200, 200), 90, true, "backGroundItems.png"));
-		backgroundItems.add(new BackgroundItemProperties(cloud2Properties, new Point(200, 0), new Point(100, 150), 80, true, "backGroundItems.png"));
+		backgroundItems.add(new BackgroundItemProperties(moonProperties, new Point(10, 0), new Point(800, 100), 100, false, -1, "backGroundItems.png"));
+		backgroundItems.add(new BackgroundItemProperties(cloud1Properties, new Point(-150, 0), new Point(1200, 200), 90, true, 2, "backGroundItems.png"));
+		backgroundItems.add(new BackgroundItemProperties(cloud2Properties, new Point(200, 0), new Point(100, 150), 80, true, 20, "backGroundItems.png"));
 		
 		BackgroundFile backgroundFile = new BackgroundFile(backgroundItems);
 		

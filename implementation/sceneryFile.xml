@@ -38,11 +38,11 @@
         </triangles>
         <triangles deadly="false" textureName="darkStoneTexture.jpg">
             <pointA>
-                <x>20.0</x>
+                <x>-600.0</x>
                 <y>600.0</y>
             </pointA>
             <pointB>
-                <x>20.0</x>
+                <x>-600.0</x>
                 <y>750.0</y>
             </pointB>
             <pointC>
@@ -66,27 +66,27 @@
         </triangles>
         <rectangles deadly="false" textureName="darkStoneTexture.jpg"><!--  GROUND  -->
             <center>
-                <x>680.0</x>
+                <x>480.0</x>
                 <y>760.0</y>
             </center>
             <halfDimension>
-                <x>680</x>
+                <x>1080</x>
                 <y>20.0</y>
             </halfDimension>
         </rectangles>
         <rectangles deadly="false" textureName="darkStoneTexture.jpg"> <!-- CEIL -->
             <center>
-                <x>680.0</x>
+                <x>480.0</x>
                 <y>0.0</y>
             </center>
             <halfDimension>
-                <x>680</x>
+                <x>1080</x>
                 <y>10.0</y>
             </halfDimension>
         </rectangles>
         <rectangles deadly="false" textureName="darkStoneTexture.jpg"> <!-- LEFT WALL -->
             <center>
-                <x>20.0</x>
+                <x>-600.0</x>
                 <y>350.0</y>
             </center>
             <halfDimension>
@@ -167,11 +167,11 @@
     </sceneryShapes>
     <spawnPoints>
         <point>
-            <x>200.0</x>
+            <x>-200.0</x>
             <y>100.0</y>
         </point>
         <point>
-            <x>300</x>
+            <x>00</x>
             <y>150.0</y>
         </point>
         <point>
@@ -193,7 +193,7 @@
             <y>300.0</y>
         </spot>
         <spot>
-            <x>460.0</x>
+            <x>-460.0</x>
             <y>300.0</y>
         </spot>
         <spot>
@@ -201,7 +201,7 @@
             <y>50.0</y>
         </spot>
         <spot>
-            <x>800.0</x>
+            <x>400.0</x>
             <y>500.0</y>
         </spot>
     </itemSpots>
@@ -284,6 +284,7 @@
                     <height>400</height>
                 </textureSpriteRect>
             </animationProperties>
+			<regenerationInterval>20</regenerationInterval>
             <speed>
                 <x>20.0</x>
                 <y>0.0</y>

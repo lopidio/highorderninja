@@ -49,6 +49,7 @@ v Airspin bug wrong side
 v Create Camera (handle resize)
 v No ammo bug (trying to shoot in time interval)
 v Create HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, timetoCharge) (Interface. Abstract factory?)
+v Scenery handle deadly obstacles (v to have THE background) (as many textures as wanted) (add scene boundaries) Background refactoring (to have Foreground objects)(regenerateInterval...) (as many textures as wanted)
 
 
 Identify body part hit by shuriken
@@ -63,11 +64,6 @@ FragStatistics: totalShoots, deaths, kills, suicides
 ?? StateFile refactoring (enable and disable animations at runtime) AnimationFile refactoring
 ?? SmokeBomb refactoring (real particles system)
 
-Scenery handle deadly obstacles (v to have THE background) (as many textures as wanted) (add scene boundaries)
-Subdivide:
-	SceneryShapeCreator (shape and drawables list)
-	BackgroundFile
-Background refactoring (to have Foreground objects)(regenerateInterval...) (as many textures as wanted)
 
 
 Think about what to do: action+wallgrab; action+ducking

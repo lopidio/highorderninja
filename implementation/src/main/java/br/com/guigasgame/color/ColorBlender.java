@@ -37,9 +37,10 @@ public class ColorBlender
 		return r;
 	}
 	
-	public void setR(float f)
+	public ColorBlender setR(float f)
 	{
 		this.r = Math.min(255, f);
+		return this;
 	}
 
 	public float getG()
@@ -47,9 +48,10 @@ public class ColorBlender
 		return g;
 	}
 	
-	public void setG(float g)
+	public ColorBlender setG(float g)
 	{
 		this.g = Math.min(255, g);
+		return this;
 	}
 	
 	public float getB()
@@ -57,9 +59,10 @@ public class ColorBlender
 		return b;
 	}
 	
-	public void setB(float b)
+	public ColorBlender setB(float b)
 	{
 		this.b = Math.min(255, b);
+		return this;
 	}
 	
 	public float getA()
@@ -67,9 +70,10 @@ public class ColorBlender
 		return a;
 	}
 
-	public void setA(float a)
+	public ColorBlender setA(float a)
 	{
 		this.a = Math.min(255, a);
+		return this;
 	}
 
 	public Color getSfmlColor()
@@ -79,7 +83,7 @@ public class ColorBlender
 	
 	public ColorBlender lighten(float factor)
 	{
-		return new ColorBlender(r*factor, g*factor, b*factor);
+		return new ColorBlender(r*factor, g*factor, b*factor, a);
 	}
 
 	public ColorBlender darken(float factor)
@@ -119,6 +123,11 @@ public class ColorBlender
 	protected ColorBlender clone()
 	{
 		return new ColorBlender(r, g, b, a);
+	}
+
+	public ColorBlender makeTranslucid(float factor)
+	{
+		return clone().setA(a/factor);
 	}
 	
 }

@@ -22,6 +22,9 @@ public class BackgroundItemProperties
 	
 	@XmlElement
 	private float distanceFromCamera;
+	
+	@XmlElement
+	private float regenerationInterval;
 
 	@XmlAttribute
 	private boolean regenerate;
@@ -29,13 +32,14 @@ public class BackgroundItemProperties
 	@XmlAttribute
 	private String textureFilename;
 
-	public BackgroundItemProperties(AnimationProperties animationProperties, Point speed, Point origin, float distanceFromCamera, boolean regenerate, String textureFilename)
+	public BackgroundItemProperties(AnimationProperties animationProperties, Point speed, Point origin, float distanceFromCamera, boolean regenerate, float regenerationInterval, String textureFilename)
 	{
 		this.animationProperties = animationProperties;
 		this.speed = speed;
 		this.origin = origin;
 		this.distanceFromCamera = distanceFromCamera;
 		this.regenerate = regenerate;
+		this.regenerationInterval = regenerationInterval;
 		this.textureFilename = textureFilename;
 	}
 
@@ -46,6 +50,7 @@ public class BackgroundItemProperties
 		this.origin = origin;
 		this.distanceFromCamera = distanceFromCamera;
 		this.regenerate = false;
+		this.regenerationInterval = -1;
 		this.textureFilename = textureFilename;
 		}
 
@@ -122,8 +127,17 @@ public class BackgroundItemProperties
 	{
 		this.textureFilename = textureFilename;
 	}
+
 	
-	
+	public float getRegenerationInterval()
+	{
+		return regenerationInterval;
+	}
+
+	public void setRegenerationInterval(float regenerationInterval)
+	{
+		this.regenerationInterval = regenerationInterval;
+	}
 	
 	
 }
