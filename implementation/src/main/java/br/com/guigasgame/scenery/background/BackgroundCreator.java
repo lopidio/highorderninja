@@ -1,41 +1,42 @@
-package br.com.guigasgame.background;
+package br.com.guigasgame.scenery.background;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Texture;
 
-import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.resourcemanager.TextureResourceManager;
-import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class Background implements UpdatableFromTime
+
+public class BackgroundCreator
 {
+
 	private List<BackgroundGameEntity> backgroundGameObjects;
 	private List<BackgroundGameEntity> foregroundGameObjects;
 
-	public Background(BackgroundFile backgroundFile)
+	public BackgroundCreator(BackgroundFile backgroundFile)
 	{
 		backgroundGameObjects = new ArrayList<>();
 		foregroundGameObjects = new ArrayList<>();
-		
+
 		initializeBackgroundItems(backgroundFile);
 		sortItems();
+
 	}
 
 	private void sortItems()
 	{
 		Comparator<BackgroundGameEntity> comparator = new Comparator<BackgroundGameEntity>()
 		{
+
 			@Override
 			public int compare(BackgroundGameEntity a, BackgroundGameEntity b)
 			{
 				return (int) (b.getDistanceFromCamera() - a.getDistanceFromCamera());
 			}
 		};
-		
+
 		backgroundGameObjects.sort(comparator);
 		foregroundGameObjects.sort(comparator);
 	}
@@ -45,9 +46,9 @@ public class Background implements UpdatableFromTime
 		List<BackgroundItemProperties> backgroundItems = backgroundFile.getBackgroundItems();
 		for( BackgroundItemProperties backgroundItem : backgroundItems )
 		{
-			Texture itemTexture =  TextureResourceManager.getInstance().getResource(backgroundItem.getTextureFilename());
+			Texture itemTexture = TextureResourceManager.getInstance().getResource(backgroundItem.getTextureFilename());
 			itemTexture.setSmooth(true);
-			
+
 			BackgroundGameEntity backgroundGameObject = new BackgroundGameEntity(backgroundItem, itemTexture);
 			if (backgroundGameObject.getDistanceFromCamera() > 0)
 				backgroundGameObjects.add(backgroundGameObject);
@@ -55,34 +56,20 @@ public class Background implements UpdatableFromTime
 				foregroundGameObjects.add(backgroundGameObject);
 		}
 	}
-	
-	public void drawBackgroundItems(RenderWindow renderWindow)
+
+	public List<BackgroundGameEntity> getBackgroundGameObjects()
 	{
-		for( Drawable drawable : backgroundGameObjects )
-		{
-			drawable.draw(renderWindow);
-		}
+		return backgroundGameObjects;
 	}
 
-	public void drawForegroundItems(RenderWindow renderWindow)
+	public List<BackgroundGameEntity> getForegroundGameObjects()
 	{
-		for( Drawable drawable : foregroundGameObjects )
-		{
-			drawable.draw(renderWindow);
-		}
+		return foregroundGameObjects;
 	}
 
-	@Override
-	public void update(float deltaTime)
+	public Background createBackground()
 	{
-		for( BackgroundGameEntity gameObject : backgroundGameObjects )
-		{
-			gameObject.update(deltaTime);
-		}
-		for( BackgroundGameEntity gameObject : foregroundGameObjects )
-		{
-			gameObject.update(deltaTime);
-		}
+		return new Background(backgroundGameObjects, foregroundGameObjects);
 	}
-	
+
 }

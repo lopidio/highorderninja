@@ -11,10 +11,10 @@ import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
-import br.com.guigasgame.background.Background;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.math.FloatRect;
+import br.com.guigasgame.scenery.background.Background;
 import br.com.guigasgame.scenery.creation.SceneryCreator;
 import br.com.guigasgame.scenery.creation.SceneryShapeCollidable;
 

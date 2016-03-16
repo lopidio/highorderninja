@@ -73,7 +73,7 @@ Background refactoring (to have Foreground objects)(regenerateInterval...) (as m
 Think about what to do: action+wallgrab; action+ducking
 
 
-ProjectileAimer works with priority queue (shurikens aim at player>items?)
+ProjectileAimer works with priority queue (shurikens aim at player>items?)(aims calculates target velocity)
 Add life regeneration value (xml) to lifeItem
 
 SmokeBomb as shader (that's harder than what I thought)

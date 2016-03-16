@@ -50,44 +50,44 @@
                 <y>440.0</y>
             </pointC>
         </triangles>
-        <rectangles deadly="false" textureName="darkStoneTexture.jpg">
+        <rectangles deadly="false" textureName="darkStoneTexture.jpg"><!--  GROUND  -->
             <center>
-                <x>300.0</x>
+                <x>680.0</x>
                 <y>760.0</y>
             </center>
             <halfDimension>
-                <x>1040.0</x>
+                <x>680</x>
                 <y>20.0</y>
             </halfDimension>
         </rectangles>
-        <rectangles deadly="false" textureName="darkStoneTexture.jpg">
+        <rectangles deadly="false" textureName="darkStoneTexture.jpg"> <!-- CEIL -->
             <center>
-                <x>300.0</x>
+                <x>680.0</x>
                 <y>0.0</y>
             </center>
             <halfDimension>
-                <x>1040.0</x>
+                <x>680</x>
                 <y>10.0</y>
             </halfDimension>
         </rectangles>
-        <rectangles deadly="false" textureName="darkStoneTexture.jpg">
+        <rectangles deadly="false" textureName="darkStoneTexture.jpg"> <!-- LEFT WALL -->
             <center>
                 <x>20.0</x>
-                <y>300.0</y>
+                <y>350.0</y>
             </center>
             <halfDimension>
                 <x>20.0</x>
-                <y>440.0</y>
+                <y>400.0</y>
             </halfDimension>
         </rectangles>
-        <rectangles deadly="false" textureName="darkStoneTexture.jpg">
+        <rectangles deadly="false" textureName="darkStoneTexture.jpg"> <!-- RIGHT WALL -->
             <center>
                 <x>1340.0</x>
-                <y>300.0</y>
+                <y>350.0</y>
             </center>
             <halfDimension>
                 <x>20.0</x>
-                <y>440.0</y>
+                <y>400.0</y>
             </halfDimension>
         </rectangles>
         <rectangles deadly="false" textureName="darkStoneTexture.jpg">
@@ -154,21 +154,41 @@
     <spawnPoints>
         <point>
             <x>200.0</x>
-            <y>10.0</y>
+            <y>100.0</y>
         </point>
         <point>
-            <x>800.0</x>
-            <y>10.0</y>
+            <x>300</x>
+            <y>150.0</y>
+        </point>
+        <point>
+            <x>800</x>
+            <y>100</y>
         </point>
         <point>
             <x>1000.0</x>
             <y>360.0</y>
         </point>
+        <point>
+            <x>250.0</x>
+            <y>360.0</y>
+        </point>
     </spawnPoints>
     <itemSpots>
         <spot>
-            <x>12.0</x>
-            <y>43.0</y>
+            <x>800.0</x>
+            <y>300.0</y>
+        </spot>
+        <spot>
+            <x>460.0</x>
+            <y>300.0</y>
+        </spot>
+        <spot>
+            <x>100.0</x>
+            <y>50.0</y>
+        </spot>
+        <spot>
+            <x>800.0</x>
+            <y>500.0</y>
         </spot>
     </itemSpots>
     <backgroundFile>
@@ -189,8 +209,8 @@
                 <y>0.0</y>
             </speed>
             <origin>
-                <x>0.0</x>
-                <y>0.0</y>
+                <x>683</x>
+                <y>384</y>
             </origin>
             <distanceFromCamera>1000.0</distanceFromCamera>
         </backgroundItems>
@@ -207,7 +227,7 @@
                 </textureSpriteRect>
             </animationProperties>
             <speed>
-                <x>10.0</x>
+                <x>1.0</x>
                 <y>0.0</y>
             </speed>
             <origin>
@@ -229,7 +249,7 @@
                 </textureSpriteRect>
             </animationProperties>
             <speed>
-                <x>-150.0</x>
+                <x>-15.0</x>
                 <y>0.0</y>
             </speed>
             <origin>
@@ -251,7 +271,7 @@
                 </textureSpriteRect>
             </animationProperties>
             <speed>
-                <x>200.0</x>
+                <x>20.0</x>
                 <y>0.0</y>
             </speed>
             <origin>

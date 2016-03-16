@@ -6,7 +6,8 @@ import java.util.List;
 
 import org.jsfml.system.Vector2f;
 
-import br.com.guigasgame.background.Background;
+import br.com.guigasgame.scenery.background.Background;
+import br.com.guigasgame.scenery.background.BackgroundCreator;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.shape.Point;
 
@@ -20,13 +21,12 @@ public class SceneryCreator
 	public SceneryCreator(SceneryFile sceneryFile) throws Exception
 	{
 		shapeCreator = new SceneShapeCreator(sceneryFile.getSceneryShapes());
-		background = new Background(sceneryFile.getBackgroundFile());
+		background = new BackgroundCreator(sceneryFile.getBackgroundFile()).createBackground();
 		
 		itemSpots = new ArrayList<>();
 		itemSpots.addAll(addAsVector2fPoint(sceneryFile.getItemSpots().getSpot()));
 		spawnPoints = new ArrayList<>();
 		spawnPoints.addAll(addAsVector2fPoint(sceneryFile.getSpawnPoints().getPoint()));
-		itemSpots.addAll(addAsVector2fPoint(sceneryFile.getSpawnPoints().getPoint()));
 	}
 		
 

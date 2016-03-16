@@ -14,10 +14,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.guigasgame.animation.AnimationProperties;
-import br.com.guigasgame.background.BackgroundFile;
-import br.com.guigasgame.background.BackgroundItemProperties;
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.math.Rect;
+import br.com.guigasgame.scenery.background.BackgroundFile;
+import br.com.guigasgame.scenery.background.BackgroundItemProperties;
 import br.com.guigasgame.scenery.creation.SceneryShapes;
 import br.com.guigasgame.shape.CircleShape;
 import br.com.guigasgame.shape.Point;
