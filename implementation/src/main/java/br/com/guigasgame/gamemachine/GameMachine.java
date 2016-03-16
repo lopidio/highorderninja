@@ -1,6 +1,8 @@
 package br.com.guigasgame.gamemachine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
@@ -111,13 +113,22 @@ public class GameMachine
 	public GameMachine()
 	{
 		
-//		for (VideoMode list: VideoMode.getFullscreenModes())
-//		{
-//			System.out.println(list.toString());
-//		}
+		VideoMode[] modes = VideoMode.getFullscreenModes();
+		Arrays.sort(modes, new Comparator<VideoMode>() 
+		{
+			@Override
+			public int compare(VideoMode o1, VideoMode o2) 
+			{
+				int retorno = o1.height*o1.width - o2.height*o2.width;
+				if (retorno == 0)
+					return o1.bitsPerPixel - o2.bitsPerPixel;
+				return retorno;
+			}
+
+		});
+		final VideoMode best = modes[modes.length - 1];
 		
-		
-		renderWindow = new RenderWindow(new VideoMode(1366, 768, 32), "High order ninja");//, Window.FULLSCREEN); //Window.TRANSPARENT
+		renderWindow = new RenderWindow(best, "High order ninja");//, Window.FULLSCREEN); //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		renderWindow.setMouseCursorVisible(false);

@@ -6,6 +6,7 @@ import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilter;
+import br.com.guigasgame.collision.FuturePointCollision;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.raycast.RayCastCallBackWrapper;
@@ -46,12 +47,13 @@ public class ProjectileAimer
 	
 	private RayCastAimer finalRaycastAimer;
 	private final float maxDistance;
-	private final Body body;
+	private final Body ownerBody;
 	private final Vec2 initialDirection;
 	private final CollidableFilter collidableFilter;
 	private final IntegerMask targetMask;
+	private FuturePointCollision futurePointCollision;
 	
-	public ProjectileAimer(Projectile projectile, Body body) 
+	public ProjectileAimer(Projectile projectile, Body ownerBody) 
 	{
 		this.rayCastNumber = rayCastNumberDefault;
 		this.angleRangeInRadians = angleRangeInRadiansDefault;
@@ -65,9 +67,11 @@ public class ProjectileAimer
 		initialDirection.mulLocal(maxDistance);
 		
 		this.finalRaycastAimer = new RayCastAimer(this.initialDirection.clone().mul(maxDistance), rayCastNumber);
-		this.body = body;
+		this.ownerBody = ownerBody;
 		this.collidableFilter = projectile.getCollidableFilter();
 		this.targetMask = projectile.getTargetMask();
+		
+		futurePointCollision = new FuturePointCollision(projectile.getCollidable().get(0).getBody());
 		
 		generateRayCasts();
 	}
@@ -99,8 +103,8 @@ public class ProjectileAimer
 	
 	private void shootRaycast(Vec2 pointTo, int variationAngle)
 	{
-		Vec2 initialPosition = body.getPosition();
-		World bodysWorld = body.getWorld();
+		Vec2 initialPosition = ownerBody.getPosition();
+		World bodysWorld = ownerBody.getWorld();
 		
 		
 		RayCastClosestFixture closestFixture = new RayCastClosestFixture(bodysWorld, initialPosition, initialPosition.add(pointTo), 
@@ -113,7 +117,9 @@ public class ProjectileAimer
 		{
 			if (targetMask.matches(response.fixture.getFilterData().categoryBits)) //if its what I am aiming at
 			{
-				checkShorterRaycast(response.point, variationAngle);
+				Vec2 futurePoint = futurePointCollision.futurePoint(response.fixture.getBody());
+				if (futurePoint != null)
+					checkShorterRaycast(futurePoint, variationAngle);
 			}
 		}
 		
@@ -122,9 +128,9 @@ public class ProjectileAimer
 	private void checkShorterRaycast(Vec2 point, int variationAngle)
 	{
 		
-		RayCastAimer newOne = new RayCastAimer(point.sub(body.getPosition()), variationAngle);
+		RayCastAimer newOne = new RayCastAimer(point.sub(ownerBody.getPosition()), variationAngle);
 		
-		float newDistance = point.sub(body.getPosition()).length();
+		float newDistance = point.sub(ownerBody.getPosition()).length();
 		if (newDistance <= finalRaycastAimer.direction.length())
 		{
 			if (finalRaycastAimer.isWorseThan(newOne))

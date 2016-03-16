@@ -16,11 +16,6 @@ v	CollidableFilterBox2DAdapter
 v	CollidableManipulator
 v	GameHero receives input handler
 v	Projectile aimer refactoring (bug fixing). It aims even when there is a obstacle among
-
--	NinjaRope
-	v After hook attachement
-	- Before hook attachement
-	- Shuriken cuts the rope
 v GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
 v Jump becomes action
 v SetState becomes action
@@ -69,7 +64,12 @@ FragStatistics: totalShoots, deaths, kills, suicides
 Think about what to do: action+wallgrab; action+ducking
 
 
-ProjectileAimer works with priority queue (shurikens aim at player>items?)(aims calculates target velocity)
+ProjectileAimer works with priority queue (shurikens aim at player>items?)(aims calculates target velocity!!!)
 Add life regeneration value (xml) to lifeItem
 
 SmokeBomb as shader (that's harder than what I thought)
+
+-	NinjaRope
+	v After hook attachement
+	- Before hook attachement
+	- Shuriken cuts the rope
