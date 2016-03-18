@@ -73,3 +73,7 @@ SmokeBomb as shader (that's harder than what I thought)
 	v After hook attachement
 	- Before hook attachement
 	- Shuriken cuts the rope
+
+	Invencibility during some states
+	Player dies (DeadState/AirDeadState/ DieAction) when has no life
+	Start playing with GUI (http://www.programcreek.com/java-api-examples/index.php?source_dir=java-jumpandrun-dev-master/core/src/main/java/de/secondsystem/game01/impl/game/entities/GameEntity.java)
