@@ -21,6 +21,8 @@ public class Shuriken extends Projectile
 {
 	private int collisionCounter;
 	private PlayableGameHero owner;
+	private float autoDestructionCounter = 0.3f;
+	private boolean beginAutoDestruction;
 
 	public Shuriken(Vec2 direction, IntegerMask targetCategory, PlayableGameHero gameHero)
 	{
@@ -36,7 +38,7 @@ public class Shuriken extends Projectile
 	public void beginContact(Object me, Object other, Contact contact)
 	{
 		Body otherBody = (Body) other;
-		if (otherBody.getUserData() != null)
+		if (otherBody.getUserData() != null && !beginAutoDestruction)
 		{
 //			CollidableHero hit = (CollidableHero) otherBody.getUserData();
 //			hit.getRoundGameHero()
@@ -73,7 +75,25 @@ public class Shuriken extends Projectile
 		++collisionCounter;
 		if (collisionCounter >= properties.numBounces)
 		{
-			markToDestroy();
+			initializeAutoDestruction();
+		}
+	}
+	
+	public void initializeAutoDestruction()
+	{
+		beginAutoDestruction = true;
+	}
+	
+	@Override
+	public void update(float deltaTime)
+	{
+		System.out.println(autoDestructionCounter);
+		super.update(deltaTime);
+		if (beginAutoDestruction)
+		{
+			autoDestructionCounter -= deltaTime;
+			if (autoDestructionCounter <= 0)
+				markToDestroy();
 		}
 	}
 	
