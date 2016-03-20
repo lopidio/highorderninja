@@ -9,7 +9,7 @@ import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
-import br.com.guigasgame.gameobject.hero.action.GetHitAction;
+import br.com.guigasgame.gameobject.hero.action.HitByShurikenAction;
 import br.com.guigasgame.gameobject.hero.playable.CollidableHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.sensors.HeroFixtureController;
@@ -63,8 +63,7 @@ public class Shuriken extends Projectile
 									continue;
 							}
 							System.out.println(heroFixtureController.getSensorID());
-							hitGameHero.addAction(new GetHitAction(properties.damage, heroFixtureController.getSensorID(), owner));
-							markToDestroy();
+							hitGameHero.addAction(new HitByShurikenAction(this, heroFixtureController.getSensorID(), owner));
 							return;
 						}
 					}
@@ -87,7 +86,6 @@ public class Shuriken extends Projectile
 	@Override
 	public void update(float deltaTime)
 	{
-		System.out.println(autoDestructionCounter);
 		super.update(deltaTime);
 		if (beginAutoDestruction)
 		{

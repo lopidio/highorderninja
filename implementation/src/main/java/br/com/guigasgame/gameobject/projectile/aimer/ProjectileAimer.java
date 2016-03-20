@@ -114,7 +114,6 @@ public class ProjectileAimer
 		{
 			if (targetMask.matches(response.fixture.getFilterData().categoryBits)) //if its what I am aiming at
 			{
-				System.out.println("Gotcha!");
 				checkShorterRaycast(response.point, variationAngle);
 			}
 		}

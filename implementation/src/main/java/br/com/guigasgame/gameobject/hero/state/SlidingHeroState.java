@@ -1,5 +1,7 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import br.com.guigasgame.gameobject.hero.action.DisableInvincibilityAction;
+import br.com.guigasgame.gameobject.hero.action.EnableInvincibilityAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
@@ -34,11 +36,25 @@ class SlidingHeroState extends HeroState
 				setState(new StandingHeroState(gameHero));
 			}
 		}
-		if (gameHero.getCollidableHero().isFallingDown())
+		else if (!gameHero.isTouchingGround())
 		{
-			setState(new FallingHeroState(gameHero));
+			if (gameHero.getCollidableHero().isFallingDown())
+				setState(new FallingHeroState(gameHero));
+			if (gameHero.getCollidableHero().isAscending())
+				setState(new JumpingHeroState(gameHero));
 		}
-
+	}
+	
+	@Override
+	protected void stateOnEnter()
+	{
+		gameHero.addAction(new EnableInvincibilityAction());
+	}
+	
+	@Override
+	protected void stateOnQuit()
+	{
+		gameHero.addAction(new DisableInvincibilityAction());
 	}
 	
 	@Override

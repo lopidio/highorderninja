@@ -1,5 +1,7 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import br.com.guigasgame.gameobject.hero.action.DisableInvincibilityAction;
+import br.com.guigasgame.gameobject.hero.action.EnableInvincibilityAction;
 import br.com.guigasgame.gameobject.hero.action.SideImpulseAction;
 import br.com.guigasgame.gameobject.hero.action.StopMovementAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
@@ -17,14 +19,12 @@ public class AirSpinHeroState extends HeroState
 	{
 		super(gameHero, HeroStateIndex.HERO_AIR_SPIN);
 		this.side = side;
-//		setAnimationsColor(Color.BLUE);
 		
 		Float duration = heroStatesProperties.property.get("duration");
 		minHorizontalSpeed = heroStatesProperties.property.get("minHorizontalSpeed");
 		if (minHorizontalSpeed == null)
 			minHorizontalSpeed = 10f;
 		secondsRemaining = duration != null? duration.floatValue(): 0.5f;
-
 	}
 	
 	@Override
@@ -38,8 +38,16 @@ public class AirSpinHeroState extends HeroState
 	}
 	
 	@Override
+	protected void stateOnQuit()
+	{
+		gameHero.addAction(new DisableInvincibilityAction());
+	}
+
+	
+	@Override
 	protected void stateOnEnter()
 	{
+		gameHero.addAction(new EnableInvincibilityAction());
 		gameHero.addAction(new SideImpulseAction(heroStatesProperties, side).addPrevAction(new StopMovementAction(heroStatesProperties)));
 	}
 	

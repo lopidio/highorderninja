@@ -44,7 +44,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	private String lastActionName;
 	private List<GameItem> gameItems;
 	private RoundHeroAttributes heroAttributes;
-	private boolean invencible;
+	private boolean invincible;
 	private boolean playerIsDead;
 
 	public PlayableGameHero(PlayableHeroDefinition properties)
@@ -326,9 +326,9 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		return heroAttributes.getSmokeBomb().isAbleToShoot();
 	}
 
-	public boolean isInvencible()
+	public boolean isInvincible()
 	{
-		return invencible;
+		return invincible;
 	}
 
 	public void die()
@@ -340,6 +340,16 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	public boolean isPlayerDead()
 	{
 		return playerIsDead;
+	}
+
+	public void enableInvincibility()
+	{
+		invincible = true;
+	}
+
+	public void disableInvincibility()
+	{
+		invincible = false;
 	}
 
 }
