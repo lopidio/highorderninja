@@ -5,6 +5,7 @@ public class RoundFragCounter
 {
 	private int shoots;
 	private int shootsOnTarget;
+	private int hitAsTarget;
 	private int deaths;
 	private int kills;
 	private int suicide;
@@ -16,6 +17,7 @@ public class RoundFragCounter
 		 deaths = 0;
 		 kills = 0;
 		 suicide = 0;
+		 hitAsTarget = 0;
 	}
 	
 	public void incrementShoots()
@@ -67,6 +69,11 @@ public class RoundFragCounter
 	public int getSuicide()
 	{
 		return suicide;
+	}
+
+	public void incrementHitAsTarget()
+	{
+		++hitAsTarget;
 	}
 	
 }

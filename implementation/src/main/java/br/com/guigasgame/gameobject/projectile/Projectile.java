@@ -127,5 +127,10 @@ public abstract class Projectile extends GameObject
 			animation.setColor(color);
 		}
 	}
+
+	public Vec2 getPosition()
+	{
+		return collidable.getPosition();
+	}
 	
 }

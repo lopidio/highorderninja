@@ -8,17 +8,28 @@ public class GetHitAction extends GameHeroAction
 {
 	private float damage;
 	private FixtureSensorID fixtureSensorID;
+	private PlayableGameHero owner;
 
-	public GetHitAction(float damage, FixtureSensorID fixtureSensorID)
+	public GetHitAction(float damage, FixtureSensorID fixtureSensorID, PlayableGameHero owner)
 	{
 		this.damage = damage;
 		this.fixtureSensorID = fixtureSensorID;
+		this.owner = owner;
 	}
 
 	@Override
-	protected void childExecute(PlayableGameHero hero)
+	protected void childExecute(PlayableGameHero hit)
 	{
-		hero.getHit(damage, fixtureSensorID);
+		if (!hit.isInvencible())
+		{
+			owner.getFragCounter().incrementShootsOnTarget();
+			hit.getHit(damage, fixtureSensorID);
+			hit.getFragCounter().incrementHitAsTarget();
+			if (hit.isPlayerDead())
+			{
+				owner.getFragCounter().incrementKills();
+			}
+		}
 	}
 
 }

@@ -14,6 +14,9 @@ import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
+import br.com.guigasgame.gameobject.hero.action.GotDeadHeroAction;
+import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
+import br.com.guigasgame.gameobject.hero.attributes.HeroAttributeListener;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
@@ -26,7 +29,7 @@ import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
 
 
-public class PlayableGameHero extends GameObject
+public class PlayableGameHero extends GameObject implements HeroAttributeListener
 {
 
 	private Side forwardSide;
@@ -41,10 +44,13 @@ public class PlayableGameHero extends GameObject
 	private String lastActionName;
 	private List<GameItem> gameItems;
 	private RoundHeroAttributes heroAttributes;
+	private boolean invencible;
+	private boolean playerIsDead;
 
 	public PlayableGameHero(PlayableHeroDefinition properties)
 	{
 		this.heroProperties = properties;
+		playerIsDead = false;
 		forwardSide = Side.RIGHT;
 		actionList = new ArrayList<GameHeroAction>();
 		collidableHero = new CollidableHero(properties.getPlayerId(), properties.getInitialPosition(), this);
@@ -53,6 +59,7 @@ public class PlayableGameHero extends GameObject
 		gameHeroInput.setDeviceId(properties.getPlayerId());
 		gameItems = new ArrayList<>();
 		heroAttributes = properties.getRoundHeroAttributes();
+		heroAttributes.getLife().addListener(this);
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
@@ -79,14 +86,18 @@ public class PlayableGameHero extends GameObject
 			animation.update(deltaTime);
 		}
 
+		
 		state.update(deltaTime);
-		gameHeroInput.update(deltaTime);
-
-		updateItemsList();
 		updateActionList();
-
 		collidableHero.checkSpeedLimits(state.getMaxSpeed());
-		heroAttributes.update(deltaTime);
+		if (!playerIsDead)
+		{
+			gameHeroInput.update(deltaTime);
+			
+			updateItemsList();
+			
+			heroAttributes.update(deltaTime);
+		}
 		adjustSpritePosition();
 	}
 
@@ -262,6 +273,13 @@ public class PlayableGameHero extends GameObject
 	{
 		return fragCounter;
 	}
+
+	@Override
+	public void gotEmpty(HeroAttribute heroAttribute)
+	{
+		addAction(new GotDeadHeroAction());
+		System.out.println("Got dead");
+	}
 	
 	@Override
 	public void onDestroy()
@@ -306,6 +324,22 @@ public class PlayableGameHero extends GameObject
 	public boolean canUseItem()
 	{
 		return heroAttributes.getSmokeBomb().isAbleToShoot();
+	}
+
+	public boolean isInvencible()
+	{
+		return invencible;
+	}
+
+	public void die()
+	{
+		collidableHero.die();
+		playerIsDead = true;
+	}
+
+	public boolean isPlayerDead()
+	{
+		return playerIsDead;
 	}
 
 }

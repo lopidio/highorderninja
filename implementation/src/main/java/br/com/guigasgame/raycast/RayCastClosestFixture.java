@@ -5,6 +5,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
 
 public class RayCastClosestFixture extends RayCast implements RayCastCallback
@@ -49,6 +50,11 @@ public class RayCastClosestFixture extends RayCast implements RayCastCallback
 	public RayCastCallBackWrapper getCallBackWrapper()
 	{
 		return callBackWrapper;
+	}
+
+	public void ignore(CollidableCategory category)
+	{
+		mask = mask.clear(category.getCategoryMask().value);
 	}
 	
 }

@@ -47,7 +47,7 @@ public class NinjaHookProjectile extends Projectile
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
-		if (isDead())
+		if (isMarkedToDestroy())
 			return;
 
 		if (hookIsAttached)

@@ -11,9 +11,9 @@ import br.com.guigasgame.round.hud.moving.circlebellow.HeroAttributesArcBellowHu
 
 public class HeroAttributesCircleAndBarsBellowHudController extends HeroAttributesMovingHudController
 {
-	private static final ColorBlender SHURIKEN_BAR_COLOR = ColorBlender.GRAY.makeTranslucid(2.f);
-	private static final ColorBlender SMOKE_BOMB_BAR_COLOR = ColorBlender.BLUE.makeTranslucid(2.f);
-	private static final ColorBlender LIFE_BAR_COLOR = ColorBlender.RED.makeTranslucid(2.f);
+	private static final ColorBlender SHURIKEN_BAR_COLOR = ColorBlender.GRAY.makeTranslucid(1.8f);
+	private static final ColorBlender SMOKE_BOMB_BAR_COLOR = new ColorBlender(0, 0, 200).makeTranslucid(1.8f);
+	private static final ColorBlender LIFE_BAR_COLOR = ColorBlender.RED.makeTranslucid(1.8f);
 	private static final Vector2f SIZE = new Vector2f(30, 3);
 	private static final int VERTICAL_OFFSET = 40;
 	private static final int SEPARATOR = 4;

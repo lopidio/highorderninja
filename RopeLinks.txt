@@ -1,7 +1,0 @@
-http://www.gamasutra.com/view/feature/3094/1500_archers_on_a_288_network_.php
-
-http://www.emanueleferonato.com/2009/10/05/basic-box2d-rope/
-http://stackoverflow.com/questions/9171937/box2d-elastic-rope-joint
-http://www.box2d.org/forum/viewtopic.php?p=10691#p10691
-
-http://www.box2d.org/forum/viewtopic.php?f=6&t=2094

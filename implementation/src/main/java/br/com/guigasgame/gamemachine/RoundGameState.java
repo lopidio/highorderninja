@@ -33,7 +33,6 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.hud.controller.HeroAttributesHudController;
 import br.com.guigasgame.round.hud.controller.HeroAttributesMovingHudController;
-import br.com.guigasgame.round.hud.moving.barbellow.HeroAttributesBarsBellowHudController;
 import br.com.guigasgame.round.hud.moving.barbellow.HeroAttributesCircleAndBarsBellowHudController;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.scenery.creation.SceneryCreator;
@@ -74,7 +73,6 @@ public class RoundGameState implements GameState
 
 	private void initializeHeros(List<HeroTeam> teams, SceneController scenery, RoundHeroAttributes roundHeroAttributes)
 	{
-		int i = 0;
 		for( HeroTeam team : teams )
 		{
 //			team.setFriendlyFire(true);
@@ -84,17 +82,12 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.setHeroAttributes(roundHeroAttributes.clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
-				HeroAttributesMovingHudController hud = null;
-				if (i >= teams.size()/2)
-					hud = new HeroAttributesBarsBellowHudController(gameHero);
-				else //if (i > teams.size())
-					hud = new HeroAttributesCircleAndBarsBellowHudController(gameHero);
+				HeroAttributesMovingHudController hud = new HeroAttributesCircleAndBarsBellowHudController(gameHero);
 				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
 				hudList.add(hud);
 				initializeGameObject(Arrays.asList(gameHero));
-				cameraController.addBodyToControl(gameHero.getCollidableHero().getBody());
+				cameraController.addPlayerToControl(gameHero);
 			}
-			++i;
 		}
 	}
 
@@ -202,7 +195,7 @@ public class RoundGameState implements GameState
 		while (iterator.hasNext())
 		{
 			GameObject toRemove = iterator.next(); // must be called before you can call iterator.remove()
-			if (toRemove.isDead())
+			if (toRemove.isMarkedToDestroy())
 			{
 				toRemove.onDestroy();
 				List<Collidable> collidableList = toRemove.getCollidable();

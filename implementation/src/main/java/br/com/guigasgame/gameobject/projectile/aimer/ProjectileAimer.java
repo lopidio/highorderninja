@@ -6,7 +6,6 @@ import org.jbox2d.dynamics.World;
 
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilter;
-import br.com.guigasgame.collision.FuturePointCollision;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.raycast.RayCastCallBackWrapper;
@@ -51,7 +50,6 @@ public class ProjectileAimer
 	private final Vec2 initialDirection;
 	private final CollidableFilter collidableFilter;
 	private final IntegerMask targetMask;
-	private FuturePointCollision futurePointCollision;
 	
 	public ProjectileAimer(Projectile projectile, Body ownerBody) 
 	{
@@ -70,8 +68,6 @@ public class ProjectileAimer
 		this.ownerBody = ownerBody;
 		this.collidableFilter = projectile.getCollidableFilter();
 		this.targetMask = projectile.getTargetMask();
-		
-		futurePointCollision = new FuturePointCollision(projectile.getCollidable().get(0).getBody());
 		
 		generateRayCasts();
 	}
@@ -108,7 +104,8 @@ public class ProjectileAimer
 		
 		
 		RayCastClosestFixture closestFixture = new RayCastClosestFixture(bodysWorld, initialPosition, initialPosition.add(pointTo), 
-			 collidableFilter.getCollider().set(CollidableCategory.SMOKE_BOMB.getCategoryMask().value)); //Smoke bomb ahead
+			 collidableFilter.getCollider().set(CollidableCategory.SMOKE_BOMB.getCategoryMask().value)); //Add Smoke bomb category
+		closestFixture.ignore(CollidableCategory.DEAD_HERO);
 		
 		closestFixture.shoot();
 		RayCastCallBackWrapper response = closestFixture.getCallBackWrapper();
@@ -117,9 +114,8 @@ public class ProjectileAimer
 		{
 			if (targetMask.matches(response.fixture.getFilterData().categoryBits)) //if its what I am aiming at
 			{
-				Vec2 futurePoint = futurePointCollision.futurePoint(response.fixture.getBody());
-				if (futurePoint != null)
-					checkShorterRaycast(futurePoint, variationAngle);
+				System.out.println("Gotcha!");
+				checkShorterRaycast(response.point, variationAngle);
 			}
 		}
 		
@@ -127,7 +123,6 @@ public class ProjectileAimer
 
 	private void checkShorterRaycast(Vec2 point, int variationAngle)
 	{
-		
 		RayCastAimer newOne = new RayCastAimer(point.sub(ownerBody.getPosition()), variationAngle);
 		
 		float newDistance = point.sub(ownerBody.getPosition()).length();
@@ -136,7 +131,6 @@ public class ProjectileAimer
 			if (finalRaycastAimer.isWorseThan(newOne))
 			{
 				finalRaycastAimer = newOne;
-//				System.out.println("There is a best direction and it's better than the previous one. (distance: " + finalRaycastAimer.direction.length() + ". variation: " + variationAngle + ")");
 			}
 		}
 	}

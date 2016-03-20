@@ -18,7 +18,7 @@ public class WallRidingState extends HeroState
 	{
 		if (heroStatesProperties.jump != null)
 		{
-			if (isHeroInputPressed(HeroInputKey.ACTION))
+			if (isHeroInputMapPressed(HeroInputKey.ACTION))
 			{
 				setState(new AirSpinHeroState(gameHero, gameHero.getForwardSide().opposite()));
 			}

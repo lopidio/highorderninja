@@ -373,6 +373,7 @@ public class NinjaRope implements CollidableContactListener
 		fixtureDef.shape = shape;
 		fixtureDef.density = 0f;
 		fixtureDef.filter = new CollidableFilterBox2dAdapter(CollidableCategory.ROPE_BODY).toBox2dFilter();
+		if (ropeBodiesList.lastElement().getFixtureList() != null)
 		ropeBodiesList.lastElement().destroyFixture(ropeBodiesList.lastElement().getFixtureList());
 		ropeBodiesList.lastElement().createFixture(fixtureDef);
 		ropeBodiesList.lastElement().setTransform(center, 0);

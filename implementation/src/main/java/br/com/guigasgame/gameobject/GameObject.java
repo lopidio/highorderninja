@@ -30,7 +30,7 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 		collidableList = new ArrayList<Collidable>();
 	}
 
-	public final boolean isDead()
+	public final boolean isMarkedToDestroy()
 	{
 		return !alive;
 	}

@@ -59,7 +59,7 @@ public class SuperRunningState extends HeroState
 			if (gameHero.getCollidableHero().isAscending())
 				setState(new JumpingHeroState(gameHero));
 		}
-		else if (!isHeroInputPressed(HeroInputKey.ACTION) && secondsRemaining <= 0)
+		else if (!isHeroInputMapPressed(HeroInputKey.ACTION) && secondsRemaining <= 0)
 		{
 			setState(new RunningHeroState(gameHero));
 		}

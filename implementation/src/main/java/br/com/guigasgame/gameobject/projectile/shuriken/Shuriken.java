@@ -54,14 +54,14 @@ public class Shuriken extends Projectile
 						if (!fixtureIterator.isSensor() && heroFixtureController.isTouching())
 						{
 							CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
-							PlayableGameHero playableGameHero = collidableHero.getPlayableHero();
-							if (playableGameHero.isTouchingGround())
+							PlayableGameHero hitGameHero = collidableHero.getPlayableHero();
+							if (hitGameHero.isTouchingGround())
 							{
 								if (heroFixtureController.getSensorID() == FixtureSensorID.FEET)
 									continue;
 							}
 							System.out.println(heroFixtureController.getSensorID());
-							playableGameHero.addAction(new GetHitAction(properties.damage, heroFixtureController.getSensorID()));
+							hitGameHero.addAction(new GetHitAction(properties.damage, heroFixtureController.getSensorID(), owner));
 							markToDestroy();
 							return;
 						}

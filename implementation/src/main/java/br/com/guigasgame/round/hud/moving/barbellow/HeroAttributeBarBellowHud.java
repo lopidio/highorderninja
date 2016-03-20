@@ -26,7 +26,7 @@ abstract class HeroAttributeBarBellowHud extends HeroAttributeMovingHud
 		this.size = size;
 		
 		innerColor = new ColorLinearInterpolator(color);
-		outterColor = new ColorLinearInterpolator(color.darken(1.5f));
+		outterColor = new ColorLinearInterpolator(color.darken(2.5f));
 		
 		innerShape = new RectangleShape(size);
 		innerShape.setOrigin(0, innerShape.getSize().y / 2);

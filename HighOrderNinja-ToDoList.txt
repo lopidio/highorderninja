@@ -59,7 +59,7 @@ FragStatistics: totalShoots, deaths, kills, suicides
 ?? StateFile refactoring (enable and disable animations at runtime) AnimationFile refactoring
 ?? SmokeBomb refactoring (real particles system)
 
-
+Jump towards collision normal
 
 Think about what to do: action+wallgrab; action+ducking
 

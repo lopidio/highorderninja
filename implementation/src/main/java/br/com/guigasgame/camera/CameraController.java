@@ -1,9 +1,9 @@
 package br.com.guigasgame.camera;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import org.jbox2d.dynamics.Body;
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
@@ -15,17 +15,18 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class CameraController implements UpdatableFromTime, Drawable
 {
 	private static final float INNER_FRAME_SCALE = 0.55f;
-	private static final float OUTTER_FRAME_SCALE = 0.80f;
+	private static final float OUTTER_FRAME_SCALE = 0.75f;
 	private static final float ZOOM_OUT_FACTOR = 1.005f;
 	private static final float ZOOM_IN_FACTOR = 0.985f;
 	
 	private final br.com.guigasgame.math.FloatRect sceneryBoundaries;
-	private List<Body> bodiesToControl;
+	private List<PlayableGameHero> playersToControl;
 	private View view;
 	private RenderWindow renderWindow;
 	private Shape outterFrame;
@@ -35,28 +36,30 @@ public class CameraController implements UpdatableFromTime, Drawable
 	public CameraController(br.com.guigasgame.math.FloatRect sceneBoundaries)
 	{
 		sceneryBoundaries = sceneBoundaries;
-		bodiesToControl = new ArrayList<>();
+		playersToControl = new ArrayList<>();
 		centerFrame = new CameraCenterFrame();
 		
 	}
 	
-	public void addBodyToControl(Body body)
+	public void addPlayerToControl(PlayableGameHero player)
 	{
-		centerFrame.addBody(body);
-		bodiesToControl.add(body);
+		centerFrame.addBody(player.getCollidableHero().getBody());
+		playersToControl.add(player);
 	}
 
-	public void removeBodytoControl(Body body)
+	public void removePlayertoControl(PlayableGameHero player)
 	{
-		centerFrame.removeBody(body);
-		bodiesToControl.remove(body);
+		centerFrame.removeBody(player.getCollidableHero().getBody());
+		playersToControl.remove(player);
 	}
 
 	@Override
 	public void update(float deltaTime)
 	{
-		if (bodiesToControl.size() <= 0)
+		if (playersToControl.size() <= 0)
 			return;
+		
+		checkDeadPlayers();
 		
 		centerFrame.update(deltaTime);
 		checkZoomOut();
@@ -73,6 +76,20 @@ public class CameraController implements UpdatableFromTime, Drawable
 		renderWindow.setView(view);
 	}
 	
+	private void checkDeadPlayers()
+	{
+		Iterator<PlayableGameHero> iterator = playersToControl.iterator();
+		while (iterator.hasNext())
+		{
+			PlayableGameHero toRemove = iterator.next(); // must be called before you can call iterator.remove()
+			if (toRemove.isPlayerDead())
+			{
+				centerFrame.removeBody(toRemove.getCollidableHero().getBody());
+				iterator.remove();
+			}
+		}
+	}
+
 	private void interpolateToNewCenter(Vector2f newCameraCenter)
 	{
 		final Vector2f interpolator = Vector2f.mul(Vector2f.sub(newCameraCenter, view.getCenter()), 0.2f); //a + (b - a)*factor
@@ -136,9 +153,9 @@ public class CameraController implements UpdatableFromTime, Drawable
 	
 	private boolean isEveryPlayerInsideInnerFrame()
 	{
-		for( Body body : bodiesToControl )
+		for( PlayableGameHero player : playersToControl )
 		{
-			if (!innerFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(body.getWorldCenter())))
+			if (!innerFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(player.getCollidableHero().getBody().getWorldCenter())))
 				return false;
 		}
 		return true;
@@ -146,9 +163,9 @@ public class CameraController implements UpdatableFromTime, Drawable
 
 	private boolean isOnePlayerOutsideOutterFrame()
 	{
-		for( Body body : bodiesToControl )
+		for( PlayableGameHero player : playersToControl )
 		{
-			if (!outterFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(body.getWorldCenter())))
+			if (!outterFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(player.getCollidableHero().getBody().getWorldCenter())))
 				return true;
 		}
 		return false;

@@ -49,7 +49,12 @@ class RunningHeroState extends HeroState
 
 		Side side = gameHero.getCollidableHero().movingToSide();
 		if (side != Side.UNKNOWN && side != gameHero.getForwardSide())
-			gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
+		{
+			if (side == Side.LEFT && !isHeroInputMapPressed(HeroInputKey.RIGHT))
+				gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
+			if (side == Side.RIGHT && !isHeroInputMapPressed(HeroInputKey.LEFT))
+				gameHero.addAction(new SideOrientationHeroSetter(side, heroStatesProperties));
+		}
 
 	}
 }

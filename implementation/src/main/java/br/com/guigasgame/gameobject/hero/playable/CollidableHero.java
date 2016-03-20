@@ -206,4 +206,13 @@ public class CollidableHero extends Collidable
 		return playableHero;
 	}
 
+	public void die()
+	{
+		final Filter deadFilter = new CollidableFilterBox2dAdapter(CollidableCategory.DEAD_HERO.getFilter()).toBox2dFilter();
+		for( Fixture fixture : fixtureMap.values() )
+		{
+			fixture.setFilterData(deadFilter);
+		}
+	}
+
 }

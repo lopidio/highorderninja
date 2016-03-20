@@ -27,13 +27,15 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 {
 
 	protected final PlayableGameHero gameHero;
-	protected HeroStateProperties heroStatesProperties;
+	protected final HeroStateProperties heroStatesProperties;
 	private Map<HeroInputKey, Boolean> inputMap;
 	protected List<Animation> animationList;
+	private final HeroStateIndex heroIndex;
 
 	protected HeroState(PlayableGameHero gameHero, HeroStateIndex heroIndex)
 	{
 		super();
+		this.heroIndex = heroIndex;
 		this.heroStatesProperties = HeroStatesPropertiesPool.getStateProperties(heroIndex);
 		animationList = new ArrayList<Animation>();
 		animationList.add(Animation.createAnimation(AnimationsCentralPool.getHeroAnimationRepository().getAnimationsProperties(heroIndex)));
@@ -195,6 +197,10 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	@Override
 	public final void update(float deltaTime)
 	{
+		if (gameHero.isPlayerDead() && heroIndex != HeroStateIndex.HERO_DEAD)
+		{
+			setState(new DeadHeroState(gameHero));
+		}
 		stateUpdate(deltaTime);
 	}
 
@@ -245,7 +251,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		return retorno;
 	}
 	
-	protected boolean isHeroInputPressed(HeroInputKey key)
+	protected boolean isHeroInputMapPressed(HeroInputKey key)
 	{
 		return inputMap.get(key);
 	}
