@@ -16,35 +16,37 @@ v	CollidableFilterBox2DAdapter
 v	CollidableManipulator
 v	GameHero receives input handler
 v	Projectile aimer refactoring (bug fixing). It aims even when there is a obstacle among
-v GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
-v Jump becomes action
-v SetState becomes action
-v setHeroOrientation becomes action
-v Projectiles shall have damage as property
-v Unify GameHero and GameHeroLogic
-v CollidableFilterBox2DAdapter
-v CollidableManipulator
-v GameHero receives input handler
-v NinjaRope
-v Refactor of CollidersFilters
-v Get category from filter (enumeration)
-v Projectile aimer refactoring (bug fixing). It aims even when there is a obstacle among
-v GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
-v Aimer aims worse when target is inside a smokebomb area
-v GameHero receives GameHeroProperties(?) {Color, input, ID, initial position...} at constructor
-v SmokeBomb (player colloring)
-v Team class (Color, playersMask, enemiesMask, numPlayers, totalPoints, gameHeroPropertiesList)
-v Get category from filter (one enumeration)
-v Scenery (http://www.jsonschema2pojo.org/) (http://akinuri.deviantart.com/art/Metal-Textures-221702846)(http://miss-marlies.deviantart.com/art/Textures-dirt-grass-sand-and-water-335479475)
-v DynamicBackground
-v GameItem
-v Airspin/SuperRunning herostate.xml conditions to enter
-v GameItemController (manages item creations)
-v Airspin bug wrong side
-v Create Camera (handle resize)
-v No ammo bug (trying to shoot in time interval)
-v Create HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, timetoCharge) (Interface. Abstract factory?)
-v Scenery handle deadly obstacles (v to have THE background) (as many textures as wanted) (add scene boundaries) Background refactoring (to have Foreground objects)(regenerateInterval...) (as many textures as wanted)
+v	GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
+v	Jump becomes action
+v	SetState becomes action
+v	setHeroOrientation becomes action
+v	Projectiles shall have damage as property
+v	Unify GameHero and GameHeroLogic
+v	CollidableFilterBox2DAdapter
+v	CollidableManipulator
+v	GameHero receives input handler
+v	NinjaRope
+v	Refactor of CollidersFilters
+v	Get category from filter (enumeration)
+v	Projectile aimer refactoring (bug fixing). It aims even when there is a obstacle among
+v	GameObject has list of collidables and drawables (CompositorDrawable?)(CompositorCollidable?)
+v	Aimer aims worse when target is inside a smokebomb area
+v	GameHero receives GameHeroProperties(?) {Color, input, ID, initial position...} at constructor
+v	SmokeBomb (player colloring)
+v	Team class (Color, playersMask, enemiesMask, numPlayers, totalPoints, gameHeroPropertiesList)
+v	Get category from filter (one enumeration)
+v	Scenery (http://www.jsonschema2pojo.org/) (http://akinuri.deviantart.com/art/Metal-Textures-221702846)(http://miss-marlies.deviantart.com/art/Textures-dirt-grass-sand-and-water-335479475)
+v	DynamicBackground
+v	GameItem
+v	Airspin/SuperRunning herostate.xml conditions to enter
+v	GameItemController (manages item creations)
+v	Airspin bug wrong side
+v	Create Camera (handle resize)
+v	No ammo bug (trying to shoot in time interval)
+v	Create HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, timetoCharge) (Interface. Abstract factory?)
+v	Scenery handle deadly obstacles (v to have THE background) (as many textures as wanted) (add scene boundaries) Background refactoring (to have Foreground objects)(regenerateInterval...) (as many textures as wanted)
+t	Invencibility during some states (sliding, diving, spining)
+t	Player dies (DeadState/AirDeadState/ DieAction) when has no life
 
 
 Identify body part hit by shuriken
@@ -52,7 +54,7 @@ Identify body part hit by shuriken
 ShurikenBomb
 RayCastAnythingBut....
 
-RoundProperties (given to RoundGameStateConstructos. Has: deathmatch or teammatch, numMaxShurikens, maxTime, itemsAvailable, friendlyFire, scene, goalScore...)
+RoundPropertiesState (given to RoundGameStateConstructos. Has: deathmatch or teammatch, numMaxShurikens, maxTime, itemsAvailable, friendlyFire, scene, goalScore...)
 Every GameHero object instantiates it's own frag statistics... At the end of each round, that fragStatistics is read by the team...
 FragStatistics: totalShoots, deaths, kills, suicides
 
@@ -74,6 +76,4 @@ SmokeBomb as shader (that's harder than what I thought)
 	- Before hook attachement
 	- Shuriken cuts the rope
 
-	Invencibility during some states
-	Player dies (DeadState/AirDeadState/ DieAction) when has no life
 	Start playing with GUI (http://www.programcreek.com/java-api-examples/index.php?source_dir=java-jumpandrun-dev-master/core/src/main/java/de/secondsystem/game01/impl/game/entities/GameEntity.java)
