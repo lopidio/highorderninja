@@ -48,8 +48,7 @@ public class SFMLDebugDraw extends DebugDraw
 	@Override
 	public void drawPoint(Vec2 arg0, float arg1, Color3f arg2)
 	{
-		// TODO Auto-generated method stub
-
+		//nothing yet
 	}
 
 	@Override

@@ -13,7 +13,6 @@ class DeadHeroState extends HeroState
 	@Override
 	protected void stateOnEnter()
 	{
-		// TODO Auto-generated method stub
 		super.stateOnEnter();
 	}
 

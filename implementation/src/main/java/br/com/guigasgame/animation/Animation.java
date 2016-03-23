@@ -64,7 +64,6 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -206,7 +205,6 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 
 	public ConstTexture getTexture()
 	{
-		// TODO Auto-generated method stub
 		return sprite.getTexture();
 	}
 

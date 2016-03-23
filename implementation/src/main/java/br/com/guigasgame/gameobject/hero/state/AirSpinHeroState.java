@@ -1,6 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.action.DisableInvincibilityAction;
 import br.com.guigasgame.gameobject.hero.action.SideImpulseAction;
 import br.com.guigasgame.gameobject.hero.action.StopMovementAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;

@@ -75,7 +75,6 @@ public class TimeMaster
 				}
 				catch (Exception e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -87,7 +86,6 @@ public class TimeMaster
 				}
 				catch (Exception e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

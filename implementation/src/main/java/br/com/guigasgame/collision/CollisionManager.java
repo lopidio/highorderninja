@@ -40,13 +40,12 @@ public class CollisionManager implements ContactListener
 
 	public void preSolve(Contact contact, Manifold oldManifold)
 	{
-		// TODO Auto-generated method stub
-
+		// do nothing
 	}
 
 	public void postSolve(Contact contact, ContactImpulse impulse)
 	{
-		// TODO Auto-generated method stub
+		// do nothing
 	}
 
 	private void reportToFixtureListenersBeginCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
