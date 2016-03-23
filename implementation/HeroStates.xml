@@ -24,7 +24,7 @@
 			<value>
 				<jump impulse="12.0" />
 				<maxSpeed>
-					<x>2</x>
+					<x>5</x> <!-- NEEDED TO IMPROVE WALL GLUE -->
 					<y>3</y>
 				</maxSpeed>
 			</value>

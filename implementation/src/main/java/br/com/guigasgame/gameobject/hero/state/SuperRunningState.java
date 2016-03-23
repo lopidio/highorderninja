@@ -1,6 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import br.com.guigasgame.gameobject.hero.action.JumpAction;
+import br.com.guigasgame.gameobject.hero.action.VerticalJumpAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 
@@ -45,7 +45,7 @@ public class SuperRunningState extends HeroState
 		secondsRemaining -= deltaTime;
 		if (gameHero.isTouchingWallAhead())
 		{
-			gameHero.addAction(new JumpAction(heroStatesProperties));
+			gameHero.addAction(new VerticalJumpAction(heroStatesProperties));
 			setState(new WallRidingState(gameHero));
 		}
 		else if (!gameHero.getCollidableHero().isMoving())

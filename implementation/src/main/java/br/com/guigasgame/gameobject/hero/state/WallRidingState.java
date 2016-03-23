@@ -10,7 +10,6 @@ public class WallRidingState extends HeroState
 	protected WallRidingState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_WALLRIDING);
-//		super.setAnimationsColor(Color.YELLOW);
 	}
 	
 	@Override
