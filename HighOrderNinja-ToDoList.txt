@@ -61,6 +61,9 @@ FragStatistics: totalShoots, deaths, kills, suicides
 ?? StateFile refactoring (enable and disable animations at runtime) AnimationFile refactoring
 ?? SmokeBomb refactoring (real particles system)
 
+	Rescale gameItemBoxes according with image
+	Deadly scene blocks handle collisions
+	AnimationFile to have more than one texture. One texture per animation
 
 Think about what to do: action+wallgrab; action+ducking
 ProjectileAimer works with priority queue (shurikens aim at player>items?)(aims calculates target velocity!!!)
