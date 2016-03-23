@@ -215,4 +215,13 @@ public class CollidableHero extends Collidable
 		}
 	}
 
+	public Vec2 getGroundNormal()
+	{
+		Vec2 normal = sensorsController.getController(FixtureSensorID.FEET).contactsAverageNormal();
+		if (normal != null)
+			return normal;
+		//Return 0, -1 when has no contact
+		return new Vec2(0, -1);
+	}
+
 }

@@ -23,7 +23,10 @@ public class JumpAction extends GameHeroAction
 	@Override
 	public void childExecute(PlayableGameHero gameHero)
 	{
-		Vec2 impulse = new Vec2(0, -heroStateProperties.jump.impulse);
+		final Vec2 normal = gameHero.getCollidableHero().getGroundNormal();
+		Vec2 impulse = normal.clone();
+		impulse.normalize();
+		impulse.mulLocal(heroStateProperties.jump.impulse);
 		gameHero.getCollidableHero().applyImpulse(impulse);
 	}
 
