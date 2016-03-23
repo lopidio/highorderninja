@@ -14,6 +14,7 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.math.FloatRect;
+import br.com.guigasgame.math.Randomizer;
 import br.com.guigasgame.scenery.background.Background;
 import br.com.guigasgame.scenery.creation.SceneryCreator;
 import br.com.guigasgame.scenery.creation.SceneryShapeCollidable;
@@ -86,7 +87,7 @@ public class SceneController extends GameObject
 	{
 		if (remainingSpawnPoints.size() == 0)
 			fillRemaingSpawnPoints();
-		int randIndex = (int) (Math.random()*remainingSpawnPoints.size());
+		int randIndex = Randomizer.getRandomIntInInterval(0, remainingSpawnPoints.size() - 1);
 		Vector2f retorno = remainingSpawnPoints.get(randIndex);
 		remainingSpawnPoints.remove(randIndex);
 		return retorno;

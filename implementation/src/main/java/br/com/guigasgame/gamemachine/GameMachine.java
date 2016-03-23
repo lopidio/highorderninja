@@ -13,7 +13,6 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
-import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
 
 import br.com.guigasgame.file.FilenameConstants;

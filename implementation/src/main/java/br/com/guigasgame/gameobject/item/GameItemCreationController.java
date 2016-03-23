@@ -14,6 +14,7 @@ import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.item.life.LifeItem;
 import br.com.guigasgame.gameobject.item.shurikenpack.ShurikenPackItem;
+import br.com.guigasgame.math.Randomizer;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
@@ -71,7 +72,7 @@ public class GameItemCreationController implements UpdatableFromTime
 	
 	private Vec2 getRandomItemSpot()
 	{
-		int randIndex = (int) (Math.random()*itemsSpots.size());
+		int randIndex = Randomizer.getRandomIntInInterval(0, itemsSpots.size() - 1);
 		return WorldConstants.sfmlToPhysicsCoordinates(new Vector2f(itemsSpots.get(randIndex).x , itemsSpots.get(randIndex).y));
 	}
 

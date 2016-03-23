@@ -8,6 +8,7 @@ import org.jsfml.graphics.Color;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
+import br.com.guigasgame.math.Randomizer;
 
 public class SmokeBombProjectile extends Projectile
 {
@@ -35,20 +36,14 @@ public class SmokeBombProjectile extends Projectile
 		for (int i = 0; i < NUM_PARTICLES; ++i)
 		{
 			Vec2 direction = new Vec2();
-			direction.x = randomizeValueBetween(-0.3f, 0.3f);
-			direction.y = randomizeValueBetween(-0.5f, 0.5f);
+			direction.x = Randomizer.getRandomFloatInInterval(-0.3f, 0.3f);
+			direction.y = Randomizer.getRandomFloatInInterval(-0.5f, 0.5f);
 			SmokeBombParticle particle = new SmokeBombParticle(direction, position, color);
 			addChild(particle);
 		}
 		markToDestroy();
 	}
 	
-	float randomizeValueBetween(float min, float max)
-	{
-		return (float) ((Math.random()*(max - min)) + min);
-	}
-	
-
 	@Override
 	public void onEnter()
 	{
