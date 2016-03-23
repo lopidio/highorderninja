@@ -49,6 +49,7 @@ v	Invencibility during some states (sliding, diving, spining) as a xml property
 v	Jump towards collision's normal
 t	Player dies (DeadState/AirDeadState/ DieAction) when has no life
 t	Identify body part hit by shuriken
+v	HeroAttributes configuration in xml file
 
 ShurikenBomb
 RayCastAnythingBut....
@@ -62,11 +63,7 @@ FragStatistics: totalShoots, deaths, kills, suicides
 
 
 Think about what to do: action+wallgrab; action+ducking
-
-
 ProjectileAimer works with priority queue (shurikens aim at player>items?)(aims calculates target velocity!!!)
-Add life regeneration value (xml) to lifeItem
-
 SmokeBomb as shader (that's harder than what I thought)
 
 -	NinjaRope

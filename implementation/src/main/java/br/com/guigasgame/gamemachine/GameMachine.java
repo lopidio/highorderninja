@@ -16,8 +16,7 @@ import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
 import br.com.guigasgame.file.FilenameConstants;
-import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
-import br.com.guigasgame.gameobject.hero.attributes.HeroShootingAttribute;
+import br.com.guigasgame.gameobject.hero.attributes.HeroAttributesFile;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
@@ -46,40 +45,50 @@ public class GameMachine
 		gameMachine.execute();
 	}
 
-	private static RoundGameState setupRoundState() throws Exception, JAXBException {
+	private static RoundGameState setupRoundState()
+			throws Exception, JAXBException
+	{
 		List<HeroTeam> teams = new ArrayList<>();
-		
+
 		setupTeams(teams);
 
 		SceneryCreator scenery = new SceneryCreator(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
-		
+
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundGameState roundGameState = new RoundGameState(teams, scenery, roundHeroAttributes );
+		RoundGameState roundGameState = new RoundGameState(teams, scenery, roundHeroAttributes);
 		return roundGameState;
 	}
 
-	private static RoundHeroAttributes setupAttributes() {
-		HeroAttribute life = new HeroAttribute(100, 5);
-		HeroShootingAttribute shuriken = new HeroShootingAttribute(10, 2, 0);
-		HeroShootingAttribute smokeBomb = new HeroShootingAttribute(1, 3, 0.2f);
-		RoundHeroAttributes roundHeroAttributes = new RoundHeroAttributes(life, shuriken, smokeBomb);
+	private static RoundHeroAttributes setupAttributes()
+	{
+		HeroAttributesFile attributesFile;
+		try
+		{
+			attributesFile = HeroAttributesFile.loadFromFile(FilenameConstants.getHeroAttributesFilename());
+		}
+		catch (JAXBException e)
+		{
+			e.printStackTrace();
+			attributesFile = new HeroAttributesFile();
+		}
+		RoundHeroAttributes roundHeroAttributes = new RoundHeroAttributes(attributesFile.getLife(), attributesFile.getShuriken(), attributesFile.getSmokeBomb());
 		return roundHeroAttributes;
 	}
 
-	private static void setupTeams(List<HeroTeam> teams) {
+	private static void setupTeams(List<HeroTeam> teams)
+	{
 		HeroTeam teamAlpha = new HeroTeam(0);
 		HeroTeam teamBravo = new HeroTeam(1);
 		HeroTeam teamCharlie = new HeroTeam(2);
 		HeroTeam teamDelta = new HeroTeam(3);
-		
+
 		PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
 		teamAlpha.addGameHero(playerOne);
-		
+
 		PlayableHeroDefinition playerTwo = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
 		PlayableHeroDefinition playerThree = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
 		teamBravo.addGameHero(playerTwo);
 		teamBravo.addGameHero(playerThree);
-		
 
 		PlayableHeroDefinition playerFour = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
 		teamCharlie.addGameHero(playerFour);
@@ -87,13 +96,12 @@ public class GameMachine
 		PlayableHeroDefinition playerFive = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 4);
 		teamDelta.addGameHero(playerFive);
 
-		
 		teams.add(teamAlpha);
 		teams.add(teamBravo);
 		teams.add(teamCharlie);
 		teams.add(teamDelta);
-		
-		for (HeroTeam heroTeam : teams) 
+
+		for( HeroTeam heroTeam : teams )
 		{
 			heroTeam.setUp();
 		}
@@ -101,7 +109,8 @@ public class GameMachine
 
 	private void popState()
 	{
-		if (gameStates.size() > 0) gameStates.remove(gameStates.lastElement());
+		if (gameStates.size() > 0)
+			gameStates.remove(gameStates.lastElement());
 	}
 
 	private void addState(GameState gameState)
@@ -112,14 +121,15 @@ public class GameMachine
 
 	public GameMachine()
 	{
-		
+
 		VideoMode[] modes = VideoMode.getFullscreenModes();
-		Arrays.sort(modes, new Comparator<VideoMode>() 
+		Arrays.sort(modes, new Comparator<VideoMode>()
 		{
+
 			@Override
-			public int compare(VideoMode o1, VideoMode o2) 
+			public int compare(VideoMode o1, VideoMode o2)
 			{
-				int retorno = o1.height*o1.width - o2.height*o2.width;
+				int retorno = o1.height * o1.width - o2.height * o2.width;
 				if (retorno == 0)
 					return o1.bitsPerPixel - o2.bitsPerPixel;
 				return retorno;
@@ -127,8 +137,10 @@ public class GameMachine
 
 		});
 		final VideoMode best = modes[modes.length - 1];
-		
-		renderWindow = new RenderWindow(best, "High order ninja");//, Window.FULLSCREEN); //Window.TRANSPARENT
+
+		renderWindow = new RenderWindow(best, "High order ninja");// ,
+																	// Window.FULLSCREEN);
+																	// //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		renderWindow.setMouseCursorVisible(false);
@@ -151,25 +163,25 @@ public class GameMachine
 		// http://gafferongames.com/game-physics/fix-your-timestep/
 		Clock clock = new Clock();
 		float remainingAcumulator = 0f;
-		final float updateDelta = (float)1/FRAME_RATE;
+		final float updateDelta = (float) 1 / FRAME_RATE;
 		while (isRunning)
 		{
 			float iterationTime = clock.restart().asSeconds();
-			
-		   // max frame time to avoid spiral of death
-		    if ( iterationTime > 0.25f )
-		    	iterationTime = 0.25f;    
-		    
+
+			// max frame time to avoid spiral of death
+			if (iterationTime > 0.25f)
+				iterationTime = 0.25f;
+
 			renderWindow.clear();
 			handleEvents();
-			
+
 			remainingAcumulator += iterationTime;
 			while (remainingAcumulator >= iterationTime)
 			{
 				gameStates.lastElement().update(updateDelta);
 				remainingAcumulator -= updateDelta;
 			}
-			
+
 			gameStates.lastElement().draw(renderWindow);
 			renderWindow.display();
 		}

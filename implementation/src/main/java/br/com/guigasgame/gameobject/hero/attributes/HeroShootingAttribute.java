@@ -1,41 +1,54 @@
 package br.com.guigasgame.gameobject.hero.attributes;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 
+@XmlAccessorType(XmlAccessType.NONE)
 public class HeroShootingAttribute extends HeroAttribute
 {
-	
-	private float maxIntervalBetweenShots;
+	@XmlAttribute(required=true)
+	private float intervalBetweenShots;
 	private float currentIntervalBetweenShots;
 
 	public HeroShootingAttribute(float maxValue, float intervalBetweenShoot, float regeneratesPerSecond)
 	{
 		super(maxValue, regeneratesPerSecond);
-		maxIntervalBetweenShots = intervalBetweenShoot;
+		intervalBetweenShots = intervalBetweenShoot;
+	}
+
+	/**
+	 * DO NOT USE
+	 */
+	public HeroShootingAttribute()
+	{
+		super();
+		intervalBetweenShots = 0;
 	}
 	
 	@Override
 	public HeroAttribute clone()
 	{
-		return new HeroShootingAttribute(getMaxValue(), maxIntervalBetweenShots, getRegeneratesPerSecond());
+		return new HeroShootingAttribute(getMaxValue(), intervalBetweenShots, getRegeneratesPerSecond());
 	}
 	
 	@Override
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
-		if (currentIntervalBetweenShots <= maxIntervalBetweenShots)
+		if (currentIntervalBetweenShots <= intervalBetweenShots)
 		{
-			incrementShootingInterval(deltaTime*maxIntervalBetweenShots);
+			incrementShootingInterval(deltaTime*intervalBetweenShots);
 		}
 
 	}
 
 	private boolean incrementShootingInterval(float value)
 	{
-		if (currentIntervalBetweenShots >= maxIntervalBetweenShots)
+		if (currentIntervalBetweenShots >= intervalBetweenShots)
 			return false;
 		currentIntervalBetweenShots += value;
-		if (currentIntervalBetweenShots >= maxIntervalBetweenShots)
+		if (currentIntervalBetweenShots >= intervalBetweenShots)
 			notifyShootintIsAble();
 
 		notifyShootingIncrement(this, value);
@@ -69,21 +82,9 @@ public class HeroShootingAttribute extends HeroAttribute
 		}
 	}
 
-	
-	public float getMaxIntervalBetweenShots()
-	{
-		return maxIntervalBetweenShots;
-	}
-
-	
-	public float getCurrentIntervalBetweenShots()
-	{
-		return currentIntervalBetweenShots;
-	}
-
 	public boolean isAbleToShoot()
 	{
-		return currentIntervalBetweenShots >= maxIntervalBetweenShots && isGreaterThanOne();
+		return currentIntervalBetweenShots >= intervalBetweenShots && isGreaterThanOne();
 	}
 
 }

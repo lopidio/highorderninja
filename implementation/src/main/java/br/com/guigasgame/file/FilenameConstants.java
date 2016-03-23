@@ -83,4 +83,9 @@ public class FilenameConstants
 		return "itemsAnimations.xml";
 	}
 
+	public static String getHeroAttributesFilename()
+	{
+		return "heroAttributes.xml";
+	}
+
 }

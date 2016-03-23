@@ -3,14 +3,21 @@ package br.com.guigasgame.gameobject.hero.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
+@XmlAccessorType(XmlAccessType.NONE)
 public class HeroAttribute implements UpdatableFromTime
 {
 	protected List<HeroAttributeListener> listeners;
+	@XmlAttribute
+	private float regeneratesPerSecond;
+	@XmlAttribute(required=true)
 	private float maxValue;
 	private float currentValue;
-	private float regeneratesPerSecond;
 	
 	public HeroAttribute(float maxValue, float regeneratesPerSecond)
 	{
@@ -18,6 +25,16 @@ public class HeroAttribute implements UpdatableFromTime
 		this.currentValue = maxValue;
 		this.regeneratesPerSecond = regeneratesPerSecond;
 		this.listeners = new ArrayList<>();
+	}
+
+	public HeroAttribute(float maxValue)
+	{
+		this(maxValue, 0);
+	}
+	
+	public HeroAttribute()
+	{
+		this(0, 0);
 	}
 	
 	public HeroAttribute clone()

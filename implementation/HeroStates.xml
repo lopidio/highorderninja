@@ -81,7 +81,7 @@
 			<value>
 				<jump impulse="10.0" />
 				<maxSpeed>
-					<x>2</x>
+					<x>0</x>
 					<y>20</y>
 				</maxSpeed>
 			</value>
