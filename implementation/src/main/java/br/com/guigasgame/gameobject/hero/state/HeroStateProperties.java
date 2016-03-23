@@ -48,9 +48,12 @@ public class HeroStateProperties
 
 	public static class ShootXml{}	
 	public static class RopeXml{}	
+	public static class InvincibleXml{}	
 	
 	@XmlElement
 	public final ShootXml shoot;
+	@XmlElement
+	public final InvincibleXml invincible;
 	@XmlElement
 	public final RopeXml rope;
 	@XmlElement
@@ -62,10 +65,11 @@ public class HeroStateProperties
 	@XmlElement(required=true)
 	public final Vector2 maxSpeed;
 	
-	public HeroStateProperties(ShootXml shoot, RopeXml rope, JumpXml jump, Vector2 maxSpeed, MoveXml move, Map<String, Float> property)
+	public HeroStateProperties(ShootXml shoot, InvincibleXml invincible, RopeXml rope, JumpXml jump, Vector2 maxSpeed, MoveXml move, Map<String, Float> property)
 	{
 		super();
 		this.shoot = shoot;
+		this.invincible = invincible;
 		this.rope = rope;
 		this.jump = jump;
 		this.maxSpeed = maxSpeed;
@@ -79,6 +83,7 @@ public class HeroStateProperties
 		this.rope = null;
 		this.jump = null;
 		this.move = null;
+		this.invincible = null;
 		this.property = new HashMap<>();
 		this.maxSpeed = new Vector2();
 	}
@@ -96,7 +101,6 @@ public class HeroStateProperties
 		}
 		catch (JAXBException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

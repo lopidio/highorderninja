@@ -5,6 +5,7 @@
 			<key>HERO_SLIDING</key>
 			<value>
 				<jump impulse="10.0" />
+				<invincible />
 				<move acceleration="80.0" />
 				<maxSpeed>
 					<x>50</x>
@@ -128,6 +129,7 @@
 		<entry>
 			<key>HERO_DIVING</key>
 			<value>
+				<invincible />			
 				<maxSpeed>
 					<x>20</x>
 					<y>100</y>
@@ -143,6 +145,7 @@
 		<entry>
 			<key>HERO_STOP</key>
 			<value>
+				<invincible />			
 				<shoot />
 				<rope />
 				<maxSpeed>
@@ -206,6 +209,7 @@
 		<entry>
 			<key>HERO_AIR_SPIN</key>
 			<value>
+				<invincible />			
 				<maxSpeed>
 					<x>30</x>
 					<y>0</y>

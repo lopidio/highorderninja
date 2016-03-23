@@ -9,6 +9,8 @@ import org.jbox2d.common.Vec2;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
+import br.com.guigasgame.gameobject.hero.action.DisableInvincibilityAction;
+import br.com.guigasgame.gameobject.hero.action.EnableInvincibilityAction;
 import br.com.guigasgame.gameobject.hero.action.HeroStateAlternativeSetterAction;
 import br.com.guigasgame.gameobject.hero.action.HeroStateSetterAction;
 import br.com.guigasgame.gameobject.hero.action.JumpAction;
@@ -86,11 +88,15 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	public final void onEnter()
 	{
 		gameHero.setAnimationList(animationList);
+		if (heroStatesProperties.invincible != null)
+			gameHero.addAction(new EnableInvincibilityAction());			
 		stateOnEnter();
 	}
 
 	public final void onQuit()
 	{
+		if (heroStatesProperties.invincible != null)
+			gameHero.addAction(new DisableInvincibilityAction());
 		stateOnQuit();
 	}
 
