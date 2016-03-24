@@ -7,11 +7,11 @@ import java.util.List;
 public enum CollidableCategory
 {
 	SCENERY(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing()),
-	SHURIKEN(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing()),
+	SHURIKEN(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing(), true),
 	ROPE_NODE(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
 	ROPE_BODY(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN)),
 	SMOKE_BOMB(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
-	GAME_ITEMS(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing().removeCollisionWith(ROPE_BODY).and(ROPE_NODE).and(SMOKE_BOMB)),
+	GAME_ITEMS(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing().removeCollisionWith(ROPE_BODY).and(ROPE_NODE).and(SMOKE_BOMB), true),
 	DEAD_HERO(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
 	HEROS(		getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN).and(GAME_ITEMS));
 
@@ -26,7 +26,7 @@ public enum CollidableCategory
 		if (selfColision)
 			this.filter = filter.addCollisionWith(categoryMask);
 		else
-			this.filter = filter;
+			this.filter = filter.removeCollisionWith(categoryMask);
 	}
 
 	private CollidableCategory(IntegerMask categoryMask, CollidableFilter filter)

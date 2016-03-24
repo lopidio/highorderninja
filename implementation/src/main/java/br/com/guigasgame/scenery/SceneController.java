@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jbox2d.collision.AABB;
-import org.jbox2d.collision.shapes.Shape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.contacts.Contact;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.math.FloatRect;
 import br.com.guigasgame.math.Randomizer;
@@ -21,9 +22,8 @@ import br.com.guigasgame.scenery.creation.SceneryShapeCollidable;
 
 public class SceneController extends GameObject
 {
-	
-	private List<Shape> box2dShapes;
-	private SceneryShapeCollidable shapeCollidable;
+	private static float SIZE_EXCEDENT = 20;
+	private List<br.com.guigasgame.shape.Shape> shapes;
 	private final List<Vector2f> itemSpots;
 	private final List<Vector2f> spawnPoints;
 	private List<Vector2f> remainingSpawnPoints;
@@ -34,17 +34,12 @@ public class SceneController extends GameObject
 	public SceneController (SceneryCreator sceneryCreator) 
 	{
 		background = sceneryCreator.getBackground();
-		box2dShapes = sceneryCreator.getSceneShapeCreator().getBox2dShapes();
-		itemSpots = new ArrayList<>();
-		itemSpots.addAll(sceneryCreator.getItemsSpots());
-
-		spawnPoints = new ArrayList<>();
-		spawnPoints.addAll(sceneryCreator.getSpawnPoints());
+		shapes = sceneryCreator.getSceneShapeCreator().getBox2dShapes();
+		itemSpots = new ArrayList<>(sceneryCreator.getItemsSpots());
+		spawnPoints = new ArrayList<>(sceneryCreator.getSpawnPoints());
 		remainingSpawnPoints = new ArrayList<>();
 		fillRemaingSpawnPoints();
 		
-		shapeCollidable = new SceneryShapeCollidable(new Vec2());
-		collidableList.add(shapeCollidable);	
 		drawableList.addAll(sceneryCreator.getSceneShapeCreator().getDrawableList());
 	}
 
@@ -52,12 +47,14 @@ public class SceneController extends GameObject
 	public void attachToWorld(World world)
 	{
 		super.attachToWorld(world);
-		for( Shape shape : box2dShapes )
+		for( br.com.guigasgame.shape.Shape shape : shapes )
 		{
-			shapeCollidable.addListener(this);
-			shapeCollidable.addFixture(shape);
+			SceneryShapeCollidable shapeCollidable = new SceneryShapeCollidable(new Vec2(), shape);
+			shapeCollidable.attachToWorld(world);
+			shapeCollidable.addFixture(shape.createAsBox2dShape());
+			collidableList.add(shapeCollidable);	
 		}
-		box2dShapes.clear();
+		shapes.clear();
 		boundaries = calculateBoundaries();
 	}
 	
@@ -96,9 +93,13 @@ public class SceneController extends GameObject
 	private FloatRect calculateBoundaries()
 	{
 		AABB aabb = new AABB();
-		for (Fixture fixtureIterator = shapeCollidable.getBody().getFixtureList(); fixtureIterator != null; fixtureIterator = fixtureIterator.getNext()) 
+		
+		for( Collidable collidable : collidableList )
 		{
-			aabb.combine(aabb, fixtureIterator.getAABB(0));
+			for (Fixture fixtureIterator = collidable.getBody().getFixtureList(); fixtureIterator != null; fixtureIterator = fixtureIterator.getNext()) 
+			{
+				aabb.combine(aabb, fixtureIterator.getAABB(0));
+			}
 		}
 		
 		Vec2[] vertices = {new Vec2(), new Vec2(), new Vec2(), new Vec2()};
@@ -106,10 +107,10 @@ public class SceneController extends GameObject
 
 		final Vector2f lower = WorldConstants.physicsToSfmlCoordinates(vertices[0]);
 		final Vector2f upper = WorldConstants.physicsToSfmlCoordinates(vertices[2]);
-		FloatRect retorno = new FloatRect(	lower.x,
-											lower.y, 
-											upper.x - lower.x, 
-											upper.y - lower.y);
+		FloatRect retorno = new FloatRect(	lower.x - SIZE_EXCEDENT,
+											lower.y - SIZE_EXCEDENT, 
+											upper.x - lower.x + SIZE_EXCEDENT, 
+											upper.y - lower.y + SIZE_EXCEDENT);
 		return retorno;
 	}	
 	
@@ -128,5 +129,10 @@ public class SceneController extends GameObject
 		return itemSpots;
 	}
 
+	@Override
+	public void beginContact(Object me, Object other, Contact contact)
+	{
+		System.out.println(me);
+	}
 	
 }

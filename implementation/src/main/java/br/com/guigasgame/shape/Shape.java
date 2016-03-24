@@ -4,11 +4,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
+import org.jsfml.system.Vector2f;
+
 @XmlAccessorType(XmlAccessType.NONE)
-public class Shape 
+public abstract class Shape 
 {
-	@XmlAttribute(required=true)
-	protected boolean deadly;
+	@XmlAttribute
+	protected float damagePerSecond;
 
 	@XmlAttribute(required=true)
 	protected String textureName;
@@ -18,9 +20,8 @@ public class Shape
 		super();
 	}
 	
-	public Shape(boolean deadly, String textureName)
+	public Shape(float damagePerSecond, String textureName)
 	{
-		this.deadly = deadly;
 		this.textureName = textureName;
 	}
 	
@@ -31,12 +32,17 @@ public class Shape
 	
 	public boolean isDeadly()
 	{
-		return deadly;
+		return damagePerSecond > 0;
 	}
 	
-	public void setDeadly(boolean deadly)
+	public void setDamagePerSecond(float damagePerSecond)
 	{
-		this.deadly = deadly;
+		this.damagePerSecond = damagePerSecond;
+	}
+	
+	public float getDamagePerSecond()
+	{
+		return damagePerSecond;
 	}
 
 	public String getTextureName() 
@@ -44,5 +50,12 @@ public class Shape
 		return textureName;
 	}
 	
+	protected static Vector2f pointToSfmlVector2(Point point)
+	{
+		return new Vector2f(point.getX(), point.getY());
+	}
+	
+	public abstract org.jbox2d.collision.shapes.Shape createAsBox2dShape();
+	public abstract org.jsfml.graphics.Shape createAsSfmlShape();
 	
 }
