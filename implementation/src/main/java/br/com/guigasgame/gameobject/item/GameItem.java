@@ -6,6 +6,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
@@ -42,12 +43,10 @@ public abstract class GameItem extends GameObject
 
 	private void initializeAnimation()
 	{
-
 		Animation animation = Animation.createAnimation(AnimationsCentralPool.getGameItemsAnimationRepository().getAnimationsProperties(index));
+		animation.scale(new Vector2f(properties.size.getX()/animation.getWidth(), 
+				properties.size.getY()/animation.getHeight()));
 		drawableList.add(animation);
-		//TODO SCALE!
-		float animationWidth = animation.getWidth();
-
 	}
 
 	@Override

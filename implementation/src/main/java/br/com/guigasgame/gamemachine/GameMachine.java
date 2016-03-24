@@ -110,7 +110,6 @@ public class GameMachine
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
