@@ -77,33 +77,41 @@ public class GameMachine
 
 	private static void setupTeams(List<HeroTeam> teams)
 	{
-		HeroTeam teamAlpha = new HeroTeam(0);
-		HeroTeam teamBravo = new HeroTeam(1);
-		HeroTeam teamCharlie = new HeroTeam(2);
-		HeroTeam teamDelta = new HeroTeam(3);
-
-		PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
-		teamAlpha.addGameHero(playerOne);
-
-		PlayableHeroDefinition playerTwo = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
-		PlayableHeroDefinition playerThree = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
-		teamBravo.addGameHero(playerTwo);
-		teamBravo.addGameHero(playerThree);
-
-		PlayableHeroDefinition playerFour = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
-		teamCharlie.addGameHero(playerFour);
-
-		PlayableHeroDefinition playerFive = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 4);
-		teamDelta.addGameHero(playerFive);
-
-		teams.add(teamAlpha);
-		teams.add(teamBravo);
-		teams.add(teamCharlie);
-		teams.add(teamDelta);
-
-		for( HeroTeam heroTeam : teams )
+		try
 		{
-			heroTeam.setUp();
+			HeroTeam teamAlpha = new HeroTeam(0);
+			HeroTeam teamBravo = new HeroTeam(1);
+			HeroTeam teamCharlie = new HeroTeam(2);
+			HeroTeam teamDelta = new HeroTeam(3);
+			
+			PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
+			teamAlpha.addGameHero(playerOne);
+			
+			PlayableHeroDefinition playerTwo = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
+			PlayableHeroDefinition playerThree = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
+			teamBravo.addGameHero(playerTwo);
+			teamBravo.addGameHero(playerThree);
+			
+			PlayableHeroDefinition playerFour = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
+			teamCharlie.addGameHero(playerFour);
+			
+			PlayableHeroDefinition playerFive = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 4);
+			teamDelta.addGameHero(playerFive);
+			
+			teams.add(teamAlpha);
+			teams.add(teamBravo);
+			teams.add(teamCharlie);
+			teams.add(teamDelta);
+			
+			for( HeroTeam heroTeam : teams )
+			{
+				heroTeam.setUp();
+			}
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

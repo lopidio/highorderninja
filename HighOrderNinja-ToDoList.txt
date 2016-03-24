@@ -53,7 +53,7 @@ v	HeroAttributes configuration in xml file
 v	AnimationFile to have more than one texture. One texture per animation
 
 	Rescale gameItemBoxes according with image
-	Deadly scene blocks handle collisions
+	Deadly scene blocks handle it's collisions
 
 
 ShurikenBomb

@@ -12,7 +12,7 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 
 public class HeroTeam
 {
-
+	private static final int NUM_MAX_TEAMS = 4; 
 	private final Color color;
 	private final int teamId;
 
@@ -23,8 +23,10 @@ public class HeroTeam
 
 	private List<PlayableHeroDefinition> herosList;
 
-	public HeroTeam(int id)
+	public HeroTeam(int id) throws Exception
 	{
+		if (id < 0 || id > NUM_MAX_TEAMS - 1)
+			throw new Exception("Invalid tem ID. Valid range: 0-3");
 		teamId = id;
 		teamMask = new IntegerMask();
 		enemiesMask = CollidableCategory.getAllPlayersCategory();
@@ -86,14 +88,6 @@ public class HeroTeam
 				return Color.GREEN;
 			case 3:
 				return Color.YELLOW;
-			case 4:
-				return Color.CYAN;
-			case 5:
-				return Color.MAGENTA;
-			case 6:
-				return new Color(128, 128, 128);
-			case 7:
-				return new Color(255, 128, 0);
 		}
 		return Color.WHITE;
 	}
