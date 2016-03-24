@@ -1,5 +1,7 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import br.com.guigasgame.gameobject.hero.action.CollisionDisablerAction;
+import br.com.guigasgame.gameobject.hero.action.CollisionEnablerAction;
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
@@ -13,21 +15,18 @@ class DuckingState extends HeroState
 	protected DuckingState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_DUCKING);
-//		setAnimationsColor(Color.BLUE);
 	}
 
 	@Override
 	public void stateOnEnter()
 	{
-		//TODO has to be an action
-		gameHero.getCollidableHero().disableCollision(FixtureSensorID.HEAD);
+		gameHero.addAction(new CollisionDisablerAction(FixtureSensorID.HEAD));
 	}
 
 	@Override
 	protected void stateOnQuit()
 	{
-		//TODO has to be an action
-		gameHero.getCollidableHero().enableCollision(FixtureSensorID.HEAD);
+		gameHero.addAction(new CollisionEnablerAction(FixtureSensorID.HEAD));
 	}
 
 	@Override

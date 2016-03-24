@@ -70,6 +70,11 @@ public class RoundFragCounter
 	{
 		return suicide;
 	}
+	
+	public int getHitAsTarget()
+	{
+		return hitAsTarget;
+	}
 
 	public void incrementHitAsTarget()
 	{
