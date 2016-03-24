@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.guigasgame.drawable.Drawable;
+import br.com.guigasgame.drawable.DrawableShape;
 import br.com.guigasgame.shape.CircleShape;
 import br.com.guigasgame.shape.RectangleShape;
 import br.com.guigasgame.shape.Shape;
@@ -29,19 +30,19 @@ public class SceneShapeCreator
 		List<TriangleShape> triangleShapes = sceneryShapes.getTriangles();
 		for( TriangleShape triangle : triangleShapes )
 		{
-			drawableList.add(new DrawableShape(triangle.createAsSfmlShape()));
+			drawableList.add(new DrawableShape(triangle.createSfmlShape()));
 			box2dShapes.add(triangle);
 		}
 		List<CircleShape> circleShapes = sceneryShapes.getCircles();
 		for( CircleShape circleShape : circleShapes )
 		{
-			drawableList.add(new DrawableShape(circleShape.createAsSfmlShape()));
+			drawableList.add(new DrawableShape(circleShape.createSfmlShape()));
 			box2dShapes.add(circleShape);
 		}
 		List<RectangleShape> rectangleShapes = sceneryShapes.getRectangles();
 		for( RectangleShape rectangleShape : rectangleShapes )
 		{
-			drawableList.add(new DrawableShape(rectangleShape.createAsSfmlShape()));
+			drawableList.add(new DrawableShape(rectangleShape.createSfmlShape()));
 			box2dShapes.add(rectangleShape);
 		}
 

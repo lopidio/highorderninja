@@ -9,7 +9,6 @@ import org.jbox2d.common.Vec2;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.resourcemanager.TextureResourceManager;
 
 
 @XmlAccessorType(XmlAccessType.NONE)
@@ -56,7 +55,7 @@ public class RectangleShape extends Shape
 	}
 
 	@Override
-	public org.jbox2d.collision.shapes.Shape createAsBox2dShape()
+	public org.jbox2d.collision.shapes.Shape createBox2dShape()
 	{
 		final PolygonShape shape = new PolygonShape();
 		
@@ -67,16 +66,14 @@ public class RectangleShape extends Shape
 	}
 
 	@Override
-	public org.jsfml.graphics.Shape createAsSfmlShape()
+	protected org.jsfml.graphics.Shape createSfmlPolygon()
 	{
 		final Vector2f position = pointToSfmlVector2(center);
 		Vector2f dimension = pointToSfmlVector2(halfDimension);
 		dimension = Vector2f.mul(dimension, 2);
 		org.jsfml.graphics.Shape shape = new org.jsfml.graphics.RectangleShape(dimension);
-		shape.setTexture(TextureResourceManager.getInstance().getResource(textureName));
 		shape.setPosition(position);
 		shape.setOrigin(dimension.x/2, dimension.y/2);
-		
 		return shape;
 	}
 

@@ -1,9 +1,7 @@
-package br.com.guigasgame.scenery.creation;
+package br.com.guigasgame.drawable;
 
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Shape;
-
-import br.com.guigasgame.drawable.Drawable;
 
 public class DrawableShape implements Drawable
 {

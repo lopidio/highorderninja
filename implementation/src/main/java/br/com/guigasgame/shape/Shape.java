@@ -4,7 +4,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
+import org.jsfml.graphics.IntRect;
+import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
+
+import br.com.guigasgame.resourcemanager.TextureResourceManager;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public abstract class Shape 
@@ -55,7 +59,17 @@ public abstract class Shape
 		return new Vector2f(point.getX(), point.getY());
 	}
 	
-	public abstract org.jbox2d.collision.shapes.Shape createAsBox2dShape();
-	public abstract org.jsfml.graphics.Shape createAsSfmlShape();
+	public abstract org.jbox2d.collision.shapes.Shape createBox2dShape();
+	protected abstract org.jsfml.graphics.Shape createSfmlPolygon();
+	
+	public org.jsfml.graphics.Shape createSfmlShape()
+	{
+		Texture texture = TextureResourceManager.getInstance().getResource(textureName);
+		texture.setRepeated(true);
+		org.jsfml.graphics.Shape shape = createSfmlPolygon();
+		shape.setTextureRect(new IntRect(shape.getLocalBounds()));
+		shape.setTexture(texture);
+		return shape;
+	}
 	
 }

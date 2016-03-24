@@ -10,7 +10,6 @@ import org.jsfml.graphics.ConvexShape;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.resourcemanager.TextureResourceManager;
 
 
 @XmlAccessorType(XmlAccessType.NONE)
@@ -71,7 +70,7 @@ public class TriangleShape extends Shape
 	}
 
 	@Override
-	public org.jbox2d.collision.shapes.Shape createAsBox2dShape()
+	public org.jbox2d.collision.shapes.Shape createBox2dShape()
 	{
 		final PolygonShape shape = new PolygonShape();
 		final Vector2f sfmlPointA = pointToSfmlVector2(pointA);
@@ -87,13 +86,12 @@ public class TriangleShape extends Shape
 	}
 
 	@Override
-	public org.jsfml.graphics.Shape createAsSfmlShape()
+	protected org.jsfml.graphics.Shape createSfmlPolygon()
 	{
 		final Vector2f sfmlPointA = pointToSfmlVector2(pointA);
 		final Vector2f sfmlPointB = pointToSfmlVector2(pointB);
 		final Vector2f sfmlPointC = pointToSfmlVector2(pointC);
 		final ConvexShape shape = new ConvexShape();
-		shape.setTexture(TextureResourceManager.getInstance().getResource(textureName));
 		shape.setPoints(sfmlPointA, sfmlPointB, sfmlPointC);
 		return shape;
 	}

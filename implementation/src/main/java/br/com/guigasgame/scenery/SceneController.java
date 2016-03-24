@@ -59,14 +59,14 @@ public class SceneController extends GameObject
 			{
 				SceneryCollidable shapeCollidable = new SceneryCollidable(shape.getDamagePerSecond());
 				shapeCollidable.attachToWorld(world);
-				shapeCollidable.addFixture(shape.createAsBox2dShape());
+				shapeCollidable.addFixture(shape.createBox2dShape());
 				sceneryCollidables.add(shapeCollidable);
 
 				map.put(shape.getDamagePerSecond(), shapeCollidable);
 			}
 			else
 			{
-				map.get(shape.getDamagePerSecond()).addFixture(shape.createAsBox2dShape());
+				map.get(shape.getDamagePerSecond()).addFixture(shape.createBox2dShape());
 			}
 		}
 		collidableList.addAll(sceneryCollidables);
