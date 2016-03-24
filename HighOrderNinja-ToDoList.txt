@@ -52,9 +52,9 @@ t	Identify body part hit by shuriken
 v	HeroAttributes configuration in xml file
 v	AnimationFile to have more than one texture. One texture per animation
 v	Rescale gameItemImages according with gameItemBoxes	
-t	Deadly scene blocks handle it's own collisions
 
-
+t	Deadly scene blocks handle it's own collisions (refactor!)
+	Create static HUD
 ShurikenBomb
 RayCastAnythingBut....
 
