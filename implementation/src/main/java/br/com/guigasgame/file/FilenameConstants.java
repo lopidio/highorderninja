@@ -11,15 +11,13 @@ public class FilenameConstants
 
 	private static String inputPlayerKeyboard = "defaultKeyboardInputConfig.xml";
 	private static String inputPlayerJoystick = "defaultJoystickInputConfig.xml";
-	private static String heroAnimationFilename = "heroAnimationProperties.xml";
 	private static String heroFixturesFilename = "HeroFixtures.xml";
 	private static String heroStatesFilename = "HeroStates.xml";
 	private static String projectilePropertiesFilename = "projectilesProperties.xml";
-	private static String projectileAnimationFilename = "projectilesAnimation.xml";
 
 	public static String getProjectileAnimationFilename()
 	{
-		return projectileAnimationFilename;
+		return "projectilesAnimation.xml";
 	}
 
 	public static String getInputPlayerConfigFilename(int playerID)
@@ -32,7 +30,7 @@ public class FilenameConstants
 
 	public static String getHeroAnimationFilename()
 	{
-		return heroAnimationFilename;
+		return "heroAnimationProperties.xml";
 	}
 
 	public static String getHeroFixturesFilename()

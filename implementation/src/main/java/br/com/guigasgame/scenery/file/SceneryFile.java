@@ -130,10 +130,10 @@ public class SceneryFile
 		
 		
 		List<BackgroundItemProperties> backgroundItems = new ArrayList<>();
-		AnimationProperties back = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 0, 1500, 1000), true);
-		AnimationProperties moonProperties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 0, 160, 160), true);
-		AnimationProperties cloud1Properties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(160, 0, 600, 200), true);
-		AnimationProperties cloud2Properties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 230, 400, 400), true);
+		AnimationProperties back = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 0, 1500, 1000), true, "");
+		AnimationProperties moonProperties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 0, 160, 160), true, "");
+		AnimationProperties cloud1Properties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(160, 0, 600, 200), true, "");
+		AnimationProperties cloud2Properties = new AnimationProperties((short) 1, (short) 0, (short) 12, new Rect(0, 230, 400, 400), true, "");
 
 		backgroundItems.add(new BackgroundItemProperties(back, new Point(0, 0), 1000, "backGroundTexture.png"));
 		backgroundItems.add(new BackgroundItemProperties(moonProperties, new Point(10, 0), new Point(800, 100), 100, false, -1, "backGroundItems.png"));

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<animationPropertiesFile textureFilename="ninja.png" smooth="true">
+<animationPropertiesFile smooth="true">
 	<animationsMap>
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_STANDING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>4</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -19,7 +19,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_BACKFLIPPING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>4</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -34,7 +34,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_RUNNING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>8</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -49,7 +49,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_SUPER_RUNNING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>8</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -64,7 +64,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_ROPE</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>8</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -79,7 +79,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_ASCENDING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -94,7 +94,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_WALLRIDING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -109,7 +109,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_SUPERJUMP</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -124,7 +124,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_FALLING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -139,7 +139,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_DIVING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -154,7 +154,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_SLIDING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -169,7 +169,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_DEAD</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -184,7 +184,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_STOP</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -199,7 +199,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_AIR_SPIN</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -214,7 +214,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_DUCKING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>2</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -229,7 +229,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_WALLGRABBING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>1</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>
@@ -244,7 +244,7 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="heroStateIndex">HERO_ROPE_SHOOTING</key>
-			<value horizontal="true">
+			<value horizontal="true" textureFilename="ninja.png">
 				<numFrames>1</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.1</secondsPerFrame>

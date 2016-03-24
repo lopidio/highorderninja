@@ -56,12 +56,6 @@ public class AnimationsCentralPool
 		try
 		{
 			gameItemAnimations = (AnimationPropertiesFile<GameItemIndex>) AnimationPropertiesFile.loadFromFile(FilenameConstants.getItemsAnimationPropertiesFilename());
-
-			// Seto a textura de todas as animações
-			for( AnimationProperties animation : gameItemAnimations.getAnimationsMap() )
-			{
-				animation.setTexture(gameItemAnimations.getSharedTexture());
-			}
 		}
 		catch (JAXBException e)
 		{
@@ -76,12 +70,6 @@ public class AnimationsCentralPool
 		try
 		{
 			heroAnimations = (AnimationPropertiesFile<HeroStateIndex>) AnimationPropertiesFile.loadFromFile(FilenameConstants.getHeroAnimationFilename());
-
-			// Seto a textura de todas as animações
-			for( AnimationProperties animation : heroAnimations.getAnimationsMap() )
-			{
-				animation.setTexture(heroAnimations.getSharedTexture());
-			}
 		}
 		catch (JAXBException e)
 		{
@@ -96,12 +84,6 @@ public class AnimationsCentralPool
 		try
 		{
 			projectilesAnimations = (AnimationPropertiesFile<ProjectileIndex>) AnimationPropertiesFile.loadFromFile(FilenameConstants.getProjectileAnimationFilename());
-
-			// Seto a textura de todas as animações
-			for( AnimationProperties animation : projectilesAnimations.getAnimationsMap() )
-			{
-				animation.setTexture(projectilesAnimations.getSharedTexture());
-			}
 		}
 		catch (JAXBException e)
 		{

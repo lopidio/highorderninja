@@ -20,8 +20,8 @@ class AnimationViewer
 	static boolean isRunning = true;
 	public static void main(String[] args) throws JAXBException
 	{
-		String animationPropertiesFile = "projectilesAnimation.xml";
-		renderWindow = new RenderWindow(new VideoMode(1000, 600, 32), "Test");
+		String animationPropertiesFile = "heroAnimationProperties.xml";
+		renderWindow = new RenderWindow(new VideoMode(1000, 600, 32), "Animation Viewer");
 		renderWindow.setFramerateLimit(60);
 
 		AnimationPropertiesFile<?> fromFile = ((AnimationPropertiesFile<?>) AnimationPropertiesFile
@@ -29,8 +29,8 @@ class AnimationViewer
 		
 		List<Animation> animationList = new ArrayList<Animation>();
 		
-		short positionX = 0;
-		short positionY = 0;
+		short positionX = 50;
+		short positionY = 50;
 		int maxHeight = 0;
 		
 		for( AnimationProperties properties : fromFile.getAnimationsMap() )
@@ -41,6 +41,7 @@ class AnimationViewer
 			//Desloca verticalmente
 			if (positionX + novaAnimacao.getWidth() > renderWindow.getSize().x)
 			{
+				positionX = 50;
 				positionY += maxHeight;
 				maxHeight = 0;
 			}

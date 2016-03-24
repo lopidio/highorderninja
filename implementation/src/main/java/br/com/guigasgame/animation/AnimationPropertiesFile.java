@@ -35,26 +35,10 @@ public class AnimationPropertiesFile<Enum>
 {
 
 	@XmlAttribute
-	private String textureFilename;
-
-	@XmlAttribute
 	private boolean smooth;
 
 	@XmlElement
 	private Map<Enum, AnimationProperties> animationsMap;
-
-	private Texture sharedTexture;
-
-	/**
-	 * DO NOT USE
-	 * 
-	 * @param textureFilename
-	 */
-	AnimationPropertiesFile(String textureFilename)
-	{
-		this.textureFilename = textureFilename;
-		animationsMap = new HashMap<>();
-	}
 
 	/**
 	 * DO NOT USE
@@ -71,11 +55,11 @@ public class AnimationPropertiesFile<Enum>
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		
 		AnimationPropertiesFile<?> animationPropertiesFile = ((AnimationPropertiesFile<?>) jaxbUnmarshaller.unmarshal(new File(filename)));
-		animationPropertiesFile.sharedTexture = TextureResourceManager.getInstance().getResource(animationPropertiesFile.textureFilename);
-		animationPropertiesFile.sharedTexture.setSmooth(animationPropertiesFile.smooth);
 		for( AnimationProperties animation : animationPropertiesFile.animationsMap.values() )
 		{
-			animation.setTexture(animationPropertiesFile.sharedTexture);
+			Texture texture = TextureResourceManager.getInstance().getResource(animation.textureFilename);
+			texture.setSmooth(animationPropertiesFile.smooth);
+			animation.setTexture(texture);
 		}
 		return animationPropertiesFile;
 	}
@@ -90,19 +74,14 @@ public class AnimationPropertiesFile<Enum>
 		return animationsMap.values();
 	}
 
-	public Texture getSharedTexture()
-	{
-		return sharedTexture;
-	}
-
 	public static void main(String[] args) throws JAXBException
 	{
 
-		AnimationPropertiesFile<GameItemIndex> anim = new AnimationPropertiesFile<>(FilenameConstants.getItemsAnimationPropertiesFilename());
+		AnimationPropertiesFile<GameItemIndex> anim = new AnimationPropertiesFile<>();
 
-		AnimationProperties animationProperties = new AnimationProperties((short) 2, (short) 3, (short) 12, new Rect(1, 4, 7, 8), true);
+		AnimationProperties animationProperties = new AnimationProperties((short) 2, (short) 3, (short) 12, new Rect(1, 4, 7, 8), true, FilenameConstants.getItemsAnimationPropertiesFilename());
 
-		AnimationProperties nova = new AnimationProperties((short) 2, (short) 3,(short) 12, new Rect(1, 4, 7, 8), true);
+		AnimationProperties nova = new AnimationProperties((short) 2, (short) 3,(short) 12, new Rect(1, 4, 7, 8), true, FilenameConstants.getItemsAnimationPropertiesFilename());
 
 		anim.animationsMap.put(GameItemIndex.LIFE, animationProperties);
 		anim.animationsMap.put(GameItemIndex.SHURIKEN_PACK, nova);
@@ -131,7 +110,10 @@ public class AnimationPropertiesFile<Enum>
 	public void setSmooth(boolean smooth)
 	{
 		this.smooth = smooth;
-		sharedTexture.setSmooth(smooth);
+		for( AnimationProperties animationProperties : animationsMap.values() )
+		{
+			animationProperties.texture.setSmooth(smooth);
+		}
 	}
 
 	public boolean isSmooth()

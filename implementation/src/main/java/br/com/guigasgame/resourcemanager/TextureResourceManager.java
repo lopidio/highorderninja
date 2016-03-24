@@ -27,7 +27,6 @@ public class TextureResourceManager extends ResourceManager<String, Texture>
 			throws IOException
 	{
 		Texture texture = new Texture();
-
 		texture.loadFromFile(new File(key).toPath());
 		return texture;
 	}

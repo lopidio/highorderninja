@@ -10,7 +10,7 @@ import org.jsfml.graphics.Texture;
 import br.com.guigasgame.math.Rect;
 
 
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 public class AnimationProperties
 {
 
@@ -24,6 +24,8 @@ public class AnimationProperties
 	public final Rect textureSpriteRect;
 	@XmlAttribute
 	public final boolean horizontal;
+	@XmlAttribute
+	public final String textureFilename;
 
 	public Texture texture;
 
@@ -38,10 +40,11 @@ public class AnimationProperties
 		this.secondsPerFrame = 0;
 		this.textureSpriteRect = new Rect();
 		this.horizontal = true;
+		this.textureFilename = "";
 	}
 
 	public AnimationProperties(short numFrames, short numEntranceFrames,
-			float secondsPerFrame, Rect textureSpriteRect, boolean horizontal)
+			float secondsPerFrame, Rect textureSpriteRect, boolean horizontal, String textureFilename)
 	{
 		super();
 		this.numFrames = numFrames;
@@ -49,6 +52,7 @@ public class AnimationProperties
 		this.secondsPerFrame = secondsPerFrame;
 		this.textureSpriteRect = textureSpriteRect;
 		this.horizontal = horizontal;
+		this.textureFilename = textureFilename;
 	}
 
 	public Texture getTexture()

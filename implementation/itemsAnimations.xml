@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<animationPropertiesFile textureFilename="gameItemsAnimation.png" smooth="false">
+<animationPropertiesFile smooth="false">
     <animationsMap>
         <entry>
             <key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gameItemIndex">LIFE</key>
-            <value horizontal="true">
+            <value horizontal="true" textureFilename="gameItemsAnimation.png" >
                 <numFrames>5</numFrames>
                 <numEntranceFrames>0</numEntranceFrames>
                 <secondsPerFrame>0.4</secondsPerFrame>
@@ -17,7 +17,7 @@
         </entry>
         <entry>
             <key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gameItemIndex">SHURIKEN_PACK</key>
-            <value horizontal="true">
+            <value horizontal="true" textureFilename="gameItemsAnimation.png" >
                 <numFrames>5</numFrames>
                 <numEntranceFrames>0</numEntranceFrames>
                 <secondsPerFrame>0.4</secondsPerFrame>
