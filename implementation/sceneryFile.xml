@@ -22,7 +22,7 @@
                 <y>150.0</y>
             </pointC>
         </triangles>
-        <triangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+        <triangles damagePerSecond="15.0" textureName="fire-textures.jpg">
             <pointA>
                 <x>800.0</x>
                 <y>120.0</y>

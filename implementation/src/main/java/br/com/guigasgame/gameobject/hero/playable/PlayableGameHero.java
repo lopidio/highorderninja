@@ -352,4 +352,9 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		invincible = false;
 	}
 
+	public void deadlySceneryHit(float damage)
+	{
+		heroAttributes.getLife().decrement(damage);
+	}
+
 }

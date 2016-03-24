@@ -51,9 +51,8 @@ t	Player dies (DeadState/AirDeadState/ DieAction) when has no life
 t	Identify body part hit by shuriken
 v	HeroAttributes configuration in xml file
 v	AnimationFile to have more than one texture. One texture per animation
-v	Rescale gameItemImages according with gameItemBoxes
-	
-	Deadly scene blocks handle it's collisions
+v	Rescale gameItemImages according with gameItemBoxes	
+t	Deadly scene blocks handle it's own collisions
 
 
 ShurikenBomb
