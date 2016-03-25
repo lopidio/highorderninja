@@ -83,10 +83,13 @@ public class HeroAttributesArcBellowHud extends HeroAttributeMovingHud
 	
 	public void adjustCircleLength(HeroAttribute heroAttribute)
 	{
-		ratio = heroAttribute.getCurrentValue()/heroAttribute.getMaxValue();
-		updateVertices(innerShape.get(0).position, ratio);
-//		innerShape.setRadius(ratio*radius);
-//		innerShape.setOrigin(innerShape.getRadius(), innerShape.getRadius());
+		if (innerShape.size() > 0)
+		{
+			ratio = heroAttribute.getCurrentValue()/heroAttribute.getMaxValue();
+			updateVertices(innerShape.get(0).position, ratio);
+	//		innerShape.setRadius(ratio*radius);
+	//		innerShape.setOrigin(innerShape.getRadius(), innerShape.getRadius());
+		}
 	}
 	
 	@Override

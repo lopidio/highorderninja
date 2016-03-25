@@ -76,3 +76,7 @@ SmokeBomb as shader (that's harder than what I thought)
 	- Shuriken cuts the rope
 
 	Start playing with GUI (http://www.programcreek.com/java-api-examples/index.php?source_dir=java-jumpandrun-dev-master/core/src/main/java/de/secondsystem/game01/impl/game/entities/GameEntity.java)
+	Die: Increase friction
+	
+2500
+1500

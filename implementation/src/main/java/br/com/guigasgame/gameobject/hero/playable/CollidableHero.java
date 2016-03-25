@@ -212,6 +212,8 @@ public class CollidableHero extends Collidable
 		for( Fixture fixture : fixtureMap.values() )
 		{
 			fixture.setFilterData(deadFilter);
+			fixture.setFriction(2f);
+			fixture.setRestitution(0.1f);
 		}
 	}
 

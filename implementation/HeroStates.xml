@@ -211,7 +211,7 @@
 			<value>
 				<invincible />			
 				<maxSpeed>
-					<x>30</x>
+					<x>40</x>
 					<y>0</y>
 				</maxSpeed>
 				<property>
@@ -225,7 +225,7 @@
 					</entry>
 					<entry>
 						<key>spinImpulse</key>
-						<value>13</value>
+						<value>15</value>
 					</entry>
 				</property>
 			</value>

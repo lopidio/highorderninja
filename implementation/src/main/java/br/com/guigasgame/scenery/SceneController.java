@@ -25,7 +25,7 @@ import br.com.guigasgame.scenery.creation.SceneryCreator;
 public class SceneController extends GameObject
 {
 
-	private static float SIZE_EXCEDENT = 20;
+	private static float SIZE_EXCEDENT = 50;
 	private List<br.com.guigasgame.shape.Shape> shapes;
 	private final List<Vector2f> itemSpots;
 	private final List<Vector2f> spawnPoints;

@@ -24,7 +24,6 @@ public class SceneryCollidable extends Collidable implements UpdatableFromTime
 
 	private float damagePerSecond;
 	private List<PlayableGameHero> hitHeros;
-	private float secondCycle;
 
 	public SceneryCollidable(float damagePerSecond)
 	{
@@ -33,7 +32,6 @@ public class SceneryCollidable extends Collidable implements UpdatableFromTime
 		bodyDef.type = BodyType.STATIC;
 		this.damagePerSecond = damagePerSecond;
 		hitHeros = new ArrayList<>();
-		secondCycle = 0;
 	}
 
 	public Fixture addFixture(Shape shape)
@@ -60,8 +58,7 @@ public class SceneryCollidable extends Collidable implements UpdatableFromTime
 				List<CollidableCategory> categoryList = CollidableCategory.fromMask(fixture.getFilterData().categoryBits);
 				for( CollidableCategory category : categoryList )
 				{
-					System.out.println("Scenery collided with: "
-							+ category.name());
+//					System.out.println("Scenery collided with: " + category.name());
 					if (category == CollidableCategory.HEROS)
 					{
 						CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
@@ -99,20 +96,9 @@ public class SceneryCollidable extends Collidable implements UpdatableFromTime
 	@Override
 	public void update(float deltaTime)
 	{
-		secondCycle += deltaTime;
-		if (secondCycle > 1)
-		{
-			hitHeros();
-			secondCycle -= 1;
-		}
-	}
-
-	private void hitHeros()
-	{
 		for( PlayableGameHero hero : hitHeros )
 		{
-			hero.addAction(new DeadlySceneryDamageAction(damagePerSecond));
+			hero.addAction(new DeadlySceneryDamageAction(damagePerSecond*deltaTime));
 		}
 	}
-
 }

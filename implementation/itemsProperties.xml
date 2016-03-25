@@ -4,7 +4,7 @@
         <entry>
             <key>LIFE</key>
             <value>
-                <restitution>0.5</restitution>
+                <restitution>0.3</restitution>
                 <friction>0.2</friction>
                 <mass>1.0</mass>
                 <size>
@@ -12,7 +12,7 @@
                     <y>20</y>
                 </size>
                 <period>30.0</period>
-                <lifeTime>15.0</lifeTime>
+                <lifeTime>30.0</lifeTime>
             </value>
         </entry>
         <entry>
@@ -26,7 +26,7 @@
                     <y>10</y>
                 </size>
                 <period>10.0</period>
-                <lifeTime>10.0</lifeTime>
+                <lifeTime>20.0</lifeTime>
             </value>
         </entry>
     </itemMap>
