@@ -69,7 +69,7 @@ public class NinjaRopeSwingingState extends HeroState
 		ninjaRope.update(deltaTime);
 		if (!ninjaRope.isAlive())
 			releaseRope();
-		if (!gameHero.getCollidableHero().isMoving())
+		if (!gameHero.getCollidableHero().isMoving() && ninjaRope.getHookPosition().y > gameHero.getCollidableHero().getPosition().y)
 		{
 			gameHero.addAction(new SwingFasterAction(heroStatesProperties, gameHero.getForwardSide()));
 		}

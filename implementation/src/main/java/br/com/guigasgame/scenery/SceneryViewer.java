@@ -68,10 +68,11 @@ public class SceneryViewer
 
 		for( Vector2f spawnPoints : creator.getSpawnPoints() )
 		{
-			Shape circle = new CircleShape(5);
-			circle.setFillColor(Color.RED);
-			circle.setPosition(spawnPoints);
-			pointsShapes.add(circle);
+			org.jsfml.graphics.Shape shape = new org.jsfml.graphics.RectangleShape(new Vector2f(20, 40));
+			shape.setPosition(spawnPoints);
+			shape.setOrigin(10,20);
+			shape.setFillColor(Color.RED);
+			pointsShapes.add(shape);
 		}
 	}
 
@@ -130,6 +131,11 @@ public class SceneryViewer
 					view.zoom(1.2f);
 				if (event.asMouseWheelEvent().delta < 0)// == MouseWheelEvent.WHEEL_UNIT_SCROLL)
 					view.zoom(.8f);
+			}
+			if (event.type == Event.Type.MOUSE_BUTTON_PRESSED)
+			{
+//				System.out.println(Vector2f.sub(view.getCenter(), new Vector2f(event.asMouseButtonEvent().position)));
+				System.out.println(event.asMouseButtonEvent().position);
 			}
 			if (event.type == Event.Type.CLOSED)
 			{
