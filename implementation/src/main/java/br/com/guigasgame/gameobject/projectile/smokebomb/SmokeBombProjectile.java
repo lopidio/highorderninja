@@ -21,8 +21,8 @@ public class SmokeBombProjectile extends Projectile
 	{
 		super(ProjectileIndex.SMOKE_BOMB_PROJECTILE, direction, hero);
 
-		targetMask = CollidableCategory.SCENERY.getCategoryMask().and
-				(CollidableCategory.SMOKE_BOMB_PROJECTILE.getFilter().removeCollisionWith(owner.getHeroProperties().getHitTeamMask()).getCategory().value);
+		targetPriorityQueue.add(owner.getHeroProperties().getHitEnemiesMask());
+		targetPriorityQueue.add(CollidableCategory.SCENERY.getCategoryMask());
 		collidableFilter = CollidableCategory.SMOKE_BOMB_PROJECTILE.getFilter().removeCollisionWith(owner.getHeroProperties().getHitTeamMask());
 		this.color = hero.getHeroProperties().getColor();
 		setAnimationsColor(color);

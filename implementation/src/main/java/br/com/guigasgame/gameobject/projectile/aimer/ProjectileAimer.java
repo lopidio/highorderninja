@@ -1,5 +1,7 @@
 package br.com.guigasgame.gameobject.projectile.aimer;
 
+import java.util.List;
+
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
@@ -17,16 +19,22 @@ public class ProjectileAimer
 	
 	private static class RayCastAimer
 	{
+			public int maskIndex;
 			public Vec2 direction;
 			public int angleVariation;
-			public RayCastAimer(Vec2 direction, int angleVariation) 
+			public RayCastAimer(Vec2 direction, int angleVariation, int maskIndex) 
 			{
 				this.direction = direction;
 				this.angleVariation = angleVariation;
+				this.maskIndex = maskIndex;
 			}
 			
 			public boolean isWorseThan(RayCastAimer other)
 			{
+				if (maskIndex > other.maskIndex)
+					return true;
+				if (maskIndex < other.maskIndex)
+					return false;
 				if (angleVariation != other.angleVariation)
 					return (angleVariation > other.angleVariation);
 				return direction.lengthSquared() > direction.lengthSquared();
@@ -49,7 +57,8 @@ public class ProjectileAimer
 	private final Body ownerBody;
 	private final Vec2 initialDirection;
 	private final CollidableFilter collidableFilter;
-	private final IntegerMask targetMask;
+	private IntegerMask targetMask;
+	private final List<IntegerMask> priorityQueueMask;
 	
 	public ProjectileAimer(Projectile projectile, Body ownerBody) 
 	{
@@ -58,16 +67,21 @@ public class ProjectileAimer
 		this.sinAngle = sinAngleDefault;
 		this.cosAngle = cosAngleDefault;
 		setAngleRangeInRadians(projectile.getProperties().rangeAngle);
+		priorityQueueMask = projectile.getTargetPriorityQueue();
+		targetMask = new IntegerMask();
+		for( IntegerMask integerMask : priorityQueueMask )
+		{
+			targetMask = targetMask.set(integerMask.value);
+		}
 
 		this.maxDistance = projectile.getProperties().maxDistance;
 		initialDirection = projectile.getDirection().clone();
 		initialDirection.normalize();
 		initialDirection.mulLocal(maxDistance);
 		
-		this.finalRaycastAimer = new RayCastAimer(this.initialDirection.clone().mul(maxDistance), rayCastNumber);
+		this.finalRaycastAimer = new RayCastAimer(this.initialDirection.clone().mul(maxDistance), rayCastNumber, priorityQueueMask.size() + 1);
 		this.ownerBody = ownerBody;
 		this.collidableFilter = projectile.getCollidableFilter();
-		this.targetMask = projectile.getTargetMask();
 		
 		generateRayCasts();
 	}
@@ -102,27 +116,27 @@ public class ProjectileAimer
 		Vec2 initialPosition = ownerBody.getPosition();
 		World bodysWorld = ownerBody.getWorld();
 		
-		
 		RayCastClosestFixture closestFixture = new RayCastClosestFixture(bodysWorld, initialPosition, initialPosition.add(pointTo), 
-			 collidableFilter.getCollider().set(CollidableCategory.SMOKE_BOMB_PARTICLE.getCategoryMask().value)); //Add Smoke bomb category
+				 collidableFilter.getCollider().set(CollidableCategory.SMOKE_BOMB_PARTICLE.getCategoryMask().value)); //Add Smoke bomb category
 		closestFixture.ignore(CollidableCategory.DEAD_HERO);
-		
 		closestFixture.shoot();
+
 		RayCastCallBackWrapper response = closestFixture.getCallBackWrapper();
 		
 		if (response != null)
 		{
 			if (targetMask.matches(response.fixture.getFilterData().categoryBits)) //if its what I am aiming at
 			{
-				checkShorterRaycast(response.point, variationAngle);
+				checkShorterRaycast(response.point, variationAngle, response.fixture.getFilterData().categoryBits);
 			}
 		}
 		
 	}
 
-	private void checkShorterRaycast(Vec2 point, int variationAngle)
+	private void checkShorterRaycast(Vec2 point, int variationAngle, int categoryBits)
 	{
-		RayCastAimer newOne = new RayCastAimer(point.sub(ownerBody.getPosition()), variationAngle);
+		int index = priorityOfTarget(categoryBits);
+		RayCastAimer newOne = new RayCastAimer(point.sub(ownerBody.getPosition()), variationAngle, index);
 		
 		float newDistance = point.sub(ownerBody.getPosition()).length();
 		if (newDistance <= finalRaycastAimer.direction.length())
@@ -132,6 +146,16 @@ public class ProjectileAimer
 				finalRaycastAimer = newOne;
 			}
 		}
+	}
+
+	private int priorityOfTarget(int categoryBits)
+	{
+		for( int i = 0; i < priorityQueueMask.size(); ++i )
+		{
+			if (priorityQueueMask.get(i).matches(categoryBits))
+				return i;
+		}
+		return priorityQueueMask.size() + 1;
 	}
 
 	public Vec2 getFinalDirection()

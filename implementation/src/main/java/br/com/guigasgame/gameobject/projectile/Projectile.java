@@ -1,5 +1,6 @@
 package br.com.guigasgame.gameobject.projectile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jbox2d.collision.shapes.CircleShape;
@@ -33,9 +34,9 @@ public abstract class Projectile extends GameObject
 
 	protected CollidableFilter collidableFilter;
 	protected Vec2 direction;
-	protected IntegerMask targetMask;
 	protected ProjectileCollidable collidable;
 	protected PlayableGameHero owner;
+	protected List<IntegerMask> targetPriorityQueue;
 
 	protected Projectile(ProjectileIndex index, Vec2 direction, PlayableGameHero gameHero)
 	{
@@ -56,8 +57,7 @@ public abstract class Projectile extends GameObject
 		collidable.addListener(this);
 		collidableList.add(collidable);
 		collidableFilter = null;
-		
-		this.targetMask = new IntegerMask();
+		targetPriorityQueue = new ArrayList<>();
 		
 		drawableList.add(animation);
 	}
@@ -129,11 +129,6 @@ public abstract class Projectile extends GameObject
 		return properties;
 	}
 
-	public IntegerMask getTargetMask()
-	{
-		return targetMask;
-	}
-
 	protected void setAnimationsColor(Color color)
 	{
 		for( Drawable drawable : drawableList )
@@ -182,5 +177,10 @@ public abstract class Projectile extends GameObject
 	public PlayableGameHero getOwner()
 	{
 		return owner;
+	}
+
+	public List<IntegerMask> getTargetPriorityQueue()
+	{
+		return targetPriorityQueue;
 	}
 }

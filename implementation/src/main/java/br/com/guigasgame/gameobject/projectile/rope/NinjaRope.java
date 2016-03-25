@@ -91,7 +91,6 @@ public class NinjaRope implements CollidableContactListener
 	
 	public void destroy()
 	{
-		System.out.println("Rope dies");
 		alive = false;
 		for( Joint joint : jointVector )
 		{

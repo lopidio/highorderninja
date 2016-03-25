@@ -211,7 +211,7 @@
                 <y>1000.0</y>
             </center>
             <halfDimension>
-                <x>500.0</x>
+                <x>400.0</x>
                 <y>10</y>
             </halfDimension>
         </rectangles>		

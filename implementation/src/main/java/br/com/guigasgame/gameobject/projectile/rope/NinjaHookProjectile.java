@@ -31,7 +31,7 @@ public class NinjaHookProjectile extends Projectile
 		hookIsAttached = false;
 		markToAttachHook = false;
 
-		targetMask = CollidableCategory.SCENERY.getCategoryMask();
+		targetPriorityQueue.add(CollidableCategory.SCENERY.getCategoryMask());
 		collidableFilter = CollidableCategory.ROPE_NODE.getFilter();
 		setAnimationsColor(gameHero.getHeroProperties().getColor());
 	}
