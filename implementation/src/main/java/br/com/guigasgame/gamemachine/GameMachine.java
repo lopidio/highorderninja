@@ -13,6 +13,7 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
+import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
 
 import br.com.guigasgame.color.ColorBlender;
@@ -150,9 +151,7 @@ public class GameMachine
 		});
 		final VideoMode best = modes[modes.length - 1];
 
-		renderWindow = new RenderWindow(best, "High order ninja");// ,
-																	// Window.FULLSCREEN);
-																	// //Window.TRANSPARENT
+		renderWindow = new RenderWindow(best, "High order ninja", Window.FULLSCREEN);  //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		renderWindow.setMouseCursorVisible(false);

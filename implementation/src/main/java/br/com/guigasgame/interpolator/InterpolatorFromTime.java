@@ -2,15 +2,15 @@ package br.com.guigasgame.interpolator;
 
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public abstract class Interpolator implements UpdatableFromTime
+public abstract class InterpolatorFromTime implements UpdatableFromTime
 {
 	protected float current;
 	protected float destiny;
 
-	public Interpolator(float current, float destiny)
+	public InterpolatorFromTime(float current)
 	{
 		this.current = current;
-		this.destiny = destiny;
+		this.destiny = current;
 	}
 	
 	public final float getCurrent()
@@ -23,6 +23,11 @@ public abstract class Interpolator implements UpdatableFromTime
 		return destiny;
 	}
 	
+	public InterpolatorFromTime interpolateTo(float destiny)
+	{
+		this.destiny = destiny;
+		return this;
+	}
+	
 	public abstract boolean hasFinished();
-
 }

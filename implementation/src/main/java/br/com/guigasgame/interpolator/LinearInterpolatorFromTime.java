@@ -1,16 +1,15 @@
 package br.com.guigasgame.interpolator;
 
-public class LinearInterpolator extends Interpolator
+public class LinearInterpolatorFromTime extends InterpolatorFromTime
 {
-	private final float ratioPerSecond;
+	private float ratioPerSecond;
 	private float remaining;
+	private final float duration;
 
-	public LinearInterpolator(float source, float destiny, float duration)
+	public LinearInterpolatorFromTime(float source, float duration)
 	{
-		super(source, destiny);
-		remaining = destiny - source;
-		ratioPerSecond = remaining / duration;
-		remaining = Math.abs(remaining);
+		super(source);
+		this.duration = duration;
 	}
 
 	@Override
@@ -21,8 +20,17 @@ public class LinearInterpolator extends Interpolator
 		final float value = ratioPerSecond * deltaTime;
 		current += value;
 		remaining -= Math.abs(value);
-		
 		limitToDestiny();
+	}
+	
+	@Override
+	public LinearInterpolatorFromTime interpolateTo(float destiny)
+	{
+		super.interpolateTo(destiny);
+		remaining = destiny - current;
+		ratioPerSecond = remaining / duration;
+		remaining = Math.abs(remaining);
+		return this;
 	}
 
 	private void limitToDestiny()

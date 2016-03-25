@@ -306,13 +306,23 @@
                 <y>10</y>
             </halfDimension>
         </rectangles>		
-        <rectangles textureName="darkStoneTexture.jpg"> <!-- 24MiddleBottom -->
+        <rectangles textureName="darkStoneTexture.jpg"> <!-- 24Middle -->
             <center>
                 <x>1100.0</x>
                 <y>600.0</y>
             </center>
             <halfDimension>
                 <x>280.0</x>
+                <y>10</y>
+            </halfDimension>
+        </rectangles>		
+        <rectangles textureName="darkStoneTexture.jpg"> <!-- 24Middle -->
+            <center>
+                <x>1340.0</x>
+                <y>700.0</y>
+            </center>
+            <halfDimension>
+                <x>50.0</x>
                 <y>10</y>
             </halfDimension>
         </rectangles>		

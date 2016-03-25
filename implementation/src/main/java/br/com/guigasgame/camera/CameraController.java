@@ -16,29 +16,30 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.interpolator.InterpolatorFromTime;
+import br.com.guigasgame.interpolator.LinearInterpolatorFromTime;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class CameraController implements UpdatableFromTime, Drawable
 {
-	private static final float INNER_FRAME_SCALE = 0.55f;
-	private static final float OUTTER_FRAME_SCALE = 0.75f;
-	private static final float ZOOM_OUT_FACTOR = 1.005f;
+	private static final float INNER_FRAME_SCALE = 0.65f;
+	private static final float OUTTER_FRAME_SCALE = 0.85f;
+	private static final float ZOOM_OUT_FACTOR = 1.01f;
 	private static final float ZOOM_IN_FACTOR = 0.985f;
 	
-//	private final FloatRect sceneryBoundaries;
 	private List<PlayableGameHero> playersToControl;
 	private View view;
 	private RenderWindow renderWindow;
 	private Shape outterFrame;
 	private Shape innerFrame;
 	private CameraCenterFrame centerFrame;
+	private InterpolatorFromTime centerYInterpolator;
+	private InterpolatorFromTime centerXInterpolator;
 	
 	public CameraController()
 	{
-//		sceneryBoundaries = floatRect;
 		playersToControl = new ArrayList<>();
 		centerFrame = new CameraCenterFrame();
-		
 	}
 	
 	public void addPlayerToControl(PlayableGameHero player)
@@ -69,7 +70,12 @@ public class CameraController implements UpdatableFromTime, Drawable
 		final Vector2f focusCenter = centerFrame.getCenter();
 		innerFrame.setPosition(focusCenter);
 		outterFrame.setPosition(focusCenter);
-		interpolateToNewCenter(focusCenter);
+		centerXInterpolator.interpolateTo(focusCenter.x);
+		centerYInterpolator.interpolateTo(focusCenter.y);
+		centerXInterpolator.update(deltaTime);
+		centerYInterpolator.update(deltaTime);
+		view.setCenter(new Vector2f(centerXInterpolator.getCurrent(), centerYInterpolator.getCurrent()));		
+
 
 		renderWindow.setView(view);
 	}
@@ -86,13 +92,6 @@ public class CameraController implements UpdatableFromTime, Drawable
 				iterator.remove();
 			}
 		}
-	}
-
-	private void interpolateToNewCenter(Vector2f newCameraCenter)
-	{
-		final Vector2f interpolator = Vector2f.mul(Vector2f.sub(newCameraCenter, view.getCenter()), 0.2f); //a + (b - a)*factor
-		final Vector2f ultimate = Vector2f.add(interpolator, view.getCenter());
-		view.setCenter(ultimate);		
 	}
 
 	private void checkZoomIn()
@@ -155,6 +154,9 @@ public class CameraController implements UpdatableFromTime, Drawable
 		outterFrame.setOutlineThickness(1.0f);
 		
 		view = new View(new FloatRect(0, 0, renderWindow.getSize().x, renderWindow.getSize().y));
+		centerXInterpolator = new LinearInterpolatorFromTime(view.getCenter().x, 1);
+		centerYInterpolator = new LinearInterpolatorFromTime(view.getCenter().y, 1);
+		
 	}
 	
 	private Shape createSfmlRectangle(Vector2f dimension, Vector2f position)
