@@ -65,7 +65,7 @@ public class RoundGameState implements GameState
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
-		cameraController = new CameraController(scenery.getBoundaries());
+		cameraController = new CameraController();
 		hudList = new ArrayList<>();
 		
 		initializeHeros(teams, scenery, roundHeroAttributes);

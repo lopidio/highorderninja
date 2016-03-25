@@ -5,6 +5,7 @@ import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.gameobject.hero.action.HitByProjectileAction;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.sensors.HeroFixtureController;
@@ -14,14 +15,14 @@ import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 
 public class Shuriken extends Projectile
 {
-	private int collisionCounter;
+//	private int collisionCounter;
 	private float autoDestructionCounter = 0.3f;
 	private boolean beginAutoDestruction;
 
 	public Shuriken(Vec2 direction, PlayableGameHero gameHero)
 	{
 		super(ProjectileIndex.SHURIKEN, direction, gameHero);
-		collisionCounter = 0;
+//		collisionCounter = 0;
 		
 		targetPriorityQueue.add(owner.getHeroProperties().getHitEnemiesMask());
 		targetPriorityQueue.add(CollidableCategory.GAME_ITEMS.getCategoryMask());
@@ -35,10 +36,10 @@ public class Shuriken extends Projectile
 	{
 		super.beginContact(me, other, contact);
 		initializeAutoDestruction();
-		++collisionCounter;
-		if (collisionCounter >= properties.numBounces)
-		{
-		}
+//		++collisionCounter;
+//		if (collisionCounter >= properties.numBounces)
+//		{
+//		}
 	}
 	
 	@Override
@@ -67,6 +68,7 @@ public class Shuriken extends Projectile
 	
 	public void initializeAutoDestruction()
 	{
+		collidable.getBody().getFixtureList().setFilterData(new CollidableFilterBox2dAdapter(collidableFilter.removeCollisionWith(CollidableCategory.HEROS)).toBox2dFilter());
 		beginAutoDestruction = true;
 	}
 	

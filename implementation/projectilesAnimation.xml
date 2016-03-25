@@ -7,7 +7,7 @@
 			<value horizontal="true" textureFilename="projectilesAlphaTransparency.png" >
 				<numFrames>4</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
-				<secondsPerFrame>0.1</secondsPerFrame>
+				<secondsPerFrame>0.01</secondsPerFrame>
 				<textureSpriteRect>
 					<left>0</left>
 					<top>0</top>

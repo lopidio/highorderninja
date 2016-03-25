@@ -25,7 +25,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private static final float ZOOM_OUT_FACTOR = 1.005f;
 	private static final float ZOOM_IN_FACTOR = 0.985f;
 	
-	private final FloatRect sceneryBoundaries;
+//	private final FloatRect sceneryBoundaries;
 	private List<PlayableGameHero> playersToControl;
 	private View view;
 	private RenderWindow renderWindow;
@@ -33,9 +33,9 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private Shape innerFrame;
 	private CameraCenterFrame centerFrame;
 	
-	public CameraController(FloatRect floatRect)
+	public CameraController()
 	{
-		sceneryBoundaries = floatRect;
+//		sceneryBoundaries = floatRect;
 		playersToControl = new ArrayList<>();
 		centerFrame = new CameraCenterFrame();
 		
@@ -67,11 +67,9 @@ public class CameraController implements UpdatableFromTime, Drawable
 		
 
 		final Vector2f focusCenter = centerFrame.getCenter();
-		adjustZoomFrameCenter(innerFrame, focusCenter);
-		adjustZoomFrameCenter(outterFrame, focusCenter);
-		
-		final Vector2f newCameraCenter = adjustCenterToSceneBoundaries(focusCenter, view.getSize()); 
-		interpolateToNewCenter(newCameraCenter);
+		innerFrame.setPosition(focusCenter);
+		outterFrame.setPosition(focusCenter);
+		interpolateToNewCenter(focusCenter);
 
 		renderWindow.setView(view);
 	}
@@ -95,39 +93,6 @@ public class CameraController implements UpdatableFromTime, Drawable
 		final Vector2f interpolator = Vector2f.mul(Vector2f.sub(newCameraCenter, view.getCenter()), 0.2f); //a + (b - a)*factor
 		final Vector2f ultimate = Vector2f.add(interpolator, view.getCenter());
 		view.setCenter(ultimate);		
-	}
-
-	private void adjustZoomFrameCenter(Shape frame, Vector2f center)
-	{
-		FloatRect frameGlobalBound = frame.getGlobalBounds();
-		frame.setPosition(adjustCenterToSceneBoundaries(center, 
-				new Vector2f(frameGlobalBound.width,
-							frameGlobalBound.height)));
-	}
-
-	private Vector2f adjustCenterToSceneBoundaries(Vector2f focusCenter, Vector2f viewSize)
-	{
-		float xCenter = focusCenter.x;
-		float yCenter = focusCenter.y;
-		if (focusCenter.y + viewSize.y/2 > sceneryBoundaries.top + sceneryBoundaries.height)
-		{
-			yCenter = sceneryBoundaries.top + sceneryBoundaries.height - viewSize.y/2;
-		}
-		if (focusCenter.y - viewSize.y/2 < sceneryBoundaries.top)
-		{
-			yCenter = sceneryBoundaries.top + viewSize.y/2;
-		}
-		
-		if (focusCenter.x + viewSize.x/2 > sceneryBoundaries.left + sceneryBoundaries.width)
-		{
-			xCenter = sceneryBoundaries.left + sceneryBoundaries.width - viewSize.x/2;
-		}
-		if (focusCenter.x - viewSize.x/2 < sceneryBoundaries.left)
-		{
-			xCenter = sceneryBoundaries.left + viewSize.x/2;
-		}
-		
-		return new Vector2f(xCenter, yCenter);
 	}
 
 	private void checkZoomIn()
