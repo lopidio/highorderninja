@@ -41,7 +41,7 @@ class DuckingState extends HeroState
 	@Override
 	protected void move(Side side)
 	{
-		if (!gameHero.isTouchingWallAhead())
+		if (!gameHero.getCollidableHero().isTouchingAnyWallAhead(side))
 		{
 			setState(new RunningHeroState(gameHero));
 			super.move(side);

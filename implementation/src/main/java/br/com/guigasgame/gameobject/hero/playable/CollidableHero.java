@@ -141,6 +141,21 @@ public class CollidableHero extends Collidable
 		}
 	}
 
+	public boolean isTouchingAnyWallAhead(Side side)
+	{
+		switch (side)
+		{
+		case LEFT:
+			return sensorsController.getController(FixtureSensorID.LEFT_BOTTOM_SENSOR).isTouching()
+					|| sensorsController.getController(FixtureSensorID.LEFT_TOP_SENSOR).isTouching();
+		case RIGHT:
+			return sensorsController.getController(FixtureSensorID.RIGHT_BOTTOM_SENSOR).isTouching()
+					|| sensorsController.getController(FixtureSensorID.RIGHT_TOP_SENSOR).isTouching();
+		default:
+			return false;
+		}
+	}
+
 	public void disableCollision(FixtureSensorID sensorID)
 	{
 		Filter newFilter = new Filter();
@@ -224,6 +239,12 @@ public class CollidableHero extends Collidable
 			return normal;
 		//Return 0, -1 when has no contact
 		return new Vec2(0, -1);
+	}
+
+	public boolean isHeadTouchingSomething()
+	{
+		return sensorsController.getController(FixtureSensorID.RIGHT_TOP_SENSOR).isTouching() ||
+				sensorsController.getController(FixtureSensorID.LEFT_TOP_SENSOR).isTouching();
 	}
 
 }

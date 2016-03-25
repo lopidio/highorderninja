@@ -1,8 +1,11 @@
 package br.com.guigasgame.gameobject.hero.state;
 
+import br.com.guigasgame.gameobject.hero.action.CollisionDisablerAction;
+import br.com.guigasgame.gameobject.hero.action.CollisionEnablerAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.side.Side;
 
 
@@ -23,7 +26,7 @@ class SlidingHeroState extends HeroState
 	{
 		secondsRemaining -= deltaTime;
 		gameHero.addAction(new MoveHeroAction(gameHero.getForwardSide(), heroStatesProperties));
-		if (secondsRemaining <= 0)
+		if (secondsRemaining <= 0 && !gameHero.getCollidableHero().isHeadTouchingSomething())
 		{
 			if (gameHero.getCollidableHero().isMoving())
 			{
@@ -42,6 +45,19 @@ class SlidingHeroState extends HeroState
 				setState(new JumpingHeroState(gameHero));
 		}
 	}
+	
+	@Override
+	public void stateOnEnter()
+	{
+		gameHero.addAction(new CollisionDisablerAction(FixtureSensorID.HEAD));
+	}
+
+	@Override
+	protected void stateOnQuit()
+	{
+		gameHero.addAction(new CollisionEnablerAction(FixtureSensorID.HEAD));
+	}
+
 	
 	@Override
 	protected void move(Side side)
