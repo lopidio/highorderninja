@@ -34,10 +34,10 @@ public class Shuriken extends Projectile
 	public void beginContact(Object me, Object other, Contact contact)
 	{
 		super.beginContact(me, other, contact);
+		initializeAutoDestruction();
 		++collisionCounter;
 		if (collisionCounter >= properties.numBounces)
 		{
-			initializeAutoDestruction();
 		}
 	}
 	
@@ -57,11 +57,12 @@ public class Shuriken extends Projectile
 							continue;
 					}
 					hitGameHero.addAction(new HitByProjectileAction(this, heroFixtureController.getSensorID()));
-					markToDestroy();
 					return;
 				}
 			}
+			hitGameHero.addAction(new HitByProjectileAction(this, FixtureSensorID.FEET));
 		}
+		markToDestroy();
 	}
 	
 	public void initializeAutoDestruction()

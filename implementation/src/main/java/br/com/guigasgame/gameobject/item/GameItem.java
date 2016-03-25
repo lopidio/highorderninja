@@ -93,24 +93,23 @@ public abstract class GameItem extends GameObject
 				animation.update(deltaTime);
 				animation.setRotation(angleInDegrees);
 			}
-			if (lifeTime / properties.lifeTime < 0.4) // Less than 20% of
-														// lifeTime left
-			{
-				almostAtTheEnd();
-			}
+			checkAlpha();
+			if (lifeTime <= 0)
+				markToDestroy();
 		}
 	}
 
-	private void almostAtTheEnd()
+	private void checkAlpha()
 	{
-		for( Drawable drawable : drawableList )
+		final float ratio = lifeTime / properties.lifeTime;
+		if (ratio < .4) // Less than 40% of lifeTime left
 		{
-			Animation animation = (Animation) drawable;
-			animation.setAlpha(50);
+			for( Drawable drawable : drawableList )
+			{
+				Animation animation = (Animation) drawable;
+				animation.setAlpha((int) (ratio*255.0));
+			}
 		}
-		if (lifeTime <= 0)
-			markToDestroy();
-
 	}
 
 	public abstract void acts(PlayableGameHero playableGameHero);
