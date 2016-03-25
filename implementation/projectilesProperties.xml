@@ -38,7 +38,7 @@
                 <radius>0.15</radius>
                 <restitution>0.0</restitution>
                 <friction>5</friction>
-                <damage>0</damage>
+                <damage>10</damage>
                 <maxDistance>5</maxDistance>
                 <rangeAngle>1.0471966</rangeAngle> <!-- 60° = PI/3 -->
             </value>

@@ -47,14 +47,17 @@ v	Create HUD (below player: life/shurikens/smokebomb)(valueChanged, maxValue, ti
 v	Scenery handle deadly obstacles (v to have THE background) (as many textures as wanted) (add scene boundaries) Background refactoring (to have Foreground objects)(regenerateInterval...) (as many textures as wanted)
 v	Invencibility during some states (sliding, diving, spining) as a xml property
 v	Jump towards collision's normal
-t	Player dies (DeadState/AirDeadState/ DieAction) when has no life
-t	Identify body part hit by shuriken
 v	HeroAttributes configuration in xml file
 v	AnimationFile to have more than one texture. One texture per animation
 v	Rescale gameItemImages according with gameItemBoxes	
-
+t	Player dies (DeadState/AirDeadState/ DieAction) when has no life
+t	Identify body part hit by shuriken
+t	Die: Increase friction
 t	Deadly scene blocks handle it's own collisions (refactor!)
 	Create static HUD
+	Improve camera's algorithm
+	ProjectileAimer works with priority queue (shurikens aim at player>items?)(aims calculates target velocity!!!)
+	Rope hook gameItem's collision (grab item?)
 ShurikenBomb
 RayCastAnythingBut....
 
@@ -67,7 +70,6 @@ FragStatistics: totalShoots, deaths, kills, suicides
 
 
 Think about what to do: action+wallgrab; action+ducking
-ProjectileAimer works with priority queue (shurikens aim at player>items?)(aims calculates target velocity!!!)
 SmokeBomb as shader (that's harder than what I thought)
 
 -	NinjaRope
@@ -76,7 +78,4 @@ SmokeBomb as shader (that's harder than what I thought)
 	- Shuriken cuts the rope
 
 	Start playing with GUI (http://www.programcreek.com/java-api-examples/index.php?source_dir=java-jumpandrun-dev-master/core/src/main/java/de/secondsystem/game01/impl/game/entities/GameEntity.java)
-	Die: Increase friction
 	
-2500
-1500

@@ -104,7 +104,7 @@ public class ProjectileAimer
 		
 		
 		RayCastClosestFixture closestFixture = new RayCastClosestFixture(bodysWorld, initialPosition, initialPosition.add(pointTo), 
-			 collidableFilter.getCollider().set(CollidableCategory.SMOKE_BOMB.getCategoryMask().value)); //Add Smoke bomb category
+			 collidableFilter.getCollider().set(CollidableCategory.SMOKE_BOMB_PARTICLE.getCategoryMask().value)); //Add Smoke bomb category
 		closestFixture.ignore(CollidableCategory.DEAD_HERO);
 		
 		closestFixture.shoot();

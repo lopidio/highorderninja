@@ -1,56 +1,71 @@
 package br.com.guigasgame.gameobject.projectile;
 
+import java.util.List;
+
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.contacts.Contact;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.GameObject;
+import br.com.guigasgame.gameobject.hero.playable.CollidableHero;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.projectile.aimer.ProjectileAimer;
 
 
 public abstract class Projectile extends GameObject
 {
+
 	protected final ProjectileIndex index;
 	protected final ProjectileProperties properties;
-	
+
 	protected CollidableFilter collidableFilter;
 	protected Vec2 direction;
 	protected IntegerMask targetMask;
 	protected ProjectileCollidable collidable;
+	protected PlayableGameHero owner;
 
-	protected Projectile(ProjectileIndex index, Vec2 direction, Vec2 position)
+	protected Projectile(ProjectileIndex index, Vec2 direction, PlayableGameHero gameHero)
+	{
+		this(index, direction, gameHero, gameHero.getCollidableHero().getBody().getWorldCenter());
+	}
+
+	protected Projectile(ProjectileIndex index, Vec2 direction, PlayableGameHero gameHero, Vec2 position)
 	{
 		this.index = index;
-
+		
 		Animation animation = Animation.createAnimation(AnimationsCentralPool.getProjectileAnimationRepository().getAnimationsProperties(index));
-
+		
 		this.properties = ProjectilesPropertiesPool.getProjectileProperties(index);
 		this.direction = direction.clone();
-
+		
+		this.owner = gameHero;
 		collidable = new ProjectileCollidable(position);
 		collidable.addListener(this);
 		collidableList.add(collidable);
 		collidableFilter = null;
 		
 		this.targetMask = new IntegerMask();
-
+		
 		drawableList.add(animation);
 	}
-	
+
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-		for (Drawable drawable : drawableList) 
+		for( Drawable drawable : drawableList )
 		{
 			drawable.draw(renderWindow);
 		}
@@ -90,7 +105,7 @@ public abstract class Projectile extends GameObject
 		Body body = collidable.getBody();
 		FixtureDef def = createFixtureDef();
 		body.createFixture(def);
-		
+
 		ProjectileAimer aimer = new ProjectileAimer(this, collidable.getBody());
 		direction = aimer.getFinalDirection();
 
@@ -99,26 +114,26 @@ public abstract class Projectile extends GameObject
 		body.applyLinearImpulse(direction, body.getWorldCenter());
 	}
 
-	public Vec2 getDirection() 
+	public Vec2 getDirection()
 	{
 		return direction;
 	}
-	
-	public CollidableFilter getCollidableFilter() 
+
+	public CollidableFilter getCollidableFilter()
 	{
 		return collidableFilter;
 	}
-	
+
 	public ProjectileProperties getProperties()
 	{
 		return properties;
 	}
 
-	public IntegerMask getTargetMask() 
+	public IntegerMask getTargetMask()
 	{
 		return targetMask;
 	}
-	
+
 	protected void setAnimationsColor(Color color)
 	{
 		for( Drawable drawable : drawableList )
@@ -132,5 +147,40 @@ public abstract class Projectile extends GameObject
 	{
 		return collidable.getPosition();
 	}
+
+	@Override
+	public void beginContact(Object me, Object other, Contact contact)
+	{
+		Body otherBody = (Body) other;
+		if (otherBody.getUserData() != null)
+		{
+			Fixture fixture = otherBody.getFixtureList();
+			List<CollidableCategory> categoryList = CollidableCategory.fromMask(fixture.getFilterData().categoryBits);
+			for( CollidableCategory category : categoryList )
+			{
+				if (category == CollidableCategory.HEROS)
+				{
+					CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
+					hitHero(collidableHero.getPlayableHero());
+				}
+				else
+					hitCollidable(category, otherBody);
+			}
+		}
+	}
 	
+	protected void hitHero(PlayableGameHero hitGameHero)
+	{
+		//hook
+	}
+
+	protected void hitCollidable(CollidableCategory category, Body other)
+	{
+		//hook
+	}
+
+	public PlayableGameHero getOwner()
+	{
+		return owner;
+	}
 }

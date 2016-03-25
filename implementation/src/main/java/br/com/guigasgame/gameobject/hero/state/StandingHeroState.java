@@ -31,7 +31,7 @@ public class StandingHeroState extends HeroState
 		{
 			if (gameHero.getCollidableHero().isFallingDown())
 				setState(new FallingHeroState(gameHero));
-			if (gameHero.getCollidableHero().isAscending())
+			else if (gameHero.getCollidableHero().isAscending())
 				setState(new JumpingHeroState(gameHero));
 		}
 		else if (gameHero.getCollidableHero().isMoving())

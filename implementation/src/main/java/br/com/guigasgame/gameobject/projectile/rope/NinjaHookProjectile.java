@@ -25,7 +25,7 @@ public class NinjaHookProjectile extends Projectile
 
 	public NinjaHookProjectile(Vec2 direction, PlayableGameHero gameHero)
 	{
-		super(ProjectileIndex.ROPE, direction, gameHero.getCollidableHero().getBody().getWorldCenter());
+		super(ProjectileIndex.ROPE, direction, gameHero);
 		this.gameHero = gameHero;
 		world = null;
 		hookIsAttached = false;

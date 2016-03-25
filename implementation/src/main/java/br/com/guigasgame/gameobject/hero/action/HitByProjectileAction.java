@@ -2,20 +2,20 @@ package br.com.guigasgame.gameobject.hero.action;
 
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
-import br.com.guigasgame.gameobject.projectile.shuriken.Shuriken;
+import br.com.guigasgame.gameobject.projectile.Projectile;
 
 
-public class HitByShurikenAction extends GameHeroAction
+public class HitByProjectileAction extends GameHeroAction
 {
-	private Shuriken shuriken;
-	private FixtureSensorID fixtureSensorID;
-	private PlayableGameHero owner;
+	private final Projectile projectile;
+	private final FixtureSensorID fixtureSensorID;
+	private final PlayableGameHero owner;
 
-	public HitByShurikenAction(Shuriken shuriken, FixtureSensorID fixtureSensorID, PlayableGameHero owner)
+	public HitByProjectileAction(Projectile projectile, FixtureSensorID fixtureSensorID)
 	{
-		this.shuriken = shuriken;
+		this.projectile = projectile;
 		this.fixtureSensorID = fixtureSensorID;
-		this.owner = owner;
+		this.owner = projectile.getOwner();
 	}
 
 	@Override
@@ -24,18 +24,16 @@ public class HitByShurikenAction extends GameHeroAction
 		if (!hit.isInvincible())
 		{
 			owner.getFragCounter().incrementShootsOnTarget();
-			hit.getHit(shuriken.getProperties().damage, fixtureSensorID);
+			hit.getHit(projectile.getProperties().damage, fixtureSensorID);
 			hit.getFragCounter().incrementHitAsTarget();
 			if (hit.isPlayerDead())
 			{
 				owner.getFragCounter().incrementKills();
 			}
-			shuriken.markToDestroy();
 		}
 		else
 		{
-			shuriken.initializeAutoDestruction();
-			System.out.println("Absorved shuriken");
+			System.out.println("Absorved projectile");
 		}
 	}
 

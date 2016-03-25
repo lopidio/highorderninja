@@ -1,16 +1,11 @@
 package br.com.guigasgame.gameobject.projectile.shuriken;
 
-import java.util.List;
-
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import br.com.guigasgame.collision.CollidableCategory;
-import br.com.guigasgame.collision.IntegerMask;
-import br.com.guigasgame.gameobject.hero.action.HitByShurikenAction;
-import br.com.guigasgame.gameobject.hero.playable.CollidableHero;
+import br.com.guigasgame.gameobject.hero.action.HitByProjectileAction;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.sensors.HeroFixtureController;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
@@ -20,14 +15,12 @@ import br.com.guigasgame.gameobject.projectile.ProjectileIndex;
 public class Shuriken extends Projectile
 {
 	private int collisionCounter;
-	private PlayableGameHero owner;
 	private float autoDestructionCounter = 0.3f;
 	private boolean beginAutoDestruction;
 
-	public Shuriken(Vec2 direction, IntegerMask targetCategory, PlayableGameHero gameHero)
+	public Shuriken(Vec2 direction, PlayableGameHero gameHero)
 	{
-		super(ProjectileIndex.SHURIKEN, direction, gameHero.getCollidableHero().getBody().getWorldCenter());
-		owner = gameHero;
+		super(ProjectileIndex.SHURIKEN, direction, gameHero);
 		collisionCounter = 0;
 		targetMask = gameHero.getHeroProperties().getHitEnemiesMask();
 		collidableFilter = CollidableCategory.SHURIKEN.getFilter().removeCollisionWith(owner.getHeroProperties().getHitTeamMask());
@@ -37,44 +30,34 @@ public class Shuriken extends Projectile
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
 	{
-		Body otherBody = (Body) other;
-		if (otherBody.getUserData() != null && !beginAutoDestruction)
-		{
-//			CollidableHero hit = (CollidableHero) otherBody.getUserData();
-//			hit.getRoundGameHero()
-			owner.hitOnTarget();
-			Fixture fixture = otherBody.getFixtureList();
-			List<CollidableCategory> categoryList = CollidableCategory.fromMask(fixture.getFilterData().categoryBits);
-			for( CollidableCategory category : categoryList )
-			{
-//				System.out.println("Shuriken collided with: " + category.name());
-				if (category == CollidableCategory.HEROS)
-				{
-					for (Fixture fixtureIterator = otherBody.getFixtureList(); fixtureIterator != null; fixtureIterator = fixtureIterator.getNext()) 
-					{
-						HeroFixtureController heroFixtureController = (HeroFixtureController) fixtureIterator.getUserData();
-						if (!fixtureIterator.isSensor() && heroFixtureController.isTouching())
-						{
-							CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
-							PlayableGameHero hitGameHero = collidableHero.getPlayableHero();
-							if (hitGameHero.isTouchingGround())
-							{
-								if (heroFixtureController.getSensorID() == FixtureSensorID.FEET)
-									continue;
-							}
-							System.out.println(heroFixtureController.getSensorID());
-							hitGameHero.addAction(new HitByShurikenAction(this, heroFixtureController.getSensorID(), owner));
-							return;
-						}
-					}
-				}
-
-			}
-		}
+		super.beginContact(me, other, contact);
 		++collisionCounter;
 		if (collisionCounter >= properties.numBounces)
 		{
 			initializeAutoDestruction();
+		}
+	}
+	
+	@Override
+	protected void hitHero(PlayableGameHero hitGameHero)
+	{
+		if (!beginAutoDestruction)
+		{
+			for (Fixture fixtureIterator = hitGameHero.getCollidableHero().getBody().getFixtureList(); fixtureIterator != null; fixtureIterator = fixtureIterator.getNext()) 
+			{
+				HeroFixtureController heroFixtureController = (HeroFixtureController) fixtureIterator.getUserData();
+				if (!fixtureIterator.isSensor() && heroFixtureController.isTouching())
+				{
+					if (hitGameHero.isTouchingGround())
+					{
+						if (heroFixtureController.getSensorID() == FixtureSensorID.FEET)
+							continue;
+					}
+					hitGameHero.addAction(new HitByProjectileAction(this, heroFixtureController.getSensorID()));
+					markToDestroy();
+					return;
+				}
+			}
 		}
 	}
 	

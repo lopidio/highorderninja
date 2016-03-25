@@ -6,14 +6,15 @@ import java.util.List;
 ///What I am
 public enum CollidableCategory
 {
-	SCENERY(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing()),
-	SHURIKEN(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing(), true),
-	ROPE_NODE(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
-	ROPE_BODY(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN)),
-	SMOKE_BOMB(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
-	GAME_ITEMS(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing().removeCollisionWith(ROPE_BODY).and(ROPE_NODE).and(SMOKE_BOMB), true),
-	DEAD_HERO(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
-	HEROS(		getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN).and(GAME_ITEMS));
+	SCENERY(				getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing()),
+	SHURIKEN(				getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing(), true),
+	ROPE_NODE(				getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
+	ROPE_BODY(				getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN)),
+	SMOKE_BOMB_PARTICLE(	getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
+	SMOKE_BOMB_PROJECTILE(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing().removeCollisionWith(SMOKE_BOMB_PARTICLE)),
+	GAME_ITEMS(				getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing().removeCollisionWith(ROPE_BODY).and(ROPE_NODE).and(SMOKE_BOMB_PARTICLE), true),
+	DEAD_HERO(				getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
+	HEROS(					getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN).and(GAME_ITEMS).and(SMOKE_BOMB_PROJECTILE));
 
 	private final static int NUM_MAX_PLAYERS = 8;
 	private static int categoriesUsed = 0;

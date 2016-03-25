@@ -10,7 +10,6 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.frag.RoundFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
@@ -229,7 +228,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		{
 			fragCounter.incrementShoots();
 			heroAttributes.getShurikens().decrement(1);
-			return new Shuriken(pointingDirection, new IntegerMask(), this);
+			return new Shuriken(pointingDirection, this);
 		}
 		return null;
 	}
@@ -244,7 +243,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		if (heroAttributes.getSmokeBomb().isAbleToShoot())
 		{
 			heroAttributes.getSmokeBomb().decrement(1);
-			return new SmokeBombProjectile(pointingDirection, collidableHero.getBody().getWorldCenter(), heroProperties.getColor());
+			return new SmokeBombProjectile(pointingDirection, this);
 		}
 		return null;		
 	}
@@ -305,6 +304,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void getHit(float damage, FixtureSensorID fixtureSensorID)
 	{
+		System.out.println(fixtureSensorID);
 		if (fixtureSensorID == FixtureSensorID.HEAD)
 		{
 			damage *= 4;
