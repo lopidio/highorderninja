@@ -1,6 +1,7 @@
 package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.gameobject.hero.action.DiagonalJumpAction;
+import br.com.guigasgame.gameobject.hero.action.StopHorizontalMovementAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.side.Side;
@@ -27,6 +28,10 @@ public class WallGrabHeroState extends HeroState
 		if (!gameHero.isTouchingWallAhead())
 		{
 			setState(new FallingHeroState(gameHero));
+		}
+		if (gameHero.getCollidableHero().movingToSide().opposite() == wallSide)
+		{
+			gameHero.addAction(new StopHorizontalMovementAction());
 		}
 	}
 	

@@ -73,7 +73,7 @@ public class GameItemCreationController implements UpdatableFromTime
 	private Vec2 getRandomItemSpot()
 	{
 		int randIndex = Randomizer.getRandomIntInInterval(0, itemsSpots.size() - 1);
-		System.out.println("Item random spot: " + randIndex);
+//		System.out.println("Item random spot: " + randIndex);
 		return WorldConstants.sfmlToPhysicsCoordinates(new Vector2f(itemsSpots.get(randIndex).x + Randomizer.getRandomFloatInInterval(5, -5), 
 																	itemsSpots.get(randIndex).y + Randomizer.getRandomFloatInInterval(5, -5)));
 	}

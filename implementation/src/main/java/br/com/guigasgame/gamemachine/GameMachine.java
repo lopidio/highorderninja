@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.xml.bind.JAXBException;
 
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
@@ -162,7 +163,7 @@ public class GameMachine
 		gameLoop();
 		gameStates.lastElement().unload();
 		gameStates.lastElement().exitState();
-		renderWindow.clear();
+//		renderWindow.clear();
 	}
 
 	private void gameLoop()
@@ -179,7 +180,7 @@ public class GameMachine
 			if (iterationTime > 0.25f)
 				iterationTime = 0.25f;
 
-			renderWindow.clear();
+			renderWindow.clear(new Color(200, 200, 200, 200));
 			handleEvents();
 
 			remainingAcumulator += iterationTime;

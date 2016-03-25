@@ -1,7 +1,6 @@
 package br.com.guigasgame.gameobject.hero.state;
 
 import br.com.guigasgame.gameobject.hero.action.SideImpulseAction;
-import br.com.guigasgame.gameobject.hero.action.StopMovementAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.side.Side;
@@ -38,7 +37,7 @@ public class AirSpinHeroState extends HeroState
 	@Override
 	protected void stateOnEnter()
 	{
-		gameHero.addAction(new SideImpulseAction(heroStatesProperties, side).addPrevAction(new StopMovementAction(heroStatesProperties)));
+		gameHero.addAction(new SideImpulseAction(heroStatesProperties, side));//.addPrevAction(new StopMovementAction(heroStatesProperties)));
 	}
 	
 	@Override
