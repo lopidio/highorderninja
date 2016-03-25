@@ -212,7 +212,7 @@
 				<invincible />			
 				<maxSpeed>
 					<x>40</x>
-					<y>10</y>
+					<y>5</y>
 				</maxSpeed>
 				<property>
 					<entry>
@@ -221,7 +221,7 @@
 					</entry>
 					<entry>
 						<key>minHorizontalSpeed</key>
-						<value>8</value>
+						<value>12</value>
 					</entry>
 					<entry>
 						<key>spinImpulse</key>

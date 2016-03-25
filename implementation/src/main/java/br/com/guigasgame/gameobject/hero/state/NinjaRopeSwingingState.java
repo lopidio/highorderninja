@@ -17,8 +17,6 @@ public class NinjaRopeSwingingState extends HeroState
 	public NinjaRopeSwingingState(PlayableGameHero gameHero, NinjaRope rope)
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE);
-
-//		setAnimationsColor(Color.CYAN);
 		this.ninjaRope = rope; 
 	}
 	
@@ -38,7 +36,10 @@ public class NinjaRopeSwingingState extends HeroState
 	protected void releaseRope()
 	{
 		ninjaRope.destroy();
-		setState(new FallingHeroState(gameHero));
+		if (gameHero.getCollidableHero().isFallingDown())
+			setState(new FallingHeroState(gameHero));
+		if (gameHero.getCollidableHero().isAscending())
+			setState(new JumpingHeroState(gameHero));
 	}
 	
 	@Override

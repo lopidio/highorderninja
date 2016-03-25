@@ -2,7 +2,7 @@
 <sceneryFile>
 	<boundariesTollerance>
 		<left>100.0</left>
-		<top>100.0</top>
+		<top>200.0</top>
 		<width>100.0</width>
 		<height>300.0</height>
 	</boundariesTollerance>
@@ -285,7 +285,7 @@
                 <y>10</y>
             </halfDimension>
         </rectangles>		
-        <rectangles textureName="darkStoneTexture.jpg"> <!-- 24Top -->
+        <rectangles damagePerSecond="10.0" textureName="fire-textures.jpg"> <!-- 24Top -->
             <center>
                 <x>1000.0</x>
                 <y>10.0</y>
