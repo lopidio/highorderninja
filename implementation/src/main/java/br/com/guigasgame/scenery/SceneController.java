@@ -14,6 +14,7 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.math.Randomizer;
 import br.com.guigasgame.scenery.background.Background;
@@ -32,6 +33,7 @@ public class SceneController extends GameObject
 	private org.jsfml.graphics.FloatRect boundaries;
 	private List<SceneryCollidable> sceneryCollidables;
 	private final br.com.guigasgame.math.FloatRect boundariesTollerance;
+	private ColorBlender backgroundColor;
 
 	public SceneController(SceneryCreator sceneryCreator)
 	{
@@ -40,6 +42,7 @@ public class SceneController extends GameObject
 		itemSpots = new ArrayList<>(sceneryCreator.getItemsSpots());
 		spawnPoints = new ArrayList<>(sceneryCreator.getSpawnPoints());
 		remainingSpawnPoints = new ArrayList<>();
+		this.backgroundColor = sceneryCreator.getBackgroundColor();
 		fillRemaingSpawnPoints();
 
 		drawableList.addAll(sceneryCreator.getSceneShapeCreator().getDrawableList());
@@ -153,6 +156,11 @@ public class SceneController extends GameObject
 	public void beginContact(Object me, Object other, Contact contact)
 	{
 		System.out.println(me);
+	}
+
+	public ColorBlender getBackgroundColor()
+	{
+		return backgroundColor;
 	}
 
 }

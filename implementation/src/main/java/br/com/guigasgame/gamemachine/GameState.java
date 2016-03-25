@@ -3,6 +3,8 @@ package br.com.guigasgame.gamemachine;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.event.Event;
 
+import br.com.guigasgame.color.ColorBlender;
+
 
 public interface GameState
 {
@@ -34,5 +36,10 @@ public interface GameState
 	public default void handleEvent(Event event, RenderWindow renderWindow)
 	{
 
+	}
+
+	public default ColorBlender getBackgroundColor()
+	{
+		return null;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jsfml.system.Vector2f;
 
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.math.FloatRect;
 import br.com.guigasgame.scenery.background.Background;
 import br.com.guigasgame.scenery.background.BackgroundCreator;
@@ -19,11 +20,13 @@ public class SceneryCreator
 	private Collection<Vector2f> spawnPoints;
 	private Background background;
 	private FloatRect boundariesTollerance;
+	private ColorBlender backGroundColor;
 	
 	public SceneryCreator(SceneryFile sceneryFile) throws Exception
 	{
 		shapeCreator = new SceneShapeCreator(sceneryFile.getSceneryShapes());
 		background = new BackgroundCreator(sceneryFile.getBackgroundFile()).createBackground();
+		backGroundColor = sceneryFile.getBackgroundColor();
 		
 		itemSpots = new ArrayList<>();
 		itemSpots.addAll(addAsVector2fPoint(sceneryFile.getItemSpots().getSpot()));
@@ -65,6 +68,11 @@ public class SceneryCreator
 	public SceneShapeCreator getSceneShapeCreator() 
 	{
 		return shapeCreator;
+	}
+
+	public ColorBlender getBackgroundColor()
+	{
+		return backGroundColor;
 	}
 
 }

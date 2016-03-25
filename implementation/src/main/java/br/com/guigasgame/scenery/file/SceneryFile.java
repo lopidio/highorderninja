@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.guigasgame.animation.AnimationProperties;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.math.FloatRect;
 import br.com.guigasgame.math.Rect;
 import br.com.guigasgame.scenery.background.BackgroundFile;
@@ -29,15 +30,17 @@ import br.com.guigasgame.shape.TriangleShape;
 @XmlAccessorType(XmlAccessType.NONE)
 public class SceneryFile
 {
-	@XmlElement
+	@XmlElement(required=true)
+	private ColorBlender backgroundColor;
+	@XmlElement(required=true)
 	private FloatRect boundariesTollerance;
-	@XmlElement
+	@XmlElement(required=true)
 	private SceneryShapes sceneryShapes;
-	@XmlElement
+	@XmlElement(required=true)
 	private SpawnPoints spawnPoints;
-	@XmlElement
+	@XmlElement(required=true)
 	private ItemSpots itemSpots;
-	@XmlElement
+	@XmlElement(required=true)
 	private BackgroundFile backgroundFile;
 
 	public SceneryFile()
@@ -45,7 +48,7 @@ public class SceneryFile
 		super();
 	}
 	
-	public SceneryFile(SceneryShapes sceneryShapes, FloatRect boundariesTollerance, SpawnPoints spawnPoints, ItemSpots itemSpots, BackgroundFile backgroundFile) 
+	public SceneryFile(SceneryShapes sceneryShapes, FloatRect boundariesTollerance, SpawnPoints spawnPoints, ItemSpots itemSpots, BackgroundFile backgroundFile, ColorBlender backgroundColor) 
 	{
 		super();
 		this.sceneryShapes = sceneryShapes;
@@ -53,6 +56,12 @@ public class SceneryFile
 		this.itemSpots = itemSpots;
 		this.backgroundFile = backgroundFile;
 		this.boundariesTollerance = boundariesTollerance;
+		this.backgroundColor = backgroundColor;
+	}
+	
+	public ColorBlender getBackgroundColor()
+	{
+		return backgroundColor;
 	}
 
 	public FloatRect getBoundariesTollerance()
@@ -150,7 +159,7 @@ public class SceneryFile
 		BackgroundFile backgroundFile = new BackgroundFile(backgroundItems);
 		
 
-		SceneryFile sceneryFile = new SceneryFile(bodyShape, new FloatRect(100, 100, 100, 300) ,spawnPoints, spots, backgroundFile);
+		SceneryFile sceneryFile = new SceneryFile(bodyShape, new FloatRect(100, 100, 100, 300) ,spawnPoints, spots, backgroundFile, new ColorBlender());
 
 		try
 		{

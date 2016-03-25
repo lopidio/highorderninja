@@ -1,7 +1,12 @@
 package br.com.guigasgame.color;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+
 import org.jsfml.graphics.Color;
 
+@XmlAccessorType(XmlAccessType.NONE)
 public class ColorBlender
 {
 	public static final ColorBlender RED = new ColorBlender(255, 0, 0);
@@ -14,10 +19,19 @@ public class ColorBlender
 	public static final ColorBlender MAGENTA = new ColorBlender(255, 0, 255);
 	public static final ColorBlender YELLOW = new ColorBlender(255, 255, 0);
 	
+	@XmlAttribute
 	private float r;
+	@XmlAttribute
 	private float g;
+	@XmlAttribute
 	private float b;
+	@XmlAttribute
 	private float a;
+
+	public ColorBlender()
+	{
+		this(0,0,0,0);
+	}
 
 	public ColorBlender(float r, float g, float b)
 	{

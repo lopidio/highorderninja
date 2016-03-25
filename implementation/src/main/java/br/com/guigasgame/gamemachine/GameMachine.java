@@ -9,13 +9,13 @@ import java.util.Vector;
 
 import javax.xml.bind.JAXBException;
 
-import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttributesFile;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
@@ -34,6 +34,7 @@ public class GameMachine
 	private boolean isRunning;
 	private RenderWindow renderWindow;
 	private Vector<GameState> gameStates;
+	private ColorBlender backgroundColor;
 
 	public static void main(String[] args) throws Exception
 	{
@@ -125,6 +126,9 @@ public class GameMachine
 	{
 		gameState.enterState(renderWindow);
 		gameStates.add(gameState);
+		backgroundColor = gameStates.lastElement().getBackgroundColor();
+		if (backgroundColor == null)
+			backgroundColor = new ColorBlender(200, 200, 250, 200);
 	}
 
 	public GameMachine()
@@ -180,7 +184,7 @@ public class GameMachine
 			if (iterationTime > 0.25f)
 				iterationTime = 0.25f;
 
-			renderWindow.clear(new Color(200, 200, 250, 200));
+			renderWindow.clear(backgroundColor.getSfmlColor());
 			handleEvents();
 
 			remainingAcumulator += iterationTime;

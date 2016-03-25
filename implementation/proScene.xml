@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <sceneryFile>
+    <backgroundColor r="200.0" g="200.0" b="250.0" a="255.0" />
 	<boundariesTollerance>
 		<left>100.0</left>
 		<top>200.0</top>

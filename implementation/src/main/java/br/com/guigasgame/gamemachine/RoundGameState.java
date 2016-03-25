@@ -26,6 +26,7 @@ import br.com.guigasgame.camera.CameraController;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
@@ -50,6 +51,7 @@ public class RoundGameState implements GameState
 	private SceneController scenery;
 	private CameraController cameraController;
 	private List<HeroAttributesHudController> hudList;
+	private ColorBlender backgroundColor;
 
 	public RoundGameState(List<HeroTeam> teams, SceneryCreator sceneryCreator, RoundHeroAttributes roundHeroAttributes) throws JAXBException
 	{
@@ -62,6 +64,7 @@ public class RoundGameState implements GameState
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
 		gameItemController = new GameItemCreationController(scenery);
+		this.backgroundColor = scenery.getBackgroundColor();
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
@@ -75,7 +78,7 @@ public class RoundGameState implements GameState
 	{
 		for( HeroTeam team : teams )
 		{
-//			team.setFriendlyFire(true);
+			team.setFriendlyFire(true);
 			List<PlayableHeroDefinition> heros = team.getHerosList();
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
@@ -197,7 +200,7 @@ public class RoundGameState implements GameState
 			GameObject toRemove = iterator.next(); // must be called before you can call iterator.remove()
 			if (toRemove.isMarkedToDestroy())
 			{
-				toRemove.onDestroy();
+				toRemove.destroy();
 				List<Collidable> collidableList = toRemove.getCollidable();
 				for (Collidable collidable : collidableList) 
 				{
@@ -231,8 +234,23 @@ public class RoundGameState implements GameState
 		verifyNewObjectsToLists();
 		checkGameOjbectsAgainsSceneryBoundaries();
 		clearDeadObjects();
+		clearUselessHUD();
 		
 		cameraController.update(deltaTime);
+	}
+
+	private void clearUselessHUD()
+	{
+		Iterator<HeroAttributesHudController> iterator = hudList.iterator();
+		while (iterator.hasNext())
+		{
+			HeroAttributesHudController toRemove = iterator.next(); // must be called before you can call iterator.remove()
+			if (toRemove.isMarkedToDestroy())
+			{
+				toRemove.destroy();
+				iterator.remove();
+			}
+		}
 	}
 
 	private void checkGameOjbectsAgainsSceneryBoundaries()
@@ -247,7 +265,7 @@ public class RoundGameState implements GameState
 	public void draw(RenderWindow renderWindow)
 	{
 		scenery.drawBackgroundItems(renderWindow);
-//		world.drawDebugData();
+		world.drawDebugData();
 		
 //		cameraController.draw(renderWindow);
 
@@ -265,4 +283,12 @@ public class RoundGameState implements GameState
 		}
 
 	}
+
+	@Override
+	public ColorBlender getBackgroundColor()
+	{
+		return backgroundColor;
+	}
+	
+	
 }
