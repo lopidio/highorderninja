@@ -84,8 +84,11 @@ class AnimationViewer
 		{
 			if (event.type == Event.Type.KEY_PRESSED)
 			{
-				if (event.asKeyEvent().key != Keyboard.Key.ESCAPE) break;
-				isRunning = false;
+				if (event.asKeyEvent().key == Keyboard.Key.ESCAPE)
+				{
+					isRunning = false;
+					break;
+				}
 			}
 			if (event.type == Event.Type.CLOSED)
 			{
