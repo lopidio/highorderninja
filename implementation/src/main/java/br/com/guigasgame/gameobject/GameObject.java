@@ -11,11 +11,12 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableContactListener;
+import br.com.guigasgame.destroyable.Destroyable;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class GameObject implements CollidableContactListener, UpdatableFromTime, Drawable
+public abstract class GameObject implements CollidableContactListener, UpdatableFromTime, Drawable, Destroyable
 {
 
 	// protected Vec2 position;
@@ -32,11 +33,19 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 		collidableList = new ArrayList<Collidable>();
 	}
 
+	@Override
 	public final boolean isMarkedToDestroy()
 	{
 		return !alive;
 	}
 
+	@Override
+	public void destroy()
+	{
+		onDestroy();
+	}
+	
+	@Override
 	public final void markToDestroy()
 	{
 		alive = false;
@@ -47,7 +56,7 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 		// Default implementation
 	}
 
-	public void onDestroy()
+	protected void onDestroy()
 	{
 		// Default implementation
 	}

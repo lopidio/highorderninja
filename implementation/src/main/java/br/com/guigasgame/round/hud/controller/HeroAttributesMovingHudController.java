@@ -24,6 +24,11 @@ public abstract class HeroAttributesMovingHudController extends HeroAttributesHu
 	public void update(float deltaTime)
 	{
 		final Vector2f position = gameHero.getMassCenter();
+		if (gameHero.isMarkedToDestroy())
+		{
+			System.out.println("Destroying HUD");
+			markToDestroy();
+		}
 		for( HeroAttributeMovingHud attributeBarBellowHud : barsList )
 		{
 			attributeBarBellowHud.updatePosition(position);

@@ -17,6 +17,7 @@ public class HeroAttributesCircleAndBarsBellowHudController extends HeroAttribut
 	private static final Vector2f SIZE = new Vector2f(30, 3);
 	private static final int VERTICAL_OFFSET = 40;
 	private static final int SEPARATOR = 4;
+	private boolean markedToDestroy;
 
 	public HeroAttributesCircleAndBarsBellowHudController(PlayableGameHero gameHero)
 	{
@@ -37,6 +38,24 @@ public class HeroAttributesCircleAndBarsBellowHudController extends HeroAttribut
 		roundHeroAttributes.getShurikens().addListener(shuriken);
 		roundHeroAttributes.getSmokeBomb().addListener(smokeBomb);
 		roundHeroAttributes.getLife().addListener(life);
+	}
+
+	@Override
+	public void markToDestroy()
+	{
+		markedToDestroy = true;
+	}
+
+	@Override
+	public boolean isMarkedToDestroy()
+	{
+		return markedToDestroy;
+	}
+	
+	@Override
+	public void destroy()
+	{
+		barsList.clear();
 	}
 
 }

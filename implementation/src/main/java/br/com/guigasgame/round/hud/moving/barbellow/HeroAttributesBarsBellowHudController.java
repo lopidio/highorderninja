@@ -38,4 +38,18 @@ public class HeroAttributesBarsBellowHudController extends HeroAttributesMovingH
 		roundHeroAttributes.getLife().addListener(life);
 	}
 
+	@Override
+	public void markToDestroy()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isMarkedToDestroy()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
