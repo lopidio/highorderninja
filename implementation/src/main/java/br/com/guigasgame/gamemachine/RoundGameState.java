@@ -229,9 +229,18 @@ public class RoundGameState implements GameState
 		gameItemController.update(deltaTime);
 
 		verifyNewObjectsToLists();
+		checkGameOjbectsAgainsSceneryBoundaries();
 		clearDeadObjects();
 		
 		cameraController.update(deltaTime);
+	}
+
+	private void checkGameOjbectsAgainsSceneryBoundaries()
+	{
+		for( GameObject gameObject : gameObjectsList )
+		{
+			gameObject.checkAgainstSceneryBoundaries(scenery.getBoundaries());
+		}
 	}
 
 	@Override

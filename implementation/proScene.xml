@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <sceneryFile>
+	<boundariesTollerance>
+		<left>100.0</left>
+		<top>100.0</top>
+		<width>100.0</width>
+		<height>300.0</height>
+	</boundariesTollerance>
     <sceneryShapes>
 <!--        <circles damagePerSecond="10.0" textureName="fire-textures.jpg">
             <center>
@@ -281,11 +287,11 @@
         </rectangles>		
         <rectangles textureName="darkStoneTexture.jpg"> <!-- 24 -->
             <center>
-                <x>1150.0</x>
+                <x>1000.0</x>
                 <y>0.0</y>
             </center>
             <halfDimension>
-                <x>650.0</x>
+                <x>500.0</x>
                 <y>10</y>
             </halfDimension>
         </rectangles>		
@@ -357,6 +363,10 @@
             <y>160.0</y>
         </point>
         <point>
+            <x>900.0</x>
+            <y>160.0</y>
+        </point>
+        <point>
             <x>250.0</x>
             <y>560.0</y>
         </point>
@@ -369,7 +379,7 @@
             <y>160.0</y>
         </point>
         <point>
-            <x>1750.0</x>
+            <x>1550.0</x>
             <y>600.0</y>
         </point>
         <point>
@@ -383,16 +393,28 @@
             <y>300.0</y>
         </spot>
         <spot>
-            <x>500.0</x>
+            <x>300.0</x>
             <y>300.0</y>
+        </spot>
+        <spot>
+            <x>500.0</x>
+            <y>100.0</y>
+        </spot>
+        <spot>
+            <x>700.0</x>
+            <y>200.0</y>
         </spot>
         <spot>
             <x>900.0</x>
-            <y>300.0</y>
+            <y>200.0</y>
         </spot>
         <spot>
             <x>1100.0</x>
-            <y>300.0</y>
+            <y>200.0</y>
+        </spot>
+        <spot>
+            <x>1600.0</x>
+            <y>100.0</y>
         </spot>
     </itemSpots>
     <backgroundFile>
@@ -413,8 +435,8 @@
                 <y>0.0</y>
             </speed>
             <origin>
-                <x>683</x>
-                <y>384</y>
+                <x>750</x>
+                <y>500</y>
             </origin>
             <distanceFromCamera>1000.0</distanceFromCamera>
         </backgroundItems>

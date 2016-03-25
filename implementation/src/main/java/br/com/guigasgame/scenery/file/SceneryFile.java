@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.guigasgame.animation.AnimationProperties;
-import br.com.guigasgame.file.FilenameConstants;
+import br.com.guigasgame.math.FloatRect;
 import br.com.guigasgame.math.Rect;
 import br.com.guigasgame.scenery.background.BackgroundFile;
 import br.com.guigasgame.scenery.background.BackgroundItemProperties;
@@ -29,7 +29,8 @@ import br.com.guigasgame.shape.TriangleShape;
 @XmlAccessorType(XmlAccessType.NONE)
 public class SceneryFile
 {
-
+	@XmlElement
+	private FloatRect boundariesTollerance;
 	@XmlElement
 	private SceneryShapes sceneryShapes;
 	@XmlElement
@@ -44,13 +45,19 @@ public class SceneryFile
 		super();
 	}
 	
-	public SceneryFile(SceneryShapes sceneryShapes, SpawnPoints spawnPoints, ItemSpots itemSpots, BackgroundFile backgroundFile) 
+	public SceneryFile(SceneryShapes sceneryShapes, FloatRect boundariesTollerance, SpawnPoints spawnPoints, ItemSpots itemSpots, BackgroundFile backgroundFile) 
 	{
 		super();
 		this.sceneryShapes = sceneryShapes;
 		this.spawnPoints = spawnPoints;
 		this.itemSpots = itemSpots;
 		this.backgroundFile = backgroundFile;
+		this.boundariesTollerance = boundariesTollerance;
+	}
+
+	public FloatRect getBoundariesTollerance()
+	{
+		return boundariesTollerance;
 	}
 
 	public SpawnPoints getSpawnPoints() 
@@ -143,7 +150,7 @@ public class SceneryFile
 		BackgroundFile backgroundFile = new BackgroundFile(backgroundItems);
 		
 
-		SceneryFile sceneryFile = new SceneryFile(bodyShape, spawnPoints, spots, backgroundFile);
+		SceneryFile sceneryFile = new SceneryFile(bodyShape, new FloatRect(100, 100, 100, 300) ,spawnPoints, spots, backgroundFile);
 
 		try
 		{
@@ -156,7 +163,7 @@ public class SceneryFile
 			m.marshal(sceneryFile, System.out);
 
 			// Write to File
-			 m.marshal(sceneryFile, new File(FilenameConstants.getSceneryFilename()));
+//			 m.marshal(sceneryFile, new File(FilenameConstants.getSceneryFilename()));
 		}
 		catch (JAXBException e)
 		{

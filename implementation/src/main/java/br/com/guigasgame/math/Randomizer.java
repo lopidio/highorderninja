@@ -10,7 +10,7 @@ public class Randomizer
 	{
 		if (max == min)
 			return max;
-		int value = randomizer.nextInt(max - min);
+		int value = randomizer.nextInt(max - min + 1);
 		return value + min;
 	}
 

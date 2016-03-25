@@ -11,8 +11,8 @@
                     <x>20</x>
                     <y>20</y>
                 </size>
-                <period>30.0</period>
-                <lifeTime>30.0</lifeTime>
+                <period>20.0</period>
+                <lifeTime>40.0</lifeTime>
             </value>
         </entry>
         <entry>
@@ -26,7 +26,7 @@
                     <y>10</y>
                 </size>
                 <period>10.0</period>
-                <lifeTime>20.0</lifeTime>
+                <lifeTime>60.0</lifeTime>
             </value>
         </entry>
     </itemMap>

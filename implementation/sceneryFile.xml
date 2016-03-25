@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <sceneryFile>
+	<boundariesTollerance>
+		<left>100.0</left>
+		<top>100.0</top>
+		<width>100.0</width>
+		<height>300.0</height>
+	</boundariesTollerance>
     <sceneryShapes>
         <circles damagePerSecond="10.0" textureName="fire-textures.jpg">
             <center>

@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.system.Vector2f;
 
+import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableContactListener;
 import br.com.guigasgame.drawable.Drawable;
@@ -90,5 +92,25 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 		{
 			collidable.attachToWorld(world);
 		}
+	}
+
+	public void checkAgainstSceneryBoundaries(org.jsfml.graphics.FloatRect floatRect)
+	{
+		for( Collidable collidable : collidableList )
+		{
+			final Vector2f position = WorldConstants.physicsToSfmlCoordinates(collidable.getPosition());
+			if (!floatRect.contains(position))
+			{
+				System.out.println("Game object out of scenery");
+				gotOutOfScenery();
+				markToDestroy();
+				return;
+			}
+		}
+	}
+
+	protected void gotOutOfScenery()
+	{
+		//hook method
 	}
 }

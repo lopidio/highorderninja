@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jsfml.system.Vector2f;
 
+import br.com.guigasgame.math.FloatRect;
 import br.com.guigasgame.scenery.background.Background;
 import br.com.guigasgame.scenery.background.BackgroundCreator;
 import br.com.guigasgame.scenery.file.SceneryFile;
@@ -17,6 +18,7 @@ public class SceneryCreator
 	private Collection<Vector2f> itemSpots;
 	private Collection<Vector2f> spawnPoints;
 	private Background background;
+	private FloatRect boundariesTollerance;
 	
 	public SceneryCreator(SceneryFile sceneryFile) throws Exception
 	{
@@ -27,8 +29,13 @@ public class SceneryCreator
 		itemSpots.addAll(addAsVector2fPoint(sceneryFile.getItemSpots().getSpot()));
 		spawnPoints = new ArrayList<>();
 		spawnPoints.addAll(addAsVector2fPoint(sceneryFile.getSpawnPoints().getPoint()));
+		boundariesTollerance = sceneryFile.getBoundariesTollerance();
 	}
 		
+	public FloatRect getBoundariesTollerance()
+	{
+		return boundariesTollerance;
+	}
 
 	private Collection<Vector2f> addAsVector2fPoint(List<Point> points)
 	{

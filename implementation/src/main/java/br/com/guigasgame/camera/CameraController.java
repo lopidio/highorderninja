@@ -25,7 +25,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private static final float ZOOM_OUT_FACTOR = 1.005f;
 	private static final float ZOOM_IN_FACTOR = 0.985f;
 	
-	private final br.com.guigasgame.math.FloatRect sceneryBoundaries;
+	private final FloatRect sceneryBoundaries;
 	private List<PlayableGameHero> playersToControl;
 	private View view;
 	private RenderWindow renderWindow;
@@ -33,9 +33,9 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private Shape innerFrame;
 	private CameraCenterFrame centerFrame;
 	
-	public CameraController(br.com.guigasgame.math.FloatRect sceneBoundaries)
+	public CameraController(FloatRect floatRect)
 	{
-		sceneryBoundaries = sceneBoundaries;
+		sceneryBoundaries = floatRect;
 		playersToControl = new ArrayList<>();
 		centerFrame = new CameraCenterFrame();
 		
@@ -82,7 +82,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 		while (iterator.hasNext())
 		{
 			PlayableGameHero toRemove = iterator.next(); // must be called before you can call iterator.remove()
-			if (toRemove.isPlayerDead())
+			if (toRemove.isPlayerDead() || toRemove.isMarkedToDestroy())
 			{
 				centerFrame.removeBody(toRemove.getCollidableHero().getBody());
 				iterator.remove();
@@ -113,7 +113,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 		{
 			yCenter = sceneryBoundaries.top + sceneryBoundaries.height - viewSize.y/2;
 		}
-		else if (focusCenter.y - viewSize.y/2 < sceneryBoundaries.top)
+		if (focusCenter.y - viewSize.y/2 < sceneryBoundaries.top)
 		{
 			yCenter = sceneryBoundaries.top + viewSize.y/2;
 		}
@@ -122,7 +122,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 		{
 			xCenter = sceneryBoundaries.left + sceneryBoundaries.width - viewSize.x/2;
 		}
-		else if (focusCenter.x - viewSize.x/2 < sceneryBoundaries.left)
+		if (focusCenter.x - viewSize.x/2 < sceneryBoundaries.left)
 		{
 			xCenter = sceneryBoundaries.left + viewSize.x/2;
 		}

@@ -70,7 +70,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		return state;
 	}
-
+	
 	@Override
 	public void onEnter()
 	{
@@ -284,6 +284,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	@Override
 	public void onDestroy()
 	{
+		state.onQuit();
 //		this.heroProperties.updateFragCounter(fragCounter);
 	}
 
@@ -355,6 +356,16 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	public void deadlySceneryHit(float damage)
 	{
 		heroAttributes.getLife().decrement(damage);
+		if (heroAttributes.getLife().getCurrentValue() <= 0)
+		{
+			fragCounter.incrementSuicide();
+		}
+	}
+	
+	@Override
+	protected void gotOutOfScenery()
+	{
+		fragCounter.incrementSuicide();
 	}
 
 }

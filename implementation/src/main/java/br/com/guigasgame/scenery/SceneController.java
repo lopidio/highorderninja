@@ -15,7 +15,6 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.math.FloatRect;
 import br.com.guigasgame.math.Randomizer;
 import br.com.guigasgame.scenery.background.Background;
 import br.com.guigasgame.scenery.creation.SceneryCollidable;
@@ -25,14 +24,14 @@ import br.com.guigasgame.scenery.creation.SceneryCreator;
 public class SceneController extends GameObject
 {
 
-	private static float SIZE_EXCEDENT = 50;
 	private List<br.com.guigasgame.shape.Shape> shapes;
 	private final List<Vector2f> itemSpots;
 	private final List<Vector2f> spawnPoints;
 	private List<Vector2f> remainingSpawnPoints;
 	private Background background;
-	private FloatRect boundaries;
+	private org.jsfml.graphics.FloatRect boundaries;
 	private List<SceneryCollidable> sceneryCollidables;
+	private final br.com.guigasgame.math.FloatRect boundariesTollerance;
 
 	public SceneController(SceneryCreator sceneryCreator)
 	{
@@ -45,6 +44,7 @@ public class SceneController extends GameObject
 
 		drawableList.addAll(sceneryCreator.getSceneShapeCreator().getDrawableList());
 		sceneryCollidables = new ArrayList<>();
+		this.boundariesTollerance = sceneryCreator.getBoundariesTollerance();
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class SceneController extends GameObject
 		return retorno;
 	}
 
-	private FloatRect calculateBoundaries()
+	private org.jsfml.graphics.FloatRect calculateBoundaries()
 	{
 		AABB aabb = new AABB();
 
@@ -128,13 +128,13 @@ public class SceneController extends GameObject
 
 		final Vector2f lower = WorldConstants.physicsToSfmlCoordinates(vertices[0]);
 		final Vector2f upper = WorldConstants.physicsToSfmlCoordinates(vertices[2]);
-		FloatRect retorno = new FloatRect(lower.x - SIZE_EXCEDENT, lower.y
-				- SIZE_EXCEDENT, upper.x - lower.x + SIZE_EXCEDENT, upper.y
-						- lower.y + SIZE_EXCEDENT);
+		org.jsfml.graphics.FloatRect retorno = new org.jsfml.graphics.FloatRect(lower.x - boundariesTollerance.left, lower.y
+				- boundariesTollerance.top, upper.x - lower.x + boundariesTollerance.width, upper.y
+						- lower.y + boundariesTollerance.height);
 		return retorno;
 	}
 
-	public FloatRect getBoundaries()
+	public org.jsfml.graphics.FloatRect getBoundaries()
 	{
 		return boundaries;
 	}
