@@ -47,7 +47,7 @@ public class RoundGameState implements GameState
 	private float timeFactor;
 	private final World world;
 	private final List<GameObject> gameObjectsList;
-	private final GameItemCreationController gameItemController;
+	private final GameItemCreationController gameItemCreator;
 	private final SceneController scenery;
 	private final CameraController cameraController;
 	private final ColorBlender backgroundColor;
@@ -63,7 +63,7 @@ public class RoundGameState implements GameState
 		Vec2 gravity = new Vec2(0, (float) 9.8);
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
-		gameItemController = new GameItemCreationController(scenery);
+		gameItemCreator = new GameItemCreationController(scenery);
 		this.backgroundColor = scenery.getBackgroundColor();
 		
 		scenery.attachToWorld(world);
@@ -167,26 +167,18 @@ public class RoundGameState implements GameState
 
 	private void verifyNewObjectsToLists()
 	{
-		if (gameItemController.hasItemToAdd())
-		{
-			initializeGameObject(gameItemController.getChildrenList());
-			gameItemController.clearItemToAddList();
-		}
+		initializeGameObject(gameItemCreator.checkReproduction());
 		List<GameObject> objsToAdd = new ArrayList<>();
 		objsToAdd.addAll(gameObjectsList);
 		for( GameObject gameObject : objsToAdd )
 		{
-			if (gameObject.hasChildrenToAdd())
-			{
-				initializeGameObject(gameObject.getChildrenList());
-			}
-			gameObject.clearChildrenList();
+			initializeGameObject(gameObject.reproduce());
 		}
 	}
 
-	private void initializeGameObject(Collection<GameObject> childrenToAdd)
+	private void initializeGameObject(Collection<? extends GameObject> collection)
 	{
-		for( GameObject child : childrenToAdd )
+		for( GameObject child : collection )
 		{
 			child.attachToWorld(world);
 			child.onEnter();
@@ -207,7 +199,7 @@ public class RoundGameState implements GameState
 		{
 			gameObject.update(updateTime);
 		}
-		gameItemController.update(deltaTime);
+		gameItemCreator.update(deltaTime);
 
 		verifyNewObjectsToLists();
 		checkGameOjbectsAgainsSceneryBoundaries();
@@ -235,12 +227,12 @@ public class RoundGameState implements GameState
 		
 //		cameraController.draw(renderWindow);
 
+		scenery.draw(renderWindow);
 		for( GameObject gameObject : gameObjectsList )
 		{
 			gameObject.draw(renderWindow);
 		}
 		
-		scenery.draw(renderWindow);
 		scenery.drawForegroundItems(renderWindow);
 		
 		hudController.drawDynamicHud(renderWindow);

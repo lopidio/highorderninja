@@ -11,10 +11,11 @@ import org.jbox2d.common.Vec2;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.item.life.LifeItem;
 import br.com.guigasgame.gameobject.item.shurikenpack.ShurikenPackItem;
 import br.com.guigasgame.math.Randomizer;
+import br.com.guigasgame.reproductable.Reproductable;
+import br.com.guigasgame.reproductable.ReproductableList;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
@@ -22,14 +23,14 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 public class GameItemCreationController implements UpdatableFromTime
 {
 	private List<Vector2f> itemsSpots;
-	private Collection<GameObject> itemsToAdd;
+	private Reproductable items;
 	private Map<GameItemIndex, GameItemCreatorTimeCounter> itemsMap;
 
 	public GameItemCreationController(SceneController scenery)
 	{
 		itemsSpots = new ArrayList<>();
 		itemsSpots.addAll(scenery.getItemSpots());
-		itemsToAdd = new ArrayList<>();
+		items = new ReproductableList();
 
 		itemsMap = new HashMap<>();
 		for( GameItemIndex items : GameItemIndex.values() )
@@ -48,17 +49,16 @@ public class GameItemCreationController implements UpdatableFromTime
 			if (entry.getValue().isTimeToCreate())
 			{
 				entry.getValue().resetCounter();
-				GameObject itemToAdd = createItem(entry.getKey());
+				GameItem itemToAdd = createItem(entry.getKey());
 				if (itemToAdd != null)
-					itemsToAdd.add(itemToAdd);
+					items.addChild(itemToAdd);
 			}
 		}
-
 	}
 
-	private GameObject createItem(GameItemIndex key)
+	private GameItem createItem(GameItemIndex key)
 	{
-		GameObject retorno = null;
+		GameItem retorno = null;
 		if (key == GameItemIndex.SHURIKEN_PACK)
 		{
 			retorno = new ShurikenPackItem(getRandomItemSpot());
@@ -78,19 +78,9 @@ public class GameItemCreationController implements UpdatableFromTime
 																	itemsSpots.get(randIndex).y + Randomizer.getRandomFloatInInterval(5, -5)));
 	}
 
-	public boolean hasItemToAdd()
+	public Collection<? extends GameItem> checkReproduction()
 	{
-		return itemsToAdd.size() > 0;
-	}
-
-	public Collection<GameObject> getChildrenList()
-	{
-		return itemsToAdd;
-	}
-
-	public void clearItemToAddList()
-	{
-		itemsToAdd.clear();
+		return items.reproduce();
 	}
 
 }

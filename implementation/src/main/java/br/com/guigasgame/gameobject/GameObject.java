@@ -13,21 +13,23 @@ import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableContactListener;
 import br.com.guigasgame.destroyable.Destroyable;
 import br.com.guigasgame.drawable.Drawable;
+import br.com.guigasgame.reproductable.Reproductable;
+import br.com.guigasgame.reproductable.ReproductableList;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 
-public abstract class GameObject implements CollidableContactListener, UpdatableFromTime, Drawable, Destroyable
+public abstract class GameObject implements CollidableContactListener, UpdatableFromTime, Drawable, Destroyable, Reproductable
 {
 
 	// protected Vec2 position;
 	protected List<Collidable> collidableList;
 	protected List<Drawable> drawableList;
 	protected boolean alive;
-	private List<GameObject> children;
+	private ReproductableList reproductableList;
 
 	public GameObject()
 	{
-		children = new ArrayList<>();
+		reproductableList = new ReproductableList();
 		alive = true;
 		drawableList = new ArrayList<Drawable>();
 		collidableList = new ArrayList<Collidable>();
@@ -66,24 +68,28 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 		// Default implementation
 	}
 
-	public final void addChild(GameObject child)
+	@Override
+	public <T extends Reproductable> void addChild(T child)
 	{
-		children.add(child);
+		reproductableList.addChild(child);
 	}
-
+	
+	@Override
 	public final boolean hasChildrenToAdd()
 	{
-		return children.size() > 0;
+		return reproductableList.hasChildrenToAdd();
 	}
 
+	@SuppressWarnings("unchecked")
 	public final Collection<GameObject> getChildrenList()
 	{
-		return children;
+		return reproductableList.getChildrenList();
 	}
 
+	@Override
 	public final void clearChildrenList()
 	{
-		children.clear();
+		reproductableList.clearChildrenList();
 	}
 
 	public final List<Collidable> getCollidable()
