@@ -16,6 +16,7 @@ public class TimerStaticHud extends HudObject
 
 	private Text text;
 	private float counterValue;
+	boolean dead;
 
 	public TimerStaticHud(Vector2f position)
 	{
@@ -30,7 +31,6 @@ public class TimerStaticHud extends HudObject
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -45,7 +45,20 @@ public class TimerStaticHud extends HudObject
 	public void update(float deltaTime)
 	{
 		counterValue += deltaTime;
-		text.setString("" + (int)counterValue);
+		String newString = String.format("%02d:%02d", (int)counterValue/60, (int)counterValue%60);
+		text.setString(newString);
+	}
+
+	@Override
+	public void markToDestroy()
+	{
+		dead = true;
+	}
+
+	@Override
+	public boolean isMarkedToDestroy()
+	{
+		return dead;
 	}
 
 }

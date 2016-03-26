@@ -32,9 +32,8 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
-import br.com.guigasgame.round.hud.StaticHudController;
+import br.com.guigasgame.round.hud.HudController;
 import br.com.guigasgame.round.hud.TimerStaticHud;
-import br.com.guigasgame.round.hud.controller.HeroAttributesHudController;
 import br.com.guigasgame.round.hud.controller.HeroAttributesMovingHudController;
 import br.com.guigasgame.round.hud.moving.barbellow.HeroAttributesCircleAndBarsBellowHudController;
 import br.com.guigasgame.scenery.SceneController;
@@ -45,16 +44,14 @@ import br.com.guigasgame.team.HeroTeam;
 public class RoundGameState implements GameState
 {
 
-	private World world;
 	private float timeFactor;
-
-	private List<GameObject> gameObjectsList;
-	private GameItemCreationController gameItemController;
-	private SceneController scenery;
-	private CameraController cameraController;
-	private List<HeroAttributesHudController> movingHudList;
-	private ColorBlender backgroundColor;
-	private StaticHudController staticHudController;
+	private final World world;
+	private final List<GameObject> gameObjectsList;
+	private final GameItemCreationController gameItemController;
+	private final SceneController scenery;
+	private final CameraController cameraController;
+	private final ColorBlender backgroundColor;
+	private final HudController hudController;
 
 	public RoundGameState(List<HeroTeam> teams, SceneryCreator sceneryCreator, RoundHeroAttributes roundHeroAttributes) throws JAXBException
 	{
@@ -72,8 +69,7 @@ public class RoundGameState implements GameState
 		scenery.attachToWorld(world);
 		scenery.onEnter();
 		cameraController = new CameraController();
-		movingHudList = new ArrayList<>();
-		staticHudController = new StaticHudController();
+		hudController = new HudController();
 		
 		initializeHeros(teams, scenery, roundHeroAttributes);
 	}
@@ -91,7 +87,7 @@ public class RoundGameState implements GameState
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
 				HeroAttributesMovingHudController hud = new HeroAttributesCircleAndBarsBellowHudController(gameHero);
 				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
-				movingHudList.add(hud);
+				hudController.addDynamicHud(hud);
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addPlayerToControl(gameHero);
 			}
@@ -118,8 +114,8 @@ public class RoundGameState implements GameState
 //		 sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
 		cameraController.createView(renderWindow);
-		staticHudController.createView(renderWindow);
-		staticHudController.addHud(new TimerStaticHud(new Vector2f(renderWindow.getView().getCenter().x, 10)));
+		hudController.createView(renderWindow);
+		hudController.addStaticHud(new TimerStaticHud(new Vector2f(renderWindow.getView().getCenter().x, 10)));
 	}
 
 	@Override
@@ -165,7 +161,7 @@ public class RoundGameState implements GameState
 	        FloatRect visibleArea = new FloatRect(0, 0, event.asSizeEvent().size.x, event.asSizeEvent().size.y);
 	        renderWindow.setView(new View(visibleArea));
 	        cameraController.createView(renderWindow);
-	        staticHudController.createView(renderWindow);
+	        hudController.createView(renderWindow);
 	    }
 	}
 
@@ -211,19 +207,14 @@ public class RoundGameState implements GameState
 		{
 			gameObject.update(updateTime);
 		}
-		for( HeroAttributesHudController hud : movingHudList )
-		{
-			hud.update(deltaTime);
-		}
 		gameItemController.update(deltaTime);
 
 		verifyNewObjectsToLists();
 		checkGameOjbectsAgainsSceneryBoundaries();
-		Destroyable.clearDestroyable(movingHudList);
 		Destroyable.clearDestroyable(gameObjectsList);
 		
 		cameraController.update(deltaTime);
-		staticHudController.update(deltaTime);
+		hudController.update(deltaTime);
 	}
 
 	private void checkGameOjbectsAgainsSceneryBoundaries()
@@ -252,12 +243,9 @@ public class RoundGameState implements GameState
 		scenery.draw(renderWindow);
 		scenery.drawForegroundItems(renderWindow);
 		
-		for( HeroAttributesHudController hud : movingHudList )
-		{
-			hud.draw(renderWindow);
-		}
-		renderWindow.setView(staticHudController.getView());
-		staticHudController.draw(renderWindow);
+		hudController.drawDynamicHud(renderWindow);
+		renderWindow.setView(hudController.getView());
+		hudController.drawStaticHud(renderWindow);
 	}
 
 	@Override
