@@ -17,7 +17,7 @@ import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.interpolator.InterpolatorFromTime;
-import br.com.guigasgame.interpolator.LinearInterpolatorFromTime;
+import br.com.guigasgame.interpolator.VectorLinearInterpolator;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class CameraController implements UpdatableFromTime, Drawable
@@ -26,6 +26,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private static final float OUTTER_FRAME_SCALE = 0.85f;
 	private static final float ZOOM_OUT_FACTOR = 1.01f;
 	private static final float ZOOM_IN_FACTOR = 0.99f;
+	private static final float CENTER_MOVING_DURING = 0.2f;
 	
 	private List<PlayableGameHero> playersToControl;
 	private View view;
@@ -33,8 +34,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private Shape outterFrame;
 	private Shape innerFrame;
 	private CameraCenterFrame centerFrame;
-	private InterpolatorFromTime centerYInterpolator;
-	private InterpolatorFromTime centerXInterpolator;
+	private InterpolatorFromTime<Vector2f> centerInterpolator;
 	
 	public CameraController()
 	{
@@ -70,12 +70,9 @@ public class CameraController implements UpdatableFromTime, Drawable
 		final Vector2f focusCenter = centerFrame.getCenter();
 		innerFrame.setPosition(focusCenter);
 		outterFrame.setPosition(focusCenter);
-		centerXInterpolator.interpolateTo(focusCenter.x);
-		centerYInterpolator.interpolateTo(focusCenter.y);
-		centerXInterpolator.update(deltaTime);
-		centerYInterpolator.update(deltaTime);
-		view.setCenter(new Vector2f(centerXInterpolator.getCurrent(), centerYInterpolator.getCurrent()));		
-
+		centerInterpolator.interpolateTo(focusCenter);
+		centerInterpolator.update(deltaTime);
+		view.setCenter(centerInterpolator.getCurrent());		
 
 		renderWindow.setView(view);
 	}
@@ -154,8 +151,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 		outterFrame.setOutlineThickness(1.0f);
 		
 		view = new View(new FloatRect(0, 0, renderWindow.getSize().x, renderWindow.getSize().y));
-		centerXInterpolator = new LinearInterpolatorFromTime(view.getCenter().x, 0);
-		centerYInterpolator = new LinearInterpolatorFromTime(view.getCenter().y, 0);
+		centerInterpolator = new VectorLinearInterpolator(view.getCenter(), CENTER_MOVING_DURING);
 		
 	}
 	

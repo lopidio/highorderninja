@@ -8,7 +8,7 @@ import br.com.guigasgame.interpolator.LinearInterpolatorFromTime;
 
 public class ColorLinearInterpolator extends ColorInterpolator
 {
-	private List<InterpolatorFromTime> interpolators;
+	private List<InterpolatorFromTime<Float>> interpolators;
 	private ColorBlender currentColor;
 	
 	public ColorLinearInterpolator(ColorBlender sourceColor)
@@ -62,7 +62,7 @@ public class ColorLinearInterpolator extends ColorInterpolator
 	@Override
 	public boolean hasFinished()
 	{
-		for( InterpolatorFromTime interpolator : interpolators )
+		for( InterpolatorFromTime<Float> interpolator : interpolators )
 		{
 			if (!interpolator.hasFinished())
 				return false;

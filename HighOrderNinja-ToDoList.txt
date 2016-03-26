@@ -54,10 +54,10 @@ t	Player dies (DeadState/AirDeadState/ DieAction) when has no life
 t	Identify body part hit by shuriken
 t	Die: Increase friction
 t	Deadly scene blocks handle it's own collisions (refactor!)
-	Create static HUD
 t	Improve camera's algorithm
 t	ProjectileAimer works with priority queue (shurikens aim at player>items?)(aims calculates target velocity!!!)
 	Rope hook gameItem's collision (grab item?)
+	Create static HUD
 
 ShurikenBomb
 RayCastAnythingBut....

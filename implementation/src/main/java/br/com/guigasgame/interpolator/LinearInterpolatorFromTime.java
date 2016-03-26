@@ -1,6 +1,6 @@
 package br.com.guigasgame.interpolator;
 
-public class LinearInterpolatorFromTime extends InterpolatorFromTime
+public class LinearInterpolatorFromTime extends InterpolatorFromTime<Float>
 {
 	private float ratioPerSecond;
 	private float remaining;
@@ -22,7 +22,7 @@ public class LinearInterpolatorFromTime extends InterpolatorFromTime
 	}
 	
 	@Override
-	public LinearInterpolatorFromTime interpolateTo(float destiny)
+	public LinearInterpolatorFromTime interpolateTo(Float destiny)
 	{
 		super.interpolateTo(destiny);
 		remaining = destiny - current;
