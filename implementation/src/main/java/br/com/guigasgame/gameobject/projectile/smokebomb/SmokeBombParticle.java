@@ -3,10 +3,10 @@ package br.com.guigasgame.gameobject.projectile.smokebomb;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.FixtureDef;
-import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
@@ -18,7 +18,7 @@ public class SmokeBombParticle extends Projectile
 	private float alpha;
 	private float scale;
 
-	public SmokeBombParticle(Vec2 direction, Vec2 position, Color color, PlayableGameHero hero)
+	public SmokeBombParticle(Vec2 direction, Vec2 position, ColorBlender color, PlayableGameHero hero)
 	{
 		super(ProjectileIndex.SMOKE_BOMB_PARTICLE, direction, hero, position);
 		collidableFilter = CollidableCategory.SMOKE_BOMB_PARTICLE.getFilter();

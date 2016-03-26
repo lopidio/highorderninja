@@ -10,6 +10,7 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.system.Vector2f;
 
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.moveable.Moveable;
 import br.com.guigasgame.side.Side;
@@ -148,9 +149,9 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 		return frameRect.width;
 	}
 
-	public void setColor(Color color)
+	public void setColor(ColorBlender color)
 	{
-		sprite.setColor(color);
+		sprite.setColor(color.getSfmlColor());
 	}
 	
 	public int getAlpha()

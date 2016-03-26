@@ -1,9 +1,9 @@
 package br.com.guigasgame.gameobject.hero.playable;
 
 import org.jbox2d.common.Vec2;
-import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.IntegerMask;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.team.HeroTeam;
@@ -13,7 +13,7 @@ public class PlayableHeroDefinition
 	private final GameHeroInputMap gameHeroInput;
 	private final int playerId;
 	
-	private Color color;
+	private ColorBlender color;
 	private Vec2 spawnPosition;
 	private HeroTeam heroTeam;
 	private RoundHeroAttributes roundHeroAttributes;
@@ -47,7 +47,7 @@ public class PlayableHeroDefinition
 		return playerId;
 	}
 
-	public Color getColor()
+	public ColorBlender getColor()
 	{
 		return color;
 	}

@@ -17,8 +17,7 @@ public class TimerStaticHud extends HudObject implements ReverseTimeCounterListe
 {
 
 	private Text text;
-	boolean dead;
-
+	
 	public TimerStaticHud(Vector2f position)
 	{
 		try
@@ -71,18 +70,6 @@ public class TimerStaticHud extends HudObject implements ReverseTimeCounterListe
 		}
 		text.setString(newString);
 		ReverseTimeCounterListener.super.onDecimalChange(currentValue);
-	}
-
-	@Override
-	public void markToDestroy()
-	{
-		dead = true;
-	}
-
-	@Override
-	public boolean isMarkedToDestroy()
-	{
-		return dead;
 	}
 
 }

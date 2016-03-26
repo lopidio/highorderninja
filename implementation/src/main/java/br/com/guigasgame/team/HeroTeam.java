@@ -3,17 +3,16 @@ package br.com.guigasgame.team;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsfml.graphics.Color;
-
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 
 
 public class HeroTeam
 {
 	private static final int NUM_MAX_TEAMS = 4; 
-	private final Color color;
+	private final ColorBlender color;
 	private final int teamId;
 
 	private IntegerMask teamMask;
@@ -60,15 +59,15 @@ public class HeroTeam
 		herosList.remove(gameHeroProperties);
 	}
 
-	public Color getColorOfPlayer(PlayableHeroDefinition gameHeroProperties)
+	public ColorBlender getColorOfPlayer(PlayableHeroDefinition gameHeroProperties)
 	{
 		int index = herosList.indexOf(gameHeroProperties);
 
 		int constant = 255 / (herosList.size() * 2);
 		int factor = constant * ((2 * index) + 1);
 
-		Color mult = new Color(factor, factor, factor);
-		return Color.add(color, mult);
+		ColorBlender mult = new ColorBlender(factor, factor, factor);
+		return color.add(mult);
 	}
 
 	public List<PlayableHeroDefinition> getHerosList()
@@ -76,20 +75,20 @@ public class HeroTeam
 		return herosList;
 	}
 
-	private Color getTeamColor()
+	private ColorBlender getTeamColor()
 	{
 		switch (teamId)
 		{
 			case 0:
-				return Color.RED;
+				return ColorBlender.RED;
 			case 1:
-				return Color.BLUE;
+				return ColorBlender.BLUE;
 			case 2:
-				return Color.GREEN;
+				return ColorBlender.GREEN;
 			case 3:
-				return Color.YELLOW;
+				return ColorBlender.YELLOW;
 		}
-		return Color.WHITE;
+		return ColorBlender.WHITE;
 	}
 
 	public void setUp()

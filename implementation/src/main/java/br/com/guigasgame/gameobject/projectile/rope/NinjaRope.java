@@ -17,11 +17,11 @@ import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 import org.jbox2d.dynamics.joints.Joint;
-import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableContactListener;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.projectile.ProjectileProperties;
 import br.com.guigasgame.raycast.RayCastClosestFixture;
 
@@ -56,7 +56,7 @@ public class NinjaRope implements CollidableContactListener
 
 	private boolean prevIncreasingDistance;
 	
-	public NinjaRope(World world, ProjectileProperties ropeProperties, Vec2 hookPosition, Body gameHero, Color color)
+	public NinjaRope(World world, ProjectileProperties ropeProperties, Vec2 hookPosition, Body gameHero, ColorBlender color)
 	{
 		this.world = world;
 		this.ropeProperties = ropeProperties;

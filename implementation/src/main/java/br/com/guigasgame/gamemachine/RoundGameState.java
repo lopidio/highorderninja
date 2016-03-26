@@ -25,11 +25,13 @@ import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.destroyable.Destroyable;
+import br.com.guigasgame.frag.HeroFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundAttributes;
+import br.com.guigasgame.round.hud.HeroFragCounterHud;
 import br.com.guigasgame.round.hud.HudController;
 import br.com.guigasgame.round.hud.TimerStaticHud;
 import br.com.guigasgame.round.hud.controller.HeroAttributesHudController;
@@ -75,6 +77,7 @@ public class RoundGameState implements GameState
 
 	private void initializeHeros(SceneController scenery, RoundAttributes roundAttributes)
 	{
+		int fragXPosition = 0;
 		for( HeroTeam team : roundAttributes.getTeams() )
 		{
 			team.setFriendlyFire(true);
@@ -84,9 +87,14 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
+				HeroFragCounter counter = gameHero.getFragCounter();
+				HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(new Vector2f(fragXPosition, 5), counter, gameHero.getHeroProperties().getColor());
+				fragXPosition += 150;
+				counter.addListener(fragCounterHud);
 				HeroAttributesHudController hud = roundAttributes.initializeHeroAttributes(gameHero); 
 				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
 				hudController.addDynamicHud(hud);
+				hudController.addStaticHud(fragCounterHud);
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addPlayerToControl(gameHero);
 			}

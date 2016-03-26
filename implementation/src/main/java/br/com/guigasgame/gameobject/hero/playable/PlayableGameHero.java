@@ -304,12 +304,15 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void getHit(float damage, FixtureSensorID fixtureSensorID)
 	{
-		System.out.println(fixtureSensorID);
-		if (fixtureSensorID == FixtureSensorID.HEAD)
+		if (!playerIsDead)
 		{
-			damage *= 4;
+			System.out.println(fixtureSensorID);
+			if (fixtureSensorID == FixtureSensorID.HEAD)
+			{
+				damage *= 4;
+			}
+			heroAttributes.getLife().decrement(damage);
 		}
-		heroAttributes.getLife().decrement(damage);
 	}
 
 	public Vector2f getMassCenter()
@@ -355,10 +358,13 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void deadlySceneryHit(float damage)
 	{
-		heroAttributes.getLife().decrement(damage);
-		if (heroAttributes.getLife().getCurrentValue() <= 0)
+		if (!playerIsDead)
 		{
-			fragCounter.incrementSuicide();
+			heroAttributes.getLife().decrement(damage);
+			if (heroAttributes.getLife().getCurrentValue() <= 0)
+			{
+				fragCounter.incrementSuicide();
+			}
 		}
 	}
 	

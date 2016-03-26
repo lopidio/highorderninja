@@ -2,9 +2,9 @@ package br.com.guigasgame.gameobject.projectile.smokebomb;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
-import org.jsfml.graphics.Color;
 
 import br.com.guigasgame.collision.CollidableCategory;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.hero.action.HitByProjectileAction;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
@@ -15,7 +15,7 @@ import br.com.guigasgame.math.Randomizer;
 public class SmokeBombProjectile extends Projectile
 {
 	private static int NUM_PARTICLES = 30;
-	private Color color;
+	private ColorBlender color;
 
 	public SmokeBombProjectile(Vec2 direction, PlayableGameHero hero)
 	{

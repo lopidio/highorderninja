@@ -141,6 +141,10 @@ public class ColorBlender
 
 	public ColorBlender makeTranslucid(float factor)
 	{
+		if (factor <= 0)
+		{
+			factor = 0.001f;
+		}
 		return clone().setA(a/factor);
 	}
 	

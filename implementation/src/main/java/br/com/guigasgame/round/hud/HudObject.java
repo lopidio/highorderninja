@@ -7,4 +7,24 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 public abstract class HudObject implements UpdatableFromTime, Drawable, Destroyable
 {
 
+	protected boolean dead;
+
+	@Override
+	public void markToDestroy()
+	{
+		dead = true;
+	}
+	
+	@Override
+	public void update(float deltaTime)
+	{
+		//hook
+	}
+
+	@Override
+	public boolean isMarkedToDestroy()
+	{
+		return dead;
+	}
+
 }

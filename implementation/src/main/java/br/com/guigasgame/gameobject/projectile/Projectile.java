@@ -9,7 +9,6 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.contacts.Contact;
-import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.animation.Animation;
@@ -19,6 +18,7 @@ import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.IntegerMask;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.playable.CollidableHero;
@@ -129,7 +129,7 @@ public abstract class Projectile extends GameObject
 		return properties;
 	}
 
-	protected void setAnimationsColor(Color color)
+	protected void setAnimationsColor(ColorBlender color)
 	{
 		for( Drawable drawable : drawableList )
 		{
