@@ -53,7 +53,14 @@ public class HeroFixtureController implements CollidableContactListener
 				sum.addLocal(normal);
 		}
 		if (sum != null)
-			sum.normalize();
+		{
+			if (sum.lengthSquared() == 0)
+			{
+				sum.y = -1;
+			}
+			else
+				sum.normalize();
+		}
 		return sum;
 	}
 }
