@@ -46,8 +46,8 @@ public class HeroTeam
 			final IntegerMask mask = CollidableCategory.getPlayerCategory(gameHeroProperties.getPlayerId());
 			teamMask = teamMask.set(mask.value);
 			enemiesMask = enemiesMask.clear(mask.value);
+			gameHeroProperties.setIdInTeam(herosList.size());
 			herosList.add(gameHeroProperties);
-
 		}
 	}
 
@@ -110,6 +110,11 @@ public class HeroTeam
 	public IntegerMask getHitEnemiesMask()
 	{
 		return enemiesMask;
+	}
+
+	public float getTeamId()
+	{
+		return teamId;
 	}
 
 }

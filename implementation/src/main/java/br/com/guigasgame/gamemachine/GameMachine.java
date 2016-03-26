@@ -51,9 +51,7 @@ public class GameMachine
 	private static RoundGameState setupRoundState()
 			throws Exception, JAXBException
 	{
-		List<HeroTeam> teams = new ArrayList<>();
-
-		setupTeams(teams);
+		 List<HeroTeam> teams = setupTeams();
 
 		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
@@ -79,10 +77,11 @@ public class GameMachine
 		return roundHeroAttributes;
 	}
 
-	private static void setupTeams(List<HeroTeam> teams)
+	private static List<HeroTeam> setupTeams()
 	{
 		try
 		{
+			List<HeroTeam> teams = new ArrayList<>();
 			HeroTeam teamAlpha = new HeroTeam(0);
 			HeroTeam teamBravo = new HeroTeam(1);
 			HeroTeam teamCharlie = new HeroTeam(2);
@@ -111,11 +110,13 @@ public class GameMachine
 			{
 				heroTeam.setUp();
 			}
+			return teams;
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	private void popState()

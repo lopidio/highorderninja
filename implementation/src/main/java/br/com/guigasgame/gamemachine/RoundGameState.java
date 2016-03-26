@@ -77,7 +77,6 @@ public class RoundGameState implements GameState
 
 	private void initializeHeros(SceneController scenery, RoundAttributes roundAttributes)
 	{
-		int fragXPosition = 0;
 		for( HeroTeam team : roundAttributes.getTeams() )
 		{
 			team.setFriendlyFire(true);
@@ -88,8 +87,10 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
 				HeroFragCounter counter = gameHero.getFragCounter();
-				HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(new Vector2f(fragXPosition, 5), counter, gameHero.getHeroProperties().getColor());
-				fragXPosition += 150;
+				
+				Vector2f position =  new Vector2f(team.getTeamId()*200 + 100, gameHeroProperties.getIdInTeam()*50 + 50);
+				
+				HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(position, counter, gameHero.getHeroProperties().getColor());
 				counter.addListener(fragCounterHud);
 				HeroAttributesHudController hud = roundAttributes.initializeHeroAttributes(gameHero); 
 				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
@@ -153,13 +154,17 @@ public class RoundGameState implements GameState
 
 		if (event.type == Type.KEY_PRESSED)
 		{
-			if (event.asKeyEvent().key == Key.P)
+			if (event.asKeyEvent().key == Key.I)
 			{
 				timeFactor = 0.3f;
 			}
 			if (event.asKeyEvent().key == Key.O)
 			{
-				timeFactor = 1;
+				timeFactor = 1f;
+			}
+			if (event.asKeyEvent().key == Key.P)
+			{
+				timeFactor = 2;
 			}
 		}
 		

@@ -17,6 +17,7 @@ public class HeroFragCounterHud extends HudObject implements HeroFragCounterList
 {
 	
 	private Text text;
+	private Text outlineText;
 	private final HeroFragCounter fragCounter;
 	
 	public HeroFragCounterHud(Vector2f position, HeroFragCounter counter, ColorBlender color)
@@ -25,13 +26,21 @@ public class HeroFragCounterHud extends HudObject implements HeroFragCounterList
 		try
 		{
 			this.text = new Text();
+			this.outlineText = new Text();
 			Font font = new Font();
 			font.loadFromFile(Paths.get(FilenameConstants.getCounterFontFilename()));
 			text.setColor(color.makeTranslucid(0.2f).getSfmlColor());
+			outlineText.setColor(color.makeTranslucid(0.8f).darken(3).getSfmlColor());
 			text.setFont(font);
+			outlineText.setFont(font);
 			text.setCharacterSize(24);
-			text.setPosition(position);
+			outlineText.setCharacterSize(25);
+			outlineText.setStyle(Text.BOLD);
 			updateText();
+			text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2);
+			outlineText.setOrigin(outlineText.getLocalBounds().width/2, outlineText.getLocalBounds().height/2);
+			text.setPosition(position);
+			outlineText.setPosition(position);
 		}
 		catch (IOException e)
 		{
@@ -42,6 +51,7 @@ public class HeroFragCounterHud extends HudObject implements HeroFragCounterList
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
+		renderWindow.draw(outlineText);
 		renderWindow.draw(text);		
 	}
 	
@@ -51,6 +61,11 @@ public class HeroFragCounterHud extends HudObject implements HeroFragCounterList
 		updateText();
 	}
 
+	@Override
+	public void onShootIncrement(int shoots)
+	{
+		updateText();
+	}
 
 	@Override
 	public void onDeathIncrement(int deaths)
@@ -60,7 +75,8 @@ public class HeroFragCounterHud extends HudObject implements HeroFragCounterList
 	
 	private void updateText()
 	{
-		String newString = String.format("%02d/%02d", fragCounter.getKills(), fragCounter.getDeaths());
+		String newString = String.format("(%d)%02d/%02d", fragCounter.getShoots(), fragCounter.getKills(), fragCounter.getDeaths());
 		text.setString(newString);
+		outlineText.setString(newString);
 	}
 }

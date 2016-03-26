@@ -13,7 +13,6 @@ import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.frag.HeroFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
-import br.com.guigasgame.gameobject.hero.action.GotDeadHeroAction;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttributeListener;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
@@ -276,8 +275,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	@Override
 	public void gotEmpty(HeroAttribute heroAttribute)
 	{
-		addAction(new GotDeadHeroAction());
-		System.out.println("Got dead");
+		die();
 	}
 	
 	@Override
@@ -309,9 +307,11 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			System.out.println(fixtureSensorID);
 			if (fixtureSensorID == FixtureSensorID.HEAD)
 			{
-				damage *= 4;
+				damage *= 3;
 			}
 			heroAttributes.getLife().decrement(damage);
+			if (playerIsDead)
+				fragCounter.incrementDeaths();
 		}
 	}
 
@@ -337,6 +337,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void die()
 	{
+		System.out.println("Got dead");
 		collidableHero.die();
 		playerIsDead = true;
 	}

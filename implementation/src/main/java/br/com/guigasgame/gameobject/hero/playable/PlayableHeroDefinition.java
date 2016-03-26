@@ -17,6 +17,7 @@ public class PlayableHeroDefinition
 	private Vec2 spawnPosition;
 	private HeroTeam heroTeam;
 	private RoundHeroAttributes roundHeroAttributes;
+	private int idInTeam;
 
 	public PlayableHeroDefinition(GameHeroInputMap gameHeroInput, int id)
 	{
@@ -77,5 +78,19 @@ public class PlayableHeroDefinition
 		this.roundHeroAttributes = roundHeroAttributes;
 	}
 
+	public void setIdInTeam(int idInTeam)
+	{
+		this.idInTeam = idInTeam;
+	}
 
+	public int getIdInTeam()
+	{
+		return idInTeam;
+	}
+
+	public HeroTeam getHeroTeam()
+	{
+		return heroTeam;
+	}
+	
 }
