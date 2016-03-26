@@ -22,8 +22,8 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class CameraController implements UpdatableFromTime, Drawable
 {
-	private static final float INNER_FRAME_SCALE = 0.65f;
-	private static final float OUTTER_FRAME_SCALE = 0.85f;
+	private static final float INNER_FRAME_SCALE = 0.75f;
+	private static final float OUTTER_FRAME_SCALE = 0.80f;
 	private static final float ZOOM_OUT_FACTOR = 1.01f;
 	private static final float ZOOM_IN_FACTOR = 0.99f;
 	private static final float CENTER_MOVING_DURING = 0.2f;

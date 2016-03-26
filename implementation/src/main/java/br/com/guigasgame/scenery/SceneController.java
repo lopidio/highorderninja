@@ -9,6 +9,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
@@ -30,7 +31,7 @@ public class SceneController extends GameObject
 	private final List<Vector2f> spawnPoints;
 	private List<Vector2f> remainingSpawnPoints;
 	private Background background;
-	private org.jsfml.graphics.FloatRect boundaries;
+	private FloatRect boundaries;
 	private List<SceneryCollidable> sceneryCollidables;
 	private final br.com.guigasgame.math.FloatRect boundariesTollerance;
 	private ColorBlender backgroundColor;
@@ -74,7 +75,7 @@ public class SceneController extends GameObject
 		}
 		collidableList.addAll(sceneryCollidables);
 		shapes.clear();
-		boundaries = calculateBoundaries();
+		calculateBoundary();
 	}
 
 	@Override
@@ -113,7 +114,7 @@ public class SceneController extends GameObject
 		return retorno;
 	}
 
-	private org.jsfml.graphics.FloatRect calculateBoundaries()
+	private void calculateBoundary()
 	{
 		AABB aabb = new AABB();
 
@@ -125,19 +126,18 @@ public class SceneController extends GameObject
 			}
 		}
 
-		Vec2[] vertices =
-		{ new Vec2(), new Vec2(), new Vec2(), new Vec2() };
+		Vec2[] vertices = { new Vec2(), new Vec2(), new Vec2(), new Vec2() };
 		aabb.getVertices(vertices);
 
-		final Vector2f lower = WorldConstants.physicsToSfmlCoordinates(vertices[0]);
-		final Vector2f upper = WorldConstants.physicsToSfmlCoordinates(vertices[2]);
-		org.jsfml.graphics.FloatRect retorno = new org.jsfml.graphics.FloatRect(lower.x - boundariesTollerance.left, lower.y
-				- boundariesTollerance.top, upper.x - lower.x + boundariesTollerance.width, upper.y
-						- lower.y + boundariesTollerance.height);
-		return retorno;
+		final Vector2f smallest = WorldConstants.physicsToSfmlCoordinates(vertices[0]);
+		final Vector2f biggest = WorldConstants.physicsToSfmlCoordinates(vertices[2]);
+		boundaries = new org.jsfml.graphics.FloatRect(	smallest.x 	- boundariesTollerance.left,
+																smallest.y	- boundariesTollerance.top,
+																biggest.x 	- smallest.x + boundariesTollerance.width + boundariesTollerance.width,
+																biggest.y	- smallest.y + boundariesTollerance.height + boundariesTollerance.top);
 	}
 
-	public org.jsfml.graphics.FloatRect getBoundaries()
+	public FloatRect getBoundaries()
 	{
 		return boundaries;
 	}

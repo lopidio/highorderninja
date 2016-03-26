@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jbox2d.dynamics.World;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
@@ -114,14 +115,14 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 		}
 	}
 
-	public void checkAgainstSceneryBoundaries(org.jsfml.graphics.FloatRect floatRect)
+	public void checkAgainstSceneryBoundaries(FloatRect floatRect)
 	{
 		for( Collidable collidable : collidableList )
 		{
 			final Vector2f position = WorldConstants.physicsToSfmlCoordinates(collidable.getPosition());
 			if (!floatRect.contains(position))
 			{
-				System.out.println("Game object out of scenery");
+				System.out.println("Game object out of scenery: " + WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
 				gotOutOfScenery();
 				markToDestroy();
 				return;
