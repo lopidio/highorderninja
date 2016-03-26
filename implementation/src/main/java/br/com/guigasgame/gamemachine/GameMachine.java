@@ -23,7 +23,7 @@ import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.round.RoundAttributes;
-import br.com.guigasgame.scenery.creation.SceneryCreator;
+import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -55,7 +55,7 @@ public class GameMachine
 
 		setupTeams(teams);
 
-		SceneryCreator scenery = new SceneryCreator(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
+		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
 		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 60);

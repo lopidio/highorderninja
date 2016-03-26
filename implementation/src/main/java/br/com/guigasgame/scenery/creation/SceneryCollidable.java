@@ -58,7 +58,6 @@ public class SceneryCollidable extends Collidable implements UpdatableFromTime
 				List<CollidableCategory> categoryList = CollidableCategory.fromMask(fixture.getFilterData().categoryBits);
 				for( CollidableCategory category : categoryList )
 				{
-//					System.out.println("Scenery collided with: " + category.name());
 					if (category == CollidableCategory.HEROS)
 					{
 						CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();

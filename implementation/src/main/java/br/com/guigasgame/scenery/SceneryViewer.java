@@ -17,7 +17,7 @@ import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
-import br.com.guigasgame.scenery.creation.SceneryCreator;
+import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.scenery.file.SceneryFile;
 
 public class SceneryViewer
@@ -31,7 +31,7 @@ public class SceneryViewer
 	public SceneryViewer() throws Exception
 	{
 		String scenePropertiesFile = "proScene.xml";
-		SceneryCreator creator = new SceneryCreator(SceneryFile.loadFromFile(scenePropertiesFile));
+		SceneryInitialize creator = new SceneryInitialize(SceneryFile.loadFromFile(scenePropertiesFile));
 		scenery = new SceneController(creator);
 		pointsShapes = new ArrayList<>();
 		initializePoints(creator);
@@ -56,7 +56,7 @@ public class SceneryViewer
 		view = new View(new FloatRect(0, 0, renderWindow.getSize().x, renderWindow.getSize().y));		
 	}
 	
-	private void initializePoints(SceneryCreator creator)
+	private void initializePoints(SceneryInitialize creator)
 	{
 		for( Vector2f itemSpots : creator.getItemsSpots() )
 		{

@@ -56,7 +56,7 @@ public class RoundGameState implements GameState
 	{
 		CollidableCategory.display();
 		gameObjectsList = new ArrayList<>();
-		this.scenery = new SceneController(roundAttributes.getSceneryCreator());
+		this.scenery = new SceneController(roundAttributes.getSceneryInitializer());
 		timeFactor = 1;
 
 		Vec2 gravity = new Vec2(0, (float) 9.8);

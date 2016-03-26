@@ -20,7 +20,7 @@ import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.math.Randomizer;
 import br.com.guigasgame.scenery.background.Background;
 import br.com.guigasgame.scenery.creation.SceneryCollidable;
-import br.com.guigasgame.scenery.creation.SceneryCreator;
+import br.com.guigasgame.scenery.creation.SceneryInitialize;
 
 
 public class SceneController extends GameObject
@@ -36,7 +36,7 @@ public class SceneController extends GameObject
 	private final br.com.guigasgame.math.FloatRect boundariesTollerance;
 	private ColorBlender backgroundColor;
 
-	public SceneController(SceneryCreator sceneryCreator)
+	public SceneController(SceneryInitialize sceneryCreator)
 	{
 		background = sceneryCreator.getBackground();
 		shapes = sceneryCreator.getSceneShapeCreator().getBox2dShapes();

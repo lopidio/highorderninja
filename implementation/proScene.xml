@@ -239,11 +239,11 @@
         <rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">> <!-- 20 -->
             <center>
                 <x>1790</x>
-                <y>600</y>
+                <y>700</y>
             </center>
             <halfDimension>
                 <x>10</x>
-                <y>600</y>
+                <y>500</y>
             </halfDimension>
         </rectangles>		
         <rectangles textureName="darkStoneTexture.jpg">> <!-- 21 -->
@@ -282,7 +282,7 @@
                 <y>20.0</y>
             </center>
             <halfDimension>
-                <x>300.0</x>
+                <x>250.0</x>
                 <y>15</y>
             </halfDimension>
         </rectangles>		

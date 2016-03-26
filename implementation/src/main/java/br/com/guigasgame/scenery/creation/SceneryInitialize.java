@@ -13,7 +13,7 @@ import br.com.guigasgame.scenery.background.BackgroundCreator;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.shape.Point;
 
-public class SceneryCreator
+public class SceneryInitialize
 {
 	private SceneShapeCreator shapeCreator;
 	private Collection<Vector2f> itemSpots;
@@ -22,7 +22,7 @@ public class SceneryCreator
 	private FloatRect boundariesTollerance;
 	private ColorBlender backGroundColor;
 	
-	public SceneryCreator(SceneryFile sceneryFile) throws Exception
+	public SceneryInitialize(SceneryFile sceneryFile) throws Exception
 	{
 		shapeCreator = new SceneShapeCreator(sceneryFile.getSceneryShapes());
 		background = new BackgroundCreator(sceneryFile.getBackgroundFile()).createBackground();
