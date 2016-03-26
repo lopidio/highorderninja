@@ -81,4 +81,9 @@ public class FilenameConstants
 		return "heroAttributes.xml";
 	}
 
+	public static String getCounterFontFilename()
+	{
+		return "GOUDYSTO.TTF";
+	}
+
 }

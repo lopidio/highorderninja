@@ -26,7 +26,7 @@ class SlidingHeroState extends HeroState
 	{
 		secondsRemaining -= deltaTime;
 		gameHero.addAction(new MoveHeroAction(gameHero.getForwardSide(), heroStatesProperties));
-		if (secondsRemaining <= 0 && !gameHero.getCollidableHero().isHeadTouchingSomething())
+		if (secondsRemaining <= 0 && !gameHero.getCollidableHero().isHeadTouchingAnything() || gameHero.isTouchingWallAhead())
 		{
 			if (gameHero.getCollidableHero().isMoving())
 			{

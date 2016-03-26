@@ -30,7 +30,6 @@ public class CameraController implements UpdatableFromTime, Drawable
 	
 	private List<PlayableGameHero> playersToControl;
 	private View view;
-	private RenderWindow renderWindow;
 	private Shape outterFrame;
 	private Shape innerFrame;
 	private CameraCenterFrame centerFrame;
@@ -74,7 +73,6 @@ public class CameraController implements UpdatableFromTime, Drawable
 		centerInterpolator.update(deltaTime);
 		view.setCenter(centerInterpolator.getCurrent());		
 
-		renderWindow.setView(view);
 	}
 	
 	private void checkDeadPlayers()
@@ -89,6 +87,11 @@ public class CameraController implements UpdatableFromTime, Drawable
 				iterator.remove();
 			}
 		}
+	}
+	
+	public View getCameraView()
+	{
+		return view;
 	}
 
 	private void checkZoomIn()
@@ -134,8 +137,6 @@ public class CameraController implements UpdatableFromTime, Drawable
 
 	public void createView(RenderWindow renderWindow)
 	{
-		this.renderWindow = renderWindow;
-		
 		Vector2f size = new Vector2f(renderWindow.getSize());
 		Vector2f innerSize = Vector2f.mul(size, INNER_FRAME_SCALE);
 		Vector2f outterSize = Vector2f.mul(size, OUTTER_FRAME_SCALE);

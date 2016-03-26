@@ -111,7 +111,7 @@ class HeroFixturesCreator
 	private void createBottomLeftSensor()
 	{
 		PolygonShape bottomLeftShape = new PolygonShape();
-		bottomLeftShape.setAsBox(0.2f, 0.3f, new Vec2(-0.5f - 0.1f, -1f), 0);
+		bottomLeftShape.setAsBox(0.2f, 0.3f, new Vec2(-0.5f - 0.1f, -0.5f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;
@@ -123,7 +123,7 @@ class HeroFixturesCreator
 	private void createBottomRightSensor()
 	{
 		PolygonShape rightLeftShape = new PolygonShape();
-		rightLeftShape.setAsBox(0.2f, 0.3f, new Vec2(0.5f + 0.1f, -1f), 0);
+		rightLeftShape.setAsBox(0.2f, 0.3f, new Vec2(0.5f + 0.1f, -0.5f), 0);
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.isSensor = true;

@@ -241,7 +241,7 @@ public class CollidableHero extends Collidable
 		return new Vec2(0, -1);
 	}
 
-	public boolean isHeadTouchingSomething()
+	public boolean isHeadTouchingAnything()
 	{
 		return sensorsController.getController(FixtureSensorID.RIGHT_TOP_SENSOR).isTouching() ||
 				sensorsController.getController(FixtureSensorID.LEFT_TOP_SENSOR).isTouching();
