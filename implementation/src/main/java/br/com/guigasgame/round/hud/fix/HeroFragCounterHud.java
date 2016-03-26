@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud;
+package br.com.guigasgame.round.hud.fix;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -12,6 +12,7 @@ import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.frag.HeroFragCounter;
 import br.com.guigasgame.frag.HeroFragCounter.HeroFragCounterListener;
+import br.com.guigasgame.round.hud.controller.HudObject;
 
 public class HeroFragCounterHud extends HudObject implements HeroFragCounterListener
 {

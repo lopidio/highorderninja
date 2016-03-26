@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud.moving.barbellow;
+package br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow;
 
 import org.jsfml.system.Vector2f;
 

@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud;
+package br.com.guigasgame.round.hud.controller;
 
 import java.util.ArrayList;
 import java.util.List;

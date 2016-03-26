@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud.controller;
+package br.com.guigasgame.round.hud.dynamic.heroattributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
-import br.com.guigasgame.round.hud.moving.HeroAttributeMovingHud;
 
 public abstract class HeroAttributesMovingHudController extends HeroAttributesHudController
 {

@@ -4,8 +4,8 @@ import java.util.List;
 
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
-import br.com.guigasgame.round.hud.controller.HeroAttributesHudController;
-import br.com.guigasgame.round.hud.moving.barbellow.HeroAttributesCircleAndBarsBellowHudController;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesHudController;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttributesCircleAndBarsBellowHudController;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.team.HeroTeam;
 

@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud;
+package br.com.guigasgame.round.hud.fix;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -10,6 +10,7 @@ import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.file.FilenameConstants;
+import br.com.guigasgame.round.hud.controller.HudObject;
 import br.com.guigasgame.time.ReverseTimeCounter.ReverseTimeCounterListener;
 
 

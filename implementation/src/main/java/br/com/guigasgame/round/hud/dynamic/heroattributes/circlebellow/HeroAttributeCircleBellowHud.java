@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud.moving.circlebellow;
+package br.com.guigasgame.round.hud.dynamic.heroattributes.circlebellow;
 
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.RenderWindow;
@@ -8,7 +8,7 @@ import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.color.ColorInterpolator;
 import br.com.guigasgame.color.ColorLinearInterpolator;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
-import br.com.guigasgame.round.hud.moving.HeroAttributeMovingHud;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMovingHud;
 
 public class HeroAttributeCircleBellowHud extends HeroAttributeMovingHud
 {

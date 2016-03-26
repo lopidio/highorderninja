@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud.moving;
+package br.com.guigasgame.round.hud.dynamic.heroattributes;
 
 import org.jsfml.system.Vector2f;
 
