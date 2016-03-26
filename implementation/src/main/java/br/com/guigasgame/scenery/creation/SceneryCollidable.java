@@ -63,7 +63,8 @@ public class SceneryCollidable extends Collidable implements UpdatableFromTime
 					{
 						CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
 						PlayableGameHero hitGameHero = collidableHero.getPlayableHero();
-						hitHeros.add(hitGameHero);
+						if (!hitHeros.contains(hitGameHero) && !hitGameHero.isPlayerDead())
+							hitHeros.add(hitGameHero);
 					}
 				}
 			}

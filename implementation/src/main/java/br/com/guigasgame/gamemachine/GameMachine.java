@@ -13,7 +13,6 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
-import org.jsfml.window.Window;
 import org.jsfml.window.event.Event;
 
 import br.com.guigasgame.color.ColorBlender;
@@ -23,6 +22,7 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
+import br.com.guigasgame.round.RoundAttributes;
 import br.com.guigasgame.scenery.creation.SceneryCreator;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
@@ -58,7 +58,8 @@ public class GameMachine
 		SceneryCreator scenery = new SceneryCreator(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundGameState roundGameState = new RoundGameState(teams, scenery, roundHeroAttributes);
+		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 60);
+		RoundGameState roundGameState = new RoundGameState(roundAttributes);
 		return roundGameState;
 	}
 

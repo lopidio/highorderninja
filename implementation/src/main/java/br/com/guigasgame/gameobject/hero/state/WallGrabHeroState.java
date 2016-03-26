@@ -29,7 +29,7 @@ public class WallGrabHeroState extends HeroState
 		{
 			setState(new FallingHeroState(gameHero));
 		}
-		if (gameHero.getCollidableHero().movingToSide() != wallSide)
+		if (gameHero.getCollidableHero().movingToSide() != wallSide && !isHeroInputMapPressed(HeroInputKey.JUMP))
 		{
 			gameHero.addAction(new StopHorizontalMovementAction());
 		}

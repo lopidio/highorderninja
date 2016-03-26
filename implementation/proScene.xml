@@ -504,7 +504,7 @@
                 </textureSpriteRect>
             </animationProperties>
             <speed>
-                <x>1.0</x>
+                <x>0.01</x>
                 <y>0.0</y>
             </speed>
             <origin>
@@ -526,7 +526,7 @@
                 </textureSpriteRect>
             </animationProperties>
             <speed>
-                <x>-15.0</x>
+                <x>-0.15</x>
                 <y>0.0</y>
             </speed>
             <origin>
@@ -549,7 +549,7 @@
             </animationProperties>
 			<regenerationInterval>20</regenerationInterval>
             <speed>
-                <x>20.0</x>
+                <x>0.10</x>
                 <y>0.0</y>
             </speed>
             <origin>
