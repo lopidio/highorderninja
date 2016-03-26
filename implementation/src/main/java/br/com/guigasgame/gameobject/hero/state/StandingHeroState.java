@@ -18,7 +18,7 @@ public class StandingHeroState extends HeroState
 	@Override
 	protected void stateDoubleTapInput(HeroInputKey inputValue)
 	{
-		if (inputValue == HeroInputKey.LEFT || inputValue == HeroInputKey.RIGHT)
+		if (inputValue == HeroInputKey.LEFT || inputValue == HeroInputKey.RIGHT && !gameHero.isTouchingWallAhead())
 		{
 			setState(new SlidingHeroState(gameHero));
 		}
