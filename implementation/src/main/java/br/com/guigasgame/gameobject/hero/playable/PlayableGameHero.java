@@ -10,7 +10,7 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.frag.RoundFragCounter;
+import br.com.guigasgame.frag.HeroFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.action.GotDeadHeroAction;
@@ -37,7 +37,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	private List<Animation> animationList;
 	private GameHeroInputMap gameHeroInput;
 	private final PlayableHeroDefinition heroProperties;
-	private RoundFragCounter fragCounter;
+	private HeroFragCounter fragCounter;
 	private HeroState state;
 
 	private String lastActionName;
@@ -62,7 +62,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
-		fragCounter = new RoundFragCounter();
+		fragCounter = new HeroFragCounter();
 	}
 
 	public HeroState getState()
@@ -268,7 +268,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	}
 
 	
-	public RoundFragCounter getFragCounter()
+	public HeroFragCounter getFragCounter()
 	{
 		return fragCounter;
 	}

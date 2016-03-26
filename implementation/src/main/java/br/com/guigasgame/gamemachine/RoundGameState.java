@@ -32,8 +32,7 @@ import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundAttributes;
 import br.com.guigasgame.round.hud.HudController;
 import br.com.guigasgame.round.hud.TimerStaticHud;
-import br.com.guigasgame.round.hud.controller.HeroAttributesMovingHudController;
-import br.com.guigasgame.round.hud.moving.barbellow.HeroAttributesCircleAndBarsBellowHudController;
+import br.com.guigasgame.round.hud.controller.HeroAttributesHudController;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.team.HeroTeam;
 import br.com.guigasgame.time.ReverseTimeCounter;
@@ -85,7 +84,7 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
-				HeroAttributesMovingHudController hud = new HeroAttributesCircleAndBarsBellowHudController(gameHero);
+				HeroAttributesHudController hud = roundAttributes.initializeHeroAttributes(gameHero); 
 				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
 				hudController.addDynamicHud(hud);
 				initializeGameObject(Arrays.asList(gameHero));
