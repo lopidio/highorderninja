@@ -3,7 +3,6 @@ package br.com.guigasgame.gamemachine;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.bind.JAXBException;
@@ -23,10 +22,10 @@ import org.jsfml.window.event.Event.Type;
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.CameraController;
-import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.color.ColorBlender;
+import br.com.guigasgame.destroyable.Destroyable;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
@@ -192,26 +191,6 @@ public class RoundGameState implements GameState
 		}
 	}
 
-	private void clearDeadObjects()
-	{
-		Iterator<GameObject> iterator = gameObjectsList.iterator();
-		while (iterator.hasNext())
-		{
-			GameObject toRemove = iterator.next(); // must be called before you can call iterator.remove()
-			if (toRemove.isMarkedToDestroy())
-			{
-				toRemove.destroy();
-				List<Collidable> collidableList = toRemove.getCollidable();
-				for (Collidable collidable : collidableList) 
-				{
-					world.destroyBody(collidable.getBody());
-				}
-
-				iterator.remove();
-			}
-		}
-	}
-
 	@Override
 	public void update(float deltaTime)
 	{
@@ -233,24 +212,10 @@ public class RoundGameState implements GameState
 
 		verifyNewObjectsToLists();
 		checkGameOjbectsAgainsSceneryBoundaries();
-		clearDeadObjects();
-		clearUselessHUD();
+		Destroyable.clearDestroyable(hudList);
+		Destroyable.clearDestroyable(gameObjectsList);
 		
 		cameraController.update(deltaTime);
-	}
-
-	private void clearUselessHUD()
-	{
-		Iterator<HeroAttributesHudController> iterator = hudList.iterator();
-		while (iterator.hasNext())
-		{
-			HeroAttributesHudController toRemove = iterator.next(); // must be called before you can call iterator.remove()
-			if (toRemove.isMarkedToDestroy())
-			{
-				toRemove.destroy();
-				iterator.remove();
-			}
-		}
 	}
 
 	private void checkGameOjbectsAgainsSceneryBoundaries()
@@ -267,7 +232,7 @@ public class RoundGameState implements GameState
 		scenery.drawBackgroundItems(renderWindow);
 		world.drawDebugData();
 		
-		cameraController.draw(renderWindow);
+//		cameraController.draw(renderWindow);
 
 		for( GameObject gameObject : gameObjectsList )
 		{

@@ -42,6 +42,11 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 	@Override
 	public void destroy()
 	{
+		for (Collidable collidable : collidableList) 
+		{
+			collidable.getBody().getWorld().destroyBody(collidable.getBody());
+		}
+
 		onDestroy();
 	}
 	

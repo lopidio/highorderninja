@@ -4,12 +4,10 @@ public class LinearInterpolatorFromTime extends InterpolatorFromTime
 {
 	private float ratioPerSecond;
 	private float remaining;
-	private final float duration;
 
 	public LinearInterpolatorFromTime(float source, float duration)
 	{
-		super(source);
-		this.duration = duration;
+		super(source, duration);
 	}
 
 	@Override

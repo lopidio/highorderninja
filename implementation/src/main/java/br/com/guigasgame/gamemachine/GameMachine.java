@@ -151,7 +151,7 @@ public class GameMachine
 		});
 		final VideoMode best = modes[modes.length - 1];
 
-		renderWindow = new RenderWindow(best, "High order ninja", Window.FULLSCREEN);  //Window.TRANSPARENT
+		renderWindow = new RenderWindow(best, "High order ninja");//, Window.FULLSCREEN);  //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		renderWindow.setMouseCursorVisible(false);

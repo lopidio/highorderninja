@@ -25,7 +25,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 	private static final float INNER_FRAME_SCALE = 0.65f;
 	private static final float OUTTER_FRAME_SCALE = 0.85f;
 	private static final float ZOOM_OUT_FACTOR = 1.01f;
-	private static final float ZOOM_IN_FACTOR = 0.985f;
+	private static final float ZOOM_IN_FACTOR = 0.99f;
 	
 	private List<PlayableGameHero> playersToControl;
 	private View view;
@@ -154,8 +154,8 @@ public class CameraController implements UpdatableFromTime, Drawable
 		outterFrame.setOutlineThickness(1.0f);
 		
 		view = new View(new FloatRect(0, 0, renderWindow.getSize().x, renderWindow.getSize().y));
-		centerXInterpolator = new LinearInterpolatorFromTime(view.getCenter().x, 1);
-		centerYInterpolator = new LinearInterpolatorFromTime(view.getCenter().y, 1);
+		centerXInterpolator = new LinearInterpolatorFromTime(view.getCenter().x, 0);
+		centerYInterpolator = new LinearInterpolatorFromTime(view.getCenter().y, 0);
 		
 	}
 	
