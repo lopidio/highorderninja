@@ -3,9 +3,9 @@ package br.com.guigasgame.frag;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeroFragCounter
+public class HeroFragStatistic
 {
-	public interface HeroFragCounterListener
+	public interface HeroFragStatisticListener
 	{
 		public default void onShootIncrement(int shoots)
 		{
@@ -33,9 +33,9 @@ public class HeroFragCounter
 	private int deaths;
 	private int kills;
 	private int suicide;
-	private final List<HeroFragCounterListener> fragListeners;
+	private final List<HeroFragStatisticListener> fragListeners;
 	
-	public HeroFragCounter()
+	public HeroFragStatistic()
 	{
 		 shoots = 0;
 		 shootsOnTarget = 0;
@@ -46,7 +46,7 @@ public class HeroFragCounter
 		 fragListeners = new ArrayList<>();
 	}
 	
-	public void addListener(HeroFragCounterListener listener)
+	public void addListener(HeroFragStatisticListener listener)
 	{
 		fragListeners.add(listener);
 	}
@@ -54,7 +54,7 @@ public class HeroFragCounter
 	public void incrementShoots()
 	{
 		++shoots;
-		for( HeroFragCounterListener heroFragCounterListener : fragListeners )
+		for( HeroFragStatisticListener heroFragCounterListener : fragListeners )
 		{
 			heroFragCounterListener.onShootIncrement(shoots);
 		}
@@ -63,7 +63,7 @@ public class HeroFragCounter
 	public void incrementShootsOnTarget()
 	{
 		++shootsOnTarget;
-		for( HeroFragCounterListener heroFragCounterListener : fragListeners )
+		for( HeroFragStatisticListener heroFragCounterListener : fragListeners )
 		{
 			heroFragCounterListener.onShootOnTargetIncrement(shootsOnTarget);
 		}
@@ -72,7 +72,7 @@ public class HeroFragCounter
 	public void incrementDeaths()
 	{
 		++deaths;
-		for( HeroFragCounterListener heroFragCounterListener : fragListeners )
+		for( HeroFragStatisticListener heroFragCounterListener : fragListeners )
 		{
 			heroFragCounterListener.onDeathIncrement(deaths);
 		}
@@ -81,7 +81,7 @@ public class HeroFragCounter
 	public void incrementKills()
 	{
 		++kills;
-		for( HeroFragCounterListener heroFragCounterListener : fragListeners )
+		for( HeroFragStatisticListener heroFragCounterListener : fragListeners )
 		{
 			heroFragCounterListener.onKillIncrement(kills);
 		}
@@ -91,7 +91,7 @@ public class HeroFragCounter
 	{
 		incrementDeaths();
 		++suicide;
-		for( HeroFragCounterListener heroFragCounterListener : fragListeners )
+		for( HeroFragStatisticListener heroFragCounterListener : fragListeners )
 		{
 			heroFragCounterListener.onSuicideIncrement(suicide);
 		}
@@ -130,13 +130,13 @@ public class HeroFragCounter
 	public void incrementHitAsTarget()
 	{
 		++hitAsTarget;
-		for( HeroFragCounterListener heroFragCounterListener : fragListeners )
+		for( HeroFragStatisticListener heroFragCounterListener : fragListeners )
 		{
 			heroFragCounterListener.onHitAsTargetIncrement(hitAsTarget);
 		}
 	}
 	
-	public HeroFragCounter incorporate(HeroFragCounter other)
+	public HeroFragStatistic incorporate(HeroFragStatistic other)
 	{
 		 this.shoots += other.shoots;
 		 this.shootsOnTarget += other.shootsOnTarget;

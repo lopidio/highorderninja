@@ -10,12 +10,12 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.destroyable.Destroyable;
-import br.com.guigasgame.frag.HeroFragCounter;
+import br.com.guigasgame.frag.HeroFragStatistic;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.RoundHudPositioner;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesHudController;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttributesCircleAndBarsBellowHudController;
-import br.com.guigasgame.round.hud.fix.HeroFragCounterHud;
+import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TimerStaticHud;
 import br.com.guigasgame.time.ReverseTimeCounter;
 import br.com.guigasgame.updatable.UpdatableFromTime;
@@ -110,8 +110,8 @@ public class HudController implements UpdatableFromTime
 	private void addHeroMovingHud(PlayableGameHero gameHero)
 	{
 		Vector2f position = roundHudPositioner.getFragCounterPosition(gameHero.getHeroProperties());
-		HeroFragCounter fragCounter = gameHero.getFragCounter();			
-		HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(position, gameHero);
+		HeroFragStatistic fragCounter = gameHero.getFragStatistic();			
+		HeroFragStatisticHud fragCounterHud = new HeroFragStatisticHud(position, gameHero);
 		fragCounter.addListener(fragCounterHud);
 		addStaticHud(fragCounterHud);
 	}

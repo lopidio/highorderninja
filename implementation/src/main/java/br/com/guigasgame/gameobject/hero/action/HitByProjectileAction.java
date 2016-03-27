@@ -21,21 +21,7 @@ public class HitByProjectileAction extends GameHeroAction
 	@Override
 	protected void childExecute(PlayableGameHero poorPlayer)
 	{
-		if (!poorPlayer.isInvincible())
-		{
-			owner.getFragCounter().incrementShootsOnTarget();
-			poorPlayer.getHit(projectile.getProperties().damage, fixtureSensorID);
-			poorPlayer.getFragCounter().incrementHitAsTarget();
-			if (poorPlayer.isPlayerDead())
-			{
-				if (poorPlayer.getHeroProperties().getHeroTeam().getTeamId() != owner.getHeroProperties().getHeroTeam().getTeamId())
-					owner.getFragCounter().incrementKills();
-			}
-		}
-		else
-		{
-			System.out.println("Absorved projectile");
-		}
+		poorPlayer.getHitByProjectile(projectile.getProperties().damage, fixtureSensorID, owner);
 	}
 
 }

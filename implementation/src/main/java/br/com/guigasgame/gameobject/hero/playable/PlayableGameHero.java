@@ -10,7 +10,7 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.frag.HeroFragCounter;
+import br.com.guigasgame.frag.HeroFragStatistic;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
@@ -27,7 +27,8 @@ import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
 
 
-public class PlayableGameHero extends GameObject implements HeroAttributeListener
+public class PlayableGameHero extends GameObject
+		implements HeroAttributeListener
 {
 
 	private Side forwardSide;
@@ -36,7 +37,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	private List<Animation> animationList;
 	private GameHeroInputMap gameHeroInput;
 	private final PlayableHeroDefinition heroProperties;
-	private HeroFragCounter fragCounter;
+	private HeroFragStatistic fragStatistic;
 	private HeroState state;
 
 	private String lastActionName;
@@ -61,14 +62,14 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
-		fragCounter = new HeroFragCounter();
+		fragStatistic = new HeroFragStatistic();
 	}
 
 	public HeroState getState()
 	{
 		return state;
 	}
-	
+
 	@Override
 	public void onEnter()
 	{
@@ -84,16 +85,15 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			animation.update(deltaTime);
 		}
 
-		
 		state.update(deltaTime);
 		updateActionList();
 		collidableHero.checkSpeedLimits(state.getMaxSpeed());
 		if (!playerIsDead)
 		{
 			gameHeroInput.update(deltaTime);
-			
+
 			updateItemsList();
-			
+
 			heroAttributes.update(deltaTime);
 		}
 		adjustSpritePosition();
@@ -113,7 +113,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		final Vector2f vector2f = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
 		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
 
-		
 		for( Animation animation : animationList )
 		{
 			animation.setPosition(vector2f);
@@ -128,7 +127,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		List<GameHeroAction> copy = new ArrayList<>();
 		copy.addAll(actionList);
 		actionList.clear();
-		
+
 		Iterator<GameHeroAction> iterator = copy.iterator();
 		while (iterator.hasNext())
 		{
@@ -136,7 +135,9 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			String currentActionName = gameHeroAction.getClass().getSimpleName();
 			if (!currentActionName.equals(lastActionName))
 			{
-				System.out.println("("+heroProperties.getPlayerId()+") " + currentActionName);
+				System.out.println("("
+						+ heroProperties.getPlayerId() + ") "
+						+ currentActionName);
 			}
 			lastActionName = currentActionName;
 			if (gameHeroAction.canExecute(this))
@@ -156,7 +157,9 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		}
 		if (drawableList.size() > 0)
 			drawableList.remove(0);
-		System.out.println("\t("+heroProperties.getPlayerId()+") State: " + newState.getClass().getSimpleName());
+		System.out.println("\t("
+				+ heroProperties.getPlayerId() + ") State: "
+				+ newState.getClass().getSimpleName());
 		state = newState;
 		state.onEnter();
 
@@ -192,7 +195,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			animation.flipAnimation(side);
 		}
 	}
-	
+
 	public boolean isTouchingGround()
 	{
 		return collidableHero.isTouchingGround();
@@ -225,7 +228,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		if (heroAttributes.getShurikens().isAbleToShoot())
 		{
-			fragCounter.incrementShoots();
+			fragStatistic.incrementShoots();
 			heroAttributes.getShurikens().decrement(1);
 			return new Shuriken(pointingDirection, this);
 		}
@@ -244,32 +247,32 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			heroAttributes.getSmokeBomb().decrement(1);
 			return new SmokeBombProjectile(pointingDirection, this);
 		}
-		return null;		
+		return null;
 	}
 
 	public PlayableHeroDefinition getHeroProperties()
 	{
 		return heroProperties;
 	}
-	
+
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
 	{
-//		Body myBody = (Body) me;
-//		Body otherBody = (Body) other;
-//		float maxValue = properties.initialSpeed*otherBody.getMass();
-//		System.out.println("Hero Impact: " + myBody.getLinearVelocity().sub(otherBody.getLinearVelocity()).length());
+		// Body myBody = (Body) me;
+		// Body otherBody = (Body) other;
+		// float maxValue = properties.initialSpeed*otherBody.getMass();
+		// System.out.println("Hero Impact: " +
+		// myBody.getLinearVelocity().sub(otherBody.getLinearVelocity()).length());
 	}
 
 	public void hitOnTarget()
 	{
-		fragCounter.incrementShootsOnTarget();
+		fragStatistic.incrementShootsOnTarget();
 	}
 
-	
-	public HeroFragCounter getFragCounter()
+	public HeroFragStatistic getFragStatistic()
 	{
-		return fragCounter;
+		return fragStatistic;
 	}
 
 	@Override
@@ -277,12 +280,12 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		die();
 	}
-	
+
 	@Override
 	public void onDestroy()
 	{
 		state.onQuit();
-//		this.heroProperties.updateFragCounter(fragCounter);
+		// this.heroProperties.updateFragCounter(fragCounter);
 	}
 
 	public void regeneratesLife(int lifeToAdd)
@@ -300,18 +303,32 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		heroAttributes.getShurikens().refill();
 	}
 
-	public void getHit(float damage, FixtureSensorID fixtureSensorID)
+	public void getHitByProjectile(float damage, FixtureSensorID fixtureSensorID, PlayableGameHero owner)
 	{
-		if (!playerIsDead)
+		if (!invincible)
 		{
-			System.out.println(fixtureSensorID);
-			if (fixtureSensorID == FixtureSensorID.HEAD)
+			if (!playerIsDead)
 			{
-				damage *= 3;
+				System.out.println(fixtureSensorID);
+				owner.fragStatistic.incrementShootsOnTarget();
+				fragStatistic.incrementHitAsTarget();
+				if (fixtureSensorID == FixtureSensorID.HEAD)
+				{
+					damage *= 3;
+				}
+				heroAttributes.getLife().decrement(damage);
+				if (playerIsDead)
+				{
+					fragStatistic.incrementDeaths();
+					if (heroProperties.getHeroTeam().getTeamId() != owner.heroProperties.getHeroTeam().getTeamId())
+						owner.getFragStatistic().incrementKills();
+				}
 			}
-			heroAttributes.getLife().decrement(damage);
-			if (playerIsDead)
-				fragCounter.incrementDeaths();
+
+		}
+		else
+		{
+			System.out.println("Absorved projectile");
 		}
 	}
 
@@ -364,17 +381,17 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			heroAttributes.getLife().decrement(damage);
 			if (heroAttributes.getLife().getCurrentValue() <= 0)
 			{
-				fragCounter.incrementSuicide();
+				fragStatistic.incrementSuicide();
 			}
 		}
 	}
-	
+
 	@Override
 	protected void gotOutOfScenery()
 	{
 		if (!playerIsDead)
 		{
-			fragCounter.incrementSuicide();
+			fragStatistic.incrementSuicide();
 		}
 	}
 

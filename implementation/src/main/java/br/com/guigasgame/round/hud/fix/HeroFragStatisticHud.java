@@ -10,22 +10,22 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.file.FilenameConstants;
-import br.com.guigasgame.frag.HeroFragCounter;
-import br.com.guigasgame.frag.HeroFragCounter.HeroFragCounterListener;
+import br.com.guigasgame.frag.HeroFragStatistic;
+import br.com.guigasgame.frag.HeroFragStatistic.HeroFragStatisticListener;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.controller.HudObject;
 
-public class HeroFragCounterHud extends HudObject implements HeroFragCounterListener
+public class HeroFragStatisticHud extends HudObject implements HeroFragStatisticListener
 {
 	
 	private Text text;
-	private final HeroFragCounter fragCounter;
+	private final HeroFragStatistic fragStatistic;
 	private final Vector2f positionRatio;
 	
-	public HeroFragCounterHud(Vector2f positionRatio, PlayableGameHero gameHero)
+	public HeroFragStatisticHud(Vector2f positionRatio, PlayableGameHero gameHero)
 	{
 		this.positionRatio = positionRatio;
-		this.fragCounter = gameHero.getFragCounter();
+		this.fragStatistic = gameHero.getFragStatistic();
 		try
 		{
 			this.text = new Text();
@@ -77,7 +77,7 @@ public class HeroFragCounterHud extends HudObject implements HeroFragCounterList
 	
 	private void updateText()
 	{
-		final String newString = String.format("(%d)%02d/%02d", fragCounter.getShoots(), fragCounter.getKills(), fragCounter.getDeaths());
+		final String newString = String.format("%02d|%02d", fragStatistic.getKills(), fragStatistic.getDeaths());
 		text.setString(newString);
 		text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2);
 	}
