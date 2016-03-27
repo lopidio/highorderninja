@@ -40,7 +40,7 @@ public class RoundHudDefaultPositioner implements RoundHudPositioner
 			default:
 				break;
 		}
-		return new Vector2f(xPositionRatio, gameHeroProperties.getIdInTeam()*0.05f + 0.02f);
+		return new Vector2f(xPositionRatio, gameHeroProperties.getIdInTeam()*0.05f + 0.03f);
 	}
 
 	@Override

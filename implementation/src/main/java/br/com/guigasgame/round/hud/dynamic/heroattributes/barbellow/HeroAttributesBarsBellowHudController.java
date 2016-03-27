@@ -20,19 +20,15 @@ public class HeroAttributesBarsBellowHudController extends HeroAttributesMovingH
 	public HeroAttributesBarsBellowHudController(PlayableGameHero gameHero)
 	{
 		super(gameHero);
-	}
-
-	@Override
-	public void addAsHudController(RoundHeroAttributes roundHeroAttributes)
-	{
 		
+		final RoundHeroAttributes roundHeroAttributes = gameHero.getHeroProperties().getRoundHeroAttributes();
 		HeroAttributeMovingHud shuriken = new ShootingAttributeBarBellowHud(SHURIKEN_BAR_COLOR, new Vector2f(0, VERTICAL_OFFSET), SIZE);
 		barsList.add(shuriken);
 		HeroAttributeMovingHud smokeBomb = new ShootingAttributeBarBellowHud(SMOKE_BOMB_BAR_COLOR, new Vector2f(0, VERTICAL_OFFSET + SEPARATOR + SIZE.y), SIZE);
 		barsList.add(smokeBomb);
 		HeroAttributeMovingHud life = new LifeAttributeBarBellowHud(LIFE_BAR_COLOR, new Vector2f(0, VERTICAL_OFFSET + 2*(SEPARATOR + SIZE.y)), SIZE);
 		barsList.add(life);
-
+		
 		roundHeroAttributes.getShurikens().addListener(shuriken);
 		roundHeroAttributes.getSmokeBomb().addListener(smokeBomb);
 		roundHeroAttributes.getLife().addListener(life);

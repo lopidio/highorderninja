@@ -13,7 +13,6 @@ import br.com.guigasgame.destroyable.Destroyable;
 import br.com.guigasgame.frag.HeroFragStatistic;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.RoundHudPositioner;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesHudController;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttributesCircleAndBarsBellowHudController;
 import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TimerStaticHud;
@@ -102,8 +101,7 @@ public class HudController implements UpdatableFromTime
 	private void addHeroStaticHud(PlayableGameHero gameHero)
 	{
 		//TODO THERE HAS TO BE A FACTORY AS AN INSTANCE ATTRIBUTE
-		HeroAttributesHudController hud = new HeroAttributesCircleAndBarsBellowHudController(gameHero); 
-		hud.addAsHudController(gameHero.getHeroProperties().getRoundHeroAttributes());
+		HudObject hud = new HeroAttributesCircleAndBarsBellowHudController(gameHero); 
 		addDynamicHud(hud);
 	}
 
