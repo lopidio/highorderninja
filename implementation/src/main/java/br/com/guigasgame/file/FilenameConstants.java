@@ -81,7 +81,12 @@ public class FilenameConstants
 		return "heroAttributes.xml";
 	}
 
-	public static String getCounterFontFilename()
+	public static String getTimerCounterFontFilename()
+	{
+		return "GOUDYSTO.TTF";
+	}
+
+	public static String getFragStatistcsFontFilename()
 	{
 		return "GOUDYSTO.TTF";
 	}

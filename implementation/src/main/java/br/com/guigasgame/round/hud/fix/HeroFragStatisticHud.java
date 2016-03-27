@@ -39,7 +39,7 @@ public class HeroFragStatisticHud extends HudObject implements HeroFragStatistic
 		{
 			this.text = new Text();
 			Font font = new Font();
-			font.loadFromFile(Paths.get(FilenameConstants.getCounterFontFilename()));
+			font.loadFromFile(Paths.get(FilenameConstants.getFragStatistcsFontFilename()));
 			text.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.9f).getSfmlColor());
 			text.setFont(font);
 //			text.setStyle(Text.BOLD);

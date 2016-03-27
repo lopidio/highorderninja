@@ -243,7 +243,7 @@ public class CollidableHero extends Collidable
 
 	public boolean isHeadTouchingAnything()
 	{
-		return sensorsController.getController(FixtureSensorID.RIGHT_TOP_SENSOR).isTouching() ||
+		return sensorsController.getController(FixtureSensorID.RIGHT_TOP_SENSOR).isTouching() &&
 				sensorsController.getController(FixtureSensorID.LEFT_TOP_SENSOR).isTouching();
 	}
 

@@ -61,11 +61,4 @@ class DuckingState extends HeroState
 		}
 	}
 
-	@Override
-	protected void jump()
-	{
-		super.jump();
-		setState(new JumpingHeroState(gameHero));
-	}
-	
 }

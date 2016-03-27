@@ -91,11 +91,11 @@
         <rectangles textureName="darkStoneTexture.jpg"> <!-- 5 -->
             <center>
                 <x>250.0</x>
-                <y>1180.0</y>
+                <y>1200.0</y>
             </center>
             <halfDimension>
                 <x>250.0</x>
-                <y>15</y>
+                <y>30</y>
             </halfDimension>
         </rectangles>		
 		<triangles damagePerSecond="10.0" textureName="fire-textures.jpg"> <!-- 6 -->
@@ -212,28 +212,28 @@
                 <y>1000.0</y>
             </center>
             <halfDimension>
-                <x>400.0</x>
+                <x>405.0</x>
                 <y>15</y>
             </halfDimension>
         </rectangles>		
         <rectangles damagePerSecond="10.0" textureName="fire-textures.jpg"> <!-- 18 -->
             <center>
                 <x>1000.0</x>
-                <y>1180.0</y>
+                <y>1200.0</y>
             </center>
             <halfDimension>
                 <x>50.0</x>
-                <y>15</y>
+                <y>30</y>
             </halfDimension>
         </rectangles>		
         <rectangles textureName="darkStoneTexture.jpg">> <!-- 19 -->
             <center>
                 <x>1720.0</x>
-                <y>1180.0</y>
+                <y>1200.0</y>
             </center>
             <halfDimension>
                 <x>80.0</x>
-                <y>15</y>
+                <y>30</y>
             </halfDimension>
         </rectangles>		
         <rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">> <!-- 20 -->

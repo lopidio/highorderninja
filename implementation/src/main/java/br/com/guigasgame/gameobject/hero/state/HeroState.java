@@ -134,7 +134,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 		inputMap.put(inputValue, true);
 		if (inputValue == HeroInputKey.JUMP)
 		{
-			if (heroStatesProperties.jump != null)
+			if (heroStatesProperties.jump != null && !gameHero.getCollidableHero().isHeadTouchingAnything())
 			{
 				jump();
 			}

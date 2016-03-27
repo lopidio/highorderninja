@@ -24,7 +24,7 @@ public abstract class HeroAttributesMovingHudController extends HudObject
 	public void update(float deltaTime)
 	{
 		final Vector2f position = gameHero.getMassCenter();
-		if (gameHero.isMarkedToDestroy())
+		if (gameHero.isMarkedToDestroy() || gameHero.isPlayerDead())
 		{
 			System.out.println("Destroying HUD");
 			markToDestroy();
@@ -34,6 +34,12 @@ public abstract class HeroAttributesMovingHudController extends HudObject
 			attributeBarBellowHud.updatePosition(position);
 			attributeBarBellowHud.update(deltaTime);
 		}
+	}
+	
+	@Override
+	public void destroy()
+	{
+		barsList.clear();
 	}
 
 	@Override

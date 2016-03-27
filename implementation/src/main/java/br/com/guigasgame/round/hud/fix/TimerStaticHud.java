@@ -28,7 +28,7 @@ public class TimerStaticHud extends HudObject implements ReverseTimeCounterListe
 		try
 		{
 			Font font = new Font();
-			font.loadFromFile(Paths.get(FilenameConstants.getCounterFontFilename()));
+			font.loadFromFile(Paths.get(FilenameConstants.getTimerCounterFontFilename()));
 			text.setFont(font);
 		}
 		catch (IOException e)

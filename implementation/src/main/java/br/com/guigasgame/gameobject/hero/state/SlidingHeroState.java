@@ -3,7 +3,6 @@ package br.com.guigasgame.gameobject.hero.state;
 import br.com.guigasgame.gameobject.hero.action.CollisionDisablerAction;
 import br.com.guigasgame.gameobject.hero.action.CollisionEnablerAction;
 import br.com.guigasgame.gameobject.hero.action.MoveHeroAction;
-import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.sensors.HeroSensorsController.FixtureSensorID;
 import br.com.guigasgame.side.Side;
@@ -20,13 +19,18 @@ class SlidingHeroState extends HeroState
 		Float duration = heroStatesProperties.property.get("duration");
 		secondsRemaining = duration != null? duration.floatValue(): 0.5f;
 	}
+	
+	private boolean isAbleToQuitSliding()
+	{
+		return secondsRemaining <= 0 && !gameHero.getCollidableHero().isHeadTouchingAnything() || gameHero.isTouchingWallAhead();
+	}
 
 	@Override
 	public void stateUpdate(float deltaTime)
 	{
 		secondsRemaining -= deltaTime;
 		gameHero.addAction(new MoveHeroAction(gameHero.getForwardSide(), heroStatesProperties));
-		if (secondsRemaining <= 0 && !gameHero.getCollidableHero().isHeadTouchingAnything() || gameHero.isTouchingWallAhead())
+		if (isAbleToQuitSliding())
 		{
 			if (gameHero.getCollidableHero().isMoving())
 			{
@@ -63,15 +67,6 @@ class SlidingHeroState extends HeroState
 	protected void move(Side side)
 	{
 		//do nothing
-	}
-	
-	@Override
-	public void stateInputPressed(HeroInputKey key)
-	{
-		if (key == HeroInputKey.JUMP)
-		{
-			setState(new JumpingHeroState(gameHero));
-		}
 	}
 	
 }
