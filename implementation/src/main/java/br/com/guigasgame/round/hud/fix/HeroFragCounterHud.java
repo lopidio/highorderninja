@@ -8,10 +8,10 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 
-import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.frag.HeroFragCounter;
 import br.com.guigasgame.frag.HeroFragCounter.HeroFragCounterListener;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.controller.HudObject;
 
 public class HeroFragCounterHud extends HudObject implements HeroFragCounterListener
@@ -21,17 +21,17 @@ public class HeroFragCounterHud extends HudObject implements HeroFragCounterList
 	private Text outlineText;
 	private final HeroFragCounter fragCounter;
 	
-	public HeroFragCounterHud(Vector2f position, HeroFragCounter counter, ColorBlender color)
+	public HeroFragCounterHud(Vector2f position, PlayableGameHero gameHero)
 	{
-		this.fragCounter = counter;
+		this.fragCounter = gameHero.getFragCounter();
 		try
 		{
 			this.text = new Text();
 			this.outlineText = new Text();
 			Font font = new Font();
 			font.loadFromFile(Paths.get(FilenameConstants.getCounterFontFilename()));
-			text.setColor(color.makeTranslucid(0.2f).getSfmlColor());
-			outlineText.setColor(color.makeTranslucid(0.8f).darken(3).getSfmlColor());
+			text.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.2f).getSfmlColor());
+			outlineText.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.8f).darken(3).getSfmlColor());
 			text.setFont(font);
 			outlineText.setFont(font);
 			text.setCharacterSize(24);

@@ -32,6 +32,7 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundAttributes;
+import br.com.guigasgame.round.hud.RoundHudPositioner;
 import br.com.guigasgame.round.hud.controller.HudController;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesHudController;
 import br.com.guigasgame.round.hud.fix.HeroFragCounterHud;
@@ -77,6 +78,7 @@ public class RoundGameState implements GameState
 	
 	private void initializeHeros(SceneController scenery, RoundAttributes roundAttributes)
 	{
+		final RoundHudPositioner hudPositioner = hudController.getRoundHudPositioner();
 		for( HeroTeam team : roundAttributes.getTeams() )
 		{
 			team.setFriendlyFire(true);
@@ -88,15 +90,13 @@ public class RoundGameState implements GameState
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
 
 				HeroFragCounter fragCounter = gameHero.getFragCounter();				
-				Vector2f position = roundAttributes.getHudPositioner().getFragCounterPosition(gameHeroProperties);
-				HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(position, fragCounter, gameHero.getHeroProperties().getColor());
+				Vector2f position = hudPositioner.getFragCounterPosition(gameHeroProperties);
+				HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(position, gameHero);//fragCounter, gameHero.getHeroProperties().getColor());
 				fragCounter.addListener(fragCounterHud);
-				HeroAttributesHudController hud = roundAttributes.initializeHeroAttributes(gameHero); 
+				HeroAttributesHudController hud = roundAttributes.initializeHeroHudAttributes(gameHero); 
 				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
 				hudController.addDynamicHud(hud);
 				hudController.addStaticHud(fragCounterHud);
-				
-				
 				
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addPlayerToControl(gameHero);
@@ -129,8 +129,9 @@ public class RoundGameState implements GameState
 	
 	private void setHudUp(Vector2i windowSize)
 	{
+		final RoundHudPositioner hudPositioner = hudController.getRoundHudPositioner();
 		hudController.setViewSize(windowSize);
-		TimerStaticHud timerStaticHud = new TimerStaticHud(new Vector2f(windowSize.x/2, 10));
+		TimerStaticHud timerStaticHud = new TimerStaticHud(hudPositioner.getReverseTimeCounterPosition());
 		reverseTimeCounter.addListener(timerStaticHud);
 		hudController.addStaticHud(timerStaticHud);
 	}

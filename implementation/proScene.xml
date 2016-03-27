@@ -390,8 +390,8 @@
     </sceneryShapes>
     <spawnPoints>
         <point>
-            <x>750.0</x>
-            <y>130.0</y>
+            <x>700.0</x>
+            <y>30</y>
         </point>
         <point>
             <x>900.0</x>
@@ -420,7 +420,7 @@
     </spawnPoints>
     <itemSpots>
         <spot>
-            <x>100.0</x>
+            <x>400.0</x>
             <y>400.0</y>
         </spot>
         <spot>
@@ -429,22 +429,26 @@
         </spot>
         <spot>
             <x>1000.0</x>
-            <y>25.0</y>
+            <y>40.0</y>
         </spot>
         <spot>
             <x>1100.0</x>
-            <y>25.0</y>
+            <y>40.0</y>
         </spot>
         <spot>
             <x>900.0</x>
-            <y>25.0</y>
+            <y>40.0</y>
         </spot>
         <spot>
-            <x>500.0</x>
-            <y>100.0</y>
+            <x>1600.0</x>
+            <y>450.0</y>
         </spot>
         <spot>
-            <x>700.0</x>
+            <x>1600.0</x>
+            <y>850.0</y>
+        </spot>
+        <spot>
+            <x>1600.0</x>
             <y>100.0</y>
         </spot>
         <spot>
@@ -462,10 +466,6 @@
         <spot>
             <x>1750.0</x>
             <y>1100.0</y>
-        </spot>
-        <spot>
-            <x>1600.0</x>
-            <y>100.0</y>
         </spot>
     </itemSpots>
     <backgroundFile>

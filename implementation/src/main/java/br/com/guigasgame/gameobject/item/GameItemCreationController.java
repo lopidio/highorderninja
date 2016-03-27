@@ -30,6 +30,10 @@ public class GameItemCreationController implements UpdatableFromTime
 	{
 		itemsSpots = new ArrayList<>();
 		itemsSpots.addAll(scenery.getItemSpots());
+		for( Vector2f vector2f : itemsSpots )
+		{
+			System.out.println("Items position:" + vector2f);
+		}
 		items = new ReproductableList();
 
 		itemsMap = new HashMap<>();
@@ -73,7 +77,6 @@ public class GameItemCreationController implements UpdatableFromTime
 	private Vec2 getRandomItemSpot()
 	{
 		int randIndex = Randomizer.getRandomIntInInterval(0, itemsSpots.size() - 1);
-//		System.out.println("Item random spot: " + randIndex);
 		return WorldConstants.sfmlToPhysicsCoordinates(new Vector2f(itemsSpots.get(randIndex).x + Randomizer.getRandomFloatInInterval(5, -5), 
 																	itemsSpots.get(randIndex).y + Randomizer.getRandomFloatInInterval(5, -5)));
 	}

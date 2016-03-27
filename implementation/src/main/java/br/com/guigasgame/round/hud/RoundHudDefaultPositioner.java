@@ -8,25 +8,45 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 public class RoundHudDefaultPositioner implements RoundHudPositioner
 {
 	
-	Vector2i viewSize;
+	private final Vector2i viewSize;
+//	private final int numTeams;
 	
 	
-	public RoundHudDefaultPositioner(Vector2i viewSize)
+	public RoundHudDefaultPositioner(Vector2i viewSize, int numTeams)
 	{
 		this.viewSize = viewSize;
+//		this.numTeams = numTeams;
 	}
 	
 	@Override
 	public Vector2f getFragCounterPosition(PlayableHeroDefinition gameHeroProperties)
 	{
-		return new Vector2f(gameHeroProperties.getHeroTeam().getTeamId()*200 + 100, gameHeroProperties.getIdInTeam()*50 + 50);
+		final int teamId = gameHeroProperties.getHeroTeam().getTeamId();
+		int xPosition = 0;
+		switch (teamId)
+		{
+			case 0:
+				xPosition = 100;
+			break;
+			case 1:
+				xPosition = 300;
+			break;
+			case 2:
+				xPosition = viewSize.x - 100;
+			break;
+			case 3:
+				xPosition = viewSize.x - 300;
+			break;
+			default:
+				break;
+		}
+		return new Vector2f(xPosition, gameHeroProperties.getIdInTeam()*50 + 20);
 	}
 
 	@Override
 	public Vector2f getReverseTimeCounterPosition()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new Vector2f(viewSize.x/2, 10);
 	}
 
 

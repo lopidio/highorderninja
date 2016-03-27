@@ -49,7 +49,7 @@ public class RoundAttributes
 		return totalTime;
 	}
 
-	public HeroAttributesHudController initializeHeroAttributes(PlayableGameHero gameHero)
+	public HeroAttributesHudController initializeHeroHudAttributes(PlayableGameHero gameHero)
 	{
 		//TODO THERE HAS TO BE A FACTORY AS AN INSTANC ATTRIBUTE
 		return new HeroAttributesCircleAndBarsBellowHudController(gameHero);

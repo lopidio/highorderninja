@@ -56,7 +56,7 @@ public class GameMachine
 		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 60, new RoundHudDefaultPositioner(renderWindow.getSize()));
+		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 60, new RoundHudDefaultPositioner(renderWindow.getSize(), teams.size()));
 		RoundGameState roundGameState = new RoundGameState(roundAttributes);
 		return roundGameState;
 	}

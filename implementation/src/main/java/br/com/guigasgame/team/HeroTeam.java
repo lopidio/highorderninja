@@ -112,7 +112,7 @@ public class HeroTeam
 		return enemiesMask;
 	}
 
-	public float getTeamId()
+	public int getTeamId()
 	{
 		return teamId;
 	}
