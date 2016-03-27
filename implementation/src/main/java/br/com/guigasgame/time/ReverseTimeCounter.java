@@ -51,7 +51,7 @@ public class ReverseTimeCounter implements UpdatableFromTime
 
 	private void notifyHalfTime()
 	{
-		if (currentValue/initialValue <= 0.5f && !halfTimeNotified)
+		if ((currentValue-1)/initialValue <= 0.5f && !halfTimeNotified)
 		{
 			halfTimeNotified = true;
 			for( ReverseTimeCounterListener reverseTimeCounterListener : listeners )

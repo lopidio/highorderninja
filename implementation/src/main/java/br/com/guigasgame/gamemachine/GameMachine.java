@@ -27,6 +27,7 @@ import br.com.guigasgame.round.hud.RoundHudDefaultPositioner;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
+import br.com.guigasgame.team.TeamName;
 
 
 public class GameMachine
@@ -56,7 +57,7 @@ public class GameMachine
 		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 60, new RoundHudDefaultPositioner(renderWindow.getSize(), teams.size()));
+		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 20, new RoundHudDefaultPositioner(renderWindow.getSize(), teams.size()));
 		RoundGameState roundGameState = new RoundGameState(roundAttributes);
 		return roundGameState;
 	}
@@ -82,10 +83,10 @@ public class GameMachine
 		try
 		{
 			List<HeroTeam> teams = new ArrayList<>();
-			HeroTeam teamAlpha = new HeroTeam(0);
-			HeroTeam teamBravo = new HeroTeam(1);
-			HeroTeam teamCharlie = new HeroTeam(2);
-			HeroTeam teamDelta = new HeroTeam(3);
+			HeroTeam teamAlpha = new HeroTeam(TeamName.ALPHA);
+			HeroTeam teamBravo = new HeroTeam(TeamName.BRAVO);
+			HeroTeam teamCharlie = new HeroTeam(TeamName.CHARLIE);
+			HeroTeam teamDelta = new HeroTeam(TeamName.DELTA);
 			
 			PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
 			teamAlpha.addGameHero(playerOne);
@@ -108,7 +109,7 @@ public class GameMachine
 			
 			for( HeroTeam heroTeam : teams )
 			{
-				heroTeam.setUp();
+				heroTeam.setHeroesUp();
 			}
 			return teams;
 		}
