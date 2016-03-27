@@ -12,6 +12,7 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Shape;
 import org.jsfml.graphics.View;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
@@ -135,31 +136,29 @@ public class CameraController implements UpdatableFromTime, Drawable
 		return false;
 	}
 
-	public void createView(RenderWindow renderWindow)
+	public void setViewSize(Vector2i size)
 	{
-		Vector2f size = new Vector2f(renderWindow.getSize());
-		Vector2f innerSize = Vector2f.mul(size, INNER_FRAME_SCALE);
-		Vector2f outterSize = Vector2f.mul(size, OUTTER_FRAME_SCALE);
+		Vector2f innerSize = Vector2f.mul(new Vector2f(size), INNER_FRAME_SCALE);
+		Vector2f outterSize = Vector2f.mul(new Vector2f(size), OUTTER_FRAME_SCALE);
 		
-		innerFrame = createSfmlRectangle(innerSize, renderWindow.getView().getCenter());
+		innerFrame = createSfmlRectangle(innerSize, size);
 		innerFrame.setOutlineColor(new Color(200, 0, 0, 100));
 		innerFrame.setFillColor(new Color(200, 200, 0, 100));
 		innerFrame.setOutlineThickness(1.0f);
 		
-		outterFrame = createSfmlRectangle(outterSize, renderWindow.getView().getCenter());
+		outterFrame = createSfmlRectangle(outterSize, size);
 		outterFrame.setOutlineColor(new Color(0, 0, 200, 100));
 		outterFrame.setFillColor(new Color(0, 200, 200, 100));
 		outterFrame.setOutlineThickness(1.0f);
 		
-		view = new View(new FloatRect(0, 0, renderWindow.getSize().x, renderWindow.getSize().y));
+		view = new View(new FloatRect(0, 0, size.x, size.y));
 		centerInterpolator = new VectorLinearInterpolator(view.getCenter(), CENTER_MOVING_DURING);
-		
 	}
 	
-	private Shape createSfmlRectangle(Vector2f dimension, Vector2f position)
+	private Shape createSfmlRectangle(Vector2f dimension, Vector2i size)
 	{
 		Shape shape = new RectangleShape(dimension);
-		shape.setPosition(position);
+		shape.setPosition(Vector2f.div(new Vector2f(size), 2));
 		shape.setOrigin(dimension.x/2, dimension.y/2);
 		
 		return shape;

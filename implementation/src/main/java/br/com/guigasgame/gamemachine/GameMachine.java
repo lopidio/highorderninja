@@ -23,6 +23,7 @@ import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.round.RoundAttributes;
+import br.com.guigasgame.round.hud.RoundHudDefaultPositioner;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
@@ -41,22 +42,21 @@ public class GameMachine
 	{
 		GameMachine gameMachine = new GameMachine();
 
-		RoundGameState roundGameState = setupRoundState();
+		RoundGameState roundGameState = gameMachine.setupRoundState();
 
 		gameMachine.popState();
 		gameMachine.addState(roundGameState);
 		gameMachine.execute();
 	}
 
-	private static RoundGameState setupRoundState()
-			throws Exception, JAXBException
+	public RoundGameState setupRoundState() throws Exception, JAXBException
 	{
 		 List<HeroTeam> teams = setupTeams();
 
 		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 60);
+		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 60, new RoundHudDefaultPositioner(renderWindow.getSize()));
 		RoundGameState roundGameState = new RoundGameState(roundAttributes);
 		return roundGameState;
 	}

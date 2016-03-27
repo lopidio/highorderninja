@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.round.hud.RoundHudPositioner;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesHudController;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttributesCircleAndBarsBellowHudController;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
@@ -17,13 +18,15 @@ public class RoundAttributes
 	private final List<HeroTeam> teams;
 	private final SceneryInitialize sceneryInitialize;
 	private final int totalTime;
+	private final RoundHudPositioner hudPositioner;
 
-	public RoundAttributes(RoundHeroAttributes roundHeroAttributes, List<HeroTeam> teams, SceneryInitialize sceneryInitializer, int fullTime)
+	public RoundAttributes(RoundHeroAttributes heroAttributes, List<HeroTeam> teams, SceneryInitialize sceneryInitialize, int totalTime, RoundHudPositioner hudPositioner)
 	{
-		this.heroAttributes = roundHeroAttributes;
+		this.heroAttributes = heroAttributes;
 		this.teams = teams;
-		this.sceneryInitialize = sceneryInitializer;
-		this.totalTime = fullTime;
+		this.sceneryInitialize = sceneryInitialize;
+		this.totalTime = totalTime;
+		this.hudPositioner = hudPositioner;
 	}
 
 	public RoundHeroAttributes getHeroAttributes()
@@ -50,6 +53,11 @@ public class RoundAttributes
 	{
 		//TODO THERE HAS TO BE A FACTORY AS AN INSTANC ATTRIBUTE
 		return new HeroAttributesCircleAndBarsBellowHudController(gameHero);
+	}
+
+	public RoundHudPositioner getHudPositioner()
+	{
+		return hudPositioner;
 	}
 
 }

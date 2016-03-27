@@ -13,6 +13,7 @@ import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.Joystick;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
@@ -69,12 +70,11 @@ public class RoundGameState implements GameState
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
+		hudController = new HudController(roundAttributes.getHudPositioner());
 		cameraController = new CameraController();
-		hudController = new HudController();
-		
 		initializeHeros(scenery, roundAttributes);
 	}
-
+	
 	private void initializeHeros(SceneController scenery, RoundAttributes roundAttributes)
 	{
 		for( HeroTeam team : roundAttributes.getTeams() )
@@ -86,16 +86,18 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
-				HeroFragCounter counter = gameHero.getFragCounter();
-				
-				Vector2f position =  new Vector2f(team.getTeamId()*200 + 100, gameHeroProperties.getIdInTeam()*50 + 50);
-				
-				HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(position, counter, gameHero.getHeroProperties().getColor());
-				counter.addListener(fragCounterHud);
+
+				HeroFragCounter fragCounter = gameHero.getFragCounter();				
+				Vector2f position = roundAttributes.getHudPositioner().getFragCounterPosition(gameHeroProperties);
+				HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(position, fragCounter, gameHero.getHeroProperties().getColor());
+				fragCounter.addListener(fragCounterHud);
 				HeroAttributesHudController hud = roundAttributes.initializeHeroAttributes(gameHero); 
 				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
 				hudController.addDynamicHud(hud);
 				hudController.addStaticHud(fragCounterHud);
+				
+				
+				
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addPlayerToControl(gameHero);
 			}
@@ -121,12 +123,18 @@ public class RoundGameState implements GameState
 		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
 //		 sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
-		cameraController.createView(renderWindow);
-		hudController.createView(renderWindow);
-		TimerStaticHud timerStaticHud = new TimerStaticHud(new Vector2f(renderWindow.getView().getCenter().x, 10));
+        cameraController.setViewSize(renderWindow.getSize());
+        setHudUp(renderWindow.getSize());
+	}
+	
+	private void setHudUp(Vector2i windowSize)
+	{
+		hudController.setViewSize(windowSize);
+		TimerStaticHud timerStaticHud = new TimerStaticHud(new Vector2f(windowSize.x/2, 10));
 		reverseTimeCounter.addListener(timerStaticHud);
 		hudController.addStaticHud(timerStaticHud);
 	}
+
 
 	@Override
 	public void handleEvent(Event event, RenderWindow renderWindow)
@@ -174,8 +182,8 @@ public class RoundGameState implements GameState
 	        // update the view to the new size of the window
 	        FloatRect visibleArea = new FloatRect(0, 0, event.asSizeEvent().size.x, event.asSizeEvent().size.y);
 	        renderWindow.setView(new View(visibleArea));
-	        cameraController.createView(renderWindow);
-	        hudController.createView(renderWindow);
+	        cameraController.setViewSize(renderWindow.getSize());
+	        hudController.setViewSize(renderWindow.getSize());
 	    }
 	}
 
@@ -220,13 +228,13 @@ public class RoundGameState implements GameState
 		}
 		gameItemCreator.update(updateTime);
 
-		verifyNewObjectsToLists();
-		checkGameOjbectsAgainsSceneryBoundaries();
-		Destroyable.clearDestroyable(gameObjectsList);
 		
 		cameraController.update(updateTime);
 		reverseTimeCounter.update(updateTime);
 		hudController.update(updateTime);
+		verifyNewObjectsToLists();
+		checkGameOjbectsAgainsSceneryBoundaries();
+		Destroyable.clearDestroyable(gameObjectsList);
 	}
 
 	private void checkGameOjbectsAgainsSceneryBoundaries()

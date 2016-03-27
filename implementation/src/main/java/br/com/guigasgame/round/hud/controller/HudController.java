@@ -6,8 +6,10 @@ import java.util.List;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
+import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.destroyable.Destroyable;
+import br.com.guigasgame.round.hud.RoundHudPositioner;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class HudController implements UpdatableFromTime
@@ -15,16 +17,18 @@ public class HudController implements UpdatableFromTime
 	private List<HudObject> staticHudList;
 	private List<HudObject> dynamicHudList;
 	private View staticView;
+	private final RoundHudPositioner roundHudPositioner;
 	
-	public HudController()
+	public HudController(RoundHudPositioner roundHudPositioner)
 	{
 		staticHudList = new ArrayList<>();
 		dynamicHudList = new ArrayList<>();
+		this.roundHudPositioner = roundHudPositioner;
 	}
 
-	public void createView(RenderWindow renderWindow)
+	public void setViewSize(Vector2i size)
 	{
-		staticView = new View(new FloatRect(0, 0, renderWindow.getSize().x, renderWindow.getSize().y));
+		staticView = new View(new FloatRect(0, 0, size.x, size.y));
 	}
 
 	public void drawStaticHud(RenderWindow renderWindow)
@@ -71,6 +75,11 @@ public class HudController implements UpdatableFromTime
 	public void addDynamicHud(HudObject hudObject)
 	{
 		dynamicHudList.add(hudObject);
+	}
+
+	public RoundHudPositioner getRoundHudPositioner()
+	{
+		return roundHudPositioner;
 	}
 	
 }
