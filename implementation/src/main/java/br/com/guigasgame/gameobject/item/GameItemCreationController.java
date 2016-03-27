@@ -30,10 +30,6 @@ public class GameItemCreationController implements UpdatableFromTime
 	{
 		itemsSpots = new ArrayList<>();
 		itemsSpots.addAll(scenery.getItemSpots());
-		for( Vector2f vector2f : itemsSpots )
-		{
-			System.out.println("Items position:" + vector2f);
-		}
 		items = new ReproductableList();
 
 		itemsMap = new HashMap<>();

@@ -4,19 +4,19 @@ import java.io.IOException;
 import java.util.Map;
 
 
-public abstract class ResourceManager<Key, Value>
+public abstract class ResourceManager<Key, Resource>
 {
 
-	private Map<Key, Value> resourcesMap;
+	private Map<Key, Resource> resourcesMap;
 
-	public ResourceManager(Map<Key, Value> resourcesMap)
+	public ResourceManager(Map<Key, Resource> resourcesMap)
 	{
 		this.resourcesMap = resourcesMap;
 	}
 
-	public final Value getResource(Key key)
+	public final Resource getResource(Key key)
 	{
-		Value resource = resourcesMap.get(key);
+		Resource resource = resourcesMap.get(key);
 		if (null == resource)
 		{
 			try
@@ -36,11 +36,11 @@ public abstract class ResourceManager<Key, Value>
 		return resource;
 	}
 
-	protected final void addResource(Key key, Value resource)
+	protected final void addResource(Key key, Resource resource)
 	{
 		resourcesMap.put(key, resource);
+		System.out.println(resource.toString() + ": " + resourcesMap.size());
 	}
 
-	protected abstract Value loadResource(Key key)
-			throws IOException;
+	protected abstract Resource loadResource(Key key) throws IOException;
 }

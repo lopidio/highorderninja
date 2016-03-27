@@ -1,8 +1,5 @@
 package br.com.guigasgame.round.hud.fix;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Font;
 import org.jsfml.graphics.RenderWindow;
@@ -11,6 +8,7 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.file.FilenameConstants;
+import br.com.guigasgame.resourcemanager.FontResourceManager;
 import br.com.guigasgame.round.hud.controller.HudObject;
 import br.com.guigasgame.time.ReverseTimeCounter.ReverseTimeCounterListener;
 
@@ -25,16 +23,8 @@ public class TimerStaticHud extends HudObject implements ReverseTimeCounterListe
 	{
 		this.positionRatio = positionRatio;
 		this.text = new Text();
-		try
-		{
-			Font font = new Font();
-			font.loadFromFile(Paths.get(FilenameConstants.getTimerCounterFontFilename()));
-			text.setFont(font);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		Font font = FontResourceManager.getInstance().getResource(FilenameConstants.getTimerCounterFontFilename());
+		text.setFont(font);
 	}
 	
 	

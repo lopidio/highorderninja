@@ -1,8 +1,5 @@
 package br.com.guigasgame.round.hud.fix;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-
 import org.jsfml.graphics.Font;
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderWindow;
@@ -14,6 +11,7 @@ import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.frag.HeroFragStatistic;
 import br.com.guigasgame.frag.HeroFragStatistic.HeroFragStatisticListener;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.resourcemanager.FontResourceManager;
 import br.com.guigasgame.round.hud.controller.HudObject;
 
 public class HeroFragStatisticHud extends HudObject implements HeroFragStatisticListener
@@ -35,20 +33,13 @@ public class HeroFragStatisticHud extends HudObject implements HeroFragStatistic
 		rectangleShape.setOutlineColor(gameHero.getHeroProperties().getColor().makeTranslucid(1.5f).darken(10).getSfmlColor());
 		rectangleShape.setOutlineThickness(3);
 		
-		try
-		{
-			this.text = new Text();
-			Font font = new Font();
-			font.loadFromFile(Paths.get(FilenameConstants.getFragStatistcsFontFilename()));
-			text.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.9f).getSfmlColor());
-			text.setFont(font);
+		this.text = new Text();
+		Font font = FontResourceManager.getInstance().getResource(FilenameConstants.getFragStatistcsFontFilename());
+		text.setFont(font);
+		text.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.9f).getSfmlColor());
+		text.setFont(font);
 //			text.setStyle(Text.BOLD);
-			updateText();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		updateText();
 	}
 	
 	@Override
