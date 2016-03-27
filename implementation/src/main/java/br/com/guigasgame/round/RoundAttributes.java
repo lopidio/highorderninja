@@ -3,10 +3,7 @@ package br.com.guigasgame.round;
 import java.util.List;
 
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
-import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.RoundHudPositioner;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesHudController;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttributesCircleAndBarsBellowHudController;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -44,15 +41,9 @@ public class RoundAttributes
 		return sceneryInitialize;
 	}
 
-	public int getTime()
+	public int getTotalTime()
 	{
 		return totalTime;
-	}
-
-	public HeroAttributesHudController initializeHeroHudAttributes(PlayableGameHero gameHero)
-	{
-		//TODO THERE HAS TO BE A FACTORY AS AN INSTANC ATTRIBUTE
-		return new HeroAttributesCircleAndBarsBellowHudController(gameHero);
 	}
 
 	public RoundHudPositioner getHudPositioner()

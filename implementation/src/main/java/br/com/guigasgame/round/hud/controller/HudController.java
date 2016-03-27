@@ -6,10 +6,18 @@ import java.util.List;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.destroyable.Destroyable;
+import br.com.guigasgame.frag.HeroFragCounter;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.RoundHudPositioner;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesHudController;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttributesCircleAndBarsBellowHudController;
+import br.com.guigasgame.round.hud.fix.HeroFragCounterHud;
+import br.com.guigasgame.round.hud.fix.TimerStaticHud;
+import br.com.guigasgame.time.ReverseTimeCounter;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class HudController implements UpdatableFromTime
@@ -29,6 +37,14 @@ public class HudController implements UpdatableFromTime
 	public void setViewSize(Vector2i size)
 	{
 		staticView = new View(new FloatRect(0, 0, size.x, size.y));
+		for( HudObject hudObject : dynamicHudList )
+		{
+			hudObject.setViewSize(size);
+		}
+		for( HudObject hudObject : staticHudList )
+		{
+			hudObject.setViewSize(size);
+		}
 	}
 
 	public void drawStaticHud(RenderWindow renderWindow)
@@ -77,9 +93,34 @@ public class HudController implements UpdatableFromTime
 		dynamicHudList.add(hudObject);
 	}
 
-	public RoundHudPositioner getRoundHudPositioner()
+	public void addHeroHud(PlayableGameHero gameHero)
 	{
-		return roundHudPositioner;
+		addHeroMovingHud(gameHero);
+		addHeroStaticHud(gameHero);
+	}
+
+	private void addHeroStaticHud(PlayableGameHero gameHero)
+	{
+		//TODO THERE HAS TO BE A FACTORY AS AN INSTANCE ATTRIBUTE
+		HeroAttributesHudController hud = new HeroAttributesCircleAndBarsBellowHudController(gameHero); 
+		hud.addAsHudController(gameHero.getHeroProperties().getRoundHeroAttributes());
+		addDynamicHud(hud);
+	}
+
+	private void addHeroMovingHud(PlayableGameHero gameHero)
+	{
+		Vector2f position = roundHudPositioner.getFragCounterPosition(gameHero.getHeroProperties());
+		HeroFragCounter fragCounter = gameHero.getFragCounter();			
+		HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(position, gameHero);
+		fragCounter.addListener(fragCounterHud);
+		addStaticHud(fragCounterHud);
+	}
+
+	public void addTimer(ReverseTimeCounter reverseTimeCounter)
+	{
+		TimerStaticHud timerStaticHud = new TimerStaticHud(roundHudPositioner.getReverseTimeCounterPosition());
+		reverseTimeCounter.addListener(timerStaticHud);
+		addStaticHud(timerStaticHud);
 	}
 	
 }

@@ -12,8 +12,6 @@ import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
-import org.jsfml.system.Vector2f;
-import org.jsfml.system.Vector2i;
 import org.jsfml.window.Joystick;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
@@ -26,17 +24,12 @@ import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.destroyable.Destroyable;
-import br.com.guigasgame.frag.HeroFragCounter;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundAttributes;
-import br.com.guigasgame.round.hud.RoundHudPositioner;
 import br.com.guigasgame.round.hud.controller.HudController;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesHudController;
-import br.com.guigasgame.round.hud.fix.HeroFragCounterHud;
-import br.com.guigasgame.round.hud.fix.TimerStaticHud;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.team.HeroTeam;
 import br.com.guigasgame.time.ReverseTimeCounter;
@@ -67,18 +60,20 @@ public class RoundGameState implements GameState
 		world.setContactListener(new CollisionManager());
 		gameItemCreator = new GameItemCreationController(scenery);
 		this.backgroundColor = scenery.getBackgroundColor();
-		reverseTimeCounter = new ReverseTimeCounter(roundAttributes.getTime());
+		reverseTimeCounter = new ReverseTimeCounter(roundAttributes.getTotalTime());
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
+
 		hudController = new HudController(roundAttributes.getHudPositioner());
+		hudController.addTimer(reverseTimeCounter);
+
 		cameraController = new CameraController();
 		initializeHeros(scenery, roundAttributes);
 	}
 	
 	private void initializeHeros(SceneController scenery, RoundAttributes roundAttributes)
 	{
-		final RoundHudPositioner hudPositioner = hudController.getRoundHudPositioner();
 		for( HeroTeam team : roundAttributes.getTeams() )
 		{
 			team.setFriendlyFire(true);
@@ -88,18 +83,10 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
+				hudController.addHeroHud(gameHero);
 
-				HeroFragCounter fragCounter = gameHero.getFragCounter();				
-				Vector2f position = hudPositioner.getFragCounterPosition(gameHeroProperties);
-				HeroFragCounterHud fragCounterHud = new HeroFragCounterHud(position, gameHero);//fragCounter, gameHero.getHeroProperties().getColor());
-				fragCounter.addListener(fragCounterHud);
-				HeroAttributesHudController hud = roundAttributes.initializeHeroHudAttributes(gameHero); 
-				hud.addAsHudController(gameHeroProperties.getRoundHeroAttributes());
-				hudController.addDynamicHud(hud);
-				hudController.addStaticHud(fragCounterHud);
-				
 				initializeGameObject(Arrays.asList(gameHero));
-				cameraController.addPlayerToControl(gameHero);
+				cameraController.addPlayerToFollow(gameHero);
 			}
 		}
 	}
@@ -124,18 +111,9 @@ public class RoundGameState implements GameState
 //		 sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
         cameraController.setViewSize(renderWindow.getSize());
-        setHudUp(renderWindow.getSize());
+        hudController.setViewSize(renderWindow.getSize());
 	}
 	
-	private void setHudUp(Vector2i windowSize)
-	{
-		final RoundHudPositioner hudPositioner = hudController.getRoundHudPositioner();
-		hudController.setViewSize(windowSize);
-		TimerStaticHud timerStaticHud = new TimerStaticHud(hudPositioner.getReverseTimeCounterPosition());
-		reverseTimeCounter.addListener(timerStaticHud);
-		hudController.addStaticHud(timerStaticHud);
-	}
-
 
 	@Override
 	public void handleEvent(Event event, RenderWindow renderWindow)

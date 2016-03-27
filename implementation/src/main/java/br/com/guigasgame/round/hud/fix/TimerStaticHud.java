@@ -8,6 +8,7 @@ import org.jsfml.graphics.Font;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.round.hud.controller.HudObject;
@@ -17,23 +18,33 @@ import br.com.guigasgame.time.ReverseTimeCounter.ReverseTimeCounterListener;
 public class TimerStaticHud extends HudObject implements ReverseTimeCounterListener
 {
 
-	private Text text;
+	private final Text text;
+	private final Vector2f positionRatio;
 	
-	public TimerStaticHud(Vector2f position)
+	public TimerStaticHud(Vector2f positionRatio)
 	{
+		this.positionRatio = positionRatio;
+		this.text = new Text();
 		try
 		{
-			this.text = new Text();
 			Font font = new Font();
 			font.loadFromFile(Paths.get(FilenameConstants.getCounterFontFilename()));
 			text.setFont(font);
-			text.setCharacterSize(24);
-			text.setPosition(position);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	
+	@Override
+	public void setViewSize(Vector2i size)
+	{
+		text.setCharacterSize(size.x/50);
+		text.setPosition(size.x*positionRatio.x,
+						size.y*positionRatio.y);
+		text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height/ 2);
 	}
 
 	@Override
@@ -70,7 +81,6 @@ public class TimerStaticHud extends HudObject implements ReverseTimeCounterListe
 			newString = String.format("-%02d:%02d", currentValue/60, currentValue%60);
 		}
 		text.setString(newString);
-		ReverseTimeCounterListener.super.onDecimalChange(currentValue);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.jsfml.graphics.Font;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.frag.HeroFragCounter;
@@ -18,41 +19,41 @@ public class HeroFragCounterHud extends HudObject implements HeroFragCounterList
 {
 	
 	private Text text;
-	private Text outlineText;
 	private final HeroFragCounter fragCounter;
+	private final Vector2f positionRatio;
 	
-	public HeroFragCounterHud(Vector2f position, PlayableGameHero gameHero)
+	public HeroFragCounterHud(Vector2f positionRatio, PlayableGameHero gameHero)
 	{
+		this.positionRatio = positionRatio;
 		this.fragCounter = gameHero.getFragCounter();
 		try
 		{
 			this.text = new Text();
-			this.outlineText = new Text();
 			Font font = new Font();
 			font.loadFromFile(Paths.get(FilenameConstants.getCounterFontFilename()));
 			text.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.2f).getSfmlColor());
-			outlineText.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.8f).darken(3).getSfmlColor());
 			text.setFont(font);
-			outlineText.setFont(font);
-			text.setCharacterSize(24);
-			outlineText.setCharacterSize(25);
-			outlineText.setStyle(Text.BOLD);
+//			outlineText.setStyle(Text.BOLD);
 			updateText();
-			text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2);
-			outlineText.setOrigin(outlineText.getLocalBounds().width/2, outlineText.getLocalBounds().height/2);
-			text.setPosition(position);
-			outlineText.setPosition(position);
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void setViewSize(Vector2i size)
+	{
+		text.setPosition(size.x*positionRatio.x,
+				size.y*positionRatio.y);
+
+		text.setCharacterSize(size.x/50);
+	}
 
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-		renderWindow.draw(outlineText);
 		renderWindow.draw(text);		
 	}
 	
@@ -76,8 +77,8 @@ public class HeroFragCounterHud extends HudObject implements HeroFragCounterList
 	
 	private void updateText()
 	{
-		String newString = String.format("(%d)%02d/%02d", fragCounter.getShoots(), fragCounter.getKills(), fragCounter.getDeaths());
+		final String newString = String.format("(%d)%02d/%02d", fragCounter.getShoots(), fragCounter.getKills(), fragCounter.getDeaths());
 		text.setString(newString);
-		outlineText.setString(newString);
+		text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2);
 	}
 }

@@ -19,9 +19,10 @@ import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.interpolator.InterpolatorFromTime;
 import br.com.guigasgame.interpolator.VectorLinearInterpolator;
+import br.com.guigasgame.round.hud.controller.ResizableByView;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class CameraController implements UpdatableFromTime, Drawable
+public class CameraController implements UpdatableFromTime, Drawable, ResizableByView
 {
 	private static final float INNER_FRAME_SCALE = 0.75f;
 	private static final float OUTTER_FRAME_SCALE = 0.80f;
@@ -42,7 +43,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 		centerFrame = new CameraCenterFrame();
 	}
 	
-	public void addPlayerToControl(PlayableGameHero player)
+	public void addPlayerToFollow(PlayableGameHero player)
 	{
 		centerFrame.addBody(player.getCollidableHero().getBody());
 		playersToControl.add(player);
@@ -136,6 +137,7 @@ public class CameraController implements UpdatableFromTime, Drawable
 		return false;
 	}
 
+	@Override
 	public void setViewSize(Vector2i size)
 	{
 		Vector2f innerSize = Vector2f.mul(new Vector2f(size), INNER_FRAME_SCALE);
@@ -181,4 +183,5 @@ public class CameraController implements UpdatableFromTime, Drawable
 		renderWindow.draw(smallest);
 
 	}
+
 }

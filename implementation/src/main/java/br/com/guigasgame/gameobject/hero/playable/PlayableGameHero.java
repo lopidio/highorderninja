@@ -372,7 +372,10 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	@Override
 	protected void gotOutOfScenery()
 	{
-		fragCounter.incrementSuicide();
+		if (!playerIsDead)
+		{
+			fragCounter.incrementSuicide();
+		}
 	}
 
 }
