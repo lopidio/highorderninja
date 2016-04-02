@@ -87,7 +87,7 @@ public class RoundGameState implements GameState
 				hudController.addHeroHud(gameHero);
 
 				initializeGameObject(Arrays.asList(gameHero));
-				cameraController.addPlayerToFollow(gameHero);
+				cameraController.addObjectToFollow(gameHero);
 			}
 		}
 	}
@@ -233,7 +233,7 @@ public class RoundGameState implements GameState
 		scenery.drawBackgroundItems(renderWindow);
 		world.drawDebugData();
 		
-//		cameraController.draw(renderWindow);
+		cameraController.draw(renderWindow);
 
 		scenery.draw(renderWindow);
 		for( GameObject gameObject : gameObjectsList )

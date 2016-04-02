@@ -10,6 +10,7 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.camera.CameraFollowable;
 import br.com.guigasgame.frag.HeroFragStatistic;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
@@ -28,7 +29,7 @@ import br.com.guigasgame.side.Side;
 
 
 public class PlayableGameHero extends GameObject
-		implements HeroAttributeListener
+		implements HeroAttributeListener, CameraFollowable
 {
 
 	private Side forwardSide;
@@ -393,6 +394,18 @@ public class PlayableGameHero extends GameObject
 		{
 			fragStatistic.incrementSuicide();
 		}
+	}
+
+	@Override
+	public Vec2 getPosition()
+	{
+		return collidableHero.getBody().getWorldCenter();
+	}
+
+	@Override
+	public boolean isTrackeable()
+	{
+		return !playerIsDead && !isMarkedToDestroy();
 	}
 
 }

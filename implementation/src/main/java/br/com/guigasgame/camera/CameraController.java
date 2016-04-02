@@ -1,7 +1,6 @@
 package br.com.guigasgame.camera;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.jsfml.graphics.CircleShape;
@@ -16,7 +15,6 @@ import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.interpolator.InterpolatorFromTime;
 import br.com.guigasgame.interpolator.VectorLinearInterpolator;
 import br.com.guigasgame.round.hud.controller.ResizableByView;
@@ -30,7 +28,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	private static final float ZOOM_IN_FACTOR = 0.99f;
 	private static final float CENTER_MOVING_DURING = 0.2f;
 	
-	private List<PlayableGameHero> playersToControl;
+	private List<CameraFollowable> objectsToFollow;
 	private View view;
 	private Shape outterFrame;
 	private Shape innerFrame;
@@ -39,29 +37,27 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	
 	public CameraController(Vector2f center)
 	{
-		playersToControl = new ArrayList<>();
+		objectsToFollow = new ArrayList<>();
 		centerFrame = new CameraCenterFrame(center);
 	}
 	
-	public void addPlayerToFollow(PlayableGameHero player)
+	public void addObjectToFollow(CameraFollowable followable)
 	{
-		centerFrame.addBody(player.getCollidableHero().getBody());
-		playersToControl.add(player);
+		centerFrame.addObject(followable);
+		objectsToFollow.add(followable);
 	}
 
-	public void removePlayertoControl(PlayableGameHero player)
+	public void removePlayertoControl(CameraFollowable followable)
 	{
-		centerFrame.removeBody(player.getCollidableHero().getBody());
-		playersToControl.remove(player);
+		centerFrame.removeObject(followable);
+		objectsToFollow.remove(followable);
 	}
 
 	@Override
 	public void update(float deltaTime)
 	{
-		if (playersToControl.size() <= 0)
+		if (objectsToFollow.size() <= 0)
 			return;
-		
-		checkDeadPlayers();
 		
 		centerFrame.update(deltaTime);
 		checkZoomOut();
@@ -75,20 +71,6 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		centerInterpolator.update(deltaTime);
 		view.setCenter(centerInterpolator.getCurrent());		
 
-	}
-	
-	private void checkDeadPlayers()
-	{
-		Iterator<PlayableGameHero> iterator = playersToControl.iterator();
-		while (iterator.hasNext())
-		{
-			PlayableGameHero toRemove = iterator.next(); // must be called before you can call iterator.remove()
-			if (toRemove.isPlayerDead() || toRemove.isMarkedToDestroy())
-			{
-				centerFrame.removeBody(toRemove.getCollidableHero().getBody());
-				iterator.remove();
-			}
-		}
 	}
 	
 	public View getCameraView()
@@ -119,20 +101,26 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	
 	private boolean isEveryPlayerInsideInnerFrame()
 	{
-		for( PlayableGameHero player : playersToControl )
+		for( CameraFollowable cameraFollowable : objectsToFollow )
 		{
-			if (!innerFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(player.getCollidableHero().getBody().getWorldCenter())))
-				return false;
+			if (cameraFollowable.isTrackeable())
+			{
+				if (!innerFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(cameraFollowable.getPosition())))
+					return false;
+			}
 		}
 		return true;
 	}
 
 	private boolean isOnePlayerOutsideOutterFrame()
 	{
-		for( PlayableGameHero player : playersToControl )
+		for( CameraFollowable cameraFollowable : objectsToFollow )
 		{
-			if (!outterFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(player.getCollidableHero().getBody().getWorldCenter())))
-				return true;
+			if (cameraFollowable.isTrackeable())
+			{
+				if (!outterFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(cameraFollowable.getPosition())))
+					return true;
+			}
 		}
 		return false;
 	}

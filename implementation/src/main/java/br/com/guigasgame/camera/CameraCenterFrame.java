@@ -3,7 +3,6 @@ package br.com.guigasgame.camera;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jbox2d.dynamics.Body;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
@@ -12,20 +11,20 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class CameraCenterFrame implements UpdatableFromTime
 {
-	private List<Body> bodiesToControl;
+	private List<CameraFollowable> objectsToFollow;
 	private Vector2f center;
 	private FloatRect frame;
 
 	public CameraCenterFrame(Vector2f center) 
 	{
-		bodiesToControl = new ArrayList<>();
+		objectsToFollow = new ArrayList<>();
 		this.center = center;
 		frame = new FloatRect();
 	}
 	
 	public void update(float deltaTime)
 	{
-		if (bodiesToControl.size() <= 0)
+		if (objectsToFollow.size() <= 0)
 			return;
 
 		updateBoundaries();
@@ -34,34 +33,39 @@ public class CameraCenterFrame implements UpdatableFromTime
 
 	private void updateBoundaries()
 	{
-		Vector2f first = WorldConstants.physicsToSfmlCoordinates(bodiesToControl.get(0).getWorldCenter());
-		frame.left = first.x;
-		frame.top = first.y;
-		frame.width = 0;
-		frame.height = 0;
-	
-		for( int i = 1; i < bodiesToControl.size(); ++i)
+		for( int i = 0; i < objectsToFollow.size(); ++i)
 		{
-			Vector2f point = WorldConstants.physicsToSfmlCoordinates(bodiesToControl.get(i).getWorldCenter());
-
-			if (point.x > frame.width + frame.left)
+			if (objectsToFollow.get(i).isTrackeable())
 			{
-				frame.width = point.x - frame.left;
-			}
-			else if (point.x < frame.left)
-			{
-				frame.width += frame.left - point.x;
-				frame.left = point.x;
-			}
-
-			if (point.y > frame.height + frame.top)
-			{
-				frame.height = point.y - frame.top;
-			}
-			else if (point.y < frame.top)
-			{
-				frame.height += frame.top - point.y;
-				frame.top = point.y;
+				Vector2f point = WorldConstants.physicsToSfmlCoordinates(objectsToFollow.get(i).getPosition());
+				if (i==0)
+				{
+					frame.left = point.x;
+					frame.top = point.y;
+					frame.width = 0;
+					frame.height = 0;
+					continue;
+				}
+				
+				if (point.x > frame.width + frame.left)
+				{
+					frame.width = point.x - frame.left;
+				}
+				else if (point.x < frame.left)
+				{
+					frame.width += frame.left - point.x;
+					frame.left = point.x;
+				}
+				
+				if (point.y > frame.height + frame.top)
+				{
+					frame.height = point.y - frame.top;
+				}
+				else if (point.y < frame.top)
+				{
+					frame.height += frame.top - point.y;
+					frame.top = point.y;
+				}
 			}
 		}
 	}
@@ -71,14 +75,14 @@ public class CameraCenterFrame implements UpdatableFromTime
 		center = new Vector2f(frame.left + frame.width/2, frame.top + frame.height/2);
 	}
 	
-	public void addBody(Body body)
+	public void addObject(CameraFollowable followable)
 	{
-		bodiesToControl.add(body);
+		objectsToFollow.add(followable);
 	}
 
-	public void removeBody(Body body)
+	public void removeObject(CameraFollowable followable)
 	{
-		bodiesToControl.remove(body);
+		objectsToFollow.remove(followable);
 	}
 	
 	public Vector2f getSize()
