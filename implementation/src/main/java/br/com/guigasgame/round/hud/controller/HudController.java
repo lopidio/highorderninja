@@ -15,8 +15,6 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.RoundHudPositioner;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttributesCircleAndBarsBellowHudController;
 import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
-import br.com.guigasgame.round.hud.fix.TimerStaticHud;
-import br.com.guigasgame.time.ReverseTimeCounter;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class HudController implements UpdatableFromTime
@@ -114,11 +112,11 @@ public class HudController implements UpdatableFromTime
 		addStaticHud(fragCounterHud);
 	}
 
-	public void addTimer(ReverseTimeCounter reverseTimeCounter)
-	{
-		TimerStaticHud timerStaticHud = new TimerStaticHud(roundHudPositioner.getReverseTimeCounterPosition());
-		reverseTimeCounter.addListener(timerStaticHud);
-		addStaticHud(timerStaticHud);
-	}
+//	public void addTimer(ReverseTimeCounter reverseTimeCounter)
+//	{
+//		TimerStaticHud timerStaticHud = new TimerStaticHud(roundHudPositioner.getReverseTimeCounterPosition());
+//		reverseTimeCounter.addListener(timerStaticHud);
+//		addStaticHud(timerStaticHud);
+//	}
 	
 }

@@ -10,21 +10,29 @@ import org.jsfml.system.Vector2i;
 import br.com.guigasgame.file.FilenameConstants;
 import br.com.guigasgame.resourcemanager.FontResourceManager;
 import br.com.guigasgame.round.hud.controller.HudObject;
-import br.com.guigasgame.time.ReverseTimeCounter.ReverseTimeCounterListener;
+import br.com.guigasgame.time.TimerEventsController.TimeListener;
 
 
-public class TimerStaticHud extends HudObject implements ReverseTimeCounterListener
+public class TimerStaticHud extends HudObject implements TimeListener
 {
+	public enum TimerEvents
+	{
+		HALF_TIME,
+		FULL_TIME,
+		DECIMAL_CHANGE
+	}
 
 	private final Text text;
 	private final Vector2f positionRatio;
+	private int currentValue;
 	
-	public TimerStaticHud(Vector2f positionRatio)
+	public TimerStaticHud(Vector2f positionRatio, int currentValue)
 	{
 		this.positionRatio = positionRatio;
 		this.text = new Text();
 		Font font = FontResourceManager.getInstance().getResource(FilenameConstants.getTimerCounterFontFilename());
 		text.setFont(font);
+		this.currentValue = currentValue;
 	}
 	
 	
@@ -49,28 +57,47 @@ public class TimerStaticHud extends HudObject implements ReverseTimeCounterListe
 		//do nothing
 	}
 	
-	@Override
-	public void halfTime(float currentValue)
+	
+	private void halfTime()
 	{
 		text.setColor(Color.RED);
 	}
 	
-	@Override
-	public void timeOut()
+	private void timeOut()
 	{
 		text.setColor(Color.BLACK);
 	}
 	
-	@Override
-	public void onDecimalChange(int currentValue)
+	private void onDecimalChange()
 	{
-		String newString = String.format("%02d:%02d", currentValue/60, currentValue%60);
+		--currentValue;
+		String newString = String.format("%02d:%02d", Math.abs(currentValue)/60, Math.abs(currentValue)%60);
 		if (currentValue <= 0)
 		{
-			currentValue = Math.abs(currentValue);
-			newString = String.format("-%02d:%02d", currentValue/60, currentValue%60);
+			newString = "-" + newString;
 		}
 		text.setString(newString);
+	}
+
+
+	@Override
+	public void receiveTimeEvent(Object value)
+	{
+		TimerEvents event = (TimerEvents) value;
+		switch (event)
+		{
+			case HALF_TIME:
+				halfTime();
+				break;
+			case FULL_TIME:
+				timeOut();
+				break;
+			case DECIMAL_CHANGE:
+				onDecimalChange();
+				break;
+			default:
+				break;
+		}
 	}
 
 }

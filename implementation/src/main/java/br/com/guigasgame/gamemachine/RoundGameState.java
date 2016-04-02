@@ -31,9 +31,10 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundAttributes;
 import br.com.guigasgame.round.hud.controller.HudController;
+import br.com.guigasgame.round.hud.fix.TimerStaticHud;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.team.HeroTeam;
-import br.com.guigasgame.time.ReverseTimeCounter;
+import br.com.guigasgame.time.TimerEventsController;
 
 
 public class RoundGameState implements GameState
@@ -47,11 +48,12 @@ public class RoundGameState implements GameState
 	private final CameraController cameraController;
 	private final ColorBlender backgroundColor;
 	private final HudController hudController;
-	private final ReverseTimeCounter reverseTimeCounter;
+	private final TimerEventsController timerEventsController;
 
 	public RoundGameState(RoundAttributes roundAttributes)
 	{
 		CollidableCategory.display();
+		timerEventsController = new TimerEventsController();
 		gameObjectsList = new ArrayList<>();
 		this.scenery = new SceneController(roundAttributes.getSceneryInitializer());
 		timeFactor = 1;
@@ -61,13 +63,20 @@ public class RoundGameState implements GameState
 		world.setContactListener(new CollisionManager());
 		gameItemCreator = new GameItemCreationController(scenery);
 		this.backgroundColor = scenery.getBackgroundColor();
-		reverseTimeCounter = new ReverseTimeCounter(roundAttributes.getTotalTime());
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
-
+		
+		
 		hudController = new HudController(roundAttributes.getHudPositioner());
-		hudController.addTimer(reverseTimeCounter);
+		
+		TimerStaticHud timerStaticHud = new TimerStaticHud(roundAttributes.getHudPositioner().getReverseTimeCounterPosition(), roundAttributes.getTotalTime());
+//		reverseTimeCounter.addListener(timerStaticHud);
+		hudController.addStaticHud(timerStaticHud);
+		
+		timerEventsController.addEventListener(timerStaticHud, roundAttributes.getTotalTime()/2, TimerStaticHud.TimerEvents.HALF_TIME);
+		timerEventsController.addEventListener(timerStaticHud, roundAttributes.getTotalTime(), TimerStaticHud.TimerEvents.FULL_TIME);
+		timerEventsController.addPeriodicEventListener(timerStaticHud, 1, TimerStaticHud.TimerEvents.DECIMAL_CHANGE);
 
 		cameraController = new CameraController(new Vector2f(100, 400));
 		initializeHeros(scenery, roundAttributes);
@@ -207,10 +216,8 @@ public class RoundGameState implements GameState
 			gameObject.update(updateTime);
 		}
 		gameItemCreator.update(updateTime);
-
-		
 		cameraController.update(updateTime);
-		reverseTimeCounter.update(updateTime);
+		timerEventsController.update(updateTime);
 		hudController.update(updateTime);
 		verifyNewObjectsToLists();
 		checkGameOjbectsAgainsSceneryBoundaries();
