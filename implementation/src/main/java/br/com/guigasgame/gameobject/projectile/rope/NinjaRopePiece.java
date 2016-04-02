@@ -9,8 +9,6 @@ import org.jbox2d.dynamics.joints.DistanceJointDef;
 
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.gameobject.GameObject;
-import br.com.guigasgame.math.FloatSignalChangeWatcher;
-import br.com.guigasgame.math.TriangleAreaCalculator;
 
 
 class NinjaRopePiece extends GameObject
@@ -19,36 +17,31 @@ class NinjaRopePiece extends GameObject
 	private final NinjaRopeScaler ropeScaler;
 	private final NinjaRopePieceCollidable pieceCollidable;
 	private final NinjaRopeSplitter ropeSplitter;
-	private boolean cutTheRope;
-	
-	private final Body heroBody; // Hero
-	private DistanceJoint distanceJoint; // null when I'm the tail
-	private TriangleAreaCalculator triangleArea;
+	private NinjaRopeJoiner ropeJoiner; //Null if I am the head
 
-	private boolean markedToReunite;
-	private FloatSignalChangeWatcher floatSignalWatcher;
-	private boolean prevSameSign;
+	private boolean cutTheRope;
+	private final Body heroBody; // Hero
+	private DistanceJoint distanceJoint; //Null if I am not the tail
 
 	
 	public NinjaRopePiece(Vec2 hookPoint, Body heroBody, float maxSize)
 	{
 		this.heroBody = heroBody;
 
-		collidableHook = new NinjaRopeHookCollidable(hookPoint.clone());
+		ropeScaler = new NinjaRopeScaler(hookPoint.clone().sub(heroBody.getPosition().clone()).length(), maxSize);
+		ropeSplitter = new NinjaRopeSplitter(hookPoint, heroBody);
 
+		collidableHook = new NinjaRopeHookCollidable(hookPoint.clone());
 		pieceCollidable = new NinjaRopePieceCollidable(hookPoint, heroBody.getPosition());
 		pieceCollidable.addListener(this);
 		collidableList.add(pieceCollidable);
 		collidableList.add(collidableHook);
-		ropeScaler = new NinjaRopeScaler(hookPoint.clone().sub(heroBody.getPosition().clone()).length(), maxSize);
-		ropeSplitter = new NinjaRopeSplitter(hookPoint, heroBody);
 	}
 
 	private NinjaRopePiece(Vec2 hookPoint, Body heroBody, float maxSize, Vec2 prevCollidableHookPosition)
 	{
 		this(hookPoint, heroBody, maxSize);
-		triangleArea = new TriangleAreaCalculator(prevCollidableHookPosition.clone(), hookPoint.clone(), heroBody.getPosition().clone());
-		floatSignalWatcher = new FloatSignalChangeWatcher(triangleArea.getArea());
+		ropeJoiner = new NinjaRopeJoiner(prevCollidableHookPosition, hookPoint, heroBody.getPosition());
 	}
 
 	@Override
@@ -88,7 +81,7 @@ class NinjaRopePiece extends GameObject
 	@Override
 	public void update(float deltaTime)
 	{
-		if (null == distanceJoint || markedToReunite/* || divisionPoint != null*/) //I don't need to be updated
+		if (null == distanceJoint/* || markedToReunite || divisionPoint != null*/) //I don't need to be updated
 		{
 			return;
 		}
@@ -97,25 +90,12 @@ class NinjaRopePiece extends GameObject
 		{
 			distanceJoint.setLength(ropeScaler.getCurrentSize());
 		}
-		if (null != triangleArea) //Do I have at least one split?
+		if (ropeJoiner != null) //Do I have at least one split?
 		{
-			checkReunion();
+			ropeJoiner.checkReunion(heroBody.getPosition());
 		}
 
 		ropeSplitter.checkSplitting(deltaTime);
-	}
-
-	private void checkReunion()
-	{
-		triangleArea.setC(heroBody.getPosition().clone());
-		float area = triangleArea.getArea();
-		boolean currentSameSign = floatSignalWatcher.hasTheSameSign(area);
-				
-		if (prevSameSign && !currentSameSign)
-		{
-			markedToReunite = true;
-		}
-		prevSameSign = currentSameSign;
 	}
 
 	public boolean isMarkedToDivide()
@@ -127,7 +107,7 @@ class NinjaRopePiece extends GameObject
 
 	public boolean isMarkedToReunite()
 	{
-		return markedToReunite;
+		return ropeJoiner.isMarkedToReunite();
 	}
 
 	public NinjaRopePiece divide()
