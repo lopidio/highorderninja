@@ -63,7 +63,10 @@ public class NinjaRopeSwingingState extends HeroState
 	{
 		if (!ninjaRope.isAlive())
 			releaseRope();
-		if (!gameHero.getCollidableHero().isMoving() && ninjaRope.getHookPosition().y > gameHero.getCollidableHero().getPosition().y) //avoids perfect equilibrium
+		if (!gameHero.getCollidableHero().isMoving() && 
+				ninjaRope.getHookPosition().y > gameHero.getCollidableHero().getPosition().y &&
+				!isHeroInputMapPressed(HeroInputKey.LEFT) && 
+				!isHeroInputMapPressed(HeroInputKey.RIGHT))//avoids perfect equilibrium
 		{
 			gameHero.addAction(new SwingFasterAction(heroStatesProperties, gameHero.getForwardSide()));
 		}
@@ -72,15 +75,18 @@ public class NinjaRopeSwingingState extends HeroState
 	@Override
 	protected void move(Side side)
 	{
-		float tangentX = gameHero.getCollidableHero().getBody().getLinearVelocity().clone().x;
-		
-		if ((side == Side.RIGHT && tangentX >= 0) || (side == Side.LEFT && tangentX <= 0))
+		if (gameHero.getCollidableHero().getPosition().y > ninjaRope.getHookPosition().y)
 		{
-			gameHero.addAction(new SwingFasterAction(heroStatesProperties, side));
-		}
-		else
-		{
-			gameHero.addAction(new SwingSlowerAction(heroStatesProperties));
+			float tangentX = gameHero.getCollidableHero().getBody().getLinearVelocity().clone().x;
+			
+			if ((side == Side.RIGHT && tangentX >= 0) || (side == Side.LEFT && tangentX <= 0))
+			{
+				gameHero.addAction(new SwingFasterAction(heroStatesProperties, side));
+			}
+			else
+			{
+				gameHero.addAction(new SwingSlowerAction(heroStatesProperties));
+			}
 		}
 		
 		if (gameHero.getForwardSide() != side)

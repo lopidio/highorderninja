@@ -27,7 +27,12 @@ class FallingHeroState extends HeroState
 				setState(new WallGrabHeroState(gameHero));
 			}
 		}
-		else if (key == HeroInputKey.ACTION)
+	}
+	
+	@Override
+	protected void stateInputPressed(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.ACTION)
 		{
 			setState(new DivingState(gameHero));
 		}

@@ -3,6 +3,7 @@ package br.com.guigasgame.gameobject.projectile.rope;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 
@@ -15,9 +16,8 @@ import br.com.guigasgame.raycast.RayCastCallBackWrapper;
 import br.com.guigasgame.raycast.RayCastClosestFixture;
 
 
-public class NinjaRopeLink extends GameObject
+public class NinjaRopePiece extends GameObject
 {
-
 	private static final float SIZE_CHANGE_PER_SECOND = 30f;
 	private static final float MIN_LINK_SIZE = 0.01f;
 
@@ -35,8 +35,11 @@ public class NinjaRopeLink extends GameObject
 	private FloatSignalChangeWatcher floatSignalWatcher;
 	private boolean prevSameSign;
 	private RayCastClosestFixture castClosestFixture;
+	private boolean cutTheRope;
 
-	public NinjaRopeLink(Vec2 hookPoint, Body heroBody, float maxSize)
+	private NinjaRopePieceCollidable pieceCollidable;
+	
+	public NinjaRopePiece(Vec2 hookPoint, Body heroBody, float maxSize)
 	{
 		this.maxSize = maxSize;
 		this.heroBody = heroBody;
@@ -44,10 +47,13 @@ public class NinjaRopeLink extends GameObject
 		collidableHook = new NinjaRopeHookCollidable(hookPoint.clone());
 		castClosestFixture = new RayCastClosestFixture(heroBody.getWorld(), heroBody.getPosition().clone(), hookPoint.clone(), CollidableCategory.SCENERY.getCategoryMask());
 
+		pieceCollidable = new NinjaRopePieceCollidable(hookPoint, heroBody.getPosition());
+		pieceCollidable.addListener(this);
+		collidableList.add(pieceCollidable);
 		collidableList.add(collidableHook);
 	}
 
-	private NinjaRopeLink(Vec2 hookPoint, Body heroBody, float maxSize, Vec2 prevCollidableHookPosition)
+	private NinjaRopePiece(Vec2 hookPoint, Body heroBody, float maxSize, Vec2 prevCollidableHookPosition)
 	{
 		this(hookPoint, heroBody, maxSize);
 		triangleArea = new TriangleAreaCalculator(prevCollidableHookPosition.clone(), hookPoint.clone(), heroBody.getPosition().clone());
@@ -74,7 +80,6 @@ public class NinjaRopeLink extends GameObject
 	@Override
 	protected void onDestroy()
 	{
-//		System.out.println("Destroying");
 		World world = collidableHook.getBody().getWorld();
 		for( Collidable collidable : collidableList )
 		{
@@ -92,10 +97,11 @@ public class NinjaRopeLink extends GameObject
 	@Override
 	public void update(float deltaTime)
 	{
-		if (null == distanceJoint || markedToReunite || divisionPoint != null) //I am not prepared
+		if (null == distanceJoint || markedToReunite || divisionPoint != null) //I don't need to be updated
 		{
 			return;
 		}
+		pieceCollidable.updateShape(heroBody.getPosition().clone());
 		if (!verifySizeChange(deltaTime))
 		{
 			distanceJoint.setLength(collidableHook.getPosition().sub(heroBody.getPosition()).length());
@@ -126,7 +132,7 @@ public class NinjaRopeLink extends GameObject
 		RayCastCallBackWrapper retorno = verifyCollision(deltaTime, getHeroTimeProjectionPoint(0));
 		if (retorno != null)
 		{
-			divisionPoint = calculatePreviousCollisionPoint(1-retorno.fraction, getHeroTimeProjectionPoint(-deltaTime));
+			divisionPoint = calculatePreviousCollisionPoint(1 - retorno.fraction, getHeroTimeProjectionPoint(-deltaTime));
 		}
 	}
 	
@@ -217,11 +223,14 @@ public class NinjaRopeLink extends GameObject
 		return markedToReunite;
 	}
 
-	public NinjaRopeLink divide()
+	public NinjaRopePiece divide()
 	{
+		System.out.println("Splitting rope");
 		final float newLength = collidableHook.getPosition().sub(divisionPoint).length();
-		NinjaRopeLink retorno = new NinjaRopeLink(divisionPoint, heroBody, maxSize - newLength, collidableHook.getPosition());
+		NinjaRopePiece retorno = new NinjaRopePiece(divisionPoint, heroBody, maxSize - newLength, collidableHook.getPosition());
 
+		pieceCollidable.updateShape(divisionPoint.clone());
+		
 		heroBody.getWorld().destroyJoint(distanceJoint);
 		distanceJoint = null;
 		divisionPoint = null;
@@ -236,8 +245,21 @@ public class NinjaRopeLink extends GameObject
 
 	public void wakeUp()
 	{
+		System.out.println("Joining rope");
 		createDistanceJoint(heroBody.getWorld());
 	}
 
+	
+	@Override
+	public void beginContact(Object me, Object other, Contact contact)
+	{
+		cutTheRope = true;
+		System.out.println("Colliding!");
+	}
+
+	public boolean isCutTheRope()
+	{
+		return cutTheRope;
+	}
 
 }
