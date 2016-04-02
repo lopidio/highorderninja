@@ -8,43 +8,40 @@ import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 
 import br.com.guigasgame.collision.Collidable;
-import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.math.FloatSignalChangeWatcher;
 import br.com.guigasgame.math.TriangleAreaCalculator;
-import br.com.guigasgame.raycast.RayCastCallBackWrapper;
-import br.com.guigasgame.raycast.RayCastClosestFixture;
 
 
-public class NinjaRopePiece extends GameObject
+class NinjaRopePiece extends GameObject
 {
 	private final NinjaRopeHookCollidable collidableHook;
-	private TriangleAreaCalculator triangleArea;
 	private final NinjaRopeScaler ropeScaler;
+	private final NinjaRopePieceCollidable pieceCollidable;
+	private final NinjaRopeSplitter ropeSplitter;
+	private boolean cutTheRope;
+	
 	private final Body heroBody; // Hero
 	private DistanceJoint distanceJoint; // null when I'm the tail
+	private TriangleAreaCalculator triangleArea;
 
 	private boolean markedToReunite;
-	private Vec2 divisionPoint;
 	private FloatSignalChangeWatcher floatSignalWatcher;
 	private boolean prevSameSign;
-	private RayCastClosestFixture castClosestFixture;
-	private boolean cutTheRope;
 
-	private NinjaRopePieceCollidable pieceCollidable;
 	
 	public NinjaRopePiece(Vec2 hookPoint, Body heroBody, float maxSize)
 	{
 		this.heroBody = heroBody;
 
 		collidableHook = new NinjaRopeHookCollidable(hookPoint.clone());
-		castClosestFixture = new RayCastClosestFixture(heroBody.getWorld(), heroBody.getPosition().clone(), hookPoint.clone(), CollidableCategory.SCENERY.getCategoryMask());
 
 		pieceCollidable = new NinjaRopePieceCollidable(hookPoint, heroBody.getPosition());
 		pieceCollidable.addListener(this);
 		collidableList.add(pieceCollidable);
 		collidableList.add(collidableHook);
 		ropeScaler = new NinjaRopeScaler(hookPoint.clone().sub(heroBody.getPosition().clone()).length(), maxSize);
+		ropeSplitter = new NinjaRopeSplitter(hookPoint, heroBody);
 	}
 
 	private NinjaRopePiece(Vec2 hookPoint, Body heroBody, float maxSize, Vec2 prevCollidableHookPosition)
@@ -91,7 +88,7 @@ public class NinjaRopePiece extends GameObject
 	@Override
 	public void update(float deltaTime)
 	{
-		if (null == distanceJoint || markedToReunite || divisionPoint != null) //I don't need to be updated
+		if (null == distanceJoint || markedToReunite/* || divisionPoint != null*/) //I don't need to be updated
 		{
 			return;
 		}
@@ -105,7 +102,7 @@ public class NinjaRopePiece extends GameObject
 			checkReunion();
 		}
 
-		checkSplitting(deltaTime);
+		ropeSplitter.checkSplitting(deltaTime);
 	}
 
 	private void checkReunion()
@@ -121,48 +118,11 @@ public class NinjaRopePiece extends GameObject
 		prevSameSign = currentSameSign;
 	}
 
-	private void checkSplitting(float deltaTime)
-	{
-		RayCastCallBackWrapper retorno = verifyCollision(deltaTime, getHeroTimeProjectionPoint(0));
-		if (retorno != null)
-		{
-			divisionPoint = calculatePreviousCollisionPoint(1 - retorno.fraction, getHeroTimeProjectionPoint(-deltaTime));
-		}
-	}
-	
-	private Vec2 calculatePreviousCollisionPoint(float fraction, Vec2 prevHeroPosition)
-	{
-		final Vec2 retorno = collidableHook.getPosition().clone();
-		final Vec2 adjust = prevHeroPosition.sub(retorno).mul(fraction).clone();
-		return retorno.add(adjust);
-	}
-
-	private RayCastCallBackWrapper verifyCollision(float deltaTime, Vec2 heroPosition)
-	{
-		if (heroPosition == null)
-			return null;
-		castClosestFixture.setFrom(heroPosition.clone());
-		castClosestFixture.setTo(collidableHook.getPosition().clone());
-		castClosestFixture.shoot();
-		RayCastCallBackWrapper callBackWrapper = castClosestFixture.getCallBackWrapper();
-		if (callBackWrapper != null && callBackWrapper.fraction < 1)
-		{
-			return callBackWrapper;
-		}
-		return null;
-	}
-
-	private Vec2 getHeroTimeProjectionPoint(float deltaTime)
-	{
-		return heroBody.getPosition().add(heroBody.getLinearVelocity().mul(deltaTime));
-	}
-
 	public boolean isMarkedToDivide()
 	{
-		if (!collidableHook.isBodyIsBuilt() || divisionPoint == null)
+		if (!collidableHook.isBodyIsBuilt())
 			return false;
-		return divisionPoint.sub(collidableHook.getPosition()).length() > NinjaRopeScaler.MIN_LINK_SIZE
-				&& divisionPoint.sub(heroBody.getPosition()).length() > NinjaRopeScaler.MIN_LINK_SIZE;
+		return ropeSplitter.isMarkedToDivide();
 	}
 
 	public boolean isMarkedToReunite()
@@ -173,11 +133,12 @@ public class NinjaRopePiece extends GameObject
 	public NinjaRopePiece divide()
 	{
 		System.out.println("Splitting rope");
+		final Vec2 divisionPoint = ropeSplitter.getDivisionPoint();
 		NinjaRopePiece retorno = new NinjaRopePiece(divisionPoint, heroBody, ropeScaler.getMaxSize() - collidableHook.getPosition().sub(divisionPoint).length(), collidableHook.getPosition());
 		pieceCollidable.updateShape(divisionPoint.clone());
 		heroBody.getWorld().destroyJoint(distanceJoint);
+		ropeSplitter.unmarkToSplitting();
 		distanceJoint = null;
-		divisionPoint = null;
 		addChild(retorno);
 		return retorno;
 	}

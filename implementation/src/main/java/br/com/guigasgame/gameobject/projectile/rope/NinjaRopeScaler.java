@@ -1,7 +1,7 @@
 package br.com.guigasgame.gameobject.projectile.rope;
 
 
-public class NinjaRopeScaler
+class NinjaRopeScaler
 {
 	public static final float MIN_LINK_SIZE = 0.01f;
 	private static final float SIZE_CHANGE_PER_SECOND = 30f;
