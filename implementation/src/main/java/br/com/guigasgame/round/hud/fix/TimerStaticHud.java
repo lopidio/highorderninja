@@ -1,19 +1,18 @@
 package br.com.guigasgame.round.hud.fix;
 
-import org.jsfml.graphics.Color;
-import org.jsfml.graphics.Font;
-import org.jsfml.graphics.RenderWindow;
-import org.jsfml.graphics.Text;
-import org.jsfml.system.Vector2f;
-import org.jsfml.system.Vector2i;
+import java.util.ArrayList;
+import java.util.List;
 
-import br.com.guigasgame.file.FilenameConstants;
-import br.com.guigasgame.resourcemanager.FontResourceManager;
+import org.jsfml.graphics.RenderWindow;
+
+import br.com.guigasgame.drawable.Drawable;
+import br.com.guigasgame.round.RoundAttributes;
 import br.com.guigasgame.round.hud.controller.HudObject;
+import br.com.guigasgame.time.TimerEventsController;
 import br.com.guigasgame.time.TimerEventsController.TimeListener;
 
 
-public class TimerStaticHud extends HudObject implements TimeListener
+public abstract class TimerStaticHud extends HudObject implements TimeListener
 {
 	public enum TimerEvents
 	{
@@ -22,33 +21,27 @@ public class TimerStaticHud extends HudObject implements TimeListener
 		DECIMAL_CHANGE
 	}
 
-	private final Text text;
-	private final Vector2f positionRatio;
-	private int currentValue;
+	private int totalTime;
+	private List<Drawable> drawablesList;
 	
-	public TimerStaticHud(Vector2f positionRatio, int currentValue)
+	public TimerStaticHud(int totalTime)
 	{
-		this.positionRatio = positionRatio;
-		this.text = new Text();
-		Font font = FontResourceManager.getInstance().getResource(FilenameConstants.getTimerCounterFontFilename());
-		text.setFont(font);
-		this.currentValue = currentValue;
+		this.totalTime = totalTime;
+		drawablesList = new ArrayList<>();
 	}
 	
-	
-	@Override
-	public void setViewSize(Vector2i size)
+	protected void addToDrawableList(Drawable drawable)
 	{
-		text.setCharacterSize(size.x/50);
-		text.setPosition(size.x*positionRatio.x,
-						size.y*positionRatio.y);
-		text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height/ 2);
+		drawablesList.add(drawable);
 	}
-
+	
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-		renderWindow.draw(text);
+		for( Drawable drawable : drawablesList )
+		{
+			drawable.draw(renderWindow);
+		}
 	}
 
 	@Override
@@ -57,31 +50,13 @@ public class TimerStaticHud extends HudObject implements TimeListener
 		//do nothing
 	}
 	
-	
-	private void halfTime()
-	{
-		text.setColor(Color.RED);
-	}
-	
-	private void timeOut()
-	{
-		text.setColor(Color.BLACK);
-	}
-	
-	private void onDecimalChange()
-	{
-		--currentValue;
-		String newString = String.format("%02d:%02d", Math.abs(currentValue)/60, Math.abs(currentValue)%60);
-		if (currentValue <= 0)
-		{
-			newString = "-" + newString;
-		}
-		text.setString(newString);
-	}
+	protected abstract void halfTime();
+	protected abstract void timeOut();
+	protected abstract void onDecimalChange(int currentValue);
 
 
 	@Override
-	public void receiveTimeEvent(Object value)
+	public final void receiveTimeEvent(Object value)
 	{
 		TimerEvents event = (TimerEvents) value;
 		switch (event)
@@ -93,11 +68,18 @@ public class TimerStaticHud extends HudObject implements TimeListener
 				timeOut();
 				break;
 			case DECIMAL_CHANGE:
-				onDecimalChange();
+				onDecimalChange(--totalTime);
 				break;
 			default:
 				break;
 		}
+	}
+
+	public void setupTimerEvent(TimerEventsController timerEventsController, RoundAttributes roundAttributes)
+	{
+		timerEventsController.addEventListener(this, roundAttributes.getTotalTime()/2, TimerEvents.HALF_TIME);
+		timerEventsController.addEventListener(this, roundAttributes.getTotalTime(), TimerEvents.FULL_TIME);
+		timerEventsController.addPeriodicEventListener(this, 1, TimerEvents.DECIMAL_CHANGE);
 	}
 
 }

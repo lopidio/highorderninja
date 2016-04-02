@@ -70,13 +70,10 @@ public class RoundGameState implements GameState
 		
 		hudController = new HudController(roundAttributes.getHudPositioner());
 		
-		TimerStaticHud timerStaticHud = new TimerStaticHud(roundAttributes.getHudPositioner().getReverseTimeCounterPosition(), roundAttributes.getTotalTime());
+		TimerStaticHud timerStaticHud = roundAttributes.createTimerHud();
 //		reverseTimeCounter.addListener(timerStaticHud);
+		timerStaticHud.setupTimerEvent(timerEventsController, roundAttributes);
 		hudController.addStaticHud(timerStaticHud);
-		
-		timerEventsController.addEventListener(timerStaticHud, roundAttributes.getTotalTime()/2, TimerStaticHud.TimerEvents.HALF_TIME);
-		timerEventsController.addEventListener(timerStaticHud, roundAttributes.getTotalTime(), TimerStaticHud.TimerEvents.FULL_TIME);
-		timerEventsController.addPeriodicEventListener(timerStaticHud, 1, TimerStaticHud.TimerEvents.DECIMAL_CHANGE);
 
 		cameraController = new CameraController(new Vector2f(100, 400));
 		initializeHeros(scenery, roundAttributes);
@@ -240,7 +237,7 @@ public class RoundGameState implements GameState
 		scenery.drawBackgroundItems(renderWindow);
 		world.drawDebugData();
 		
-		cameraController.draw(renderWindow);
+//		cameraController.draw(renderWindow);
 
 		scenery.draw(renderWindow);
 		for( GameObject gameObject : gameObjectsList )

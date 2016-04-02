@@ -7,7 +7,6 @@ import org.jsfml.system.Vector2f;
 
 public class TextureDrawable implements Drawable
 {
-
 	private Sprite sprite;
 
 	public TextureDrawable(Texture texture, Vector2f position)
