@@ -26,12 +26,17 @@ import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.shuriken.Shuriken;
 import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
+import br.com.guigasgame.time.TimerEventsController;
+import br.com.guigasgame.time.TimerEventsController.TimeListener;
 
 
-public class PlayableGameHero extends GameObject
-		implements HeroAttributeListener, CameraFollowable
+public class PlayableGameHero extends GameObject implements HeroAttributeListener, CameraFollowable, TimeListener
 {
-
+	public enum TimeEvent
+	{
+		SPAWN_INVINCIBILITY_OVER
+	}
+	
 	private Side forwardSide;
 	private List<GameHeroAction> actionList;
 	private CollidableHero collidableHero;
@@ -53,7 +58,7 @@ public class PlayableGameHero extends GameObject
 		playerIsDead = false;
 		forwardSide = Side.RIGHT;
 		actionList = new ArrayList<GameHeroAction>();
-		collidableHero = new CollidableHero(properties.getPlayerId(), properties.getInitialPosition(), this);
+		collidableHero = new CollidableHero(this);
 		collidableHero.addListener(this);
 		this.gameHeroInput = properties.getGameHeroInput();
 		gameHeroInput.setDeviceId(properties.getPlayerId());
@@ -405,7 +410,33 @@ public class PlayableGameHero extends GameObject
 	@Override
 	public boolean isTrackeable()
 	{
-		return !playerIsDead && !isMarkedToDestroy();
+		return !playerIsDead;
+	}
+
+	@Override
+	public void receiveTimeEvent(Object value)
+	{
+		TimeEvent event = (TimeEvent) value;
+		switch (event)
+		{
+			case SPAWN_INVINCIBILITY_OVER:
+				System.out.println("Spawn timer is over");
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void spawn(Vec2 position)
+	{
+		playerIsDead = false;
+		heroAttributes.reset();
+		collidableHero.setNetxtPosition(position);
+	}
+
+	public void setupTimeEvents(TimerEventsController timerEventsController)
+	{
+		timerEventsController.addEventListener(this, 3, PlayableGameHero.TimeEvent.SPAWN_INVINCIBILITY_OVER);		
 	}
 
 }

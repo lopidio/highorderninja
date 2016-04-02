@@ -33,13 +33,15 @@ public class CameraCenterFrame implements UpdatableFromTime
 
 	private void updateBoundaries()
 	{
+		boolean foundFirst = false;
 		for( int i = 0; i < objectsToFollow.size(); ++i)
 		{
 			if (objectsToFollow.get(i).isTrackeable())
 			{
 				Vector2f point = WorldConstants.physicsToSfmlCoordinates(objectsToFollow.get(i).getPosition());
-				if (i==0)
+				if (!foundFirst)
 				{
+					foundFirst = true;
 					frame.left = point.x;
 					frame.top = point.y;
 					frame.width = 0;

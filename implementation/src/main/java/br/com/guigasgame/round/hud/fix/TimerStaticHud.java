@@ -50,11 +50,6 @@ public abstract class TimerStaticHud extends HudObject implements TimeListener
 		//do nothing
 	}
 	
-	protected abstract void halfTime();
-	protected abstract void timeOut();
-	protected abstract void onDecimalChange(int currentValue);
-
-
 	@Override
 	public final void receiveTimeEvent(Object value)
 	{
@@ -74,6 +69,10 @@ public abstract class TimerStaticHud extends HudObject implements TimeListener
 				break;
 		}
 	}
+	
+	protected abstract void halfTime();
+	protected abstract void timeOut();
+	protected abstract void onDecimalChange(int currentValue);
 
 	public void setupTimerEvent(TimerEventsController timerEventsController, RoundAttributes roundAttributes)
 	{

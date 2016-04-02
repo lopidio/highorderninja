@@ -52,5 +52,12 @@ public class RoundHeroAttributes implements UpdatableFromTime
 	{
 		return new RoundHeroAttributes(life.clone(), (HeroShootingAttribute)shurikens.clone(), (HeroShootingAttribute)smokeBomb.clone());
 	}
+	
+	public void reset()
+	{
+		life.refill();
+		shurikens.refill();
+		smokeBomb.refill();
+	}
 
 }

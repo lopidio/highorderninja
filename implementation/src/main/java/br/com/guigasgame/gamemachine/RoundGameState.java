@@ -12,7 +12,6 @@ import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
-import org.jsfml.system.Vector2f;
 import org.jsfml.window.Joystick;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
@@ -71,11 +70,10 @@ public class RoundGameState implements GameState
 		hudController = new HudController(roundAttributes.getHudPositioner());
 		
 		TimerStaticHud timerStaticHud = roundAttributes.createTimerHud();
-//		reverseTimeCounter.addListener(timerStaticHud);
 		timerStaticHud.setupTimerEvent(timerEventsController, roundAttributes);
 		hudController.addStaticHud(timerStaticHud);
 
-		cameraController = new CameraController(new Vector2f(100, 400));
+		cameraController = new CameraController(scenery.getCenter());
 		initializeHeros(scenery, roundAttributes);
 	}
 	
@@ -87,9 +85,11 @@ public class RoundGameState implements GameState
 			List<PlayableHeroDefinition> heros = team.getHerosList();
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
-				gameHeroProperties.setSpawnPosition(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());
 				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
+				gameHero.setupTimeEvents(timerEventsController);
+
+				gameHero.spawn(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				hudController.addHeroHud(gameHero);
 
 				initializeGameObject(Arrays.asList(gameHero));
@@ -237,7 +237,7 @@ public class RoundGameState implements GameState
 		scenery.drawBackgroundItems(renderWindow);
 		world.drawDebugData();
 		
-//		cameraController.draw(renderWindow);
+		cameraController.draw(renderWindow);
 
 		scenery.draw(renderWindow);
 		for( GameObject gameObject : gameObjectsList )
