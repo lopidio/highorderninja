@@ -55,16 +55,20 @@ public class SceneryCollidable extends Collidable implements UpdatableFromTime
 			if (otherBody.getUserData() != null)
 			{
 				Fixture fixture = otherBody.getFixtureList();
-				List<CollidableCategory> categoryList = CollidableCategory.fromMask(fixture.getFilterData().categoryBits);
-				for( CollidableCategory category : categoryList )
+				if (fixture != null && fixture.getUserData() != null)
 				{
-					if (category == CollidableCategory.HEROS)
+					List<CollidableCategory> categoryList = CollidableCategory.fromMask(fixture.getFilterData().categoryBits);
+					for( CollidableCategory category : categoryList )
 					{
-						CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
-						PlayableGameHero hitGameHero = collidableHero.getPlayableHero();
-						if (!hitHeros.contains(hitGameHero) && !hitGameHero.isPlayerDead())
-							hitHeros.add(hitGameHero);
+						if (category == CollidableCategory.HEROES)
+						{
+							CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
+							PlayableGameHero hitGameHero = collidableHero.getPlayableHero();
+							if (!hitHeros.contains(hitGameHero) && !hitGameHero.isPlayerDead())
+								hitHeros.add(hitGameHero);
+						}
 					}
+					
 				}
 			}
 		}
@@ -79,14 +83,17 @@ public class SceneryCollidable extends Collidable implements UpdatableFromTime
 			if (otherBody.getUserData() != null)
 			{
 				Fixture fixture = otherBody.getFixtureList();
-				List<CollidableCategory> categoryList = CollidableCategory.fromMask(fixture.getFilterData().categoryBits);
-				for( CollidableCategory category : categoryList )
+				if (fixture != null && fixture.getUserData() != null)
 				{
-					if (category == CollidableCategory.HEROS)
+					List<CollidableCategory> categoryList = CollidableCategory.fromMask(fixture.getFilterData().categoryBits);
+					for( CollidableCategory category : categoryList )
 					{
-						CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
-						PlayableGameHero hitGameHero = collidableHero.getPlayableHero();
-						hitHeros.remove(hitGameHero);
+						if (category == CollidableCategory.HEROES)
+						{
+							CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
+							PlayableGameHero hitGameHero = collidableHero.getPlayableHero();
+							hitHeros.remove(hitGameHero);
+						}
 					}
 				}
 			}

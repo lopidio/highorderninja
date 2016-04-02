@@ -12,8 +12,8 @@ public class RayCastCallBackWrapper
 	public RayCastCallBackWrapper(Fixture fixture, Vec2 point, Vec2 normal, float fraction)
 	{
 		this.fixture = fixture;
-		this.point = point;
-		this.normal = normal;
+		this.point = point.clone();
+		this.normal = normal.clone();
 		this.fraction = fraction;
 	}
 	

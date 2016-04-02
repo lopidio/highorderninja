@@ -4,6 +4,7 @@ import br.com.guigasgame.gameobject.hero.action.ShootRopeAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.projectile.rope.NinjaHookProjectile;
+import br.com.guigasgame.gameobject.projectile.rope.NinjaRope;
 
 
 public class RopeShootingState extends HeroState
@@ -14,14 +15,12 @@ public class RopeShootingState extends HeroState
 	public RopeShootingState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE_SHOOTING);
-
-//		setAnimationsColor(Color.GREEN);
 	}
 	
 	@Override
 	protected void stateOnEnter()
 	{
-		ninjaHook = new NinjaHookProjectile(pointingDirection(), gameHero);
+		ninjaHook = new NinjaHookProjectile(pointingDirection(), gameHero); //poiting direction doesn't work at constructor
 		gameHero.addAction(new ShootRopeAction(heroStatesProperties, ninjaHook));
 	}
 	
@@ -51,12 +50,14 @@ public class RopeShootingState extends HeroState
 	{
 		if (ninjaHook.isHookAttached())
 		{
-			setState(new NinjaRopeSwingingState(gameHero, ninjaHook.getNinjaRope()));
+			NinjaRope ninjaRope = ninjaHook.getNinjaRope();
+			setState(new NinjaRopeSwingingState(gameHero, ninjaRope));
+			gameHero.addChild(ninjaRope);
 			ninjaHook.markToDestroy();
 		}
 		else if (ninjaHook.isMarkedToDestroy())
 		{
-			setState(new FallingHeroState(gameHero));
+			setState(new JumpingHeroState(gameHero));
 		}
 	}
 	

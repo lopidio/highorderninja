@@ -16,10 +16,10 @@ public class CameraCenterFrame implements UpdatableFromTime
 	private Vector2f center;
 	private FloatRect frame;
 
-	public CameraCenterFrame() 
+	public CameraCenterFrame(Vector2f center) 
 	{
 		bodiesToControl = new ArrayList<>();
-		center = new Vector2f(0, 0);
+		this.center = center;
 		frame = new FloatRect();
 	}
 	

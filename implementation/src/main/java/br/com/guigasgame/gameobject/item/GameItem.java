@@ -66,7 +66,7 @@ public abstract class GameItem extends GameObject
 		for( CollidableCategory category : categoryList )
 		{
 //			System.out.println("Item collided with: " + category.name());
-			if (category == CollidableCategory.HEROS)
+			if (category == CollidableCategory.HEROES)
 			{
 				CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
 				collidableHero.getPlayableHero().addItem(this);
@@ -81,7 +81,7 @@ public abstract class GameItem extends GameObject
 	@Override
 	public void update(float deltaTime)
 	{
-		if (alive)
+		if (isAlive())
 		{
 			final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidable.getAngleRadians());
 

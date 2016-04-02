@@ -7,7 +7,12 @@ public interface Destroyable
 {
 	public void markToDestroy();
 	public boolean isMarkedToDestroy();
-	public default void destroy()
+	public default boolean isAlive()
+	{
+		return !isMarkedToDestroy();
+	}
+	///NEVER CALL DIRECTLY (Instead, use markToDestroy())
+	default void destroy()
 	{
 		
 	}

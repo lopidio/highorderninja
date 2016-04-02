@@ -14,15 +14,6 @@ class FallingHeroState extends HeroState
 	}
 	
 	@Override
-	protected void stateInputPressed(HeroInputKey inputValue)
-	{
-		if (inputValue == HeroInputKey.ACTION)
-		{
-			setState(new DivingState(gameHero));
-		}
-	}
-
-	@Override
 	public void stateInputIsPressing(HeroInputKey key)
 	{
 		if (gameHero.isTouchingWallAhead())
@@ -36,6 +27,17 @@ class FallingHeroState extends HeroState
 				setState(new WallGrabHeroState(gameHero));
 			}
 		}
+		else if (key == HeroInputKey.ACTION)
+		{
+			setState(new DivingState(gameHero));
+		}
+	}
+	
+	@Override
+	protected void stateDoubleTapInput(HeroInputKey inputValue)
+	{
+		if (inputValue == HeroInputKey.DOWN)
+			setState(new DivingState(gameHero));
 	}
 
 	@Override

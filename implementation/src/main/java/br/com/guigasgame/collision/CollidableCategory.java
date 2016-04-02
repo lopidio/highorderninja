@@ -14,7 +14,7 @@ public enum CollidableCategory
 	SMOKE_BOMB_PROJECTILE(	getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing().removeCollisionWith(SMOKE_BOMB_PARTICLE)),
 	GAME_ITEMS(				getNextCategory(), 			new CollidableFilter().addCollisionWithEveryThing().removeCollisionWith(ROPE_BODY).and(ROPE_NODE).and(SMOKE_BOMB_PARTICLE), true),
 	DEAD_HERO(				getNextCategory(), 			new CollidableFilter().addCollisionWith(SCENERY)),
-	HEROS(					getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN).and(GAME_ITEMS).and(SMOKE_BOMB_PROJECTILE));
+	HEROES(					getAllPlayersCategory(),	new CollidableFilter().addCollisionWith(SCENERY).and(SHURIKEN).and(GAME_ITEMS).and(SMOKE_BOMB_PROJECTILE));
 
 	private final static int NUM_MAX_PLAYERS = 8;
 	private static int categoriesUsed = 0;
@@ -58,7 +58,7 @@ public enum CollidableCategory
 
 	public static CollidableFilter getPlayerFilter(int playerID)
 	{
-		return new CollidableFilter(getPlayerCategory(playerID), HEROS.filter.collider);
+		return new CollidableFilter(getPlayerCategory(playerID), HEROES.filter.collider);
 	}
 
 	public static IntegerMask getPlayerCategory(int playerID)
@@ -66,7 +66,7 @@ public enum CollidableCategory
 		if (playerID > NUM_MAX_PLAYERS - 1)
 			return null;
 		int valueToMatch = 1 << (playerID);
-		return new IntegerMask(HEROS.filter.getCategory().and(valueToMatch).value);
+		return new IntegerMask(HEROES.filter.getCategory().and(valueToMatch).value);
 	}
 
 	public static IntegerMask getOtherPlayersCategory(int playerID)

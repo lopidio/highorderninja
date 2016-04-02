@@ -23,6 +23,7 @@ public class RayCastClosestFixture extends RayCast implements RayCastCallback
 	
 	public void shoot()
 	{
+		callBackWrapper = null;
 		world.raycast(this, from, to);
 	}
 
@@ -34,7 +35,7 @@ public class RayCastClosestFixture extends RayCast implements RayCastCallback
 		{
 			if (fraction < this.fraction)
 			{
-				callBackWrapper = new RayCastCallBackWrapper(fixture, point, normal, fraction);
+				callBackWrapper = new RayCastCallBackWrapper(fixture, point.clone(), normal.clone(), fraction);
 			}
 			this.fraction = fraction;
 			return fraction;

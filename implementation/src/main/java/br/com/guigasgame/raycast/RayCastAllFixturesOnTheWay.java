@@ -50,7 +50,7 @@ public class RayCastAllFixturesOnTheWay extends RayCast implements RayCastCallba
 		if (mask.matches(fixtureMask.value))
 		{
 			System.out.println("Add");
-			callBackWrapperVector.add(new RayCastCallBackWrapper(fixture, point, normal, fraction));
+			callBackWrapperVector.add(new RayCastCallBackWrapper(fixture, point.clone(), normal.clone(), fraction));
 		}
 		return 1;
 	}

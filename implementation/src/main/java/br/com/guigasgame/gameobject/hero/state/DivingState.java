@@ -29,7 +29,7 @@ public class DivingState extends HeroState
 	@Override
 	public void stateInputPressed(HeroInputKey inputValue)
 	{
-		if (inputValue == HeroInputKey.ACTION)
+		if (inputValue == HeroInputKey.ACTION || inputValue == HeroInputKey.UP)
 		{
 			setState(new StopMovementState(gameHero));
 		}

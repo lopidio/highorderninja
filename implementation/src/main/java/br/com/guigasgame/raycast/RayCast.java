@@ -12,10 +12,32 @@ public abstract class RayCast implements RayCastCallback
 	
 	public RayCast(World world, Vec2 from, Vec2 to)
 	{
-		this.from = from;
-		this.to = to;
+		this.from = from.clone();
+		this.to = to.clone();
 		this.world = world;
 	}	
 	
+	public Vec2 getFrom()
+	{
+		return from.clone();
+	}
+	
+	public void setFrom(Vec2 from)
+	{
+		this.from = from.clone();
+	}
+
+	public Vec2 getTo()
+	{
+		return to.clone();
+	}
+	
+	public void setTo(Vec2 to)
+	{
+		this.to = to.clone();
+	}
+
+
+
 	public abstract void shoot();
 }

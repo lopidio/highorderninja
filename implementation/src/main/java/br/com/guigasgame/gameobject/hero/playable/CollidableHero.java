@@ -197,12 +197,12 @@ public class CollidableHero extends Collidable
 		return Side.UNKNOWN;
 	}
 
-	public void putRopeSwingingProperties()
+	public void putOnRopeSwingingProperties()
 	{
 		for( Fixture fixture : fixtureMap.values() )
 		{
-			fixture.setFriction(1f);
-			fixture.setRestitution(0);
+			fixture.setFriction(0f);
+			fixture.setRestitution(0.5f);
 		}
 
 	}
@@ -211,8 +211,8 @@ public class CollidableHero extends Collidable
 	{
 		for( Fixture fixture : fixtureMap.values() )
 		{
-			fixture.setFriction(0f);
-			fixture.setRestitution(0.5f);
+			fixture.setFriction(1f);
+			fixture.setRestitution(0);
 		}
 	}
 

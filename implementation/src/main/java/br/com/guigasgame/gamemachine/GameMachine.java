@@ -91,11 +91,11 @@ public class GameMachine
 			PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
 			teamAlpha.addGameHero(playerOne);
 			
-			PlayableHeroDefinition playerTwo = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 1);
+			PlayableHeroDefinition playerTwo = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 1);
 			PlayableHeroDefinition playerThree = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
 			teamBravo.addGameHero(playerTwo);
 			teamBravo.addGameHero(playerThree);
-			
+//			
 			PlayableHeroDefinition playerFour = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
 			teamCharlie.addGameHero(playerFour);
 			
@@ -153,8 +153,10 @@ public class GameMachine
 
 		});
 		final VideoMode best = modes[modes.length - 1];
+//		final VideoMode worst = modes[4];
 
 		renderWindow = new RenderWindow(best, "High order ninja");//, Window.FULLSCREEN);  //Window.TRANSPARENT
+//		renderWindow = new RenderWindow(worst, "High order ninja");//, Window.FULLSCREEN);  //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		renderWindow.setMouseCursorVisible(false);

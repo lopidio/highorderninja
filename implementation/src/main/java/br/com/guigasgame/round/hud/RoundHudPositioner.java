@@ -8,5 +8,4 @@ public interface RoundHudPositioner
 {
 	Vector2f getFragCounterPosition(PlayableHeroDefinition gameHeroProperties);
 	Vector2f getReverseTimeCounterPosition();
-	
 }

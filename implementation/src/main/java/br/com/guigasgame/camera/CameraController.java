@@ -37,10 +37,10 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	private CameraCenterFrame centerFrame;
 	private InterpolatorFromTime<Vector2f> centerInterpolator;
 	
-	public CameraController()
+	public CameraController(Vector2f center)
 	{
 		playersToControl = new ArrayList<>();
-		centerFrame = new CameraCenterFrame();
+		centerFrame = new CameraCenterFrame(center);
 	}
 	
 	public void addPlayerToFollow(PlayableGameHero player)

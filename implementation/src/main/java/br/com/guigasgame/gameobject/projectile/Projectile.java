@@ -74,7 +74,7 @@ public abstract class Projectile extends GameObject
 	@Override
 	public void update(float deltaTime)
 	{
-		if (alive)
+		if (isAlive())
 		{
 			for( Drawable drawable : drawableList )
 			{
@@ -153,7 +153,7 @@ public abstract class Projectile extends GameObject
 			List<CollidableCategory> categoryList = CollidableCategory.fromMask(fixture.getFilterData().categoryBits);
 			for( CollidableCategory category : categoryList )
 			{
-				if (category == CollidableCategory.HEROS)
+				if (category == CollidableCategory.HEROES)
 				{
 					CollidableHero collidableHero = (CollidableHero) otherBody.getUserData();
 					hitHero(collidableHero.getPlayableHero());

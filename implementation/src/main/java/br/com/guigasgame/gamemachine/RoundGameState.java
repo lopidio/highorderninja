@@ -12,6 +12,7 @@ import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
+import org.jsfml.system.Vector2f;
 import org.jsfml.window.Joystick;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
@@ -68,7 +69,7 @@ public class RoundGameState implements GameState
 		hudController = new HudController(roundAttributes.getHudPositioner());
 		hudController.addTimer(reverseTimeCounter);
 
-		cameraController = new CameraController();
+		cameraController = new CameraController(new Vector2f(100, 400));
 		initializeHeros(scenery, roundAttributes);
 	}
 	
@@ -104,11 +105,11 @@ public class RoundGameState implements GameState
 		
 		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(new OBBViewportTransform(), renderWindow);
 		world.setDebugDraw(sfmlDebugDraw);
-		// sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
-		// sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
-		// sfmlDebugDraw.appendFlags(DebugDraw.e_dynamicTreeBit);
+//		sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
+//		sfmlDebugDraw.appendFlags(DebugDraw.e_centerOfMassBit);
+//		sfmlDebugDraw.appendFlags(DebugDraw.e_dynamicTreeBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_jointBit);
-//		 sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
+//		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
         cameraController.setViewSize(renderWindow.getSize());
         hudController.setViewSize(renderWindow.getSize());

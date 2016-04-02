@@ -16,7 +16,6 @@ import br.com.guigasgame.round.hud.controller.HudObject;
 
 public class HeroFragStatisticHud extends HudObject implements HeroFragStatisticListener
 {
-	
 	private Text text;
 	private final RectangleShape rectangleShape;
 	private final HeroFragStatistic fragStatistic;
@@ -38,7 +37,7 @@ public class HeroFragStatisticHud extends HudObject implements HeroFragStatistic
 		text.setFont(font);
 		text.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.9f).getSfmlColor());
 		text.setFont(font);
-//			text.setStyle(Text.BOLD);
+		text.setStyle(Text.BOLD);
 		updateText();
 	}
 	

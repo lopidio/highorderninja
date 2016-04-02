@@ -49,5 +49,4 @@ public class RoundHudDefaultPositioner implements RoundHudPositioner
 		return new Vector2f(0.5f, 0.02f);
 	}
 
-
 }

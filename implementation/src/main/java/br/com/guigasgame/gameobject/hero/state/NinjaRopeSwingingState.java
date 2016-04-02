@@ -1,7 +1,5 @@
 package br.com.guigasgame.gameobject.hero.state;
 
-import org.jbox2d.common.Vec2;
-
 import br.com.guigasgame.gameobject.hero.action.SideOrientationHeroSetter;
 import br.com.guigasgame.gameobject.hero.action.SwingFasterAction;
 import br.com.guigasgame.gameobject.hero.action.SwingSlowerAction;
@@ -23,25 +21,22 @@ public class NinjaRopeSwingingState extends HeroState
 	@Override
 	protected void stateOnEnter()
 	{
-		gameHero.getCollidableHero().takeOutRopeSwingingProperties();
+		gameHero.getCollidableHero().putOnRopeSwingingProperties();
 	}
 	
 	@Override
 	protected void stateOnQuit()
 	{
-		gameHero.getCollidableHero().putRopeSwingingProperties();
+		gameHero.getCollidableHero().takeOutRopeSwingingProperties();
 		releaseRope();
 	}
 	
 	protected void releaseRope()
 	{
-		ninjaRope.destroy();
+		ninjaRope.markToDestroy();
 		if (!gameHero.isTouchingGround())
 		{
-			if (gameHero.getCollidableHero().isFallingDown())
-				setState(new FallingHeroState(gameHero));
-			else if (gameHero.getCollidableHero().isAscending())
-				setState(new JumpingHeroState(gameHero));
+			setState(new JumpingHeroState(gameHero));
 		}
 		else if (gameHero.getCollidableHero().isMoving())
 		{
@@ -66,10 +61,9 @@ public class NinjaRopeSwingingState extends HeroState
 	@Override
 	public void stateUpdate(float deltaTime)
 	{
-		ninjaRope.update(deltaTime);
 		if (!ninjaRope.isAlive())
 			releaseRope();
-		if (!gameHero.getCollidableHero().isMoving() && ninjaRope.getHookPosition().y > gameHero.getCollidableHero().getPosition().y)
+		if (!gameHero.getCollidableHero().isMoving() && ninjaRope.getHookPosition().y > gameHero.getCollidableHero().getPosition().y) //avoids perfect equilibrium
 		{
 			gameHero.addAction(new SwingFasterAction(heroStatesProperties, gameHero.getForwardSide()));
 		}
@@ -78,9 +72,9 @@ public class NinjaRopeSwingingState extends HeroState
 	@Override
 	protected void move(Side side)
 	{
-		Vec2 tangent = gameHero.getCollidableHero().getBody().getLinearVelocity().clone();
+		float tangentX = gameHero.getCollidableHero().getBody().getLinearVelocity().clone().x;
 		
-		if ((side == Side.RIGHT && tangent.x >= 0) || (side == Side.LEFT && tangent.x <= 0))
+		if ((side == Side.RIGHT && tangentX >= 0) || (side == Side.LEFT && tangentX <= 0))
 		{
 			gameHero.addAction(new SwingFasterAction(heroStatesProperties, side));
 		}

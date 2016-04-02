@@ -24,6 +24,7 @@ public class RayCastHitAnyThing extends RayCast implements RayCastCallback
 	@Override
 	public void shoot() 
 	{
+		callBackWrapper = null;
 		hit = false;
 		world.raycast(this, from, to);
 	}
@@ -34,7 +35,7 @@ public class RayCastHitAnyThing extends RayCast implements RayCastCallback
 		IntegerMask fixtureMask = new IntegerMask(fixture.getFilterData().categoryBits);
 		if (mask.matches(fixtureMask.value))
 		{
-			callBackWrapper = new RayCastCallBackWrapper(fixture, point, normal, fraction);
+			callBackWrapper = new RayCastCallBackWrapper(fixture, point.clone(), normal.clone(), fraction);
 			hit = true;
 			return 0;
 		}

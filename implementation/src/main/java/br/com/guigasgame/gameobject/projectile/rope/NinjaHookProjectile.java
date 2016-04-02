@@ -52,7 +52,7 @@ public class NinjaHookProjectile extends Projectile
 
 		if (hookIsAttached)
 		{
-			ninjaRope.update(deltaTime);
+//			ninjaRope.update(deltaTime);
 		}
 		else if (markToAttachHook)
 		{
@@ -69,7 +69,7 @@ public class NinjaHookProjectile extends Projectile
 	public void onDestroy()
 	{
 		if (null != ninjaRope && !hookIsAttached)
-			ninjaRope.destroy();
+			ninjaRope.markToDestroy();
 	}
 
 	private void verifyAutoDestruction() 
@@ -100,7 +100,7 @@ public class NinjaHookProjectile extends Projectile
 			return;
 
 		collidable.getBody().setType(BodyType.STATIC);
-		ninjaRope = new NinjaRope(world, properties, attachPoint, gameHero.getCollidableHero().getBody(), gameHero.getHeroProperties().getColor());
+		ninjaRope = new NinjaRope(attachPoint, gameHero, properties.maxDistance);
 		
 		System.out.println("Hook attached");
 		hookIsAttached = true;

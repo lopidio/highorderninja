@@ -21,11 +21,9 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public abstract class GameObject implements CollidableContactListener, UpdatableFromTime, Drawable, Destroyable, Reproductable
 {
-
-	// protected Vec2 position;
+	private boolean alive;
 	protected List<Collidable> collidableList;
 	protected List<Drawable> drawableList;
-	protected boolean alive;
 	private ReproductableList reproductableList;
 
 	public GameObject()
@@ -43,7 +41,7 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 	}
 
 	@Override
-	public void destroy()
+	public final void destroy()
 	{
 		for (Collidable collidable : collidableList) 
 		{
@@ -54,7 +52,7 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 	}
 	
 	@Override
-	public final void markToDestroy()
+	public void markToDestroy()
 	{
 		alive = false;
 	}

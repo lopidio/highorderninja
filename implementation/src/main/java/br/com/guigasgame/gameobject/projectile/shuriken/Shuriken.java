@@ -69,7 +69,7 @@ public class Shuriken extends Projectile
 
 	public void initializeAutoDestruction()
 	{
-		collidable.getBody().getFixtureList().setFilterData(new CollidableFilterBox2dAdapter(collidableFilter.removeCollisionWith(CollidableCategory.HEROS)).toBox2dFilter());
+		collidable.getBody().getFixtureList().setFilterData(new CollidableFilterBox2dAdapter(collidableFilter.removeCollisionWith(CollidableCategory.HEROES)).toBox2dFilter());
 		beginAutoDestruction = true;
 	}
 
