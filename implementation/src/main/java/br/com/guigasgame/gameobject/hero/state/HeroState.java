@@ -104,7 +104,7 @@ public abstract class HeroState implements InputListener<HeroInputKey>, Updatabl
 	{
 		if (heroStatesProperties.rope != null)
 		{
-			setState(new RopeShootingState(gameHero));
+			setState(new NinjaRopeShootingState(gameHero));
 		}
 	}
 	

@@ -7,12 +7,12 @@ import br.com.guigasgame.gameobject.projectile.rope.NinjaHookProjectile;
 import br.com.guigasgame.gameobject.projectile.rope.NinjaRope;
 
 
-public class RopeShootingState extends HeroState
+public class NinjaRopeShootingState extends HeroState
 {
 
 	private NinjaHookProjectile ninjaHook;
 
-	public RopeShootingState(PlayableGameHero gameHero)
+	public NinjaRopeShootingState(PlayableGameHero gameHero)
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE_SHOOTING);
 	}
@@ -20,7 +20,7 @@ public class RopeShootingState extends HeroState
 	@Override
 	protected void stateOnEnter()
 	{
-		ninjaHook = new NinjaHookProjectile(pointingDirection(), gameHero); //poiting direction doesn't work at constructor
+		ninjaHook = gameHero.createNinjaRopeProjectile(pointingDirection());
 		gameHero.addAction(new ShootRopeAction(heroStatesProperties, ninjaHook));
 	}
 	

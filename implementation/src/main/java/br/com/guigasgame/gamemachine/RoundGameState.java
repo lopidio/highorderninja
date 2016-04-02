@@ -45,7 +45,6 @@ public class RoundGameState implements GameState
 	private final GameItemCreationController gameItemCreator;
 	private final SceneController scenery;
 	private final CameraController cameraController;
-	private final ColorBlender backgroundColor;
 	private final HudController hudController;
 	private final TimerEventsController timerEventsController;
 
@@ -61,7 +60,6 @@ public class RoundGameState implements GameState
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
 		gameItemCreator = new GameItemCreationController(scenery);
-		this.backgroundColor = scenery.getBackgroundColor();
 		
 		scenery.attachToWorld(world);
 		scenery.onEnter();
@@ -237,7 +235,7 @@ public class RoundGameState implements GameState
 		scenery.drawBackgroundItems(renderWindow);
 		world.drawDebugData();
 		
-		cameraController.draw(renderWindow);
+//		cameraController.draw(renderWindow);
 
 		scenery.draw(renderWindow);
 		for( GameObject gameObject : gameObjectsList )
@@ -255,7 +253,7 @@ public class RoundGameState implements GameState
 	@Override
 	public ColorBlender getBackgroundColor()
 	{
-		return backgroundColor;
+		return scenery.getBackgroundColor();
 	}
 	
 	

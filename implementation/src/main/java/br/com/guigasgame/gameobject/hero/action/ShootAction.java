@@ -25,7 +25,7 @@ public class ShootAction extends GameHeroAction
 	@Override
 	public void childExecute(PlayableGameHero gameHero)
 	{
-		gameHero.shoot(gameHero.getShuriken(pointingDirection));
+		gameHero.shoot(gameHero.createShuriken(pointingDirection));
 	}
 
 }

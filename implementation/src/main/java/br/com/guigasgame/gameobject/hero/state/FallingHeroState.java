@@ -32,7 +32,8 @@ class FallingHeroState extends HeroState
 	@Override
 	protected void stateInputPressed(HeroInputKey inputValue)
 	{
-		if (inputValue == HeroInputKey.ACTION)
+		if (inputValue == HeroInputKey.ACTION && isHeroInputMapPressed(HeroInputKey.DOWN) ||
+			 (inputValue == HeroInputKey.DOWN && isHeroInputMapPressed(HeroInputKey.ACTION)))
 		{
 			setState(new DivingState(gameHero));
 		}

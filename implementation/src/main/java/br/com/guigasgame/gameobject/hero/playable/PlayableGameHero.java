@@ -23,6 +23,7 @@ import br.com.guigasgame.gameobject.hero.state.HeroState;
 import br.com.guigasgame.gameobject.hero.state.StandingHeroState;
 import br.com.guigasgame.gameobject.item.GameItem;
 import br.com.guigasgame.gameobject.projectile.Projectile;
+import br.com.guigasgame.gameobject.projectile.rope.NinjaHookProjectile;
 import br.com.guigasgame.gameobject.projectile.shuriken.Shuriken;
 import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
@@ -229,8 +230,13 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		return collidableHero;
 	}
+	
+	public NinjaHookProjectile createNinjaRopeProjectile(Vec2 pointingDirection)
+	{
+		return new NinjaHookProjectile(pointingDirection, this); //poiting direction doesn't work at constructor;
+	}
 
-	public Projectile getShuriken(Vec2 pointingDirection)
+	public Projectile createShuriken(Vec2 pointingDirection)
 	{
 		if (heroAttributes.getShurikens().isAbleToShoot())
 		{
