@@ -4,15 +4,15 @@
 		<entry>
 			<key xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:type="projectileIndex">SHURIKEN</key>
-			<value horizontal="true" textureFilename="projectilesAlphaTransparency.png" >
+			<value horizontal="true" textureFilename="biggerShuriken.png" >
 				<numFrames>4</numFrames>
 				<numEntranceFrames>0</numEntranceFrames>
 				<secondsPerFrame>0.01</secondsPerFrame>
 				<textureSpriteRect>
 					<left>0</left>
 					<top>0</top>
-					<width>32</width>
-					<height>8</height>
+					<width>64</width>
+					<height>12</height>
 				</textureSpriteRect>
 			</value>
 		</entry>

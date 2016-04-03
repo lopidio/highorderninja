@@ -29,8 +29,6 @@ public class Shuriken extends Projectile
 		targetPriorityQueue.add(owner.getHeroProperties().getHitEnemiesMask());
 		targetPriorityQueue.add(CollidableCategory.GAME_ITEMS.getCategoryMask());
 		collidableFilter = CollidableCategory.SHURIKEN.getFilter().removeCollisionWith(owner.getHeroProperties().getHitTeamMask());
-
-		setAnimationsColor(gameHero.getHeroProperties().getColor());
 	}
 
 	@Override

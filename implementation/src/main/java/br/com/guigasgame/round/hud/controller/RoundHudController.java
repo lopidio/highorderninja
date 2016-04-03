@@ -107,7 +107,6 @@ public class RoundHudController implements UpdatableFromTime
 	{
 		Vector2f position = roundHudPositioner.getTeamFragCounterPositioner(gameHero.getHeroProperties().getHeroTeam());
 		HeroFragStatistic fragCounter = gameHero.getFragStatistic();			
-//		HeroFragStatisticHud fragCounterHud = new HeroFragStatisticHud(position, gameHero);
 		HeroFragStatisticHud fragCounterHud = new HeroFragStatisticHud(position, gameHero);
 		fragCounter.addListener(fragCounterHud);
 		addStaticHud(fragCounterHud);

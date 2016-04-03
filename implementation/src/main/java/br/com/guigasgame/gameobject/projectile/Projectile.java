@@ -61,6 +61,7 @@ public abstract class Projectile extends GameObject
 		animationList = new ArrayList<>();
 		animationList.add(animation);
 		drawableList.addAll(animationList);
+		setAnimationsColor(gameHero.getHeroProperties().getColor().darken(2));
 	}
 
 	@Override

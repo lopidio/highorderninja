@@ -188,7 +188,7 @@
                 <y>900</y>
             </pointB>
             <pointC>
-                <x>1400.0</x>
+                <x>1350.0</x>
                 <y>1000</y>
             </pointC>
         </triangles>
@@ -198,7 +198,7 @@
                 <y>1000</y>
             </pointA>
             <pointB>
-                <x>600.0</x>
+                <x>650.0</x>
                 <y>1000</y>
             </pointB>
             <pointC>
@@ -212,7 +212,7 @@
                 <y>1000.0</y>
             </center>
             <halfDimension>
-                <x>405.0</x>
+                <x>370.0</x>
                 <y>15</y>
             </halfDimension>
         </rectangles>		
@@ -408,6 +408,10 @@
         <point>
             <x>1550.0</x>
             <y>160.0</y>
+        </point>
+        <point>
+            <x>1700.0</x>
+            <y>1060.0</y>
         </point>
         <point>
             <x>1550.0</x>

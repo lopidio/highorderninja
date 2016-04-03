@@ -38,7 +38,6 @@ public class NinjaHookProjectile extends Projectile
 		collidableFilter = CollidableCategory.ROPE_NODE.getFilter();
 		pieceDrawable = new NinjaRopePieceDrawable(gameHero.getPosition(), gameHero.getPosition(), gameHero.getHeroProperties().getColor());
 		drawableList.add(pieceDrawable);
-		setAnimationsColor(gameHero.getHeroProperties().getColor());
 	}
 
 	@Override

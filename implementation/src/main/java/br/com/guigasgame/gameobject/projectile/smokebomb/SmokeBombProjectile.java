@@ -25,7 +25,6 @@ public class SmokeBombProjectile extends Projectile
 		targetPriorityQueue.add(CollidableCategory.SCENERY.getCategoryMask());
 		collidableFilter = CollidableCategory.SMOKE_BOMB_PROJECTILE.getFilter().removeCollisionWith(owner.getHeroProperties().getHitTeamMask());
 		this.color = hero.getHeroProperties().getColor();
-		setAnimationsColor(color);
 	}
 	
 	@Override

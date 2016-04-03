@@ -24,7 +24,6 @@ public class SmokeBombParticle extends Projectile
 		collidableFilter = CollidableCategory.SMOKE_BOMB_PARTICLE.getFilter();
 		alpha = 255;
 		scale = 1;
-		setAnimationsColor(color);
 	}
 
 	@Override
