@@ -81,6 +81,7 @@ public class RoundGameState implements GameState
 		{
 			team.setFriendlyFire(true);
 			List<PlayableHeroDefinition> heros = team.getHerosList();
+			hudController.addTeamHud(team);
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
 				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());

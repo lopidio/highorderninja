@@ -100,7 +100,7 @@ public class HeroAttribute implements UpdatableFromTime
 	{
 		for( HeroAttributeListener heroAttributeListener : listeners )
 		{
-			heroAttributeListener.gotEmpty(this);
+			heroAttributeListener.attributeGotEmpty(this);
 		}
 	}
 

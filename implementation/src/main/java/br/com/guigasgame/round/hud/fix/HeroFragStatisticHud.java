@@ -7,44 +7,44 @@ import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.file.FilenameConstants;
-import br.com.guigasgame.frag.HeroFragStatistic;
-import br.com.guigasgame.frag.HeroFragStatistic.HeroFragStatisticListener;
-import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.frag.FragStatistic;
+import br.com.guigasgame.frag.FragStatisticListener;
 import br.com.guigasgame.resourcemanager.FontResourceManager;
 import br.com.guigasgame.round.hud.controller.HudObject;
 
-public class HeroFragStatisticHud extends HudObject implements HeroFragStatisticListener
+public class HeroFragStatisticHud extends HudObject implements FragStatisticListener
 {
 	private final Text text;
 	private final Text title;
 	private final RectangleShape rectangleShape;
-	private final HeroFragStatistic fragStatistic;
+	private int kills;
+	private int deaths;
 	private final Vector2f positionRatio;
 	private String stringFormatter;
 	
-	public HeroFragStatisticHud(Vector2f positionRatio, PlayableGameHero gameHero)
+	public HeroFragStatisticHud(Vector2f positionRatio, String name, ColorBlender color)
 	{
 		this.positionRatio = positionRatio;
-		this.fragStatistic = gameHero.getFragStatistic();
 		
 		rectangleShape = new RectangleShape();
-		rectangleShape.setFillColor(gameHero.getHeroProperties().getColor().makeTranslucid(1.5f).darken(2).getSfmlColor());
-		rectangleShape.setOutlineColor(gameHero.getHeroProperties().getColor().makeTranslucid(1.5f).darken(10).getSfmlColor());
+		rectangleShape.setFillColor(color.makeTranslucid(1.5f).darken(2).getSfmlColor());
+		rectangleShape.setOutlineColor(color.makeTranslucid(1.5f).darken(10).getSfmlColor());
 		rectangleShape.setOutlineThickness(3);
 		
 		Font font = FontResourceManager.getInstance().getResource(FilenameConstants.getFragStatistcsFontFilename());
 
 		this.title = new Text();
 		title.setFont(font);
-		title.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.9f).darken(2).getSfmlColor());
+		title.setColor(color.makeTranslucid(0.9f).darken(2).getSfmlColor());
 		title.setFont(font);
 		title.setStyle(Text.BOLD);
-		title.setString(gameHero.getHeroProperties().getHeroTeam().getName());
+		title.setString(name);
 		
 		this.text = new Text();
 		text.setFont(font);
-		text.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.9f).getSfmlColor());
+		text.setColor(color.makeTranslucid(0.9f).getSfmlColor());
 		text.setFont(font);
 		text.setStyle(Text.BOLD);
 		updateText();
@@ -69,24 +69,14 @@ public class HeroFragStatisticHud extends HudObject implements HeroFragStatistic
 		renderWindow.draw(title);
 		renderWindow.draw(text);
 	}
-	
+ 
 	@Override
-	public void onKillIncrement(int kills)
-	{
+ 	public void onChange(FragStatistic statistic)
+ 	{
+		kills = statistic.getKills();
+		deaths = statistic.getDeaths();
 		updateText();
-	}
-
-	@Override
-	public void onShootIncrement(int shoots)
-	{
-		updateText();
-	}
-
-	@Override
-	public void onDeathIncrement(int deaths)
-	{
-		updateText();
-	}
+ 	}	
 	
 	private void adjustShapes()
 	{
@@ -99,7 +89,7 @@ public class HeroFragStatisticHud extends HudObject implements HeroFragStatistic
 	
 	private void updateText()
 	{
-		stringFormatter = String.format("%02d|%02d", fragStatistic.getKills(), fragStatistic.getDeaths());
+		stringFormatter = String.format("%02d|%02d", kills, deaths);
 		adjustShapes();
 	}
 }

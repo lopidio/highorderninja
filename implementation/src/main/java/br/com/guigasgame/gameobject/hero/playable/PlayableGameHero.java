@@ -5,13 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.contacts.Contact;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.CameraFollowable;
-import br.com.guigasgame.frag.HeroFragStatistic;
+import br.com.guigasgame.frag.FragEventMessenger;
+import br.com.guigasgame.frag.FragEventMessenger.FragEventIndex;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
@@ -44,7 +44,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	private List<Animation> animationList;
 	private GameHeroInputMap gameHeroInput;
 	private final PlayableHeroDefinition heroProperties;
-	private HeroFragStatistic fragStatistic;
 	private HeroState state;
 
 	private String lastActionName;
@@ -69,7 +68,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
-		fragStatistic = new HeroFragStatistic();
 	}
 
 	public HeroState getState()
@@ -142,9 +140,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			String currentActionName = gameHeroAction.getClass().getSimpleName();
 			if (!currentActionName.equals(lastActionName))
 			{
-				System.out.println("("
-						+ heroProperties.getPlayerId() + ") "
-						+ currentActionName);
+				System.out.println("("+ heroProperties.getPlayerId() + ") "+ currentActionName);
 			}
 			lastActionName = currentActionName;
 			if (gameHeroAction.canExecute(this))
@@ -164,9 +160,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		}
 		if (drawableList.size() > 0)
 			drawableList.remove(0);
-		System.out.println("\t("
-				+ heroProperties.getPlayerId() + ") State: "
-				+ newState.getClass().getSimpleName());
+		System.out.println("\t("+ heroProperties.getPlayerId() + ") State: "+ newState.getClass().getSimpleName());
 		state = newState;
 		state.onEnter();
 
@@ -240,7 +234,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		if (heroAttributes.getShurikens().isAbleToShoot())
 		{
-			fragStatistic.incrementShoots();
+			FragEventMessenger.getInstance().fireEvent(this, FragEventIndex.SHOOT);
 			heroAttributes.getShurikens().decrement(1);
 			return new Shuriken(pointingDirection, this);
 		}
@@ -268,27 +262,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	}
 
 	@Override
-	public void beginContact(Object me, Object other, Contact contact)
-	{
-		// Body myBody = (Body) me;
-		// Body otherBody = (Body) other;
-		// float maxValue = properties.initialSpeed*otherBody.getMass();
-		// System.out.println("Hero Impact: " +
-		// myBody.getLinearVelocity().sub(otherBody.getLinearVelocity()).length());
-	}
-
-	public void hitOnTarget()
-	{
-		fragStatistic.incrementShootsOnTarget();
-	}
-
-	public HeroFragStatistic getFragStatistic()
-	{
-		return fragStatistic;
-	}
-
-	@Override
-	public void gotEmpty(HeroAttribute heroAttribute)
+	public void attributeGotEmpty(HeroAttribute heroAttribute)
 	{
 		die();
 	}
@@ -297,7 +271,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	public void onDestroy()
 	{
 		state.onQuit();
-		// this.heroProperties.updateFragCounter(fragCounter);
 	}
 
 	public void regeneratesLife(int lifeToAdd)
@@ -322,8 +295,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			if (!playerIsDead)
 			{
 				System.out.println(fixtureSensorID);
-				owner.fragStatistic.incrementShootsOnTarget();
-				fragStatistic.incrementHitAsTarget();
+				FragEventMessenger.getInstance().fireEvent(owner, FragEventIndex.SHOOT_ON_TARGET, this);
 				if (fixtureSensorID == FixtureSensorID.HEAD)
 				{
 					damage *= 3;
@@ -331,9 +303,11 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 				heroAttributes.getLife().decrement(damage);
 				if (playerIsDead)
 				{
-					fragStatistic.incrementDeaths();
-					if (heroProperties.getHeroTeam().getTeamId() != owner.heroProperties.getHeroTeam().getTeamId())
-						owner.getFragStatistic().incrementKills();
+					FragEventMessenger.getInstance().fireEvent(owner, FragEventIndex.KILL, this);
+//					if (heroProperties.getHeroTeam().getTeamId() != owner.heroProperties.getHeroTeam().getTeamId())
+//					{
+//						owner.getFragStatistic().incrementKills();
+//					}
 				}
 			}
 
@@ -388,24 +362,26 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void deadlySceneryHit(float damage)
 	{
+		heroAttributes.getLife().decrement(damage);
+		if (heroAttributes.getLife().getCurrentValue() <= 0)
+		{
+			suicide();
+		}
+	}
+
+	private void suicide()
+	{
 		if (!playerIsDead)
 		{
-			heroAttributes.getLife().decrement(damage);
-			if (heroAttributes.getLife().getCurrentValue() <= 0)
-			{
-				fragStatistic.incrementSuicide();
-			}
+			FragEventMessenger.getInstance().fireEvent(this, FragEventIndex.SUICIDE);
+			die();
 		}
 	}
 
 	@Override
 	protected void gotOutOfScenery()
 	{
-		if (!playerIsDead)
-		{
-			die();
-			fragStatistic.incrementSuicide();
-		}
+		suicide();
 	}
 
 	@Override

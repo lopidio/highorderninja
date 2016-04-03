@@ -72,7 +72,7 @@ public class HeroTeam
 		return herosList;
 	}
 
-	private ColorBlender getTeamColor()
+	public ColorBlender getTeamColor()
 	{
 		return teamIndex.getColor();
 	}

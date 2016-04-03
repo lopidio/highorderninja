@@ -9,7 +9,7 @@ public interface HeroAttributeListener
 		
 	}
 
-	default void gotEmpty(HeroAttribute heroAttribute)
+	default void attributeGotEmpty(HeroAttribute heroAttribute)
 	{
 		
 	}

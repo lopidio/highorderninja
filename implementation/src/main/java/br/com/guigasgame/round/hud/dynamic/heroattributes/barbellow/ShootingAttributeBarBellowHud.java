@@ -20,7 +20,7 @@ class ShootingAttributeBarBellowHud extends HeroAttributeBarBellowHud
 	}
 
 	@Override
-	public void gotEmpty(HeroAttribute heroAttribute)
+	public void attributeGotEmpty(HeroAttribute heroAttribute)
 	{
 		outterColor.interpolateFromColor(outterColor.getCurrentColor().darken(2f), 0.5f);
 	}
