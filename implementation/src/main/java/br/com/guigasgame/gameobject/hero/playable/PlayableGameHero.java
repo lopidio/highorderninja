@@ -403,6 +403,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		if (!playerIsDead)
 		{
+			die();
 			fragStatistic.incrementSuicide();
 		}
 	}

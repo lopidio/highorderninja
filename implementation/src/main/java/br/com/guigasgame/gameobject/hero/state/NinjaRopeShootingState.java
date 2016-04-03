@@ -4,12 +4,10 @@ import br.com.guigasgame.gameobject.hero.action.ShootRopeAction;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputKey;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.projectile.rope.NinjaHookProjectile;
-import br.com.guigasgame.gameobject.projectile.rope.NinjaRope;
 
 
 public class NinjaRopeShootingState extends HeroState
 {
-
 	private NinjaHookProjectile ninjaHook;
 
 	public NinjaRopeShootingState(PlayableGameHero gameHero)
@@ -27,13 +25,16 @@ public class NinjaRopeShootingState extends HeroState
 	@Override
 	protected void stateOnQuit()
 	{
-		ninjaHook.markToDestroy();
+		releaseRope();
 	}
 	
 	protected void releaseRope()
 	{
-		ninjaHook.markToDestroy();
-		setState(new StandingHeroState(gameHero));
+		if (!ninjaHook.isHookAttached())
+		{
+			ninjaHook.markToDestroy();
+			setState(new StandingHeroState(gameHero));
+		}
 	}
 	
 	@Override
@@ -50,10 +51,10 @@ public class NinjaRopeShootingState extends HeroState
 	{
 		if (ninjaHook.isHookAttached())
 		{
-			NinjaRope ninjaRope = ninjaHook.getNinjaRope();
-			setState(new NinjaRopeSwingingState(gameHero, ninjaRope));
-			gameHero.addChild(ninjaRope);
-			ninjaHook.markToDestroy();
+			System.out.println("Projectile Attach ponit: " + ninjaHook.getPosition());
+			setState(new NinjaRopeSwingingState(gameHero, ninjaHook.getNinjaRope()));
+			ninjaHook.removeDrawableBody();
+
 		}
 		else if (ninjaHook.isMarkedToDestroy())
 		{

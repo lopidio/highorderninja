@@ -129,7 +129,7 @@ public abstract class Projectile extends GameObject
 		}
 	}
 
-	protected void setAngle(float angle)
+	public void setAngle(float angle)
 	{
 		for( Animation animation : animationList )
 		{

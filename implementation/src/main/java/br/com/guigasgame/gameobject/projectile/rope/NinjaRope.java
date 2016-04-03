@@ -11,14 +11,14 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 
 public class NinjaRope extends GameObject
 {
-	private final Vec2 hookPosition;
 	private List<NinjaRopePiece> ropeBodies;
+	private NinjaHookProjectile hookProjectile;
 
-	public NinjaRope(Vec2 attachPoint, PlayableGameHero gameHero, float maxSize)
+	public NinjaRope(NinjaHookProjectile ninjaHookProjectile, PlayableGameHero gameHero, float maxSize)
 	{
-		this.hookPosition = attachPoint;
+		this.hookProjectile = ninjaHookProjectile;
 		ropeBodies = new ArrayList<>();
-		ropeBodies.add(new NinjaRopePiece(attachPoint, gameHero.getCollidableHero().getBody(), gameHero.getHeroProperties().getColor(), maxSize));
+		ropeBodies.add(new NinjaRopePiece(ninjaHookProjectile.getPosition(), gameHero.getCollidableHero().getBody(), gameHero.getHeroProperties().getColor(), maxSize));
 		addChild(ropeTail());
 	}
 	
@@ -29,17 +29,15 @@ public class NinjaRope extends GameObject
 		{
 			link.markToDestroy();
 		}
+		hookProjectile.markToDestroy();
 		System.out.println("Destroy rope");
 	}
 	
-	private NinjaRopePiece ropeTail()
-	{
-		return ropeBodies.get(ropeBodies.size()-1);
-	}
 	
 	public void update(float deltaTime)
 	{
 		verifyCutTheRope();
+		hookProjectile.setAngle((float)(getHeadAngle() + Math.PI)); //Opposite to the rope's angle
 		if (ropeTail().isMarkedToDivide())
 		{
 			NinjaRopePiece tail = ropeTail().divide();
@@ -75,7 +73,22 @@ public class NinjaRope extends GameObject
 	
 	public Vec2 getHookPosition()
 	{
-		return hookPosition;
+		return hookProjectile.getPosition();
+	}
+
+	private NinjaRopePiece ropeTail()
+	{
+		return ropeBodies.get(ropeBodies.size()-1);
+	}
+	
+	private NinjaRopePiece ropeHead()
+	{
+		return ropeBodies.get(0);
+	}
+	
+	public float getHeadAngle()
+	{
+		return ropeHead().getAngle();
 	}
 	
 }

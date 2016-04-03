@@ -12,10 +12,12 @@ public class NinjaRopeSwingingState extends HeroState
 {
 	private NinjaRope ninjaRope;
 	
-	public NinjaRopeSwingingState(PlayableGameHero gameHero, NinjaRope rope)
+	public NinjaRopeSwingingState(PlayableGameHero gameHero, NinjaRope ninjaRope)
 	{
 		super(gameHero, HeroStateIndex.HERO_ROPE);
-		this.ninjaRope = rope; 
+		this.ninjaRope = ninjaRope;
+		
+		gameHero.addChild(ninjaRope);
 	}
 	
 	@Override

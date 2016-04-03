@@ -57,13 +57,18 @@ class NinjaRopePiece extends GameObject
 		createDistanceJoint(world);
 	}
 
+	private float calculateSize()
+	{
+		return collidableHook.getPosition().sub(heroBody.getPosition()).length();
+	}
+
 	private void createDistanceJoint(World world)
 	{
 		DistanceJointDef jointDef = new DistanceJointDef();
 		jointDef.bodyA = collidableHook.getBody();
 		jointDef.bodyB = heroBody;
 		jointDef.collideConnected = false;
-		jointDef.length = jointDef.bodyA.getPosition().sub(jointDef.bodyB.getPosition()).length();
+		jointDef.length = calculateSize();
 		distanceJoint = (DistanceJoint) world.createJoint(jointDef);
 	}
 	
@@ -93,18 +98,30 @@ class NinjaRopePiece extends GameObject
 		}
 		pieceCollidable.updateShape(heroBody.getPosition().clone());
 		pieceDrawable.setAngleInRadians(WorldConstants.calculateAngleInRadians(heroBody.getPosition().sub(collidableHook.getPosition()).clone()));
-		if (ropeScaler.verifySizeChange(deltaTime))
-		{
-			final float newSize = ropeScaler.getCurrentSize();
-			distanceJoint.setLength(newSize);
-			pieceDrawable.setSize(newSize);
-		}
+		checkSize(deltaTime);
 		if (ropeJoiner != null) //Do I have at least one split?
 		{
 			ropeJoiner.checkReunion(heroBody.getPosition());
 		}
 		pieceDrawable.updateShape();
 		ropeSplitter.checkSplitting(deltaTime);
+	}
+
+	private void checkSize(float deltaTime)
+	{
+		final float realSize = calculateSize();
+		if (realSize != ropeScaler.getCurrentSize())
+		{
+			ropeScaler.setCurrentSize(realSize);
+			distanceJoint.setLength(realSize);
+			pieceDrawable.setSize(realSize);
+		}
+		if (ropeScaler.verifySizeChanging(deltaTime))
+		{
+			final float newSize = ropeScaler.getCurrentSize();
+			distanceJoint.setLength(newSize);
+			pieceDrawable.setSize(newSize);
+		}
 	}
 
 	public boolean isMarkedToDivide()
@@ -144,7 +161,7 @@ class NinjaRopePiece extends GameObject
 
 	public void wakeUp()
 	{
-		final float currentSize = collidableHook.getPosition().sub(heroBody.getPosition()).length();
+		final float currentSize = calculateSize();
 		ropeScaler.setCurrentSize(currentSize);
 		pieceDrawable.setSize(currentSize);
 		pieceDrawable.updateShape();
@@ -172,6 +189,11 @@ class NinjaRopePiece extends GameObject
 	public void increase()
 	{
 		ropeScaler.increase();
+	}
+
+	public float getAngle()
+	{
+		return pieceCollidable.getAngle();
 	}
 
 }

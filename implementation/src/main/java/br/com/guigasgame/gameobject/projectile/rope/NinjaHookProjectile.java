@@ -54,10 +54,7 @@ public class NinjaHookProjectile extends Projectile
 		if (isMarkedToDestroy())
 			return;
 
-		pieceDrawable.setAngleInRadians(WorldConstants.calculateAngleInRadians(gameHero.getPosition().sub(collidable.getPosition()).clone()));
-		pieceDrawable.setSize(gameHero.getPosition().sub(collidable.getPosition()).length());
-		pieceDrawable.setPosition(collidable.getPosition());
-		pieceDrawable.updateShape();
+		updateDrawableShape();
 
 		if (markToAttachHook)
 		{
@@ -65,9 +62,18 @@ public class NinjaHookProjectile extends Projectile
 		}
 		else
 		{
-			verifyAutoDestruction();
+			verifyObstacle();
+			verifyRopeMaxSize();
 		}
 
+	}
+
+	private void updateDrawableShape()
+	{
+		pieceDrawable.setAngleInRadians(WorldConstants.calculateAngleInRadians(gameHero.getPosition().sub(collidable.getPosition()).clone()));
+		pieceDrawable.setSize(gameHero.getPosition().sub(collidable.getPosition()).length());
+		pieceDrawable.setPosition(collidable.getPosition());
+		pieceDrawable.updateShape();
 	}
 
 	@Override
@@ -77,7 +83,7 @@ public class NinjaHookProjectile extends Projectile
 			ninjaRope.markToDestroy();
 	}
 
-	private void verifyAutoDestruction()
+	private void verifyObstacle()
 	{
 		RayCastHitAnyThing anyThing = new RayCastHitAnyThing(world, gameHero.getCollidableHero().getBody().getWorldCenter(), 
 				collidable.getPosition(), CollidableCategory.SCENERY.getCategoryMask());
@@ -90,6 +96,10 @@ public class NinjaHookProjectile extends Projectile
 			markToAttachHook = true;
 
 		}
+	}
+
+	private void verifyRopeMaxSize()
+	{
 		if (ropeIsTooLong())
 		{
 			markToDestroy();
@@ -102,7 +112,8 @@ public class NinjaHookProjectile extends Projectile
 			return;
 
 		collidable.getBody().setType(BodyType.STATIC);
-		ninjaRope = new NinjaRope(attachPoint, gameHero, properties.maxDistance);
+		collidable.getBody().setTransform(attachPoint, 0);
+		ninjaRope = new NinjaRope(this, gameHero, properties.maxDistance);
 
 		System.out.println("Hook attached");
 		hookIsAttached = true;
@@ -138,6 +149,11 @@ public class NinjaHookProjectile extends Projectile
 	public boolean isHookAttached()
 	{
 		return hookIsAttached;
+	}
+
+	public void removeDrawableBody()
+	{
+		drawableList.remove(pieceDrawable);
 	}
 
 }

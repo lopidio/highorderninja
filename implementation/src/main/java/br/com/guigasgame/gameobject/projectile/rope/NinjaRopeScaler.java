@@ -14,10 +14,9 @@ class NinjaRopeScaler
 	{
 		this.maxSize = maxSize;
 		this.currentSize = currentSize;
-		System.out.println("Scaler: " + currentSize + "; " + maxSize);
 	}
 	
-	public boolean verifySizeChange(float deltaTime)
+	public boolean verifySizeChanging(float deltaTime)
 	{
 		float prevSize = currentSize;
 		if (markToIncrease)

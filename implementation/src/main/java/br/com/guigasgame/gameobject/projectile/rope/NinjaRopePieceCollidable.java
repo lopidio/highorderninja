@@ -95,4 +95,9 @@ public class NinjaRopePieceCollidable extends Collidable
 		updateFixture();
 	}
 
+	public float getAngle()
+	{
+		return angle;
+	}
+
 }
