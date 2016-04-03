@@ -19,11 +19,11 @@ public class HeroTeam
 	private boolean friendlyFire;
 
 	private List<PlayableHeroDefinition> herosList;
-	private TeamName name;
+	private TeamsIndex teamIndex;
 
-	public HeroTeam(TeamName name) throws Exception
+	public HeroTeam(TeamsIndex name) throws Exception
 	{
-		this.name = name;
+		this.teamIndex = name;
 		teamMask = new IntegerMask();
 		enemiesMask = CollidableCategory.getAllPlayersCategory();
 		// totalScore = 0;
@@ -74,7 +74,7 @@ public class HeroTeam
 
 	private ColorBlender getTeamColor()
 	{
-		return name.getColor();
+		return teamIndex.getColor();
 	}
 
 	public void setHeroesUp()
@@ -100,7 +100,12 @@ public class HeroTeam
 
 	public int getTeamId()
 	{
-		return name.getId();
+		return teamIndex.getId();
+	}
+
+	public String getName()
+	{
+		return teamIndex.getName();
 	}
 
 }

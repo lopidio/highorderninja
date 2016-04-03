@@ -27,7 +27,7 @@ import br.com.guigasgame.round.hud.RoundHudDefaultPositioner;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
-import br.com.guigasgame.team.TeamName;
+import br.com.guigasgame.team.TeamsIndex;
 
 
 public class GameMachine
@@ -83,29 +83,42 @@ public class GameMachine
 		try
 		{
 			List<HeroTeam> teams = new ArrayList<>();
-			HeroTeam teamAlpha = new HeroTeam(TeamName.ALPHA);
-			HeroTeam teamBravo = new HeroTeam(TeamName.BRAVO);
-			HeroTeam teamCharlie = new HeroTeam(TeamName.CHARLIE);
-			HeroTeam teamDelta = new HeroTeam(TeamName.DELTA);
+			HeroTeam teamAlpha = new HeroTeam(TeamsIndex.ALPHA);
+			HeroTeam teamBravo = new HeroTeam(TeamsIndex.BRAVO);
+			HeroTeam teamCharlie = new HeroTeam(TeamsIndex.CHARLIE);
+			HeroTeam teamDelta = new HeroTeam(TeamsIndex.DELTA);
+			
+			
+			HeroTeam teamEcho = new HeroTeam(TeamsIndex.ECHO);
+			HeroTeam teamFoxtrot = new HeroTeam(TeamsIndex.FOXTROT);
+			HeroTeam teamGolf = new HeroTeam(TeamsIndex.GOLF);
+			HeroTeam teamHotel = new HeroTeam(TeamsIndex.HOTEL);
 			
 			PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
 			teamAlpha.addGameHero(playerOne);
 			
 			PlayableHeroDefinition playerTwo = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 1);
-			PlayableHeroDefinition playerThree = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
 			teamBravo.addGameHero(playerTwo);
-			teamBravo.addGameHero(playerThree);
 			
-			PlayableHeroDefinition playerFour = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
-			teamCharlie.addGameHero(playerFour);
+			PlayableHeroDefinition playerThree = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
+			teamCharlie.addGameHero(playerThree);
 			
-			PlayableHeroDefinition playerFive = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 4);
+			PlayableHeroDefinition playerFive = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 3);
 			teamDelta.addGameHero(playerFive);
+
+			teamEcho.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4));
+			teamFoxtrot.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 5));
+			teamGolf.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 6));
+			teamHotel.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 7));
 			
 			teams.add(teamAlpha);
 			teams.add(teamBravo);
 			teams.add(teamCharlie);
 			teams.add(teamDelta);
+			teams.add(teamEcho);
+			teams.add(teamFoxtrot);
+			teams.add(teamGolf);
+			teams.add(teamHotel);
 			
 			for( HeroTeam heroTeam : teams )
 			{

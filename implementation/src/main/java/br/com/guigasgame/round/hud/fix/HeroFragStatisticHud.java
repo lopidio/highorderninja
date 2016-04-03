@@ -16,7 +16,8 @@ import br.com.guigasgame.round.hud.controller.HudObject;
 
 public class HeroFragStatisticHud extends HudObject implements HeroFragStatisticListener
 {
-	private Text text;
+	private final Text text;
+	private final Text title;
 	private final RectangleShape rectangleShape;
 	private final HeroFragStatistic fragStatistic;
 	private final Vector2f positionRatio;
@@ -32,8 +33,16 @@ public class HeroFragStatisticHud extends HudObject implements HeroFragStatistic
 		rectangleShape.setOutlineColor(gameHero.getHeroProperties().getColor().makeTranslucid(1.5f).darken(10).getSfmlColor());
 		rectangleShape.setOutlineThickness(3);
 		
-		this.text = new Text();
 		Font font = FontResourceManager.getInstance().getResource(FilenameConstants.getFragStatistcsFontFilename());
+
+		this.title = new Text();
+		title.setFont(font);
+		title.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.9f).darken(2).getSfmlColor());
+		title.setFont(font);
+		title.setStyle(Text.BOLD);
+		title.setString(gameHero.getHeroProperties().getHeroTeam().getName());
+		
+		this.text = new Text();
 		text.setFont(font);
 		text.setColor(gameHero.getHeroProperties().getColor().makeTranslucid(0.9f).getSfmlColor());
 		text.setFont(font);
@@ -44,6 +53,8 @@ public class HeroFragStatisticHud extends HudObject implements HeroFragStatistic
 	@Override
 	public void setViewSize(Vector2i size)
 	{
+		title.setPosition(size.x*positionRatio.x, size.y*positionRatio.y);
+		title.setCharacterSize(size.x/100);
 		text.setCharacterSize(size.x/50);
 		text.setPosition(size.x*positionRatio.x, size.y*positionRatio.y);
 		
@@ -55,7 +66,8 @@ public class HeroFragStatisticHud extends HudObject implements HeroFragStatistic
 	public void draw(RenderWindow renderWindow)
 	{
 		renderWindow.draw(rectangleShape);
-		renderWindow.draw(text);		
+		renderWindow.draw(title);
+		renderWindow.draw(text);
 	}
 	
 	@Override
@@ -80,6 +92,7 @@ public class HeroFragStatisticHud extends HudObject implements HeroFragStatistic
 	{
 		text.setString(stringFormatter);
 		text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2);
+		title.setOrigin(title.getLocalBounds().width/2, title.getLocalBounds().height/2);
 		rectangleShape.setSize(new Vector2f(text.getLocalBounds().width*1.2f, text.getLocalBounds().height*1.2f));
 		rectangleShape.setOrigin(rectangleShape.getLocalBounds().width/2, rectangleShape.getLocalBounds().height/2 - 8);
 	}

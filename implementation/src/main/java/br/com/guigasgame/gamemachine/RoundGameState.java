@@ -29,7 +29,7 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundAttributes;
-import br.com.guigasgame.round.hud.controller.HudController;
+import br.com.guigasgame.round.hud.controller.RoundHudController;
 import br.com.guigasgame.round.hud.fix.TimerStaticHud;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.team.HeroTeam;
@@ -45,7 +45,7 @@ public class RoundGameState implements GameState
 	private final GameItemCreationController gameItemCreator;
 	private final SceneController scenery;
 	private final CameraController cameraController;
-	private final HudController hudController;
+	private final RoundHudController hudController;
 	private final TimerEventsController timerEventsController;
 
 	public RoundGameState(RoundAttributes roundAttributes)
@@ -65,7 +65,7 @@ public class RoundGameState implements GameState
 		scenery.onEnter();
 		
 		
-		hudController = new HudController(roundAttributes.getHudPositioner());
+		hudController = new RoundHudController(roundAttributes.getHudPositioner());
 		
 		TimerStaticHud timerStaticHud = roundAttributes.createTimerHud();
 		timerStaticHud.setupTimerEvent(timerEventsController, roundAttributes);
@@ -192,7 +192,7 @@ public class RoundGameState implements GameState
 		{
 			child.attachToWorld(world);
 			child.onEnter();
-			gameObjectsList.add(child);
+			gameObjectsList.add(0, child);
 		}
 	}
 
@@ -250,7 +250,7 @@ public class RoundGameState implements GameState
 		scenery.drawForegroundItems(renderWindow);
 		
 		hudController.drawDynamicHud(renderWindow);
-		renderWindow.setView(hudController.getView());
+		renderWindow.setView(hudController.getStaticView());
 		hudController.drawStaticHud(renderWindow);
 	}
 

@@ -17,14 +17,14 @@ import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttribut
 import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class HudController implements UpdatableFromTime
+public class RoundHudController implements UpdatableFromTime
 {
 	private List<HudObject> staticHudList;
 	private List<HudObject> dynamicHudList;
 	private View staticView;
 	private final RoundHudPositioner roundHudPositioner;
 	
-	public HudController(RoundHudPositioner roundHudPositioner)
+	public RoundHudController(RoundHudPositioner roundHudPositioner)
 	{
 		staticHudList = new ArrayList<>();
 		dynamicHudList = new ArrayList<>();
@@ -75,7 +75,7 @@ public class HudController implements UpdatableFromTime
 		Destroyable.clearDestroyable(dynamicHudList);
 	}
 
-	public View getView()
+	public View getStaticView()
 	{
 		return staticView;
 	}
@@ -105,18 +105,12 @@ public class HudController implements UpdatableFromTime
 
 	private void addHeroMovingHud(PlayableGameHero gameHero)
 	{
-		Vector2f position = roundHudPositioner.getFragCounterPosition(gameHero.getHeroProperties());
+		Vector2f position = roundHudPositioner.getTeamFragCounterPositioner(gameHero.getHeroProperties().getHeroTeam());
 		HeroFragStatistic fragCounter = gameHero.getFragStatistic();			
+//		HeroFragStatisticHud fragCounterHud = new HeroFragStatisticHud(position, gameHero);
 		HeroFragStatisticHud fragCounterHud = new HeroFragStatisticHud(position, gameHero);
 		fragCounter.addListener(fragCounterHud);
 		addStaticHud(fragCounterHud);
 	}
 
-//	public void addTimer(ReverseTimeCounter reverseTimeCounter)
-//	{
-//		TimerStaticHud timerStaticHud = new TimerStaticHud(roundHudPositioner.getReverseTimeCounterPosition());
-//		reverseTimeCounter.addListener(timerStaticHud);
-//		addStaticHud(timerStaticHud);
-//	}
-	
 }
