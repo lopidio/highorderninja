@@ -73,8 +73,10 @@ class JumpingHeroState extends HeroState
 				setState(new AirSpinHeroState(gameHero, Side.LEFT));
 			else if (isHeroInputMapPressed(HeroInputKey.RIGHT) && gameHero.getCollidableHero().isGoingTo(Side.RIGHT))
 				setState(new AirSpinHeroState(gameHero, Side.RIGHT));
-			else if (isHeroInputMapPressed(HeroInputKey.DOWN))
+			else if (isHeroInputMapPressed(HeroInputKey.UP))
 				setState(new StopMovementState(gameHero));
+			else if (isHeroInputMapPressed(HeroInputKey.DOWN))
+				setState(new DivingState(gameHero));
 		}
 	}
 	
@@ -83,6 +85,8 @@ class JumpingHeroState extends HeroState
 	{
 		if (inputValue == HeroInputKey.DOWN)
 			setState(new DivingState(gameHero));
+		else if (inputValue == HeroInputKey.UP)
+			setState(new StopMovementState(gameHero));
 	}
 
 }
