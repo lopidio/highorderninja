@@ -146,6 +146,10 @@ public class RoundGameState implements GameState
 
 		if (event.type == Type.KEY_PRESSED)
 		{
+			if (event.asKeyEvent().key == Key.U)
+			{
+				timeFactor = 0.01f;
+			}
 			if (event.asKeyEvent().key == Key.I)
 			{
 				timeFactor = 0.3f;
@@ -233,7 +237,7 @@ public class RoundGameState implements GameState
 		renderWindow.setView(cameraController.getCameraView());
 
 		scenery.drawBackgroundItems(renderWindow);
-		world.drawDebugData();
+//		world.drawDebugData();
 		
 //		cameraController.draw(renderWindow);
 

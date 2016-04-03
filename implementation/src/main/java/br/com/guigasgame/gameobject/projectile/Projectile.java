@@ -80,6 +80,7 @@ public abstract class Projectile extends GameObject
 			{
 				Animation animation = (Animation) drawable;
 				animation.setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
+//				animation.setRotation(WorldConstants.radiansToDegrees(collidable.getBody().getAngle()));
 				animation.update(deltaTime);
 			}
 		}
@@ -111,6 +112,7 @@ public abstract class Projectile extends GameObject
 
 		direction.normalize();
 		direction.mulLocal(properties.initialSpeed);
+		setAngle(WorldConstants.calculateAngleInRadians(direction));
 		body.applyLinearImpulse(direction, body.getWorldCenter());
 	}
 
@@ -135,6 +137,16 @@ public abstract class Projectile extends GameObject
 		{
 			Animation animation = (Animation) drawable;
 			animation.setColor(color);
+		}
+	}
+
+	protected void setAngle(float angle)
+	{
+		for( Drawable drawable : drawableList )
+		{
+			System.out.println(WorldConstants.radiansToDegrees(angle));
+			Animation animation = (Animation) drawable;
+			animation.setRotation(WorldConstants.radiansToDegrees(angle));
 		}
 	}
 

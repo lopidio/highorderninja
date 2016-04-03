@@ -54,12 +54,19 @@ public class WorldConstants
 		return degrees * Math.PI / 180.0;
 	}
 	
-	public static double getRadianBetweenVectors(Vec2 a, Vec2 b)
+	public static float getSmallestAngleBetweenVectorsInRadians(Vec2 a, Vec2 b)
 	{
-		return (float)(Math.atan2(b.y - a.y, b.x - a.x));
-//		return (float)(Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI); // IN DEGREES
-//		float dotProduct = Vec2.dot(a, b);
-//		return Math.acos(dotProduct / (a.length()*b.length()));
+//		return (float) (Math.atan2(b.y - a.y, b.x - a.x));
+		float dotProduct = Vec2.dot(a, b);
+		return (float) Math.acos(dotProduct / (a.length()*b.length()));
+	}
+
+	public static float calculateAngleInRadians(Vec2 direction)
+	{
+		float angle = getSmallestAngleBetweenVectorsInRadians(direction, new Vec2(0, -1));
+		if (direction.x < 0)
+			angle *= -1;
+		return angle;
 	}
 
 }

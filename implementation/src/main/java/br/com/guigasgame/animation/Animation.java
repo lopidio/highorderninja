@@ -129,9 +129,9 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	}
 	
 	
-	public void setRotation(float angleInDegrees)
+	public void setRotation(double angle)
 	{
-		sprite.setRotation(angleInDegrees);
+		sprite.setRotation((float) angle);
 	}
 
 	public short getCurrentFrameNumber()

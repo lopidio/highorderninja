@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
+import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
@@ -69,24 +70,9 @@ public class NinjaRopePieceCollidable extends Collidable
 		return hookPoint.add(destiny.mul((size)*0.5f));
 	}
 
-	private float calculateAngle(Vec2 direction)
-	{
-		Vec2 dist = direction.mul(size); 
-		float catAdj = dist.x;
-		if (dist.y >= 0)
-			catAdj *= -1;
-		
-		return (float) Math.asin(catAdj/dist.length());
-	}
-
 	private float calculateSize()
 	{
 		return sustainedBodyPosition.sub(hookPoint).length();
-	}
-
-	public float getAngleRadians()
-	{
-		return body.getAngle();
 	}
 
 	public float getSize()
@@ -100,7 +86,7 @@ public class NinjaRopePieceCollidable extends Collidable
 		this.size = calculateSize();
 		Vec2 direction = calculateDirection(sustainedBodyPosition);
 		this.center = calculateCenter(direction);
-		this.angle = calculateAngle(direction);
+		this.angle = WorldConstants.calculateAngleInRadians(direction);
 	}
 	
 	public void updateShape(Vec2 heroPosition)

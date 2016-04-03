@@ -16,7 +16,7 @@
             </value>
         </entry>
         <entry>
-            <key>ROPE</key>
+            <key>ROPE_HOOK_PROJECTILE</key>
             <value>
                 <numBounces>0</numBounces>
                 <initialSpeed>4.0</initialSpeed>

@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlEnum;
 public enum ProjectileIndex
 {
 	SHURIKEN,
-	ROPE,
+	ROPE_HOOK_PROJECTILE,
 	SMOKE_BOMB_PROJECTILE,
 	SMOKE_BOMB_PARTICLE
 }

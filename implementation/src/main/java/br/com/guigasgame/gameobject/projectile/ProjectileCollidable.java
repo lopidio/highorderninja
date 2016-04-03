@@ -19,4 +19,10 @@ public class ProjectileCollidable extends Collidable
 		
 	}
 
+	public ProjectileCollidable(Vec2 position, float angle)
+	{
+		this(position);
+		bodyDef.angle = angle;
+	}
+
 }

@@ -25,7 +25,7 @@ public class NinjaHookProjectile extends Projectile
 
 	public NinjaHookProjectile(Vec2 direction, PlayableGameHero gameHero)
 	{
-		super(ProjectileIndex.ROPE, direction, gameHero);
+		super(ProjectileIndex.ROPE_HOOK_PROJECTILE, direction, gameHero);
 		this.gameHero = gameHero;
 		world = null;
 		hookIsAttached = false;
@@ -50,11 +50,7 @@ public class NinjaHookProjectile extends Projectile
 		if (isMarkedToDestroy())
 			return;
 
-		if (hookIsAttached)
-		{
-//			ninjaRope.update(deltaTime);
-		}
-		else if (markToAttachHook)
+		if (markToAttachHook)
 		{
 			attachHook();
 		}
@@ -83,7 +79,6 @@ public class NinjaHookProjectile extends Projectile
 		if (anyThing.hasHit())
 		{
 			System.out.println("Wall is on the way");
-//			markToDestroy();
 			this.attachPoint = anyThing.getCallBackWrapper().point;
 			markToAttachHook = true;
 

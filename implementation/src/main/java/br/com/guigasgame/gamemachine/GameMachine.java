@@ -95,7 +95,7 @@ public class GameMachine
 			PlayableHeroDefinition playerThree = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
 			teamBravo.addGameHero(playerTwo);
 			teamBravo.addGameHero(playerThree);
-//			
+			
 			PlayableHeroDefinition playerFour = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 3);
 			teamCharlie.addGameHero(playerFour);
 			

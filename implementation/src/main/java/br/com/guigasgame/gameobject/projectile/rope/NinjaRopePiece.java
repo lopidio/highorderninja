@@ -7,40 +7,46 @@ import org.jbox2d.dynamics.contacts.Contact;
 import org.jbox2d.dynamics.joints.DistanceJoint;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
 
+import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.Collidable;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.GameObject;
 
 
 class NinjaRopePiece extends GameObject
 {
+	private final ColorBlender color;
 	private final NinjaRopeHookCollidable collidableHook;
 	private final NinjaRopeScaler ropeScaler;
 	private final NinjaRopePieceCollidable pieceCollidable;
 	private final NinjaRopeSplitter ropeSplitter;
+	private final NinjaRopePieceDrawable pieceDrawable;
 	private NinjaRopeJoiner ropeJoiner; //Null if I am the head
 
 	private boolean cutTheRope;
 	private final Body heroBody; // Hero
 	private DistanceJoint distanceJoint; //Null if I am not the tail
-
 	
-	public NinjaRopePiece(Vec2 hookPoint, Body heroBody, float maxSize)
+	public NinjaRopePiece(Vec2 hookPoint, Body heroBody, ColorBlender colorBlender, float maxSize)
 	{
+		this.color = colorBlender;
 		this.heroBody = heroBody;
 
-		ropeScaler = new NinjaRopeScaler(hookPoint.clone().sub(heroBody.getPosition().clone()).length(), maxSize);
+		final float currentSize = hookPoint.clone().sub(heroBody.getPosition().clone()).length();
+		ropeScaler = new NinjaRopeScaler(currentSize, maxSize);
 		ropeSplitter = new NinjaRopeSplitter(hookPoint, heroBody);
-
 		collidableHook = new NinjaRopeHookCollidable(hookPoint.clone());
 		pieceCollidable = new NinjaRopePieceCollidable(hookPoint, heroBody.getPosition());
+		pieceDrawable = new NinjaRopePieceDrawable(heroBody.getPosition(), hookPoint, colorBlender);
 		pieceCollidable.addListener(this);
 		collidableList.add(pieceCollidable);
 		collidableList.add(collidableHook);
+		drawableList.add(pieceDrawable);
 	}
 
-	private NinjaRopePiece(Vec2 hookPoint, Body heroBody, float maxSize, Vec2 prevCollidableHookPosition)
+	private NinjaRopePiece(Vec2 hookPoint, Body heroBody, ColorBlender color, float maxSize, Vec2 prevCollidableHookPosition)
 	{
-		this(hookPoint, heroBody, maxSize);
+		this(hookPoint, heroBody, color, maxSize);
 		ropeJoiner = new NinjaRopeJoiner(prevCollidableHookPosition, hookPoint, heroBody.getPosition());
 	}
 
@@ -86,15 +92,18 @@ class NinjaRopePiece extends GameObject
 			return;
 		}
 		pieceCollidable.updateShape(heroBody.getPosition().clone());
+		pieceDrawable.setAngleInRadians(WorldConstants.calculateAngleInRadians(heroBody.getPosition().sub(collidableHook.getPosition()).clone()));
 		if (ropeScaler.verifySizeChange(deltaTime))
 		{
-			distanceJoint.setLength(ropeScaler.getCurrentSize());
+			final float newSize = ropeScaler.getCurrentSize();
+			distanceJoint.setLength(newSize);
+			pieceDrawable.setSize(newSize);
 		}
 		if (ropeJoiner != null) //Do I have at least one split?
 		{
 			ropeJoiner.checkReunion(heroBody.getPosition());
 		}
-
+		pieceDrawable.updateShape();
 		ropeSplitter.checkSplitting(deltaTime);
 	}
 
@@ -114,8 +123,13 @@ class NinjaRopePiece extends GameObject
 	{
 		System.out.println("Splitting rope");
 		final Vec2 divisionPoint = ropeSplitter.getDivisionPoint();
-		NinjaRopePiece retorno = new NinjaRopePiece(divisionPoint, heroBody, ropeScaler.getMaxSize() - collidableHook.getPosition().sub(divisionPoint).length(), collidableHook.getPosition());
+		final float currentSize = collidableHook.getPosition().sub(divisionPoint).length();
+		NinjaRopePiece retorno = new NinjaRopePiece(divisionPoint, heroBody, color, ropeScaler.getMaxSize() - currentSize , collidableHook.getPosition());
 		pieceCollidable.updateShape(divisionPoint.clone());
+
+		pieceDrawable.setSize(currentSize);
+		pieceDrawable.updateShape();
+		
 		heroBody.getWorld().destroyJoint(distanceJoint);
 		ropeSplitter.unmarkToSplitting();
 		distanceJoint = null;
@@ -130,7 +144,10 @@ class NinjaRopePiece extends GameObject
 
 	public void wakeUp()
 	{
-		ropeScaler.setCurrentSize(collidableHook.getPosition().sub(heroBody.getPosition()).length());
+		final float currentSize = collidableHook.getPosition().sub(heroBody.getPosition()).length();
+		ropeScaler.setCurrentSize(currentSize);
+		pieceDrawable.setSize(currentSize);
+		pieceDrawable.updateShape();
 		System.out.println("Joining rope");
 		createDistanceJoint(heroBody.getWorld());
 	}

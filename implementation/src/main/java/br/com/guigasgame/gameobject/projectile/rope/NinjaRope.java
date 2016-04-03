@@ -18,7 +18,7 @@ public class NinjaRope extends GameObject
 	{
 		this.hookPosition = attachPoint;
 		ropeBodies = new ArrayList<>();
-		ropeBodies.add(new NinjaRopePiece(attachPoint, gameHero.getCollidableHero().getBody(), maxSize));
+		ropeBodies.add(new NinjaRopePiece(attachPoint, gameHero.getCollidableHero().getBody(), gameHero.getHeroProperties().getColor(), maxSize));
 		addChild(ropeTail());
 	}
 	

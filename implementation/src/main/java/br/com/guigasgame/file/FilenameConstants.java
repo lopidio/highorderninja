@@ -91,4 +91,9 @@ public class FilenameConstants
 		return "GOUDYSTO.TTF";
 	}
 
+	public static String getRopePieceAnimationFilename()
+	{
+		return "ropePiece.png";
+	}
+
 }

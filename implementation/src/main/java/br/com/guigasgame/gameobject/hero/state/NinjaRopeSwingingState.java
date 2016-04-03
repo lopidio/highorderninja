@@ -57,7 +57,6 @@ public class NinjaRopeSwingingState extends HeroState
 		}
 	}
 
-
 	@Override
 	public void stateUpdate(float deltaTime)
 	{
