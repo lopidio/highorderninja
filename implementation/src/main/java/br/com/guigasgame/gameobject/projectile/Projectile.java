@@ -9,7 +9,6 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.contacts.Contact;
-import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.animation.AnimationsCentralPool;
@@ -19,7 +18,6 @@ import br.com.guigasgame.collision.CollidableFilter;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.color.ColorBlender;
-import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.playable.CollidableHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
@@ -37,6 +35,7 @@ public abstract class Projectile extends GameObject
 	protected ProjectileCollidable collidable;
 	protected PlayableGameHero owner;
 	protected List<IntegerMask> targetPriorityQueue;
+	protected List<Animation> animationList;
 
 	protected Projectile(ProjectileIndex index, Vec2 direction, PlayableGameHero gameHero)
 	{
@@ -59,16 +58,9 @@ public abstract class Projectile extends GameObject
 		collidableFilter = null;
 		targetPriorityQueue = new ArrayList<>();
 		
-		drawableList.add(animation);
-	}
-
-	@Override
-	public void draw(RenderWindow renderWindow)
-	{
-		for( Drawable drawable : drawableList )
-		{
-			drawable.draw(renderWindow);
-		}
+		animationList = new ArrayList<>();
+		animationList.add(animation);
+		drawableList.addAll(animationList);
 	}
 
 	@Override
@@ -76,11 +68,9 @@ public abstract class Projectile extends GameObject
 	{
 		if (isAlive())
 		{
-			for( Drawable drawable : drawableList )
+			for( Animation animation : animationList )
 			{
-				Animation animation = (Animation) drawable;
 				animation.setPosition(WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
-//				animation.setRotation(WorldConstants.radiansToDegrees(collidable.getBody().getAngle()));
 				animation.update(deltaTime);
 			}
 		}
@@ -133,19 +123,16 @@ public abstract class Projectile extends GameObject
 
 	protected void setAnimationsColor(ColorBlender color)
 	{
-		for( Drawable drawable : drawableList )
+		for( Animation animation : animationList )
 		{
-			Animation animation = (Animation) drawable;
 			animation.setColor(color);
 		}
 	}
 
 	protected void setAngle(float angle)
 	{
-		for( Drawable drawable : drawableList )
+		for( Animation animation : animationList )
 		{
-			System.out.println(WorldConstants.radiansToDegrees(angle));
-			Animation animation = (Animation) drawable;
 			animation.setRotation(WorldConstants.radiansToDegrees(angle));
 		}
 	}

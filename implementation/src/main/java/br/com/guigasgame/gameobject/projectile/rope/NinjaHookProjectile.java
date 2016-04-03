@@ -6,6 +6,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
+import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.projectile.Projectile;
@@ -15,7 +16,9 @@ import br.com.guigasgame.raycast.RayCastHitAnyThing;
 
 public class NinjaHookProjectile extends Projectile
 {
+
 	private final PlayableGameHero gameHero;
+	private final NinjaRopePieceDrawable pieceDrawable;
 	private World world;
 
 	private boolean markToAttachHook;
@@ -33,15 +36,16 @@ public class NinjaHookProjectile extends Projectile
 
 		targetPriorityQueue.add(CollidableCategory.SCENERY.getCategoryMask());
 		collidableFilter = CollidableCategory.ROPE_NODE.getFilter();
+		pieceDrawable = new NinjaRopePieceDrawable(gameHero.getPosition(), gameHero.getPosition(), gameHero.getHeroProperties().getColor());
+		drawableList.add(pieceDrawable);
 		setAnimationsColor(gameHero.getHeroProperties().getColor());
 	}
-	
+
 	@Override
 	public void onEnter()
 	{
 		shoot();
 	}
-
 
 	@Override
 	public void update(float deltaTime)
@@ -49,6 +53,11 @@ public class NinjaHookProjectile extends Projectile
 		super.update(deltaTime);
 		if (isMarkedToDestroy())
 			return;
+
+		pieceDrawable.setAngleInRadians(WorldConstants.calculateAngleInRadians(gameHero.getPosition().sub(collidable.getPosition()).clone()));
+		pieceDrawable.setSize(gameHero.getPosition().sub(collidable.getPosition()).length());
+		pieceDrawable.setPosition(collidable.getPosition());
+		pieceDrawable.updateShape();
 
 		if (markToAttachHook)
 		{
@@ -58,9 +67,9 @@ public class NinjaHookProjectile extends Projectile
 		{
 			verifyAutoDestruction();
 		}
-		
+
 	}
-	
+
 	@Override
 	public void onDestroy()
 	{
@@ -68,13 +77,11 @@ public class NinjaHookProjectile extends Projectile
 			ninjaRope.markToDestroy();
 	}
 
-	private void verifyAutoDestruction() 
+	private void verifyAutoDestruction()
 	{
-		RayCastHitAnyThing anyThing = new RayCastHitAnyThing(world, 
-				gameHero.getCollidableHero().getBody().getWorldCenter(),
-				collidable.getPosition(), 
-				CollidableCategory.SCENERY.getCategoryMask());
-		
+		RayCastHitAnyThing anyThing = new RayCastHitAnyThing(world, gameHero.getCollidableHero().getBody().getWorldCenter(), 
+				collidable.getPosition(), CollidableCategory.SCENERY.getCategoryMask());
+
 		anyThing.shoot();
 		if (anyThing.hasHit())
 		{
@@ -96,14 +103,15 @@ public class NinjaHookProjectile extends Projectile
 
 		collidable.getBody().setType(BodyType.STATIC);
 		ninjaRope = new NinjaRope(attachPoint, gameHero, properties.maxDistance);
-		
+
 		System.out.println("Hook attached");
 		hookIsAttached = true;
 	}
-	
+
 	private boolean ropeIsTooLong()
 	{
-		return gameHero.getCollidableHero().getPosition().sub(collidable.getPosition()).lengthSquared() >= properties.maxDistance*properties.maxDistance;
+		return gameHero.getCollidableHero().getPosition().sub(collidable.getPosition()).lengthSquared() >= properties.maxDistance
+				* properties.maxDistance;
 	}
 
 	@Override
@@ -112,7 +120,7 @@ public class NinjaHookProjectile extends Projectile
 		super.attachToWorld(world);
 		this.world = world;
 	}
-	
+
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
 	{
@@ -121,7 +129,7 @@ public class NinjaHookProjectile extends Projectile
 		this.attachPoint = manifold.points[0];
 		markToAttachHook = true;
 	}
-	
+
 	public NinjaRope getNinjaRope()
 	{
 		return ninjaRope;

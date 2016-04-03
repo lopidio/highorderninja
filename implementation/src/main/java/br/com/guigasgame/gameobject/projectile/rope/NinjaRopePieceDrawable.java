@@ -48,6 +48,11 @@ class NinjaRopePieceDrawable implements Drawable
 		this.size = size;
 	}
 	
+	public void setPosition(Vec2 position)
+	{
+		this.position = WorldConstants.physicsToSfmlCoordinates(position);
+	}
+
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{

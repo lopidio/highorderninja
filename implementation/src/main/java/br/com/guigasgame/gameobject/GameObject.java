@@ -30,7 +30,7 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 	{
 		reproductableList = new ReproductableList();
 		alive = true;
-		drawableList = new ArrayList<Drawable>();
+		drawableList = new ArrayList<>();
 		collidableList = new ArrayList<Collidable>();
 	}
 

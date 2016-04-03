@@ -65,7 +65,7 @@ t	Identify body part hit by shuriken
 	- Before hook attachement
 	- Shuriken cuts the rope
 	
-	Timer registering event (warnInSeconds(float seconds, Object value) (enumeration?)
+t	Timer registering event (warnInSeconds(float seconds, Object value) (enumeration?)
 	FragMessageEvent (mediator)
 	HudView zoom
 
