@@ -63,7 +63,7 @@ public class FilenameConstants
 
 	public static String getSceneryFilename()
 	{
-		return "proScene.xml";
+		return "alternativeScene.xml";//"proScene.xml";
 	}
 
 	public static String getItemsPropertiesFilename()

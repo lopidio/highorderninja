@@ -32,23 +32,11 @@ class FallingHeroState extends HeroState
 	@Override
 	protected void stateInputPressed(HeroInputKey inputValue)
 	{
-		if (inputValue == HeroInputKey.ACTION)
+		if (inputValue == HeroInputKey.ACTION && isHeroInputMapPressed(HeroInputKey.DOWN) ||
+			 (inputValue == HeroInputKey.DOWN && isHeroInputMapPressed(HeroInputKey.ACTION)))
 		{
-			if (isHeroInputMapPressed(HeroInputKey.LEFT) && gameHero.getCollidableHero().isGoingTo(Side.LEFT))
-				setState(new AirSpinHeroState(gameHero, Side.LEFT));
-			else if (isHeroInputMapPressed(HeroInputKey.RIGHT) && gameHero.getCollidableHero().isGoingTo(Side.RIGHT))
-				setState(new AirSpinHeroState(gameHero, Side.RIGHT));
-//			else if (isHeroInputMapPressed(HeroInputKey.UP))
-//				setState(new StopMovementState(gameHero));
-			else if (isHeroInputMapPressed(HeroInputKey.DOWN))
-				setState(new DivingState(gameHero));
+			setState(new DivingState(gameHero));
 		}
-
-//		if (inputValue == HeroInputKey.ACTION && isHeroInputMapPressed(HeroInputKey.DOWN) ||
-//			 (inputValue == HeroInputKey.DOWN && isHeroInputMapPressed(HeroInputKey.ACTION)))
-//		{
-//			setState(new DivingState(gameHero));
-//		}
 	}
 	
 	@Override
@@ -56,8 +44,6 @@ class FallingHeroState extends HeroState
 	{
 		if (inputValue == HeroInputKey.DOWN)
 			setState(new DivingState(gameHero));
-//		else if (inputValue == HeroInputKey.UP)
-//			setState(new StopMovementState(gameHero));
 	}
 
 	@Override

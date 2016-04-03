@@ -30,7 +30,7 @@ public class SceneryViewer
 
 	public SceneryViewer() throws Exception
 	{
-		String scenePropertiesFile = "proScene.xml";
+		String scenePropertiesFile = "alternativeScene.xml";
 		SceneryInitialize creator = new SceneryInitialize(SceneryFile.loadFromFile(scenePropertiesFile));
 		scenery = new SceneController(creator);
 		pointsShapes = new ArrayList<>();
@@ -81,12 +81,10 @@ public class SceneryViewer
 		new SceneryViewer().play();
 	}
 	
-	
 
 	private void play()
 	{
 		Clock clock = new Clock();
-		
 		while (isRunning)
 		{
 			clock.restart();

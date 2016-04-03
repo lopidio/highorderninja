@@ -101,7 +101,7 @@ public class GameMachine
 			teamAlpha.addGameHero(playerTwo);
 			
 			teamCharlie.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2));
-			teamCharlie.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 3));
+			teamDelta.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 3));
 			teamCharlie.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4));
 			teamFoxtrot.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 5));
 			teamGolf.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 6));

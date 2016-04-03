@@ -57,24 +57,21 @@ v	ProjectileAimer works with priority queue (shurikens aim at player>items?)(aim
 v	Create static HUD
 t	Improve camera's algorithm (zoom in/out)
 t	Identify body part hit by shuriken
-	Rope hook gameItem's collision (grab item?)
-
-	HeroFrag becomes FragStatistics and has a vector of frags
--	NinjaRope (REFACTOR add draw texture)
-	v After hook attachement
-	- Before hook attachement
-	- Shuriken cuts the rope
-	
+t	NinjaRope (REFACTOR add draw texture)	
 t	Timer registering event (warnInSeconds(float seconds, Object value) (enumeration?)
-	FragMessageEvent (mediator)
-	HudView zoom
+t	FragMessageEvent (mediator)
+t	HudView zoom
+x	HeroFrag becomes FragStatistics and has a vector of frags
+t	FragStatistics: totalShoots, deaths, kills, suicides
+	Rope hook gameItem's collision (grab item?)
+	Respawn after 5 seconds of death
+	Blink when has just spawned
+	Projectile direction through right analogic stick
 
 ShurikenBomb
 RayCastAnythingBut....
 
 RoundPropertiesState (given to RoundGameStateConstructos. Has: deathmatch or teammatch, numMaxShurikens, maxTime, itemsAvailable, friendlyFire, scene, goalScore...)
-Every GameHero object instantiates it's own frag statistics... At the end of each round, that fragStatistics is read by the team...
-FragStatistics: totalShoots, deaths, kills, suicides
 
 ?? StateFile refactoring (enable and disable animations at runtime) AnimationFile refactoring
 ?? SmokeBomb refactoring (real particles system)
@@ -83,5 +80,5 @@ FragStatistics: totalShoots, deaths, kills, suicides
 Think about what to do: action+wallgrab; action+ducking
 SmokeBomb as shader (that's harder than what I thought)
 
-	Start playing with GUI (http://www.programcreek.com/java-api-examples/index.php?source_dir=java-jumpandrun-dev-master/core/src/main/java/de/secondsystem/game01/impl/game/entities/GameEntity.java)
+Start playing with GUI (http://www.programcreek.com/java-api-examples/index.php?source_dir=java-jumpandrun-dev-master/core/src/main/java/de/secondsystem/game01/impl/game/entities/GameEntity.java)
 	

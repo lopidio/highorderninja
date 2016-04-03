@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sceneryFile>
+	<backgroundColor r="200.0" g="200.0" b="250.0" a="255.0" />
+	<boundariesTollerance>
+		<left>500.0</left>
+		<top>500.0</top>
+		<width>500.0</width>
+		<height>500.0</height>
+	</boundariesTollerance>
+	<sceneryShapes>
+		<!--        <circles damagePerSecond="10.0" textureName="fire-textures.jpg">
+            <center>
+                <x>1100.0</x>
+                <y>200.0</y>
+            </center>
+            <radius>50.0</radius>
+        </circles>
+        <triangles textureName="darkStoneTexture.jpg">
+            <pointA>
+                <x>500.0</x>
+                <y>120.0</y>
+            </pointA>
+            <pointB>
+                <x>660.0</x>
+                <y>120.0</y>
+            </pointB>
+            <pointC>
+                <x>580.0</x>
+                <y>150.0</y>
+            </pointC>
+        </triangles>
+        <rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+            <center>
+                <x>480.0</x>
+                <y>760.0</y>
+            </center>
+            <halfDimension>
+                <x>1080</x>
+                <y>20.0</y>
+            </halfDimension>
+        </rectangles>
+		-->
+		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+			<!-- 1 -->
+			<center>
+				<x>0.0</x>
+				<y>-600.0</y>
+			</center>
+			<halfDimension>
+				<x>500</x>
+				<y>100</y>
+			</halfDimension>
+		</rectangles>		
+		<triangles textureName="darkStoneTexture.jpg">
+			<!-- 2 -->
+			<pointA>
+				<x>500.0</x>
+				<y>-500.0</y>
+			</pointA>
+			<pointB>
+				<x>500.0</x>
+				<y>-700.0</y>
+			</pointB>
+			<pointC>
+				<x>730.0</x>
+				<y>-200.0</y>
+			</pointC>
+		</triangles>
+		<triangles textureName="darkStoneTexture.jpg">
+			<!-- 3 -->
+			<pointA>
+				<x>500.0</x>
+				<y>-700.0</y>
+			</pointA>
+			<pointB>
+				<x>930.0</x>
+				<y>-200.0</y>
+			</pointB>
+			<pointC>
+				<x>730.0</x>
+				<y>-200.0</y>
+			</pointC>
+		</triangles>
+		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+			<!-- 4 -->
+			<center>
+				<x>830</x>
+				<y>0</y>
+			</center>
+			<halfDimension>
+				<x>100.0</x>
+				<y>200.0</y>
+			</halfDimension>
+		</rectangles>		
+		<triangles textureName="darkStoneTexture.jpg">
+			<!-- 5 -->
+			<pointA>
+				<x>500.0</x>
+				<y>500.0</y>
+			</pointA>
+			<pointB>
+				<x>500.0</x>
+				<y>700.0</y>
+			</pointB>
+			<pointC>
+				<x>730.0</x>
+				<y>200.0</y>
+			</pointC>
+		</triangles>
+		<triangles textureName="darkStoneTexture.jpg">
+			<!-- 6 -->
+			<pointA>
+				<x>500.0</x>
+				<y>700.0</y>
+			</pointA>
+			<pointB>
+				<x>930.0</x>
+				<y>200.0</y>
+			</pointB>
+			<pointC>
+				<x>730.0</x>
+				<y>200.0</y>
+			</pointC>
+		</triangles>
+		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+			<!-- 7 -->
+			<center>
+				<x>0.0</x>
+				<y>600.0</y>
+			</center>
+			<halfDimension>
+				<x>500</x>
+				<y>100</y>
+			</halfDimension>
+		</rectangles>		
+		<triangles textureName="darkStoneTexture.jpg">
+			<!-- 8 -->
+			<pointA>
+				<x>-500.0</x>
+				<y>500.0</y>
+			</pointA>
+			<pointB>
+				<x>-500.0</x>
+				<y>700.0</y>
+			</pointB>
+			<pointC>
+				<x>-730.0</x>
+				<y>200.0</y>
+			</pointC>
+		</triangles>
+		<triangles textureName="darkStoneTexture.jpg">
+			<!-- 9 -->
+			<pointA>
+				<x>-500.0</x>
+				<y>700.0</y>
+			</pointA>
+			<pointB>
+				<x>-930.0</x>
+				<y>200.0</y>
+			</pointB>
+			<pointC>
+				<x>-730.0</x>
+				<y>200.0</y>
+			</pointC>
+		</triangles>
+		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+			<!-- 10 -->
+			<center>
+				<x>-830.0</x>
+				<y>0</y>
+			</center>
+			<halfDimension>
+				<x>100.0</x>
+				<y>200.0</y>
+			</halfDimension>
+		</rectangles>		
+		<triangles textureName="darkStoneTexture.jpg">
+			<!-- 11 -->
+			<pointA>
+				<x>-500.0</x>
+				<y>-500.0</y>
+			</pointA>
+			<pointB>
+				<x>-500.0</x>
+				<y>-700.0</y>
+			</pointB>
+			<pointC>
+				<x>-730.0</x>
+				<y>-200.0</y>
+			</pointC>
+		</triangles>
+		<triangles textureName="darkStoneTexture.jpg">
+			<!-- 12 -->
+			<pointA>
+				<x>-500.0</x>
+				<y>-700.0</y>
+			</pointA>
+			<pointB>
+				<x>-930.0</x>
+				<y>-200.0</y>
+			</pointB>
+			<pointC>
+				<x>-730.0</x>
+				<y>-200.0</y>
+			</pointC>
+		</triangles>
+		<rectangles textureName="darkStoneTexture.jpg">
+			<!-- 13 -->
+			<center>
+				<x>0.0</x>
+				<y>-200</y>
+			</center>
+			<halfDimension>
+				<x>300.0</x>
+				<y>30.0</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="darkStoneTexture.jpg">
+			<!-- 14 -->
+			<center>
+				<x>0.0</x>
+				<y>200</y>
+			</center>
+			<halfDimension>
+				<x>300.0</x>
+				<y>30.0</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+			<!-- 15 -->
+			<center>
+				<x>0.0</x>
+				<y>435.0</y>
+			</center>
+			<halfDimension>
+				<x>200</x>
+				<y>30</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="darkStoneTexture.jpg">
+			<!-- 16 -->
+			<center>
+				<x>-680.0</x>
+				<y>0</y>
+			</center>
+			<halfDimension>
+				<x>50.0</x>
+				<y>30.0</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="darkStoneTexture.jpg">
+			<!-- 17 -->
+			<center>
+				<x>680.0</x>
+				<y>0</y>
+			</center>
+			<halfDimension>
+				<x>50.0</x>
+				<y>30.0</y>
+			</halfDimension>
+		</rectangles>		
+
+	</sceneryShapes>
+	<spawnPoints>
+		<point>
+			<x>-680.0</x>
+			<y>-70</y>
+		</point>
+		<point>
+			<x>680.0</x>
+			<y>-70</y>
+		</point>
+		<point>
+			<x>0.0</x>
+			<y>70</y>
+		</point>
+		<point>
+			<x>200.0</x>
+			<y>70</y>
+		</point>
+		<point>
+			<x>-200.0</x>
+			<y>70</y>
+		</point>
+		<point>
+			<x>0.0</x>
+			<y>-270</y>
+		</point>
+		<point>
+			<x>200.0</x>
+			<y>-270</y>
+		</point>
+		<point>
+			<x>-200.0</x>
+			<y>-270</y>
+		</point>
+
+	</spawnPoints>
+	<itemSpots>
+		<spot>
+			<x>00.0</x>
+			<y>0.0</y>
+		</spot>
+		<spot>
+			<x>-600.0</x>
+			<y>20.0</y>
+		</spot>
+		<spot>
+			<x>600.0</x>
+			<y>20.0</y>
+		</spot>
+		<spot>
+			<x>00.0</x>
+			<y>480.0</y>
+		</spot>
+		<spot>
+			<x>-50.0</x>
+			<y>480.0</y>
+		</spot>
+		<spot>
+			<x>50.0</x>
+			<y>480.0</y>
+		</spot>
+		<spot>
+			<x>-150.0</x>
+			<y>480.0</y>
+		</spot>
+		<spot>
+			<x>150.0</x>
+			<y>480.0</y>
+		</spot>
+	</itemSpots>
+	<backgroundFile>
+		<!--        <backgroundItems regenerate="false" textureFilename="backGroundTexture.png">
+            <animationProperties horizontal="true">
+                <numFrames>1</numFrames>
+                <numEntranceFrames>0</numEntranceFrames>
+                <secondsPerFrame>12.0</secondsPerFrame>
+                <textureSpriteRect>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>1500</width>
+                    <height>1000</height>
+                </textureSpriteRect>
+            </animationProperties>
+            <speed>
+                <x>0.0</x>
+                <y>0.0</y>
+            </speed>
+            <origin>
+                <x>750</x>
+                <y>500</y>
+            </origin>
+            <distanceFromCamera>1000.0</distanceFromCamera>
+        </backgroundItems> -->
+		<backgroundItems regenerate="false" textureFilename="backGroundItems.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>0</top>
+					<width>160</width>
+					<height>160</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<speed>
+				<x>0.01</x>
+				<y>0.0</y>
+			</speed>
+			<origin>
+				<x>800.0</x>
+				<y>100.0</y>
+			</origin>
+			<distanceFromCamera>100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="true" textureFilename="backGroundItems.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>160</left>
+					<top>0</top>
+					<width>600</width>
+					<height>200</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<speed>
+				<x>-0.15</x>
+				<y>0.0</y>
+			</speed>
+			<origin>
+				<x>1200.0</x>
+				<y>200.0</y>
+			</origin>
+			<distanceFromCamera>90.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="true" textureFilename="backGroundItems.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>230</top>
+					<width>400</width>
+					<height>400</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<regenerationInterval>20</regenerationInterval>
+			<speed>
+				<x>0.10</x>
+				<y>0.0</y>
+			</speed>
+			<origin>
+				<x>100.0</x>
+				<y>150.0</y>
+			</origin>
+			<distanceFromCamera>80.0</distanceFromCamera>
+		</backgroundItems>
+	</backgroundFile>
+</sceneryFile>
