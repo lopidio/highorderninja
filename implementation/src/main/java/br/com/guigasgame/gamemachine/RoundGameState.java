@@ -29,7 +29,11 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundAttributes;
+import br.com.guigasgame.round.hud.RoundHudSkin;
 import br.com.guigasgame.round.hud.controller.RoundHudController;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesMovingHudController;
+import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
+import br.com.guigasgame.round.hud.fix.TeamFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TimerStaticHud;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.team.HeroTeam;
@@ -65,9 +69,9 @@ public class RoundGameState implements GameState
 		scenery.onEnter();
 		
 		
-		hudController = new RoundHudController(roundAttributes.getHudPositioner());
-		
-		TimerStaticHud timerStaticHud = roundAttributes.createTimerHud();
+		RoundHudSkin hudSkin = roundAttributes.getHudSkin();
+		hudController = new RoundHudController(hudSkin.getIdealView());
+		TimerStaticHud timerStaticHud = hudSkin.createTimerStaticHud(roundAttributes.getTotalTime());
 		timerStaticHud.setupTimerEvent(timerEventsController, roundAttributes);
 		hudController.addStaticHud(timerStaticHud);
 
@@ -77,20 +81,30 @@ public class RoundGameState implements GameState
 	
 	private void initializeHeros(SceneController scenery, RoundAttributes roundAttributes)
 	{
+		final RoundHudSkin hudSkin = roundAttributes.getHudSkin();
 		for( HeroTeam team : roundAttributes.getTeams() )
 		{
 			team.setFriendlyFire(true);
-			List<PlayableHeroDefinition> heros = team.getHerosList();
-			hudController.addTeamHud(team);
+			final List<PlayableHeroDefinition> heros = team.getHerosList();
+			TeamFragStatisticHud teamFragStatisticHud = null;
+//			if (heros.size() > 0)
+			{
+				teamFragStatisticHud = hudSkin.createTeamFragHud(team);
+				hudController.addStaticHud(teamFragStatisticHud);
+			}
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
 				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());
-				PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
+				final PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
+				final HeroFragStatisticHud heroFragStatisticHud = hudSkin.createHeroFragHud(gameHero);
+
+				HeroAttributesMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
+				//--------
+				hudController.addDynamicHud(attributesMovingHudController);
 				gameHero.setupTimeEvents(timerEventsController);
-
 				gameHero.spawn(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
-				hudController.addHeroHud(gameHero);
 
+				teamFragStatisticHud.addHeroFragHud(heroFragStatisticHud);
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addObjectToFollow(gameHero);
 			}
@@ -117,7 +131,7 @@ public class RoundGameState implements GameState
 //		sfmlDebugDraw.appendFlags(DebugDraw.e_pairBit);
 		sfmlDebugDraw.appendFlags(DebugDraw.e_shapeBit);
         cameraController.setViewSize(renderWindow.getSize());
-        hudController.setViewSize(renderWindow.getSize());
+//        hudController.setViewSize(renderWindow.getSize());
 	}
 	
 
@@ -172,7 +186,7 @@ public class RoundGameState implements GameState
 	        FloatRect visibleArea = new FloatRect(0, 0, event.asSizeEvent().size.x, event.asSizeEvent().size.y);
 	        renderWindow.setView(new View(visibleArea));
 	        cameraController.setViewSize(renderWindow.getSize());
-	        hudController.setViewSize(renderWindow.getSize());
+//	        hudController.setViewSize(renderWindow.getSize());
 	    }
 	}
 

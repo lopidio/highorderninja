@@ -362,26 +362,21 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void deadlySceneryHit(float damage)
 	{
-		heroAttributes.getLife().decrement(damage);
-		if (heroAttributes.getLife().getCurrentValue() <= 0)
-		{
-			suicide();
-		}
-	}
-
-	private void suicide()
-	{
 		if (!playerIsDead)
 		{
-			FragEventMessenger.getInstance().fireEvent(this, FragEventIndex.SUICIDE);
-			die();
+			heroAttributes.getLife().decrement(damage);
+			if (heroAttributes.getLife().getCurrentValue() <= 0)
+			{
+				FragEventMessenger.getInstance().fireEvent(this, FragEventIndex.SUICIDE);
+			}
 		}
 	}
 
 	@Override
 	protected void gotOutOfScenery()
 	{
-		suicide();
+		FragEventMessenger.getInstance().fireEvent(this, FragEventIndex.SUICIDE);
+		die();
 	}
 
 	@Override

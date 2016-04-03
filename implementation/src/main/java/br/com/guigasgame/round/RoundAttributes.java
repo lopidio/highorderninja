@@ -3,9 +3,7 @@ package br.com.guigasgame.round;
 import java.util.List;
 
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
-import br.com.guigasgame.round.hud.RoundHudPositioner;
-import br.com.guigasgame.round.hud.fix.TextTimerHud;
-import br.com.guigasgame.round.hud.fix.TimerStaticHud;
+import br.com.guigasgame.round.hud.RoundHudSkin;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -17,15 +15,15 @@ public class RoundAttributes
 	private final List<HeroTeam> teams;
 	private final SceneryInitialize sceneryInitialize;
 	private final int totalTime;
-	private final RoundHudPositioner hudPositioner;
+	private final RoundHudSkin hudSkin;
 
-	public RoundAttributes(RoundHeroAttributes heroAttributes, List<HeroTeam> teams, SceneryInitialize sceneryInitialize, int totalTime, RoundHudPositioner hudPositioner)
+	public RoundAttributes(RoundHeroAttributes heroAttributes, List<HeroTeam> teams, SceneryInitialize sceneryInitialize, int totalTime, RoundHudSkin hudPositioner)
 	{
 		this.heroAttributes = heroAttributes;
 		this.teams = teams;
 		this.sceneryInitialize = sceneryInitialize;
 		this.totalTime = totalTime;
-		this.hudPositioner = hudPositioner;
+		this.hudSkin = hudPositioner;
 	}
 
 	public RoundHeroAttributes getHeroAttributes()
@@ -48,14 +46,9 @@ public class RoundAttributes
 		return totalTime;
 	}
 
-	public RoundHudPositioner getHudPositioner()
+	public RoundHudSkin getHudSkin()
 	{
-		return hudPositioner;
-	}
-
-	public TimerStaticHud createTimerHud()
-	{
-		return new TextTimerHud(hudPositioner.getReverseTimeCounterPosition(), totalTime);
+		return hudSkin;
 	}
 
 }

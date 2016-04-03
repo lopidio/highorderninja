@@ -19,9 +19,9 @@ public class HeroTeam
 	private boolean friendlyFire;
 
 	private List<PlayableHeroDefinition> herosList;
-	private TeamsIndex teamIndex;
+	private TeamIndex teamIndex;
 
-	public HeroTeam(TeamsIndex name) throws Exception
+	public HeroTeam(TeamIndex name) throws Exception
 	{
 		this.teamIndex = name;
 		teamMask = new IntegerMask();

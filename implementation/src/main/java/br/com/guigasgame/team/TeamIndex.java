@@ -2,18 +2,18 @@ package br.com.guigasgame.team;
 
 import br.com.guigasgame.color.ColorBlender;
 
-public enum TeamsIndex
+public enum TeamIndex
 {
 	//	private static final int NUM_MAX_TEAMS = 4; 
 
-	ALPHA(getNextId(),		"Buscuinders"),
-	BRAVO(getNextId(),		"MedalMedal"),
-	CHARLIE(getNextId(),	"Pajjaguaios"),
-	DELTA(getNextId(),		"Perceptors"),
-	ECHO(getNextId(),		"TitithoChasers"),
-	FOXTROT(getNextId(),	"OdoPalmares"),
-	GOLF(getNextId(),		"LuizDawson"),
-	HOTEL(getNextId(),		"Lawenznilson");
+	ALPHA(getNextId(),		"Buscuindas"),
+	BRAVO(getNextId(),		"MedaMedal"),
+	CHARLIE(getNextId(),	"Pajaguayo"),
+	DELTA(getNextId(),		"Persepi"),
+	ECHO(getNextId(),		"TtitoChase"),
+	FOXTROT(getNextId(),	"XuxuLover"),
+	GOLF(getNextId(),		"RyCost"),
+	HOTEL(getNextId(),		"BroqenDors");
 
 	private static int idsUsed = 0;
 	private int id;
@@ -24,7 +24,7 @@ public enum TeamsIndex
 		return idsUsed++;
 	}
 
-	private TeamsIndex(int id, String name)
+	private TeamIndex(int id, String name)
 	{
 		this.id = id;
 		this.name = name;

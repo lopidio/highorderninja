@@ -85,6 +85,7 @@ public class FragStatistic implements FragEventListener
 	@Override
 	public void receiveEvent(FragEventWrapper eventWrapper)
 	{
+		System.out.println(eventWrapper.getFragEventIndex());
 		checkImOwner(eventWrapper);
 		checkImOther(eventWrapper);
 		notifyListeners();

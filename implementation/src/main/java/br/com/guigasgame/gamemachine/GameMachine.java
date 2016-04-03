@@ -23,11 +23,11 @@ import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.round.RoundAttributes;
-import br.com.guigasgame.round.hud.RoundHudDefaultPositioner;
+import br.com.guigasgame.round.hud.RoundHudTopSkin;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
-import br.com.guigasgame.team.TeamsIndex;
+import br.com.guigasgame.team.TeamIndex;
 
 
 public class GameMachine
@@ -57,7 +57,7 @@ public class GameMachine
 		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 20, new RoundHudDefaultPositioner(renderWindow.getSize(), teams.size()));
+		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 20, new RoundHudTopSkin(renderWindow.getSize(), teams.size()));
 		RoundGameState roundGameState = new RoundGameState(roundAttributes);
 		return roundGameState;
 	}
@@ -83,16 +83,16 @@ public class GameMachine
 		try
 		{
 			List<HeroTeam> teams = new ArrayList<>();
-			HeroTeam teamAlpha = new HeroTeam(TeamsIndex.ALPHA);
-			HeroTeam teamBravo = new HeroTeam(TeamsIndex.BRAVO);
-			HeroTeam teamCharlie = new HeroTeam(TeamsIndex.CHARLIE);
-			HeroTeam teamDelta = new HeroTeam(TeamsIndex.DELTA);
+			HeroTeam teamAlpha = new HeroTeam(TeamIndex.ALPHA);
+			HeroTeam teamBravo = new HeroTeam(TeamIndex.BRAVO);
+			HeroTeam teamCharlie = new HeroTeam(TeamIndex.CHARLIE);
+			HeroTeam teamDelta = new HeroTeam(TeamIndex.DELTA);
 			
 			
-			HeroTeam teamEcho = new HeroTeam(TeamsIndex.ECHO);
-			HeroTeam teamFoxtrot = new HeroTeam(TeamsIndex.FOXTROT);
-			HeroTeam teamGolf = new HeroTeam(TeamsIndex.GOLF);
-			HeroTeam teamHotel = new HeroTeam(TeamsIndex.HOTEL);
+			HeroTeam teamEcho = new HeroTeam(TeamIndex.ECHO);
+			HeroTeam teamFoxtrot = new HeroTeam(TeamIndex.FOXTROT);
+			HeroTeam teamGolf = new HeroTeam(TeamIndex.GOLF);
+			HeroTeam teamHotel = new HeroTeam(TeamIndex.HOTEL);
 			
 			PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
 			teamAlpha.addGameHero(playerOne);
@@ -100,13 +100,9 @@ public class GameMachine
 			PlayableHeroDefinition playerTwo = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 1);
 			teamAlpha.addGameHero(playerTwo);
 			
-			PlayableHeroDefinition playerThree = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2);
-			teamCharlie.addGameHero(playerThree);
-			
-			PlayableHeroDefinition playerFive = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 3);
-			teamDelta.addGameHero(playerFive);
-
-			teamEcho.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4));
+			teamCharlie.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2));
+			teamCharlie.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 3));
+			teamCharlie.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4));
 			teamFoxtrot.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 5));
 			teamGolf.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 6));
 			teamHotel.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 7));
@@ -165,6 +161,10 @@ public class GameMachine
 			}
 
 		});
+//		for( VideoMode videoMode : modes )
+//		{
+//			System.out.println(videoMode);
+//		}
 		final VideoMode best = modes[modes.length - 1];
 //		final VideoMode worst = modes[4];
 
