@@ -57,7 +57,7 @@ public class GameMachine
 		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 20, new RoundHudTopSkin(renderWindow.getSize(), teams.size()));
+		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 20, new RoundHudTopSkin());
 		RoundGameState roundGameState = new RoundGameState(roundAttributes);
 		return roundGameState;
 	}
@@ -168,8 +168,8 @@ public class GameMachine
 		final VideoMode best = modes[modes.length - 1];
 //		final VideoMode worst = modes[4];
 
-		renderWindow = new RenderWindow(best, "High order ninja");//, Window.FULLSCREEN);  //Window.TRANSPARENT
-//		renderWindow = new RenderWindow(worst, "High order ninja");//, Window.FULLSCREEN);  //Window.TRANSPARENT
+		renderWindow = new RenderWindow(best, "High Order Ninja");//, Window.FULLSCREEN);  //Window.TRANSPARENT
+//		renderWindow = new RenderWindow(worst, "High Order Ninja");//, Window.FULLSCREEN);  //Window.TRANSPARENT
 		renderWindow.setFramerateLimit(FRAME_RATE);
 		renderWindow.setVerticalSyncEnabled(true);
 		renderWindow.setMouseCursorVisible(false);

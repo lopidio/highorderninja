@@ -93,19 +93,20 @@ public class FragStatistic implements FragEventListener
 
 	private void checkImOwner(FragEventWrapper eventWrapper)
 	{
-		final int eventOwnerId = eventWrapper.getMyId();
-		if (eventOwnerId == id)
+		if (eventWrapper.getMyId() == id || id == eventWrapper.getMyTeamId())
 		{
 			switch (eventWrapper.getFragEventIndex())
 			{
 				case KILL:
-					++kills;
+					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
+						++kills;
 					break;
 				case SHOOT:
-					++shoots;
+						++shoots;
 					break;
 				case SHOOT_ON_TARGET:
-					++shootsOnTarget;
+					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
+						++shootsOnTarget;
 					break;
 				case SUICIDE:
 					++deaths;
@@ -119,16 +120,16 @@ public class FragStatistic implements FragEventListener
 	
 	private void checkImOther(FragEventWrapper eventWrapper)
 	{
-		final int eventOtherId = eventWrapper.getOtherId();
-		if (eventOtherId == id)
+		if (eventWrapper.getOtherId() == id || id == eventWrapper.getOtherTeamId())
 		{
 			switch (eventWrapper.getFragEventIndex())
 			{
 				case KILL:
-					++deaths;
+						++deaths;
 					break;
 				case SHOOT_ON_TARGET:
-					++hitAsTarget;
+					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
+						++hitAsTarget;
 					break;
 				default:
 					break;

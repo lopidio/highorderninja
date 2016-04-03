@@ -51,37 +51,38 @@ public class FragEventMessenger
 	
 	private void dispatchEvent(PlayableGameHero me, FragEventIndex fragEventIndex, PlayableGameHero other)
 	{
-		dispatchToTeamListeners(me, fragEventIndex, other);
-		dispatchToHeroListeners(me, fragEventIndex, other);
+		final int myHeroID = me.getHeroProperties().getPlayerId();
+		final int myTeamID = me.getHeroProperties().getHeroTeam().getTeamId();
+		int otherHeroId = -1;
+		int otherTeamId = -1;
+		if (other != null)
+		{
+			otherHeroId = other.getHeroProperties().getPlayerId();
+			otherTeamId = other.getHeroProperties().getHeroTeam().getTeamId();
+		}
+		FragEventWrapper eventWrapper = new FragEventWrapper(myHeroID, myTeamID, otherHeroId, otherTeamId, fragEventIndex);
+		
+		dispatchToTeamListeners(eventWrapper);
+		dispatchToHeroListeners(eventWrapper);
 	}
 
-	private void dispatchToHeroListeners(PlayableGameHero me, FragEventIndex fragEventIndex, PlayableGameHero other)
+	private void dispatchToHeroListeners(FragEventWrapper wrapper)
 	{
-		final int myID = me.getHeroProperties().getPlayerId();
-		int otherId = -1;
-		if (other != null)
-			otherId = other.getHeroProperties().getPlayerId();
-		
 		for( Entry<PlayableGameHero, FragEventListener> entry : heroListeners.entrySet() )
 		{
-			final int eventPlayerId = entry.getKey().getHeroProperties().getPlayerId();
-			if (eventPlayerId == myID || eventPlayerId == otherId)
-				entry.getValue().receiveEvent(new FragEventWrapper(myID, otherId, fragEventIndex));
+			final int myPlayerId = entry.getKey().getHeroProperties().getPlayerId();
+			if (myPlayerId == wrapper.getMyId() || myPlayerId == wrapper.getOtherId())
+				entry.getValue().receiveEvent(wrapper);
 		}
 	}
 
-	private void dispatchToTeamListeners(PlayableGameHero me, FragEventIndex fragEventIndex, PlayableGameHero other)
+	private void dispatchToTeamListeners(FragEventWrapper wrapper)
 	{
-		final int myTeamID = me.getHeroProperties().getHeroTeam().getTeamId();
-		int otherTeamId = -1;
-		if (other != null)
-			otherTeamId = other.getHeroProperties().getHeroTeam().getTeamId();
-		
 		for( Entry<HeroTeam, FragEventListener> entry : teamListeners.entrySet() )
 		{
-			final int eventTeamId = entry.getKey().getTeamId();
-			if (eventTeamId == myTeamID || eventTeamId == otherTeamId)
-				entry.getValue().receiveEvent(new FragEventWrapper(myTeamID, otherTeamId, fragEventIndex));
+			final int myTeamId = entry.getKey().getTeamId();
+			if (myTeamId == wrapper.getMyTeamId() || myTeamId == wrapper.getOtherTeamId())
+				entry.getValue().receiveEvent(wrapper);
 		}
 	}
 	

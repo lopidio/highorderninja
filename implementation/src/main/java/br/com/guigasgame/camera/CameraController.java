@@ -27,7 +27,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	private static final float ZOOM_OUT_FACTOR = 1.01f;
 	private static final float ZOOM_IN_FACTOR = 0.99f;
 	private static final float CENTER_MOVING_DURING = 0.2f;
-	private static final Vector2f CENTER_OFFSET = new Vector2f(0, -40);
+	private static final Vector2f CENTER_OFFSET = new Vector2f(0, -30);
 	
 	private List<CameraFollowable> objectsToFollow;
 	private View view;

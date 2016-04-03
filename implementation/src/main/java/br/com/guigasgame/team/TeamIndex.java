@@ -9,10 +9,10 @@ public enum TeamIndex
 	ALPHA(getNextId(),		"Buscuindas"),
 	BRAVO(getNextId(),		"MedaMedal"),
 	CHARLIE(getNextId(),	"Pajaguayo"),
-	DELTA(getNextId(),		"Persepi"),
+	DELTA(getNextId(),		"Persebi"),
 	ECHO(getNextId(),		"TtitoChase"),
 	FOXTROT(getNextId(),	"XuxuLover"),
-	GOLF(getNextId(),		"RyCost"),
+	GOLF(getNextId(),		"RuyCost"),
 	HOTEL(getNextId(),		"BroqenDors");
 
 	private static int idsUsed = 0;

@@ -57,10 +57,10 @@ public class TeamFragStatisticHud extends HudObject implements FragStatisticList
 	{
 		final Font font = FontResourceManager.getInstance().getResource(FilenameConstants.getFragStatistcsFontFilename());
 		final Text title = new Text();
-		title.setStyle(Text.BOLD);
-		title.setStyle(Text.UNDERLINED);
+//		title.setStyle(Text.BOLD);
+//		title.setStyle(Text.UNDERLINED);
 		title.setColor(color.makeTranslucid(0.9f).lighten(2).getSfmlColor());
-		title.setCharacterSize(20);
+		title.setCharacterSize(30);
 		title.setFont(font);
 		title.setString(name);
 		title.setPosition(position);
@@ -71,22 +71,29 @@ public class TeamFragStatisticHud extends HudObject implements FragStatisticList
 
 	private void adjustTitleSize()
 	{
+		//http://en.sfml-dev.org/forums/index.php?topic=8413.0
+		/*
+		- declare your sf::Text with its string
+		- compute its total size (getLocalBounds)
+		- compute the ratio desired_size / actual_size
+		- multiply the character size by this ratio
+		- since the character size is an integer, if you want an exact match you'll need to adjust the scale factor too:
+		-- compute the new size of the text (getLocalBounds)
+		-- compute the ratio desired_size / actual_size
+		-- set it as the scale factor of the text (setScale)
+		 */
+		
 		// Get the size of the text
 		final FloatRect bounds = title.getLocalBounds();
-
-		// The text still has too fit inside the area
-		if (bounds.width > rectangleShape.getSize().x)
-		{
-		    // Adjust the text size
-		    title.setCharacterSize((int) (rectangleShape.getSize().x*title.getLocalBounds().height / bounds.width));
-		}
+		final float ratio = rectangleShape.getSize().x/bounds.width;
+		title.setCharacterSize((int) (title.getCharacterSize()*ratio));
 	}
 
 	private static RectangleShape initializeRectangle(Vector2f position, ColorBlender color)
 	{
 		final RectangleShape rectangle = new RectangleShape();
 		rectangle.setPosition(position);
-		rectangle.setFillColor(color.makeTranslucid(1.5f).darken(2).getSfmlColor());
+		rectangle.setFillColor(color.makeTranslucid(2.5f).darken(2).getSfmlColor());
 		rectangle.setOutlineColor(color.makeTranslucid(1.5f).darken(10).getSfmlColor());
 		rectangle.setOutlineThickness(3);
 		rectangle.setSize(new Vector2f(150, 50));

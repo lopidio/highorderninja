@@ -21,10 +21,10 @@ public class RoundHudTopSkin implements RoundHudSkin
 	private final int numTeams;
 	
 	
-	public RoundHudTopSkin(Vector2i viewSize, int numTeams)
+	public RoundHudTopSkin()
 	{
 		this.viewSize = new Vector2i(1600,  900);
-		this.numTeams = numTeams;
+		this.numTeams = 8;
 	}
 	
 	@Override
