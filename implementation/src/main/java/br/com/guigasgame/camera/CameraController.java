@@ -27,6 +27,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	private static final float ZOOM_OUT_FACTOR = 1.01f;
 	private static final float ZOOM_IN_FACTOR = 0.99f;
 	private static final float CENTER_MOVING_DURING = 0.2f;
+	private static final Vector2f CENTER_OFFSET = new Vector2f(0, -40);
 	
 	private List<CameraFollowable> objectsToFollow;
 	private View view;
@@ -65,11 +66,11 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		
 
 		final Vector2f focusCenter = centerFrame.getCenter();
-		innerFrame.setPosition(focusCenter);
-		outterFrame.setPosition(focusCenter);
-		centerInterpolator.interpolateTo(focusCenter);
+		innerFrame.setPosition(Vector2f.add(focusCenter, CENTER_OFFSET));
+		outterFrame.setPosition(Vector2f.add(focusCenter, CENTER_OFFSET));
+		centerInterpolator.interpolateTo(Vector2f.add(focusCenter, CENTER_OFFSET));
 		centerInterpolator.update(deltaTime);
-		view.setCenter(centerInterpolator.getCurrent());		
+		view.setCenter(Vector2f.add(centerInterpolator.getCurrent(), CENTER_OFFSET));		
 
 	}
 	
