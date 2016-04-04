@@ -1,6 +1,7 @@
 package br.com.guigasgame.file;
 
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
+import br.com.guigasgame.math.Randomizer;
 
 
 public class FilenameConstants
@@ -63,7 +64,9 @@ public class FilenameConstants
 
 	public static String getSceneryFilename()
 	{
-		return "alternativeScene.xml";//"proScene.xml";
+		if (Randomizer.getRandomIntInInterval(0, 1)%2 == 0)
+			return "alternativeScene.xml";
+		return "proScene.xml";
 	}
 
 	public static String getItemsPropertiesFilename()

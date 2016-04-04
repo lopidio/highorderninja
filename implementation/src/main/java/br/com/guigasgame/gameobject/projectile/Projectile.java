@@ -59,6 +59,7 @@ public abstract class Projectile extends GameObject
 		targetPriorityQueue = new ArrayList<>();
 		
 		animationList = new ArrayList<>();
+		animation.setPosition(WorldConstants.physicsToSfmlCoordinates(position));
 		animationList.add(animation);
 		drawableList.addAll(animationList);
 		setAnimationsColor(gameHero.getHeroProperties().getColor().darken(2));

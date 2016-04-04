@@ -37,15 +37,16 @@ public abstract class GameItem extends GameObject
 
 		lifeTime = properties.lifeTime;
 
-		initializeAnimation();
+		initializeAnimation(position);
 
 	}
 
-	private void initializeAnimation()
+	private void initializeAnimation(Vec2 position)
 	{
 		Animation animation = Animation.createAnimation(AnimationsCentralPool.getGameItemsAnimationRepository().getAnimationsProperties(index));
 		animation.scale(new Vector2f(properties.size.getX()/animation.getWidth(), 
 				properties.size.getY()/animation.getHeight()));
+		animation.setPosition(WorldConstants.physicsToSfmlCoordinates(position));
 		drawableList.add(animation);
 	}
 
