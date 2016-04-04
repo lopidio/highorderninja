@@ -36,8 +36,6 @@ public class CameraCenterFrame implements UpdatableFromTime
 		boolean foundFirst = false;
 		for( int i = 0; i < objectsToFollow.size(); ++i)
 		{
-			if (objectsToFollow.get(i).isTrackeable())
-			{
 				Vector2f point = WorldConstants.physicsToSfmlCoordinates(objectsToFollow.get(i).getPosition());
 				if (!foundFirst)
 				{
@@ -68,7 +66,6 @@ public class CameraCenterFrame implements UpdatableFromTime
 					frame.height += frame.top - point.y;
 					frame.top = point.y;
 				}
-			}
 		}
 	}
 

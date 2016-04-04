@@ -392,12 +392,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	}
 
 	@Override
-	public boolean isTrackeable()
-	{
-		return !playerIsDead;
-	}
-
-	@Override
 	public void receiveTimeEvent(Object value)
 	{
 		TimeEvent event = (TimeEvent) value;

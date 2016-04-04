@@ -6,33 +6,46 @@ import java.util.List;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
+import br.com.guigasgame.gameobject.hero.playable.HeroDeathsListener;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.controller.HudObject;
 
-public abstract class HeroAttributesMovingHudController extends HudObject
+public abstract class HeroAttributesMovingHudController extends HudObject implements HeroDeathsListener
 {
 	protected PlayableGameHero gameHero;
 	protected List<HeroAttributeMovingHud> barsList;
+	private boolean enabled;
 	
 	public HeroAttributesMovingHudController(PlayableGameHero gameHero)
 	{
 		this.gameHero = gameHero;
 		barsList = new ArrayList<>();
+		enabled = true;
+	}
+	
+	@Override
+	public void playerHasDied(PlayableGameHero gameHero)
+	{
+		enabled = false;
+	}
+	
+	@Override
+	public void playerHasRespawn(PlayableGameHero gameHero)
+	{
+		enabled = true;		
 	}
 	
 	@Override
 	public void update(float deltaTime)
 	{
-		final Vector2f position = gameHero.getMassCenter();
-		if (gameHero.isMarkedToDestroy() || gameHero.isPlayerDead())
+		if (enabled)
 		{
-			System.out.println("Destroying HUD");
-			markToDestroy();
-		}
-		for( HeroAttributeMovingHud attributeBarBellowHud : barsList )
-		{
-			attributeBarBellowHud.updatePosition(position);
-			attributeBarBellowHud.update(deltaTime);
+			final Vector2f position = gameHero.getMassCenter();
+			for( HeroAttributeMovingHud attributeBarBellowHud : barsList )
+			{
+				attributeBarBellowHud.updatePosition(position);
+				attributeBarBellowHud.update(deltaTime);
+			}
 		}
 	}
 	
@@ -45,9 +58,12 @@ public abstract class HeroAttributesMovingHudController extends HudObject
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-		for( HeroAttributeMovingHud attributeBarBellowHud : barsList )
+		if (enabled)
 		{
-			attributeBarBellowHud.draw(renderWindow);
+			for( HeroAttributeMovingHud attributeBarBellowHud : barsList )
+			{
+				attributeBarBellowHud.draw(renderWindow);
+			}
 		}
 	}
 

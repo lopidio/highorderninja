@@ -106,12 +106,14 @@ public class RoundGameState implements GameState
 				roundType.setupTimeEvents(timerEventsController);
 
 				HeroAttributesMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
+				gameHero.addHeroDeathsListener(attributesMovingHudController);
+				gameHero.addHeroDeathsListener(cameraController);
 				//--------
 				hudController.addDynamicHud(attributesMovingHudController);
 				gameHero.spawn(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				teamFragStatisticHud.addHeroFragHud(heroFragStatisticHud);
 				initializeGameObject(Arrays.asList(gameHero));
-				cameraController.addObjectToFollow(gameHero);
+//				cameraController.addObjectToFollow(gameHero);
 			}
 		}
 	}
