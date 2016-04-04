@@ -1,38 +1,47 @@
 package br.com.guigasgame.round.type;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import br.com.guigasgame.team.HeroTeam;
+import br.com.guigasgame.frag.FragStatistic;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.time.TimerEventsController;
 
 
 public class DeathMatchRoundType implements RoundType
 {
 
-	private List<HeroTeam> teams;
-	private int deaths;
+	private final int deaths;
+	private TimerEventsController timerEventsController;
 
 	public DeathMatchRoundType(int deaths)
 	{
 		this.deaths = deaths;
-		teams = new ArrayList<>();
 	}
 
 	@Override
-	public boolean isRoundOver()
+	public void playerHasDied(PlayableGameHero gameHero)
 	{
-		for( HeroTeam heroTeam : teams )
+//		timerEventsController.addEventListener(gameHero, 5f, PlayableGameHero.TimeEvent.SPAWN);
+	}
+
+	@Override
+	public void setupTimeEvents(TimerEventsController timerEventsController)
+	{
+		this.timerEventsController = timerEventsController;
+	}
+
+	@Override
+	public void onChange(FragStatistic statistic)
+	{
+		if (statistic.getKills() >= deaths)
 		{
-			if (heroTeam.getFragCounter().getKills() >= deaths)
-				return true;
+			System.out.println("Arrá!!! CHUPA!");
 		}
-		return false;
 	}
 
 	@Override
-	public void addTeam(HeroTeam heroTeam)
+	public void playerHasRespawn(PlayableGameHero gameHero)
 	{
-		teams.add(heroTeam);
+		// TODO Auto-generated method stub
+		
 	}
 
 }

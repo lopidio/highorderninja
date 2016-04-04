@@ -231,6 +231,12 @@ public class CollidableHero extends Collidable
 			fixture.setRestitution(0.1f);
 		}
 	}
+	
+	public void respawn()
+	{
+		loadAndAttachFixturesToBody();
+	}
+
 
 	public Vec2 getGroundNormal()
 	{
@@ -247,7 +253,7 @@ public class CollidableHero extends Collidable
 				sensorsController.getController(FixtureSensorID.LEFT_TOP_SENSOR).isTouching();
 	}
 
-	public void setNetxtPosition(Vec2 position)
+	public void setNextPosition(Vec2 position)
 	{
 		bodyDef.position = position;
 	}

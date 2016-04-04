@@ -1,9 +1,10 @@
 package br.com.guigasgame.round.type;
 
-import br.com.guigasgame.team.HeroTeam;
+import br.com.guigasgame.frag.FragStatisticListener;
+import br.com.guigasgame.gameobject.hero.playable.HeroDeathsListener;
+import br.com.guigasgame.time.TimerEventsController;
 
-public interface RoundType
+public interface RoundType extends FragStatisticListener, HeroDeathsListener
 {
-	boolean isRoundOver();
-	void addTeam(HeroTeam team);
+	void setupTimeEvents(TimerEventsController timerEventsController);
 }

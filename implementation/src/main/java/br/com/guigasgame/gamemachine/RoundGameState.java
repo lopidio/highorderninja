@@ -92,22 +92,23 @@ public class RoundGameState implements GameState
 			TeamFragStatisticHud teamFragStatisticHud = null;
 //			if (heros.size() > 0)
 			{
-				roundType.addTeam(team);
 				teamFragStatisticHud = hudSkin.createTeamFragHud(team);
 				hudController.addStaticHud(teamFragStatisticHud);
+				team.getFragCounter().addListener(roundType);
 			}
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
 				gameHeroProperties.setHeroAttributes(roundProperties.getHeroAttributes().clone());
 				final PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
 				final HeroFragStatisticHud heroFragStatisticHud = hudSkin.createHeroFragHud(gameHero);
+				gameHero.addHeroDeathsListener(roundType);
+
+				roundType.setupTimeEvents(timerEventsController);
 
 				HeroAttributesMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
 				//--------
 				hudController.addDynamicHud(attributesMovingHudController);
-				gameHero.setupTimeEvents(timerEventsController);
 				gameHero.spawn(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
-
 				teamFragStatisticHud.addHeroFragHud(heroFragStatisticHud);
 				initializeGameObject(Arrays.asList(gameHero));
 				cameraController.addObjectToFollow(gameHero);
@@ -220,10 +221,6 @@ public class RoundGameState implements GameState
 	{
 		float updateTime = deltaTime * timeFactor;
 		updateObjects(updateTime);
-		if (roundType.isRoundOver())
-		{
-			System.out.println("Round should be over");
-		}
 	}
 
 	private void updateObjects(float updateTime)

@@ -27,7 +27,6 @@ import br.com.guigasgame.gameobject.projectile.rope.NinjaHookProjectile;
 import br.com.guigasgame.gameobject.projectile.shuriken.Shuriken;
 import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
-import br.com.guigasgame.time.TimerEventsController;
 import br.com.guigasgame.time.TimerEventsController.TimeListener;
 
 
@@ -35,22 +34,24 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 {
 	public enum TimeEvent
 	{
-		SPAWN_INVINCIBILITY_OVER
+		SPAWN_INVINCIBILITY_OVER,
+		SPAWN
 	}
 	
 	private Side forwardSide;
-	private List<GameHeroAction> actionList;
-	private CollidableHero collidableHero;
+	private final List<GameHeroAction> actionList;
+	private final CollidableHero collidableHero;
 	private List<Animation> animationList;
-	private GameHeroInputMap gameHeroInput;
+	private final GameHeroInputMap gameHeroInput;
 	private final PlayableHeroDefinition heroProperties;
 	private HeroState state;
 
 	private String lastActionName;
-	private List<GameItem> gameItems;
-	private RoundHeroAttributes heroAttributes;
+	private final List<GameItem> gameItems;
+	private final RoundHeroAttributes heroAttributes;
 	private boolean invincible;
 	private boolean playerIsDead;
+	private final List<HeroDeathsListener> heroDeathsListeners;
 
 	public PlayableGameHero(PlayableHeroDefinition properties)
 	{
@@ -68,6 +69,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
+		heroDeathsListeners = new ArrayList<>();
 	}
 
 	public HeroState getState()
@@ -343,6 +345,10 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		System.out.println("Got dead");
 		collidableHero.die();
 		playerIsDead = true;
+		for( HeroDeathsListener deathsListener : heroDeathsListeners )
+		{
+			deathsListener.playerHasDied(this);
+		}
 	}
 
 	public boolean isPlayerDead()
@@ -400,6 +406,8 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			case SPAWN_INVINCIBILITY_OVER:
 				System.out.println("Spawn timer is over");
 				break;
+			case SPAWN:
+				spawn(new Vec2(0, 0));
 			default:
 				break;
 		}
@@ -409,12 +417,18 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		playerIsDead = false;
 		heroAttributes.reset();
-		collidableHero.setNetxtPosition(position);
+		collidableHero.setNextPosition(position);
+//		collidableHero.respawn();
+		setState(new StandingHeroState(this));
+		for( HeroDeathsListener deathsListener : heroDeathsListeners )
+		{
+			deathsListener.playerHasRespawn(this);
+		}
 	}
 
-	public void setupTimeEvents(TimerEventsController timerEventsController)
+	public void addHeroDeathsListener(HeroDeathsListener deathsListener)
 	{
-		timerEventsController.addEventListener(this, 3, PlayableGameHero.TimeEvent.SPAWN_INVINCIBILITY_OVER);		
+		heroDeathsListeners.add(deathsListener);
 	}
 
 }
