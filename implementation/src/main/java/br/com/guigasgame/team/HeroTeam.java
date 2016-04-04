@@ -6,6 +6,8 @@ import java.util.List;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.color.ColorBlender;
+import br.com.guigasgame.frag.FragEventMessenger;
+import br.com.guigasgame.frag.FragStatistic;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 
 
@@ -21,6 +23,8 @@ public class HeroTeam
 	private List<PlayableHeroDefinition> herosList;
 	private TeamIndex teamIndex;
 
+	private final FragStatistic fragCounter;
+
 	public HeroTeam(TeamIndex name) throws Exception
 	{
 		this.teamIndex = name;
@@ -29,6 +33,9 @@ public class HeroTeam
 		// totalScore = 0;
 		herosList = new ArrayList<PlayableHeroDefinition>();
 		color = getTeamColor();
+		
+		fragCounter = new FragStatistic(teamIndex.getId());
+		FragEventMessenger.getInstance().subscribeOnTeamEvents(this, fragCounter);
 	}
 
 	public void setFriendlyFire(boolean friendlyFire)
@@ -107,5 +114,11 @@ public class HeroTeam
 	{
 		return teamIndex.getName();
 	}
+
+	public FragStatistic getFragCounter()
+	{
+		return fragCounter;
+	}
+	
 
 }

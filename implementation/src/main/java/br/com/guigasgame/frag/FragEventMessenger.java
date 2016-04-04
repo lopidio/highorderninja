@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.team.HeroTeam;
 
 //@ApplicationScoped
@@ -30,7 +31,7 @@ public class FragEventMessenger
 			eventMessenger = new FragEventMessenger();
 		return eventMessenger;
 	}
-	private final Map<PlayableGameHero, FragEventListener> heroListeners;
+	private final Map<PlayableHeroDefinition, FragEventListener> heroListeners;
 	private final Map<HeroTeam, FragEventListener> teamListeners;
 	
 	private FragEventMessenger()
@@ -68,9 +69,9 @@ public class FragEventMessenger
 
 	private void dispatchToHeroListeners(FragEventWrapper wrapper)
 	{
-		for( Entry<PlayableGameHero, FragEventListener> entry : heroListeners.entrySet() )
+		for( Entry<PlayableHeroDefinition, FragEventListener> entry : heroListeners.entrySet() )
 		{
-			final int myPlayerId = entry.getKey().getHeroProperties().getPlayerId();
+			final int myPlayerId = entry.getKey().getPlayerId();
 			if (myPlayerId == wrapper.getMyId() || myPlayerId == wrapper.getOtherId())
 				entry.getValue().receiveEvent(wrapper);
 		}
@@ -92,9 +93,9 @@ public class FragEventMessenger
 		teamListeners.put(heroTeam, listener);
 	}
 	
-	public void subscribeOnHeroEvents(PlayableGameHero gameHero, FragEventListener listener)
+	public void subscribeOnHeroEvents(PlayableHeroDefinition playableHeroDefinition, FragEventListener listener)
 	{
-		heroListeners.put(gameHero, listener);
+		heroListeners.put(playableHeroDefinition, listener);
 	}
 	
 	

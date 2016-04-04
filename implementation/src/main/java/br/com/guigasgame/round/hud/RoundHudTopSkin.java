@@ -3,8 +3,6 @@ package br.com.guigasgame.round.hud;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
-import br.com.guigasgame.frag.FragEventMessenger;
-import br.com.guigasgame.frag.FragStatistic;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesMovingHudController;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttributesCircleAndBarsBellowHudController;
@@ -43,10 +41,8 @@ public class RoundHudTopSkin implements RoundHudSkin
 	public TeamFragStatisticHud createTeamFragHud(HeroTeam team)
 	{
 		final Vector2f position = calculateTeamPosition(team);
-		FragStatistic fragCounter = new FragStatistic(team.getTeamId());
-		FragEventMessenger.getInstance().subscribeOnTeamEvents(team, fragCounter);
 		TeamFragStatisticHud fragCounterHud = new TeamFragStatisticHud(position, team.getName(), team.getTeamColor());
-		fragCounter.addListener(fragCounterHud);
+		team.getFragCounter().addListener(fragCounterHud);
 		return fragCounterHud;
 	}
 
@@ -66,10 +62,8 @@ public class RoundHudTopSkin implements RoundHudSkin
 	@Override
 	public HeroFragStatisticHud createHeroFragHud(PlayableGameHero gameHero)
 	{
-		final FragStatistic fragCounter = new FragStatistic(gameHero.getHeroProperties().getPlayerId());
 		HeroFragStatisticHud fragStatisticHud = new HeroFragStatisticHud(gameHero.getHeroProperties().getColor());
-		FragEventMessenger.getInstance().subscribeOnHeroEvents(gameHero, fragCounter);
-		fragCounter.addListener(fragStatisticHud);
+		gameHero.getHeroProperties().getFragCounter().addListener(fragStatisticHud);
 		return fragStatisticHud;
 	}
 

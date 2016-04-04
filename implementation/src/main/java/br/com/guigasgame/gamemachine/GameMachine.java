@@ -22,8 +22,9 @@ import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
-import br.com.guigasgame.round.RoundAttributes;
+import br.com.guigasgame.round.RoundProperties;
 import br.com.guigasgame.round.hud.RoundHudTopSkin;
+import br.com.guigasgame.round.type.DeathMatchRoundType;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.team.HeroTeam;
@@ -57,8 +58,8 @@ public class GameMachine
 		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundAttributes roundAttributes = new RoundAttributes(roundHeroAttributes, teams, scenery, 20, new RoundHudTopSkin());
-		RoundGameState roundGameState = new RoundGameState(roundAttributes);
+		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teams, scenery, 20, new RoundHudTopSkin(), new DeathMatchRoundType(5));
+		RoundGameState roundGameState = new RoundGameState(roundProperties);
 		return roundGameState;
 	}
 

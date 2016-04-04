@@ -6,7 +6,7 @@ import java.util.List;
 import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.round.RoundAttributes;
+import br.com.guigasgame.round.RoundProperties;
 import br.com.guigasgame.round.hud.controller.HudObject;
 import br.com.guigasgame.time.TimerEventsController;
 import br.com.guigasgame.time.TimerEventsController.TimeListener;
@@ -74,7 +74,7 @@ public abstract class TimerStaticHud extends HudObject implements TimeListener
 	protected abstract void timeOut();
 	protected abstract void onDecimalChange(int currentValue);
 
-	public void setupTimerEvent(TimerEventsController timerEventsController, RoundAttributes roundAttributes)
+	public void setupTimerEvent(TimerEventsController timerEventsController, RoundProperties roundAttributes)
 	{
 		timerEventsController.addEventListener(this, roundAttributes.getTotalTime()/2, TimerEvents.HALF_TIME);
 		timerEventsController.addEventListener(this, roundAttributes.getTotalTime(), TimerEvents.FULL_TIME);
