@@ -31,7 +31,7 @@ import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundProperties;
 import br.com.guigasgame.round.hud.RoundHudSkin;
 import br.com.guigasgame.round.hud.controller.RoundHudController;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesMovingHudController;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroMovingHudController;
 import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TeamFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TimerStaticHud;
@@ -105,7 +105,7 @@ public class RoundGameState implements GameState
 
 				roundType.setupTimeEvents(timerEventsController);
 
-				HeroAttributesMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
+				HeroMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
 				gameHero.addHeroDeathsListener(attributesMovingHudController);
 				gameHero.addHeroDeathsListener(cameraController);
 				//--------

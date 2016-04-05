@@ -1,14 +1,13 @@
 package br.com.guigasgame.frag;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.ApplicationScoped;
 
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
-import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
-import br.com.guigasgame.team.HeroTeam;
 
-//@ApplicationScoped
+@ApplicationScoped
 public class FragEventMessenger
 {
 	public enum FragEventIndex
@@ -21,7 +20,8 @@ public class FragEventMessenger
 	
 	public interface FragEventListener
 	{
-		void receiveEvent(FragEventWrapper eventWrapper);
+		void receiveFragEvent(FragEventWrapper eventWrapper);
+		boolean acceptFragEvent(FragEventWrapper eventWrapper);
 	}
 	
 	private static FragEventMessenger eventMessenger;
@@ -31,15 +31,13 @@ public class FragEventMessenger
 			eventMessenger = new FragEventMessenger();
 		return eventMessenger;
 	}
-	private final Map<PlayableHeroDefinition, FragEventListener> heroListeners;
-	private final Map<HeroTeam, FragEventListener> teamListeners;
+	private final List<FragEventListener> listeners;
 	
 	private FragEventMessenger()
 	{
-		heroListeners = new HashMap<>();
-		teamListeners = new HashMap<>();
+		listeners = new ArrayList<>();
 	}
-
+	
 	public void fireEvent(PlayableGameHero me, FragEventIndex fragEventIndex)
 	{
 		dispatchEvent(me, fragEventIndex, null);
@@ -63,45 +61,27 @@ public class FragEventMessenger
 		}
 		FragEventWrapper eventWrapper = new FragEventWrapper(myHeroID, myTeamID, otherHeroId, otherTeamId, fragEventIndex);
 		
-		dispatchToTeamListeners(eventWrapper);
-		dispatchToHeroListeners(eventWrapper);
+		dispatchToListeners(eventWrapper);
 	}
 
-	private void dispatchToHeroListeners(FragEventWrapper wrapper)
+	private void dispatchToListeners(FragEventWrapper wrapper)
 	{
-		for( Entry<PlayableHeroDefinition, FragEventListener> entry : heroListeners.entrySet() )
+		for( FragEventListener listener : listeners )
 		{
-			final int myPlayerId = entry.getKey().getPlayerId();
-			if (myPlayerId == wrapper.getMyId() || myPlayerId == wrapper.getOtherId())
-				entry.getValue().receiveEvent(wrapper);
-		}
-	}
-
-	private void dispatchToTeamListeners(FragEventWrapper wrapper)
-	{
-		for( Entry<HeroTeam, FragEventListener> entry : teamListeners.entrySet() )
-		{
-			final int myTeamId = entry.getKey().getTeamId();
-			if (myTeamId == wrapper.getMyTeamId() || myTeamId == wrapper.getOtherTeamId())
-				entry.getValue().receiveEvent(wrapper);
+			if (listener.acceptFragEvent(wrapper))
+				listener.receiveFragEvent(wrapper);
 		}
 	}
 	
 	
-	public void subscribeOnTeamEvents(HeroTeam heroTeam, FragEventListener listener)
+	public void subscribeOnEvents(FragEventListener listener)
 	{
-		teamListeners.put(heroTeam, listener);
-	}
-	
-	public void subscribeOnHeroEvents(PlayableHeroDefinition playableHeroDefinition, FragEventListener listener)
-	{
-		heroListeners.put(playableHeroDefinition, listener);
+		listeners.add(listener);
 	}
 	
 	
 	public void clearAllListeners()
 	{
-		heroListeners.clear();
-		teamListeners.clear();
+		listeners.clear();
 	}
 }

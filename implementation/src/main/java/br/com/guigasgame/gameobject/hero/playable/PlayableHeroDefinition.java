@@ -3,7 +3,8 @@ package br.com.guigasgame.gameobject.hero.playable;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.frag.FragEventMessenger;
-import br.com.guigasgame.frag.FragStatistic;
+import br.com.guigasgame.frag.FragEventParser;
+import br.com.guigasgame.frag.HeroFragEventParser;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.team.HeroTeam;
@@ -17,18 +18,18 @@ public class PlayableHeroDefinition
 	private HeroTeam heroTeam;
 	private RoundHeroAttributes roundHeroAttributes;
 	private int idInTeam;
-	private final FragStatistic fragCounter;
+	private final FragEventParser fragCounter;
 
 	public PlayableHeroDefinition(GameHeroInputMap gameHeroInput, int id)
 	{
 		this.gameHeroInput = gameHeroInput;
 		this.playerId = id;
 		
-		fragCounter = new FragStatistic(id);
-		FragEventMessenger.getInstance().subscribeOnHeroEvents(this, fragCounter);
+		fragCounter = new HeroFragEventParser(id);
+		FragEventMessenger.getInstance().subscribeOnEvents(fragCounter);
 	}
 	
-	public FragStatistic getFragCounter()
+	public FragEventParser getFragCounter()
 	{
 		return fragCounter;
 	}

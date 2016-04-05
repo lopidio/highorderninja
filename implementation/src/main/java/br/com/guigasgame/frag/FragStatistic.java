@@ -1,11 +1,6 @@
 package br.com.guigasgame.frag;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import br.com.guigasgame.frag.FragEventMessenger.FragEventListener;
-
-public class FragStatistic implements FragEventListener
+public class FragStatistic
 {
 	private int shoots;
 	private int shootsOnTarget;
@@ -13,34 +8,46 @@ public class FragStatistic implements FragEventListener
 	private int deaths;
 	private int kills;
 	private int suicide;
-	private final int id;
-	private final List<FragStatisticListener> fragListeners;
-	
-	public FragStatistic(int id)
+
+	public FragStatistic()
 	{
-		this.id = id;
 		 shoots = 0;
 		 shootsOnTarget = 0;
 		 hitAsTarget = 0;
 		 deaths = 0;
 		 kills = 0;
 		 suicide = 0;
-		 fragListeners = new ArrayList<>();
 	}
 	
-	public void addListener(FragStatisticListener listener)
+	public void incrementShoots()
 	{
-		fragListeners.add(listener);
+		++shoots;
 	}
 	
-	private void notifyListeners()
+	public void incrementShootsOnTarget()
 	{
-		for( FragStatisticListener fragStatisticListener : fragListeners )
-		{
-			fragStatisticListener.onChange(this);
-		}
+		++shootsOnTarget;
 	}
 	
+	public void incrementDeaths()
+	{
+		++deaths;
+	}
+
+	public void incrementKills()
+	{
+		++kills;
+	}
+	
+	public void incrementSuicides()
+	{
+		++suicide;
+	}
+	
+	public void incrementHitAsTarget()
+	{
+		++hitAsTarget;
+	}	
 	public int getShoots()
 	{
 		return shoots;
@@ -82,60 +89,4 @@ public class FragStatistic implements FragEventListener
 		 return this;
 	}
 
-	@Override
-	public void receiveEvent(FragEventWrapper eventWrapper)
-	{
-		System.out.println(eventWrapper.getFragEventIndex());
-		checkImOwner(eventWrapper);
-		checkImOther(eventWrapper);
-		notifyListeners();
-	}
-
-	private void checkImOwner(FragEventWrapper eventWrapper)
-	{
-		if (eventWrapper.getMyId() == id || id == eventWrapper.getMyTeamId())
-		{
-			switch (eventWrapper.getFragEventIndex())
-			{
-				case KILL:
-					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-						++kills;
-					break;
-				case SHOOT:
-						++shoots;
-					break;
-				case SHOOT_ON_TARGET:
-					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-						++shootsOnTarget;
-					break;
-				case SUICIDE:
-					++deaths;
-					++suicide;
-					break;
-				default:
-					break;
-			}
-		}
-	}
-	
-	private void checkImOther(FragEventWrapper eventWrapper)
-	{
-		if (eventWrapper.getOtherId() == id || id == eventWrapper.getOtherTeamId())
-		{
-			switch (eventWrapper.getFragEventIndex())
-			{
-				case KILL:
-						++deaths;
-					break;
-				case SHOOT_ON_TARGET:
-					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-						++hitAsTarget;
-					break;
-				default:
-					break;
-			}
-			
-		}
-	}
-	
 }

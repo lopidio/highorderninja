@@ -6,9 +6,9 @@ import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMovingHud;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesMovingHudController;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroMovingHudController;
 
-public class HeroAttributesBarsBellowHudController extends HeroAttributesMovingHudController
+public class HeroAttributesBarsBellowHudController extends HeroMovingHudController
 {
 	private static final ColorBlender SHURIKEN_BAR_COLOR = ColorBlender.GRAY;
 	private static final ColorBlender SMOKE_BOMB_BAR_COLOR = ColorBlender.BLUE;

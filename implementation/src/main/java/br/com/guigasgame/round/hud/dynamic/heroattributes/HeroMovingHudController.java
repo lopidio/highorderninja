@@ -10,13 +10,13 @@ import br.com.guigasgame.gameobject.hero.playable.HeroDeathsListener;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.controller.HudObject;
 
-public abstract class HeroAttributesMovingHudController extends HudObject implements HeroDeathsListener
+public abstract class HeroMovingHudController extends HudObject implements HeroDeathsListener
 {
 	protected PlayableGameHero gameHero;
 	protected List<HeroAttributeMovingHud> barsList;
 	private boolean enabled;
 	
-	public HeroAttributesMovingHudController(PlayableGameHero gameHero)
+	public HeroMovingHudController(PlayableGameHero gameHero)
 	{
 		this.gameHero = gameHero;
 		barsList = new ArrayList<>();

@@ -38,6 +38,8 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		SPAWN
 	}
 	
+
+	
 	private Side forwardSide;
 	private final List<GameHeroAction> actionList;
 	private final CollidableHero collidableHero;

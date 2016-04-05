@@ -63,10 +63,13 @@ t	FragMessageEvent (mediator)
 t	HudView zoom
 x	HeroFrag becomes FragStatistics and has a vector of frags
 t	FragStatistics: totalShoots, deaths, kills, suicides
+t	Deacoplate FragStatistic from interface FragEventListener
 	Rope hook gameItem's collision (grab item?)
 	Respawn after 5 seconds of death
 	Blink when has just spawned
 	Projectile direction through right analogic stick
+?	Desacoplar PlayableGameHero de tudo...
+	
 
 ShurikenBomb
 RayCastAnythingBut....

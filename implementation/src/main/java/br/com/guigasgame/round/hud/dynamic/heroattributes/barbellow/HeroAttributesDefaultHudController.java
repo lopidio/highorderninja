@@ -6,20 +6,20 @@ import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMovingHud;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesMovingHudController;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroMovingHudController;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.circlebellow.HeroAttributesArcBellowHud;
 
-public class HeroAttributesCircleAndBarsBellowHudController extends HeroAttributesMovingHudController
+public class HeroAttributesDefaultHudController extends HeroMovingHudController
 {
 	private static final ColorBlender SHURIKEN_BAR_COLOR = ColorBlender.GRAY.makeTranslucid(1.8f);
 	private static final ColorBlender SMOKE_BOMB_BAR_COLOR = ColorBlender.GREEN.makeTranslucid(1.8f);
 	private static final ColorBlender LIFE_BAR_COLOR = ColorBlender.RED.makeTranslucid(1.8f);
-	private static final Vector2f SIZE = new Vector2f(30, 3);
+	private static final Vector2f SIZE = new Vector2f(30, 6);
 	private static final int VERTICAL_OFFSET = 40;
 	private static final int SEPARATOR = 4;
 	private boolean markedToDestroy;
 
-	public HeroAttributesCircleAndBarsBellowHudController(PlayableGameHero gameHero)
+	public HeroAttributesDefaultHudController(PlayableGameHero gameHero)
 	{
 		super(gameHero);
 		
