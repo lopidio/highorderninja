@@ -38,7 +38,7 @@ public class HeroFragEventParser extends FragEventParser
 					break;
 				case SHOOT_ON_TARGET:
 					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-						frag.incrementDeaths();
+						frag.incrementShootsOnTarget();
 					break;
 				case SUICIDE:
 					frag.incrementDeaths();
@@ -61,7 +61,7 @@ public class HeroFragEventParser extends FragEventParser
 					break;
 				case SHOOT_ON_TARGET:
 					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-						frag.incrementDeaths();
+						frag.incrementHitAsTarget();
 					break;
 				default:
 					break;

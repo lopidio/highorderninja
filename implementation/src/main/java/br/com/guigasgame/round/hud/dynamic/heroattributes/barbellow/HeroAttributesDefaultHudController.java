@@ -14,7 +14,7 @@ public class HeroAttributesDefaultHudController extends HeroMovingHudController
 	private static final ColorBlender SHURIKEN_BAR_COLOR = ColorBlender.GRAY.makeTranslucid(1.8f);
 	private static final ColorBlender SMOKE_BOMB_BAR_COLOR = ColorBlender.GREEN.makeTranslucid(1.8f);
 	private static final ColorBlender LIFE_BAR_COLOR = ColorBlender.RED.makeTranslucid(1.8f);
-	private static final Vector2f SIZE = new Vector2f(30, 6);
+	private static final Vector2f SIZE = new Vector2f(30, 10);
 	private static final int VERTICAL_OFFSET = 40;
 	private static final int SEPARATOR = 4;
 	private boolean markedToDestroy;
@@ -25,11 +25,11 @@ public class HeroAttributesDefaultHudController extends HeroMovingHudController
 		
 		final RoundHeroAttributes roundHeroAttributes = gameHero.getHeroProperties().getRoundHeroAttributes();
 
-		HeroAttributeMovingHud shuriken = new ShootingAttributeBarBellowHud(SHURIKEN_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f(0, VERTICAL_OFFSET), SIZE);
-		barsList.add(shuriken);
 		HeroAttributeMovingHud smokeBomb = new ShootingAttributeBarBellowHud(SMOKE_BOMB_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f(-SIZE.x/14, VERTICAL_OFFSET + SEPARATOR + SIZE.y/2), Vector2f.mul(SIZE, 0.7f));
 		barsList.add(smokeBomb);
-		HeroAttributeMovingHud life = new HeroAttributesArcBellowHud(LIFE_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f( -25, VERTICAL_OFFSET + 1*(SEPARATOR + SIZE.y)), 10);
+		HeroAttributeMovingHud shuriken = new ShootingAttributeBarBellowHud(SHURIKEN_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f(0, VERTICAL_OFFSET), SIZE);
+		barsList.add(shuriken);
+		HeroAttributeMovingHud life = new HeroAttributesArcBellowHud(LIFE_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f( -30, - 10 + VERTICAL_OFFSET + 1*(SEPARATOR + SIZE.y)), 15);
 		barsList.add(life);
 		
 		roundHeroAttributes.getShurikens().addListener(shuriken);
