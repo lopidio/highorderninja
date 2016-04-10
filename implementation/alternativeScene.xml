@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <sceneryFile>
-	<backgroundColor r="200.0" g="200.0" b="250.0" a="255.0" />
+	<backgroundColor r="250.0" g="205.0" b="150.0" a="255.0" />
 	<boundariesTollerance>
 		<left>500.0</left>
 		<top>500.0</top>
@@ -8,14 +8,14 @@
 		<height>500.0</height>
 	</boundariesTollerance>
 	<sceneryShapes>
-		<!--        <circles damagePerSecond="10.0" textureName="fire-textures.jpg">
+		<!--        <circles damagePerSecond="10.0" textureName="lime.jpg">
             <center>
                 <x>1100.0</x>
                 <y>200.0</y>
             </center>
             <radius>50.0</radius>
         </circles>
-        <triangles textureName="darkStoneTexture.jpg">
+        <triangles textureName="sand-texture.jpg">
             <pointA>
                 <x>500.0</x>
                 <y>120.0</y>
@@ -29,7 +29,7 @@
                 <y>150.0</y>
             </pointC>
         </triangles>
-        <rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+        <rectangles damagePerSecond="10.0" textureName="lime.jpg">
             <center>
                 <x>480.0</x>
                 <y>760.0</y>
@@ -40,7 +40,7 @@
             </halfDimension>
         </rectangles>
 		-->
-		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+		<rectangles damagePerSecond="10.0" textureName="lime.jpg">
 			<!-- 1 -->
 			<center>
 				<x>0.0</x>
@@ -51,7 +51,7 @@
 				<y>100</y>
 			</halfDimension>
 		</rectangles>		
-		<triangles textureName="darkStoneTexture.jpg">
+		<triangles textureName="sand-texture.jpg">
 			<!-- 2 -->
 			<pointA>
 				<x>500.0</x>
@@ -62,29 +62,29 @@
 				<y>-700.0</y>
 			</pointB>
 			<pointC>
-				<x>730.0</x>
+				<x>900.0</x>
 				<y>-200.0</y>
 			</pointC>
 		</triangles>
-		<triangles textureName="darkStoneTexture.jpg">
+		<triangles textureName="sand-texture.jpg">
 			<!-- 3 -->
 			<pointA>
 				<x>500.0</x>
 				<y>-700.0</y>
 			</pointA>
 			<pointB>
-				<x>930.0</x>
+				<x>1100.0</x>
 				<y>-200.0</y>
 			</pointB>
 			<pointC>
-				<x>730.0</x>
+				<x>900.0</x>
 				<y>-200.0</y>
 			</pointC>
 		</triangles>
-		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+		<rectangles damagePerSecond="10.0" textureName="lime.jpg">
 			<!-- 4 -->
 			<center>
-				<x>830</x>
+				<x>1000</x>
 				<y>0</y>
 			</center>
 			<halfDimension>
@@ -92,7 +92,7 @@
 				<y>200.0</y>
 			</halfDimension>
 		</rectangles>		
-		<triangles textureName="darkStoneTexture.jpg">
+		<triangles textureName="sand-texture.jpg">
 			<!-- 5 -->
 			<pointA>
 				<x>500.0</x>
@@ -103,26 +103,26 @@
 				<y>700.0</y>
 			</pointB>
 			<pointC>
-				<x>730.0</x>
+				<x>900.0</x>
 				<y>200.0</y>
 			</pointC>
 		</triangles>
-		<triangles textureName="darkStoneTexture.jpg">
+		<triangles textureName="sand-texture.jpg">
 			<!-- 6 -->
 			<pointA>
 				<x>500.0</x>
 				<y>700.0</y>
 			</pointA>
 			<pointB>
-				<x>930.0</x>
+				<x>1100.0</x>
 				<y>200.0</y>
 			</pointB>
 			<pointC>
-				<x>730.0</x>
+				<x>900.0</x>
 				<y>200.0</y>
 			</pointC>
 		</triangles>
-		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+		<rectangles damagePerSecond="10.0" textureName="lime.jpg">
 			<!-- 7 -->
 			<center>
 				<x>0.0</x>
@@ -133,7 +133,7 @@
 				<y>100</y>
 			</halfDimension>
 		</rectangles>		
-		<triangles textureName="darkStoneTexture.jpg">
+		<triangles textureName="sand-texture.jpg">
 			<!-- 8 -->
 			<pointA>
 				<x>-500.0</x>
@@ -144,29 +144,29 @@
 				<y>700.0</y>
 			</pointB>
 			<pointC>
-				<x>-730.0</x>
+				<x>-900.0</x>
 				<y>200.0</y>
 			</pointC>
 		</triangles>
-		<triangles textureName="darkStoneTexture.jpg">
+		<triangles textureName="sand-texture.jpg">
 			<!-- 9 -->
 			<pointA>
 				<x>-500.0</x>
 				<y>700.0</y>
 			</pointA>
 			<pointB>
-				<x>-930.0</x>
+				<x>-1100.0</x>
 				<y>200.0</y>
 			</pointB>
 			<pointC>
-				<x>-730.0</x>
+				<x>-900.0</x>
 				<y>200.0</y>
 			</pointC>
 		</triangles>
-		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+		<rectangles damagePerSecond="10.0" textureName="lime.jpg">
 			<!-- 10 -->
 			<center>
-				<x>-830.0</x>
+				<x>-1000.0</x>
 				<y>0</y>
 			</center>
 			<halfDimension>
@@ -174,7 +174,7 @@
 				<y>200.0</y>
 			</halfDimension>
 		</rectangles>		
-		<triangles textureName="darkStoneTexture.jpg">
+		<triangles textureName="sand-texture.jpg">
 			<!-- 11 -->
 			<pointA>
 				<x>-500.0</x>
@@ -185,26 +185,26 @@
 				<y>-700.0</y>
 			</pointB>
 			<pointC>
-				<x>-730.0</x>
+				<x>-900.0</x>
 				<y>-200.0</y>
 			</pointC>
 		</triangles>
-		<triangles textureName="darkStoneTexture.jpg">
+		<triangles textureName="sand-texture.jpg">
 			<!-- 12 -->
 			<pointA>
 				<x>-500.0</x>
 				<y>-700.0</y>
 			</pointA>
 			<pointB>
-				<x>-930.0</x>
+				<x>-1100.0</x>
 				<y>-200.0</y>
 			</pointB>
 			<pointC>
-				<x>-730.0</x>
+				<x>-900.0</x>
 				<y>-200.0</y>
 			</pointC>
 		</triangles>
-		<rectangles textureName="darkStoneTexture.jpg">
+		<rectangles textureName="sand-texture.jpg">
 			<!-- 13 -->
 			<center>
 				<x>0.0</x>
@@ -215,7 +215,7 @@
 				<y>30.0</y>
 			</halfDimension>
 		</rectangles>		
-		<rectangles textureName="darkStoneTexture.jpg">
+		<rectangles textureName="sand-texture.jpg">
 			<!-- 14 -->
 			<center>
 				<x>0.0</x>
@@ -226,7 +226,7 @@
 				<y>30.0</y>
 			</halfDimension>
 		</rectangles>		
-		<rectangles damagePerSecond="10.0" textureName="fire-textures.jpg">
+		<rectangles damagePerSecond="10.0" textureName="lime.jpg">
 			<!-- 15 -->
 			<center>
 				<x>0.0</x>
@@ -237,10 +237,10 @@
 				<y>30</y>
 			</halfDimension>
 		</rectangles>		
-		<rectangles textureName="darkStoneTexture.jpg">
+		<rectangles textureName="sand-texture.jpg">
 			<!-- 16 -->
 			<center>
-				<x>-680.0</x>
+				<x>-850.0</x>
 				<y>0</y>
 			</center>
 			<halfDimension>
@@ -248,10 +248,10 @@
 				<y>30.0</y>
 			</halfDimension>
 		</rectangles>		
-		<rectangles textureName="darkStoneTexture.jpg">
+		<rectangles textureName="sand-texture.jpg">
 			<!-- 17 -->
 			<center>
-				<x>680.0</x>
+				<x>850.0</x>
 				<y>0</y>
 			</center>
 			<halfDimension>
@@ -263,11 +263,11 @@
 	</sceneryShapes>
 	<spawnPoints>
 		<point>
-			<x>-680.0</x>
+			<x>-880.0</x>
 			<y>-70</y>
 		</point>
 		<point>
-			<x>680.0</x>
+			<x>880.0</x>
 			<y>-70</y>
 		</point>
 		<point>
