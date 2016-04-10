@@ -25,11 +25,12 @@ public class HeroAttributesDefaultHudController extends HeroMovingHudController
 		
 		final RoundHeroAttributes roundHeroAttributes = gameHero.getHeroProperties().getRoundHeroAttributes();
 
-		HeroAttributeMovingHud smokeBomb = new ShootingAttributeBarBellowHud(SMOKE_BOMB_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f(-SIZE.x/14, VERTICAL_OFFSET + SEPARATOR + SIZE.y/2), Vector2f.mul(SIZE, 0.7f));
+		HeroAttributeMovingHud smokeBomb = new ShootingAttributeBarBellowHud(SMOKE_BOMB_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f(-SIZE.x/14, VERTICAL_OFFSET + SEPARATOR + SIZE.y/2 + 2), Vector2f.mul(SIZE, 0.7f));
 		barsList.add(smokeBomb);
 		HeroAttributeMovingHud shuriken = new ShootingAttributeBarBellowHud(SHURIKEN_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f(0, VERTICAL_OFFSET), SIZE);
 		barsList.add(shuriken);
-		HeroAttributeMovingHud life = new HeroAttributesArcBellowHud(LIFE_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f( -30, - 10 + VERTICAL_OFFSET + 1*(SEPARATOR + SIZE.y)), 15);
+		final float radius = 15;
+		HeroAttributeMovingHud life = new HeroAttributesArcBellowHud(LIFE_BAR_COLOR.add(gameHero.getHeroProperties().getColor()), new Vector2f( -13 -radius, VERTICAL_OFFSET + radius/2), radius);
 		barsList.add(life);
 		
 		roundHeroAttributes.getShurikens().addListener(shuriken);

@@ -17,12 +17,13 @@ class ShootingAttributeBarBellowHud extends HeroAttributeBarBellowHud
 	public void gotFull(HeroAttribute heroAttribute)
 	{
 		innerColor.interpolateFromColor(innerColor.getCurrentColor().darken(10), 0.5f);
+		outterColor.interpolateToColor(innerColor.getCurrentColor().darken(2.5f), 0.5f);
 	}
 
 	@Override
 	public void attributeGotEmpty(HeroAttribute heroAttribute)
 	{
-		outterColor.interpolateFromColor(outterColor.getCurrentColor().darken(2f), 0.5f);
+		outterColor.interpolateToColor(outterColor.getCurrentColor().lighten(3f).makeTranslucid(2), 0.5f);
 	}
 	
 	@Override
@@ -34,7 +35,7 @@ class ShootingAttributeBarBellowHud extends HeroAttributeBarBellowHud
 	@Override
 	public void changed(HeroAttribute heroAttribute, float value)
 	{
-		innerColor.interpolateFromColor(innerColor.getCurrentColor().darken(2f), 0.5f);
+		innerColor.interpolateFromColor(innerColor.getCurrentColor().inverse(), 0.1f);
 		adjustBarsLength(heroAttribute);
 	}
 

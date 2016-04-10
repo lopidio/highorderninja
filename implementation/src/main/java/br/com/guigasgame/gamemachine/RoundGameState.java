@@ -85,7 +85,7 @@ public class RoundGameState implements GameState
 	private void initializeHeros(SceneController scenery, RoundProperties roundProperties)
 	{
 		final RoundHudSkin hudSkin = roundProperties.getHudSkin();
-		for( HeroTeam team : roundProperties.getTeams() )
+		for( HeroTeam team : roundProperties.getTeams().getTeamList() )
 		{
 			team.setFriendlyFire(true);
 			final List<PlayableHeroDefinition> heros = team.getHerosList();

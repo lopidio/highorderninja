@@ -8,7 +8,7 @@ import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.frag.FragEventMessenger;
 import br.com.guigasgame.frag.FragEventParser;
-import br.com.guigasgame.frag.HeroFragEventParser;
+import br.com.guigasgame.frag.TeamFragEventParser;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 
 
@@ -35,7 +35,7 @@ public class HeroTeam
 		herosList = new ArrayList<PlayableHeroDefinition>();
 		color = getTeamColor();
 		
-		fragCounter = new HeroFragEventParser(teamIndex.getId());
+		fragCounter = new TeamFragEventParser(teamIndex.getId());
 		FragEventMessenger.getInstance().subscribeOnEvents(fragCounter);
 	}
 

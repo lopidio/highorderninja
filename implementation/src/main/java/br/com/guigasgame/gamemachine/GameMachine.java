@@ -1,9 +1,7 @@
 package br.com.guigasgame.gamemachine;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
@@ -27,8 +25,8 @@ import br.com.guigasgame.round.hud.RoundHudTopSkin;
 import br.com.guigasgame.round.type.DeathMatchRoundType;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.scenery.file.SceneryFile;
-import br.com.guigasgame.team.HeroTeam;
 import br.com.guigasgame.team.TeamIndex;
+import br.com.guigasgame.team.TeamsController;
 
 
 public class GameMachine
@@ -53,12 +51,12 @@ public class GameMachine
 
 	public RoundGameState setupRoundState() throws Exception, JAXBException
 	{
-		 List<HeroTeam> teams = setupTeams();
+		TeamsController teamsController = setupTeams();
 
 		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teams, scenery, 20, new RoundHudTopSkin(), new DeathMatchRoundType(5));
+		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teamsController, scenery, 20, new RoundHudTopSkin(), new DeathMatchRoundType(5));
 		RoundGameState roundGameState = new RoundGameState(roundProperties);
 		return roundGameState;
 	}
@@ -79,49 +77,23 @@ public class GameMachine
 		return roundHeroAttributes;
 	}
 
-	private static List<HeroTeam> setupTeams()
+	private static TeamsController setupTeams()
 	{
 		try
 		{
-			List<HeroTeam> teams = new ArrayList<>();
-			HeroTeam teamAlpha = new HeroTeam(TeamIndex.ALPHA);
-			HeroTeam teamBravo = new HeroTeam(TeamIndex.BRAVO);
-			HeroTeam teamCharlie = new HeroTeam(TeamIndex.CHARLIE);
-			HeroTeam teamDelta = new HeroTeam(TeamIndex.DELTA);
+			TeamsController teamsController = new TeamsController();
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0), TeamIndex.ALPHA);
+
 			
-			
-			HeroTeam teamEcho = new HeroTeam(TeamIndex.ECHO);
-			HeroTeam teamFoxtrot = new HeroTeam(TeamIndex.FOXTROT);
-			HeroTeam teamGolf = new HeroTeam(TeamIndex.GOLF);
-			HeroTeam teamHotel = new HeroTeam(TeamIndex.HOTEL);
-			
-			PlayableHeroDefinition playerOne = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0);
-			teamAlpha.addGameHero(playerOne);
-			
-			PlayableHeroDefinition playerTwo = new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 1);
-			teamAlpha.addGameHero(playerTwo);
-			
-			teamCharlie.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2));
-			teamDelta.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 3));
-			teamCharlie.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4));
-			teamFoxtrot.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 5));
-			teamGolf.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 6));
-			teamHotel.addGameHero(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 7));
-			
-			teams.add(teamAlpha);
-			teams.add(teamBravo);
-			teams.add(teamCharlie);
-			teams.add(teamDelta);
-			teams.add(teamEcho);
-			teams.add(teamFoxtrot);
-			teams.add(teamGolf);
-			teams.add(teamHotel);
-			
-			for( HeroTeam heroTeam : teams )
-			{
-				heroTeam.setHeroesUp();
-			}
-			return teams;
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 1), TeamIndex.ALPHA);
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2), TeamIndex.CHARLIE);
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 3), TeamIndex.DELTA);
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4), TeamIndex.CHARLIE);
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 5), TeamIndex.FOXTROT);
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 6), TeamIndex.GOLF);
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 7), TeamIndex.HOTEL);
+			teamsController.setTeamsUp();
+			return teamsController;
 		}
 		catch (Exception e)
 		{

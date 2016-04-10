@@ -1,28 +1,26 @@
 package br.com.guigasgame.round;
 
-import java.util.List;
-
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.round.hud.RoundHudSkin;
 import br.com.guigasgame.round.type.RoundType;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
-import br.com.guigasgame.team.HeroTeam;
+import br.com.guigasgame.team.TeamsController;
 
 
 public class RoundProperties
 {
 
 	private final RoundHeroAttributes heroAttributes;
-	private final List<HeroTeam> teams;
+	private final TeamsController teams;
 	private final SceneryInitialize sceneryInitialize;
 	private final int totalTime;
 	private final RoundHudSkin hudSkin;
 	private final RoundType roundType;
 
-	public RoundProperties(RoundHeroAttributes heroAttributes, List<HeroTeam> teams, SceneryInitialize sceneryInitialize, int totalTime, RoundHudSkin hudPositioner, RoundType roundType)
+	public RoundProperties(RoundHeroAttributes heroAttributes, TeamsController teamsController, SceneryInitialize sceneryInitialize, int totalTime, RoundHudSkin hudPositioner, RoundType roundType)
 	{
 		this.heroAttributes = heroAttributes;
-		this.teams = teams;
+		this.teams = teamsController;
 		this.sceneryInitialize = sceneryInitialize;
 		this.totalTime = totalTime;
 		this.hudSkin = hudPositioner;
@@ -39,7 +37,7 @@ public class RoundProperties
 		return heroAttributes;
 	}
 
-	public List<HeroTeam> getTeams()
+	public TeamsController getTeams()
 	{
 		return teams;
 	}
