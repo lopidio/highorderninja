@@ -11,7 +11,7 @@ import br.com.guigasgame.updatable.UpdatableFromTime;
 
 public class CameraCenterFrame implements UpdatableFromTime
 {
-	private List<CameraFollowable> objectsToFollow;
+	private List<Followable> objectsToFollow;
 	private Vector2f center;
 	private FloatRect frame;
 
@@ -74,12 +74,12 @@ public class CameraCenterFrame implements UpdatableFromTime
 		center = new Vector2f(frame.left + frame.width/2, frame.top + frame.height/2);
 	}
 	
-	public void addObject(CameraFollowable followable)
+	public void addObject(Followable followable)
 	{
 		objectsToFollow.add(followable);
 	}
 
-	public void removeObject(CameraFollowable followable)
+	public void removeObject(Followable followable)
 	{
 		objectsToFollow.remove(followable);
 	}

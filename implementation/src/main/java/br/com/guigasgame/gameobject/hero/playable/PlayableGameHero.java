@@ -9,7 +9,7 @@ import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
-import br.com.guigasgame.camera.CameraFollowable;
+import br.com.guigasgame.camera.Followable;
 import br.com.guigasgame.frag.FragEventMessenger;
 import br.com.guigasgame.frag.FragEventMessenger.FragEventIndex;
 import br.com.guigasgame.gameobject.GameObject;
@@ -30,15 +30,13 @@ import br.com.guigasgame.side.Side;
 import br.com.guigasgame.time.TimerEventsController.TimeListener;
 
 
-public class PlayableGameHero extends GameObject implements HeroAttributeListener, CameraFollowable, TimeListener
+public class PlayableGameHero extends GameObject implements HeroAttributeListener, Followable, TimeListener
 {
 	public enum TimeEvent
 	{
 		SPAWN_INVINCIBILITY_OVER,
 		SPAWN
 	}
-	
-
 	
 	private Side forwardSide;
 	private final List<GameHeroAction> actionList;
@@ -53,7 +51,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	private final RoundHeroAttributes heroAttributes;
 	private boolean invincible;
 	private boolean playerIsDead;
-	private final List<HeroDeathsListener> heroDeathsListeners;
+	private final List<FollowableListener> heroFollowers;
 
 	public PlayableGameHero(PlayableHeroDefinition properties)
 	{
@@ -71,7 +69,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
-		heroDeathsListeners = new ArrayList<>();
+		heroFollowers = new ArrayList<>();
 	}
 
 	public HeroState getState()
@@ -347,9 +345,9 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		System.out.println("Got dead");
 		collidableHero.die();
 		playerIsDead = true;
-		for( HeroDeathsListener deathsListener : heroDeathsListeners )
+		for( FollowableListener deathsListener : heroFollowers )
 		{
-			deathsListener.playerHasDied(this);
+			deathsListener.turnFollowingOff(this);
 		}
 	}
 
@@ -416,15 +414,15 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		collidableHero.setNextPosition(position);
 //		collidableHero.respawn();
 		setState(new StandingHeroState(this));
-		for( HeroDeathsListener deathsListener : heroDeathsListeners )
+		for( FollowableListener deathsListener : heroFollowers )
 		{
-			deathsListener.playerHasRespawn(this);
+			deathsListener.turnFollowingOn(this);
 		}
 	}
 
-	public void addHeroDeathsListener(HeroDeathsListener deathsListener)
+	public void addHeroFollowingListener(FollowableListener deathsListener)
 	{
-		heroDeathsListeners.add(deathsListener);
+		heroFollowers.add(deathsListener);
 	}
 
 }

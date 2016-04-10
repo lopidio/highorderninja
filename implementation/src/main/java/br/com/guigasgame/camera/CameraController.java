@@ -15,14 +15,13 @@ import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.gameobject.hero.playable.HeroDeathsListener;
-import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.gameobject.hero.playable.FollowableListener;
 import br.com.guigasgame.interpolator.InterpolatorFromTime;
 import br.com.guigasgame.interpolator.VectorLinearInterpolator;
 import br.com.guigasgame.round.hud.controller.ResizableByView;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class CameraController implements UpdatableFromTime, Drawable, ResizableByView, HeroDeathsListener
+public class CameraController implements UpdatableFromTime, Drawable, ResizableByView, FollowableListener
 {
 	private static final float INNER_FRAME_SCALE = 0.75f;
 	private static final float OUTTER_FRAME_SCALE = 0.80f;
@@ -31,7 +30,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	private static final float CENTER_MOVING_DURING = 0.2f;
 	private static final Vector2f CENTER_OFFSET = new Vector2f(0, -30);
 	
-	private final List<CameraFollowable> objectsToFollow;
+	private final List<Followable> objectsToFollow;
 	private View view;
 	private Shape outterFrame;
 	private Shape innerFrame;
@@ -44,13 +43,13 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		centerFrame = new CameraCenterFrame(center);
 	}
 	
-	public void addObjectToFollow(CameraFollowable followable)
+	public void addObjectToFollow(Followable followable)
 	{
 		centerFrame.addObject(followable);
 		objectsToFollow.add(followable);
 	}
 
-	public void removeObjectFollow(CameraFollowable followable)
+	public void removeObjectFollow(Followable followable)
 	{
 		centerFrame.removeObject(followable);
 		objectsToFollow.remove(followable);
@@ -104,7 +103,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	
 	private boolean isEveryPlayerInsideInnerFrame()
 	{
-		for( CameraFollowable cameraFollowable : objectsToFollow )
+		for( Followable cameraFollowable : objectsToFollow )
 		{
 			if (!innerFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(cameraFollowable.getPosition())))
 				return false;
@@ -114,7 +113,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 
 	private boolean isOnePlayerOutsideOutterFrame()
 	{
-		for( CameraFollowable cameraFollowable : objectsToFollow )
+		for( Followable cameraFollowable : objectsToFollow )
 		{
 			if (!outterFrame.getGlobalBounds().contains(WorldConstants.physicsToSfmlCoordinates(cameraFollowable.getPosition())))
 				return true;
@@ -168,17 +167,16 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		renderWindow.draw(smallest);
 
 	}
-	
 	@Override
-	public void playerHasDied(PlayableGameHero gameHero)
+	public void turnFollowingOff(Followable followable)
 	{
-		removeObjectFollow(gameHero);		
+		removeObjectFollow(followable);		
 	}
-	
+
 	@Override
-	public void playerHasRespawn(PlayableGameHero gameHero)
+	public void turnFollowingOn(Followable followable)
 	{
-		addObjectToFollow(gameHero);
+		addObjectToFollow(followable);
 	}
 
 }

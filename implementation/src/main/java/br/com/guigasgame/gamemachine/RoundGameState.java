@@ -101,13 +101,12 @@ public class RoundGameState implements GameState
 				gameHeroProperties.setHeroAttributes(roundProperties.getHeroAttributes().clone());
 				final PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
 				final HeroFragStatisticHud heroFragStatisticHud = hudSkin.createHeroFragHud(gameHero);
-				gameHero.addHeroDeathsListener(roundType);
 
 				roundType.setupTimeEvents(timerEventsController);
 
 				HeroMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
-				gameHero.addHeroDeathsListener(attributesMovingHudController);
-				gameHero.addHeroDeathsListener(cameraController);
+				gameHero.addHeroFollowingListener(attributesMovingHudController);
+				gameHero.addHeroFollowingListener(cameraController);
 				//--------
 				hudController.addDynamicHud(attributesMovingHudController);
 				gameHero.spawn(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));

@@ -6,11 +6,12 @@ import java.util.List;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
-import br.com.guigasgame.gameobject.hero.playable.HeroDeathsListener;
+import br.com.guigasgame.camera.Followable;
+import br.com.guigasgame.gameobject.hero.playable.FollowableListener;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.round.hud.controller.HudObject;
 
-public abstract class HeroMovingHudController extends HudObject implements HeroDeathsListener
+public abstract class HeroMovingHudController extends HudObject implements FollowableListener
 {
 	protected PlayableGameHero gameHero;
 	protected List<HeroAttributeMovingHud> barsList;
@@ -24,13 +25,13 @@ public abstract class HeroMovingHudController extends HudObject implements HeroD
 	}
 	
 	@Override
-	public void playerHasDied(PlayableGameHero gameHero)
+	public void turnFollowingOff(Followable gameHero)
 	{
 		enabled = false;
 	}
 	
 	@Override
-	public void playerHasRespawn(PlayableGameHero gameHero)
+	public void turnFollowingOn(Followable gameHero)
 	{
 		enabled = true;		
 	}
