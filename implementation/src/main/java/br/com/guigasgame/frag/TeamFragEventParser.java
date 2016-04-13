@@ -11,12 +11,6 @@ public class TeamFragEventParser extends FragEventParser
 	}
 
 	@Override
-	public boolean acceptFragEvent(FragEventWrapper eventWrapper) 
-	{
-		return (eventWrapper.getMyTeamId() == teamId) || (eventWrapper.getOtherTeamId() == teamId);
-	}
-
-	@Override
 	protected void handleEvent(FragEventWrapper eventWrapper) 
 	{
 		checkImOwner(eventWrapper);
@@ -27,26 +21,8 @@ public class TeamFragEventParser extends FragEventParser
 	{
 		if (eventWrapper.getMyTeamId() == teamId)
 		{
-			switch (eventWrapper.getFragEventIndex())
-			{
-				case KILL:
-					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-						frag.incrementKills();
-					break;
-				case SHOOT:
-						frag.incrementShoots();
-					break;
-				case SHOOT_ON_TARGET:
-					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-						frag.incrementShootsOnTarget();
-					break;
-				case SUICIDE:
-					frag.incrementDeaths();
-					frag.incrementSuicides();
-					break;
-				default:
-					break;
-			}
+			if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
+				eventWrapper.adjustOwnerFragStatistic(frag);
 		}
 	}
 	
@@ -54,19 +30,8 @@ public class TeamFragEventParser extends FragEventParser
 	{
 		if (eventWrapper.getOtherTeamId() == teamId)
 		{
-			switch (eventWrapper.getFragEventIndex())
-			{
-				case KILL:
-					frag.incrementDeaths();
-					break;
-				case SHOOT_ON_TARGET:
-					if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-						frag.incrementHitAsTarget();
-					break;
-				default:
-					break;
-			}
-			
+			if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
+				eventWrapper.adjustOtherFragStatistic(frag);
 		}
 	}	
 

@@ -6,8 +6,9 @@ import java.util.List;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.color.ColorBlender;
-import br.com.guigasgame.frag.FragEventMessenger;
 import br.com.guigasgame.frag.FragEventParser;
+import br.com.guigasgame.frag.FragEventWrapper;
+import br.com.guigasgame.frag.HeroEventCentralMessenger;
 import br.com.guigasgame.frag.TeamFragEventParser;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 
@@ -36,7 +37,7 @@ public class HeroTeam
 		color = getTeamColor();
 		
 		fragCounter = new TeamFragEventParser(teamIndex.getId());
-		FragEventMessenger.getInstance().subscribeOnEvents(fragCounter);
+		HeroEventCentralMessenger.getInstance().subscribe(FragEventWrapper.class, fragCounter);
 	}
 
 	public void setFriendlyFire(boolean friendlyFire)

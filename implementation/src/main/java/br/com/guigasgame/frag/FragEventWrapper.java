@@ -1,22 +1,33 @@
 package br.com.guigasgame.frag;
 
-import br.com.guigasgame.frag.FragEventMessenger.FragEventIndex;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 
-public class FragEventWrapper
+public abstract class FragEventWrapper implements HeroEventWrapper
 {
 	private final int myId;
 	private final int myTeamId;
-	private final FragEventIndex fragEventIndex;
 	private int otherId;
 	private int otherTeamId;
 
-	public FragEventWrapper(int myId, int myTeamId, int otherId, int otherTeamId, FragEventIndex fragEventIndex)
+	
+	public FragEventWrapper(PlayableGameHero me, PlayableGameHero other)
+	{
+		this( me.getHeroProperties().getPlayerId(), me.getHeroProperties().getHeroTeam().getTeamId(),
+				other.getHeroProperties().getPlayerId(), other.getHeroProperties().getHeroTeam().getTeamId());
+	}
+
+	public FragEventWrapper(PlayableGameHero me)
+	{
+		this( me.getHeroProperties().getPlayerId(), me.getHeroProperties().getHeroTeam().getTeamId(), -1, -1);
+	}
+
+
+	public FragEventWrapper(int myId, int myTeamId, int otherId, int otherTeamId)
 	{
 		this.myId = myId;
 		this.myTeamId = myTeamId;
 		this.otherId = otherId;
 		this.otherTeamId = otherTeamId;
-		this.fragEventIndex = fragEventIndex;
 	}
 	
 	public int getMyId()
@@ -38,21 +49,12 @@ public class FragEventWrapper
 	{
 		return otherTeamId;
 	}
+	
+	
+	protected abstract void adjustOwnerFragStatistic(FragStatistic fragStatistic);
+	protected void adjustOtherFragStatistic(FragStatistic fragStatistic)
+	{
+		//hook method
+	}
 
-	public FragEventIndex getFragEventIndex()
-	{
-		return fragEventIndex;
-	}
-	
-	FragEventWrapper setOtherId(int otherId)
-	{
-		this.otherId = otherId;
-		return this;
-	}
-	
-	FragEventWrapper setOtherTeamId(int otherTeamId)
-	{
-		this.otherTeamId = otherTeamId;
-		return this;
-	}
 }

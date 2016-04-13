@@ -10,8 +10,8 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.Followable;
-import br.com.guigasgame.frag.FragEventMessenger;
-import br.com.guigasgame.frag.FragEventMessenger.FragEventIndex;
+import br.com.guigasgame.frag.HeroEventCentralMessenger;
+import br.com.guigasgame.frag.SuicideFragEventWrapper;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
@@ -236,7 +236,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		if (heroAttributes.getShurikens().isAbleToShoot())
 		{
-			FragEventMessenger.getInstance().fireEvent(this, FragEventIndex.SHOOT);
+			HeroEventCentralMessenger.getInstance().fireEvent(new ShootFragEventWrapper(this));
 			heroAttributes.getShurikens().decrement(1);
 			return new Shuriken(pointingDirection, this);
 		}
@@ -297,7 +297,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			if (!playerIsDead)
 			{
 				System.out.println(fixtureSensorID);
-				FragEventMessenger.getInstance().fireEvent(owner, FragEventIndex.SHOOT_ON_TARGET, this);
+				HeroEventCentralMessenger.getInstance().fireEvent(new ShootOnTargetFragEventWrapper(owner, this));
 				if (fixtureSensorID == FixtureSensorID.HEAD)
 				{
 					damage *= 3;
@@ -305,11 +305,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 				heroAttributes.getLife().decrement(damage);
 				if (playerIsDead)
 				{
-					FragEventMessenger.getInstance().fireEvent(owner, FragEventIndex.KILL, this);
-//					if (heroProperties.getHeroTeam().getTeamId() != owner.heroProperties.getHeroTeam().getTeamId())
-//					{
-//						owner.getFragStatistic().incrementKills();
-//					}
+					HeroEventCentralMessenger.getInstance().fireEvent(new KillFragEventWrapper(owner, this));
 				}
 			}
 
@@ -373,7 +369,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			heroAttributes.getLife().decrement(damage);
 			if (heroAttributes.getLife().getCurrentValue() <= 0)
 			{
-				FragEventMessenger.getInstance().fireEvent(this, FragEventIndex.SUICIDE);
+				HeroEventCentralMessenger.getInstance().fireEvent(new SuicideFragEventWrapper(this));
 			}
 		}
 	}
@@ -381,7 +377,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	@Override
 	protected void gotOutOfScenery()
 	{
-		FragEventMessenger.getInstance().fireEvent(this, FragEventIndex.SUICIDE);
+		HeroEventCentralMessenger.getInstance().fireEvent(new SuicideFragEventWrapper(this));
 		die();
 	}
 
@@ -418,6 +414,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		{
 			deathsListener.turnFollowingOn(this);
 		}
+		HeroEventCentralMessenger.getInstance().fireEvent(new SpawnEventWrapper(this));
 	}
 
 	public void addHeroFollowingListener(FollowableListener deathsListener)

@@ -24,6 +24,7 @@ import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.destroyable.Destroyable;
+import br.com.guigasgame.frag.HeroEventCentralMessenger;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
@@ -222,6 +223,7 @@ public class RoundGameState implements GameState
 	{
 		float updateTime = deltaTime * timeFactor;
 		updateObjects(updateTime);
+		HeroEventCentralMessenger.getInstance().update();
 	}
 
 	private void updateObjects(float updateTime)
