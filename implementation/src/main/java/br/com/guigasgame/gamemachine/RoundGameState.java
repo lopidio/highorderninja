@@ -24,10 +24,12 @@ import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.destroyable.Destroyable;
-import br.com.guigasgame.frag.HeroEventCentralMessenger;
+import br.com.guigasgame.frag.EventCentralMessenger;
 import br.com.guigasgame.gameobject.GameObject;
+import br.com.guigasgame.gameobject.hero.playable.DiedFragEventWrapper;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
+import br.com.guigasgame.gameobject.hero.playable.SpawnEventWrapper;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundProperties;
 import br.com.guigasgame.round.hud.RoundHudSkin;
@@ -80,6 +82,9 @@ public class RoundGameState implements GameState
 		hudController.addStaticHud(timerStaticHud);
 
 		cameraController = new CameraController(scenery.getCenter());
+		EventCentralMessenger.getInstance().subscribe(SpawnEventWrapper.class, cameraController);
+		EventCentralMessenger.getInstance().subscribe(DiedFragEventWrapper.class, cameraController);
+
 		initializeHeros(scenery, roundAttributes);
 	}
 	
@@ -106,14 +111,14 @@ public class RoundGameState implements GameState
 				roundType.setupTimeEvents(timerEventsController);
 
 				HeroMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
-				gameHero.addHeroFollowingListener(attributesMovingHudController);
-				gameHero.addHeroFollowingListener(cameraController);
+				
+//				gameHero.addHeroFollowingListener(attributesMovingHudController);
+//				gameHero.addHeroFollowingListener(cameraController);
 				//--------
 				hudController.addDynamicHud(attributesMovingHudController);
 				gameHero.spawn(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
 				teamFragStatisticHud.addHeroFragHud(heroFragStatisticHud);
 				initializeGameObject(Arrays.asList(gameHero));
-//				cameraController.addObjectToFollow(gameHero);
 			}
 		}
 	}
@@ -223,7 +228,7 @@ public class RoundGameState implements GameState
 	{
 		float updateTime = deltaTime * timeFactor;
 		updateObjects(updateTime);
-		HeroEventCentralMessenger.getInstance().update();
+		EventCentralMessenger.getInstance().update();
 	}
 
 	private void updateObjects(float updateTime)

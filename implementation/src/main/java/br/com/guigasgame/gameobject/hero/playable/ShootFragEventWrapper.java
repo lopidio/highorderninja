@@ -1,10 +1,10 @@
 package br.com.guigasgame.gameobject.hero.playable;
 
-import br.com.guigasgame.frag.FragEventWrapper;
+import br.com.guigasgame.frag.HeroFragEventWrapper;
 import br.com.guigasgame.frag.FragStatistic;
 
 
-public class ShootFragEventWrapper extends FragEventWrapper
+public class ShootFragEventWrapper extends HeroFragEventWrapper
 {
 
 	public ShootFragEventWrapper(PlayableGameHero me)
@@ -13,7 +13,7 @@ public class ShootFragEventWrapper extends FragEventWrapper
 	}
 
 	@Override
-	protected void adjustOwnerFragStatistic(FragStatistic fragStatistic)
+	protected void adjustFragStatistic(FragStatistic fragStatistic)
 	{
 		fragStatistic.incrementShoots();
 	}

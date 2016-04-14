@@ -11,29 +11,12 @@ public class TeamFragEventParser extends FragEventParser
 	}
 
 	@Override
-	protected void handleEvent(FragEventWrapper eventWrapper) 
-	{
-		checkImOwner(eventWrapper);
-		checkImOther(eventWrapper);
-	}
-	
-	private void checkImOwner(FragEventWrapper eventWrapper)
+	protected void handleEvent(HeroFragEventWrapper eventWrapper) 
 	{
 		if (eventWrapper.getMyTeamId() == teamId)
 		{
 			if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-				eventWrapper.adjustOwnerFragStatistic(frag);
+				eventWrapper.adjustFragStatistic(frag);
 		}
 	}
-	
-	private void checkImOther(FragEventWrapper eventWrapper)
-	{
-		if (eventWrapper.getOtherTeamId() == teamId)
-		{
-			if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-				eventWrapper.adjustOtherFragStatistic(frag);
-		}
-	}	
-
-
 }

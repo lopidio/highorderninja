@@ -1,8 +1,9 @@
 package br.com.guigasgame.frag;
 
+import br.com.guigasgame.gameobject.hero.playable.DiedFragEventWrapper;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 
-public class SuicideFragEventWrapper extends FragEventWrapper
+public class SuicideFragEventWrapper extends DiedFragEventWrapper
 {
 	public SuicideFragEventWrapper(PlayableGameHero me)
 	{
@@ -10,9 +11,9 @@ public class SuicideFragEventWrapper extends FragEventWrapper
 	}
 
 	@Override
-	protected void adjustOwnerFragStatistic(FragStatistic fragStatistic)
+	protected void adjustFragStatistic(FragStatistic fragStatistic)
 	{
-		fragStatistic.incrementDeaths();
+		super.adjustFragStatistic(fragStatistic);
 		fragStatistic.incrementSuicides();
 	}
 

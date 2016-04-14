@@ -15,13 +15,16 @@ import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.gameobject.hero.playable.FollowableListener;
+import br.com.guigasgame.frag.EventCentralMessenger.EventListener;
+import br.com.guigasgame.gameobject.hero.playable.DiedFragEventWrapper;
+import br.com.guigasgame.gameobject.hero.playable.SpawnEventWrapper;
+import br.com.guigasgame.frag.EventWrapper;
 import br.com.guigasgame.interpolator.InterpolatorFromTime;
 import br.com.guigasgame.interpolator.VectorLinearInterpolator;
 import br.com.guigasgame.round.hud.controller.ResizableByView;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class CameraController implements UpdatableFromTime, Drawable, ResizableByView, FollowableListener
+public class CameraController implements UpdatableFromTime, Drawable, ResizableByView, EventListener
 {
 	private static final float INNER_FRAME_SCALE = 0.75f;
 	private static final float OUTTER_FRAME_SCALE = 0.80f;
@@ -49,7 +52,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		objectsToFollow.add(followable);
 	}
 
-	public void removeObjectFollow(Followable followable)
+	public void removeObjectToFollow(Followable followable)
 	{
 		centerFrame.removeObject(followable);
 		objectsToFollow.remove(followable);
@@ -167,16 +170,19 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		renderWindow.draw(smallest);
 
 	}
-	@Override
-	public void turnFollowingOff(Followable followable)
-	{
-		removeObjectFollow(followable);		
-	}
 
 	@Override
-	public void turnFollowingOn(Followable followable)
+	public void receiveFragEvent(EventWrapper eventWrapper)
 	{
-		addObjectToFollow(followable);
+		if (eventWrapper instanceof SpawnEventWrapper)
+		{
+			addObjectToFollow(((SpawnEventWrapper) eventWrapper).getPlayableGameHero());
+		}
+		if (eventWrapper instanceof DiedFragEventWrapper)
+		{
+			System.out.println(((DiedFragEventWrapper) eventWrapper).getPlayableGameHero().getHeroProperties().getPlayerId());
+			removeObjectToFollow(((DiedFragEventWrapper) eventWrapper).getPlayableGameHero());
+		}
 	}
 
 }

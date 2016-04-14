@@ -1,21 +1,18 @@
 package br.com.guigasgame.gameobject.hero.playable;
 
-import br.com.guigasgame.frag.HeroEventWrapper;
+import br.com.guigasgame.frag.EventWrapper;
 
 
-public class SpawnEventWrapper implements HeroEventWrapper
+public class SpawnEventWrapper extends EventWrapper
 {
-
-	private PlayableGameHero playableGameHero;
-
 	public SpawnEventWrapper(PlayableGameHero playableGameHero)
 	{
-		this.playableGameHero = playableGameHero;
+		super(playableGameHero);
 	}
 	
 	public PlayableGameHero getPlayableGameHero()
 	{
-		return playableGameHero;
+		return (PlayableGameHero) getSender();
 	}
 
 }

@@ -4,10 +4,10 @@ import br.com.guigasgame.frag.HeroFragEventWrapper;
 import br.com.guigasgame.frag.FragStatistic;
 
 
-public class KillFragEventWrapper extends HeroFragEventWrapper
+public class HitAsTargetFragEventWrapper extends HeroFragEventWrapper
 {
 
-	public KillFragEventWrapper(PlayableGameHero me, PlayableGameHero other)
+	public HitAsTargetFragEventWrapper(PlayableGameHero me, PlayableGameHero other)
 	{
 		super(me, other);
 	}
@@ -15,7 +15,7 @@ public class KillFragEventWrapper extends HeroFragEventWrapper
 	@Override
 	protected void adjustFragStatistic(FragStatistic fragStatistic)
 	{
-		fragStatistic.incrementKills();
+		fragStatistic.incrementHitAsTarget();
 	}
-	
+
 }

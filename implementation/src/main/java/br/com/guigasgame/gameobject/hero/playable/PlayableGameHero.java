@@ -10,7 +10,7 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.Followable;
-import br.com.guigasgame.frag.HeroEventCentralMessenger;
+import br.com.guigasgame.frag.EventCentralMessenger;
 import br.com.guigasgame.frag.SuicideFragEventWrapper;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
@@ -51,7 +51,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	private final RoundHeroAttributes heroAttributes;
 	private boolean invincible;
 	private boolean playerIsDead;
-	private final List<FollowableListener> heroFollowers;
 
 	public PlayableGameHero(PlayableHeroDefinition properties)
 	{
@@ -69,7 +68,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 		collidableList.add(collidableHero);
 		animationList = new ArrayList<>();
-		heroFollowers = new ArrayList<>();
 	}
 
 	public HeroState getState()
@@ -236,7 +234,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		if (heroAttributes.getShurikens().isAbleToShoot())
 		{
-			HeroEventCentralMessenger.getInstance().fireEvent(new ShootFragEventWrapper(this));
+			EventCentralMessenger.getInstance().fireEvent(new ShootFragEventWrapper(this));
 			heroAttributes.getShurikens().decrement(1);
 			return new Shuriken(pointingDirection, this);
 		}
@@ -297,7 +295,8 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			if (!playerIsDead)
 			{
 				System.out.println(fixtureSensorID);
-				HeroEventCentralMessenger.getInstance().fireEvent(new ShootOnTargetFragEventWrapper(owner, this));
+				EventCentralMessenger.getInstance().fireEvent(new ShootOnTargetFragEventWrapper(owner, this));
+				EventCentralMessenger.getInstance().fireEvent(new HitAsTargetFragEventWrapper(this, owner));
 				if (fixtureSensorID == FixtureSensorID.HEAD)
 				{
 					damage *= 3;
@@ -305,7 +304,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 				heroAttributes.getLife().decrement(damage);
 				if (playerIsDead)
 				{
-					HeroEventCentralMessenger.getInstance().fireEvent(new KillFragEventWrapper(owner, this));
+					EventCentralMessenger.getInstance().fireEvent(new KillFragEventWrapper(owner, this));
 				}
 			}
 
@@ -341,10 +340,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		System.out.println("Got dead");
 		collidableHero.die();
 		playerIsDead = true;
-		for( FollowableListener deathsListener : heroFollowers )
-		{
-			deathsListener.turnFollowingOff(this);
-		}
 	}
 
 	public boolean isPlayerDead()
@@ -369,7 +364,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			heroAttributes.getLife().decrement(damage);
 			if (heroAttributes.getLife().getCurrentValue() <= 0)
 			{
-				HeroEventCentralMessenger.getInstance().fireEvent(new SuicideFragEventWrapper(this));
+				EventCentralMessenger.getInstance().fireEvent(new SuicideFragEventWrapper(this));
 			}
 		}
 	}
@@ -377,7 +372,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	@Override
 	protected void gotOutOfScenery()
 	{
-		HeroEventCentralMessenger.getInstance().fireEvent(new SuicideFragEventWrapper(this));
+		EventCentralMessenger.getInstance().fireEvent(new SuicideFragEventWrapper(this));
 		die();
 	}
 
@@ -410,16 +405,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		collidableHero.setNextPosition(position);
 //		collidableHero.respawn();
 		setState(new StandingHeroState(this));
-		for( FollowableListener deathsListener : heroFollowers )
-		{
-			deathsListener.turnFollowingOn(this);
-		}
-		HeroEventCentralMessenger.getInstance().fireEvent(new SpawnEventWrapper(this));
-	}
-
-	public void addHeroFollowingListener(FollowableListener deathsListener)
-	{
-		heroFollowers.add(deathsListener);
+		EventCentralMessenger.getInstance().fireEvent(new SpawnEventWrapper(this));
 	}
 
 }
