@@ -9,10 +9,4 @@ public class SpawnEventWrapper extends EventWrapper
 	{
 		super(playableGameHero);
 	}
-	
-	public PlayableGameHero getPlayableGameHero()
-	{
-		return (PlayableGameHero) getSender();
-	}
-
 }

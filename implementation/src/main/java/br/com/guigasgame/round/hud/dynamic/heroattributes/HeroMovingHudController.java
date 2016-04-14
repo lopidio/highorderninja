@@ -6,28 +6,48 @@ import java.util.List;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2f;
 
-import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import com.google.common.eventbus.Subscribe;
+
+import br.com.guigasgame.box2d.debug.WorldConstants;
+import br.com.guigasgame.camera.Followable;
+import br.com.guigasgame.frag.EventCentralMessenger;
+import br.com.guigasgame.gameobject.hero.playable.DiedFragEventWrapper;
+import br.com.guigasgame.gameobject.hero.playable.SpawnEventWrapper;
 import br.com.guigasgame.round.hud.controller.HudObject;
 
 public abstract class HeroMovingHudController extends HudObject
 {
-	protected PlayableGameHero gameHero;
+	protected Followable followable;
 	protected List<HeroAttributeMovingHud> barsList;
 	private boolean enabled;
 	
-	public HeroMovingHudController(PlayableGameHero gameHero)
+	public HeroMovingHudController(Followable gameHero)
 	{
-		this.gameHero = gameHero;
+		this.followable = gameHero;
 		barsList = new ArrayList<>();
 		enabled = true;
+		EventCentralMessenger.getInstance().subscribe(this);
 	}
+	
+	@Subscribe public void onSpawnEvent(SpawnEventWrapper spawnEventWrapper) 
+	{
+		if ((Followable)(spawnEventWrapper.getSender()) == followable)
+			enabled = true;
+	}
+
+	@Subscribe public void onDiedEvent(DiedFragEventWrapper spawnEventWrapper) 
+	{
+		if ((Followable)(spawnEventWrapper.getSender()) == followable)
+			enabled = false;
+	}
+
 	
 	@Override
 	public void update(float deltaTime)
 	{
 		if (enabled)
 		{
-			final Vector2f position = gameHero.getMassCenter();
+			final Vector2f position = WorldConstants.physicsToSfmlCoordinates(followable.getPosition());
 			for( HeroAttributeMovingHud attributeBarBellowHud : barsList )
 			{
 				attributeBarBellowHud.updatePosition(position);

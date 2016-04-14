@@ -7,6 +7,8 @@ import java.util.List;
 import org.jbox2d.common.Vec2;
 import org.jsfml.system.Vector2f;
 
+import com.google.common.eventbus.Subscribe;
+
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.Followable;
@@ -305,6 +307,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 				if (playerIsDead)
 				{
 					EventCentralMessenger.getInstance().fireEvent(new KillFragEventWrapper(owner, this));
+					EventCentralMessenger.getInstance().fireEvent(new DiedFragEventWrapper(this, owner));
 				}
 			}
 
@@ -314,6 +317,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			System.out.println("Absorved projectile");
 		}
 	}
+	
 
 	public Vector2f getMassCenter()
 	{

@@ -1,17 +1,12 @@
 package br.com.guigasgame.frag;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import com.google.common.eventbus.EventBus;
 
 public class EventCentralMessenger
 {
-	public interface EventListener
-	{
-		void receiveFragEvent(EventWrapper eventWrapper);
-	}
-	
 	private static EventCentralMessenger eventMessenger;
 	public static EventCentralMessenger getInstance()
 	{
@@ -20,63 +15,32 @@ public class EventCentralMessenger
 		return eventMessenger;
 	}
 	
-	
-	private Map<Class<? extends EventWrapper>, List<EventListener> > listenersMap;
 	private List<EventWrapper> eventsQueue;
+	private EventBus eventBus;
 
 	private EventCentralMessenger()
 	{
-		listenersMap = new HashMap<>();
 		eventsQueue = new ArrayList<>();
+		eventBus = new EventBus();
 	}
 	
-	public <T extends EventWrapper> void subscribe(Class<T> channel, EventListener listener)
+	public void subscribe(Object obj)
 	{
-		List<EventListener> list = listenersMap.getOrDefault(channel, new ArrayList<>());
-		list.add(listener);
-		listenersMap.put(channel, list);
+		eventBus.register(obj);
 	}	
 
-	public void fireEvent(EventWrapper obj)
+	public void fireEvent(EventWrapper event)
 	{
-		eventsQueue.add(obj);
+		eventsQueue.add(event);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void update()
 	{
 		for (EventWrapper event : eventsQueue) 
 		{
-			Class<? extends EventWrapper> clazz = event.getClass();
-			do 
-			{
-				dispatchToListeners(event, clazz);
-				clazz = (Class<? extends EventWrapper>) clazz.getSuperclass();
-			}
-			while (clazz != null);
+			eventBus.post(event);
 		}
 		eventsQueue.clear();
 	}
 
-	private void dispatchToListeners(EventWrapper event, Class<? extends EventWrapper> clazz)
-	{
-		System.out.println("Dispatching event: " + clazz.getSimpleName());
-
-		List<EventListener> listeners = listenersMap.get(clazz);
-		if (listeners != null)
-		{
-			for (EventListener listener : listeners) 
-			{
-				listener.receiveFragEvent(event);
-			}
-		}
-	}
-
-	public void clearAllListeners()
-	{
-		for( List<EventListener> list :listenersMap.values() )
-		{
-			list.clear();
-		}
-	}
 }

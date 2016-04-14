@@ -13,18 +13,19 @@ import org.jsfml.graphics.View;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
+import com.google.common.eventbus.Subscribe;
+
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.frag.EventCentralMessenger.EventListener;
+import br.com.guigasgame.frag.EventCentralMessenger;
 import br.com.guigasgame.gameobject.hero.playable.DiedFragEventWrapper;
 import br.com.guigasgame.gameobject.hero.playable.SpawnEventWrapper;
-import br.com.guigasgame.frag.EventWrapper;
 import br.com.guigasgame.interpolator.InterpolatorFromTime;
 import br.com.guigasgame.interpolator.VectorLinearInterpolator;
 import br.com.guigasgame.round.hud.controller.ResizableByView;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
-public class CameraController implements UpdatableFromTime, Drawable, ResizableByView, EventListener
+public class CameraController implements UpdatableFromTime, Drawable, ResizableByView
 {
 	private static final float INNER_FRAME_SCALE = 0.75f;
 	private static final float OUTTER_FRAME_SCALE = 0.80f;
@@ -44,6 +45,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	{
 		objectsToFollow = new ArrayList<>();
 		centerFrame = new CameraCenterFrame(center);
+		EventCentralMessenger.getInstance().subscribe(this);
 	}
 	
 	public void addObjectToFollow(Followable followable)
@@ -170,19 +172,15 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		renderWindow.draw(smallest);
 
 	}
-
-	@Override
-	public void receiveFragEvent(EventWrapper eventWrapper)
+	
+	@Subscribe public void onSpawnEvent(SpawnEventWrapper spawnEventWrapper) 
 	{
-		if (eventWrapper instanceof SpawnEventWrapper)
-		{
-			addObjectToFollow(((SpawnEventWrapper) eventWrapper).getPlayableGameHero());
-		}
-		if (eventWrapper instanceof DiedFragEventWrapper)
-		{
-			System.out.println(((DiedFragEventWrapper) eventWrapper).getPlayableGameHero().getHeroProperties().getPlayerId());
-			removeObjectToFollow(((DiedFragEventWrapper) eventWrapper).getPlayableGameHero());
-		}
+		addObjectToFollow((Followable)(spawnEventWrapper.getSender()));
+	}
+
+	@Subscribe public void onDiedEvent(DiedFragEventWrapper spawnEventWrapper) 
+	{
+		removeObjectToFollow((Followable)(spawnEventWrapper.getSender()));
 	}
 
 }

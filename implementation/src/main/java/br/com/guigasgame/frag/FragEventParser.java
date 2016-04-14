@@ -3,9 +3,9 @@ package br.com.guigasgame.frag;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.guigasgame.frag.EventCentralMessenger.EventListener;
+import com.google.common.eventbus.Subscribe;
 
-public abstract class FragEventParser implements EventListener
+public abstract class FragEventParser
 {
 	private final List<FragStatisticListener> fragListeners;
 	protected final FragStatistic frag;
@@ -29,10 +29,10 @@ public abstract class FragEventParser implements EventListener
 		}
 	}	
 	
-	@Override
-	public final void receiveFragEvent(EventWrapper eventWrapper)
+	
+	@Subscribe public void onHeroFragEvent(HeroFragEventWrapper eventWrapper) 
 	{
-		handleEvent((HeroFragEventWrapper) eventWrapper);
+		handleEvent(eventWrapper);
 		notifyListeners();
 	}
 
