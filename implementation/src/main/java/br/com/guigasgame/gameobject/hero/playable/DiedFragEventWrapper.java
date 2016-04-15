@@ -1,6 +1,7 @@
 package br.com.guigasgame.gameobject.hero.playable;
 
 import br.com.guigasgame.frag.HeroFragEventWrapper;
+import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.frag.FragStatistic;
 
 
@@ -8,7 +9,7 @@ public class DiedFragEventWrapper extends HeroFragEventWrapper
 {
 	private PlayableGameHero me;
 
-	public DiedFragEventWrapper(PlayableGameHero me, PlayableGameHero other)
+	public DiedFragEventWrapper(PlayableGameHero me, PlayableGameHero other, Projectile projectile)
 	{
 		super(me, other);
 		this.me = me;

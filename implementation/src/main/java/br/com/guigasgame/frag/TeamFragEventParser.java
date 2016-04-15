@@ -2,7 +2,6 @@ package br.com.guigasgame.frag;
 
 public class TeamFragEventParser extends FragEventParser
 {
-
 	private final int teamId;
 	
 	public TeamFragEventParser(int teamId) 
@@ -15,8 +14,7 @@ public class TeamFragEventParser extends FragEventParser
 	{
 		if (eventWrapper.getMyTeamId() == teamId)
 		{
-			if (eventWrapper.getMyTeamId() != eventWrapper.getOtherTeamId())
-				eventWrapper.adjustFragStatistic(frag);
+			eventWrapper.adjustFragStatistic(frag);
 		}
 	}
 }

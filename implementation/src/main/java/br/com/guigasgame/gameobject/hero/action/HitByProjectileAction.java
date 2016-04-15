@@ -21,7 +21,7 @@ public class HitByProjectileAction extends GameHeroAction
 	@Override
 	protected void childExecute(PlayableGameHero poorPlayer)
 	{
-		poorPlayer.getHitByProjectile(projectile.getProperties().damage, fixtureSensorID, owner);
+		poorPlayer.getHitByProjectile(projectile, fixtureSensorID, owner);
 	}
 
 }

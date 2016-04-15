@@ -14,6 +14,7 @@ public abstract class FragEventParser
 	{
 		this.fragListeners = new ArrayList<>();
 		this.frag = new FragStatistic();
+		EventCentralMessenger.getInstance().subscribe(this);
 	}
 	
 	public void addListener(FragStatisticListener listener)
@@ -25,11 +26,15 @@ public abstract class FragEventParser
 	{
 		for( FragStatisticListener fragStatisticListener : fragListeners )
 		{
-			fragStatisticListener.onChange(frag);
+			fragStatisticListener.onFragChange(frag);
 		}
 	}	
 	
-	
+	public FragStatistic getFrag()
+	{
+		return frag;
+	}
+
 	@Subscribe public void onHeroFragEvent(HeroFragEventWrapper eventWrapper) 
 	{
 		handleEvent(eventWrapper);

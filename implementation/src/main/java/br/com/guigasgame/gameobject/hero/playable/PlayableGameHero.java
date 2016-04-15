@@ -7,8 +7,6 @@ import java.util.List;
 import org.jbox2d.common.Vec2;
 import org.jsfml.system.Vector2f;
 
-import com.google.common.eventbus.Subscribe;
-
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.Followable;
@@ -29,10 +27,9 @@ import br.com.guigasgame.gameobject.projectile.rope.NinjaHookProjectile;
 import br.com.guigasgame.gameobject.projectile.shuriken.Shuriken;
 import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.side.Side;
-import br.com.guigasgame.time.TimerEventsController.TimeListener;
 
 
-public class PlayableGameHero extends GameObject implements HeroAttributeListener, Followable, TimeListener
+public class PlayableGameHero extends GameObject implements HeroAttributeListener, Followable
 {
 	public enum TimeEvent
 	{
@@ -236,9 +233,10 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		if (heroAttributes.getShurikens().isAbleToShoot())
 		{
-			EventCentralMessenger.getInstance().fireEvent(new ShootFragEventWrapper(this));
+			Projectile retorno = new Shuriken(pointingDirection, this); 
+			EventCentralMessenger.getInstance().fireEvent(new ShootFragEventWrapper(this, retorno));
 			heroAttributes.getShurikens().decrement(1);
-			return new Shuriken(pointingDirection, this);
+			return retorno;
 		}
 		return null;
 	}
@@ -290,15 +288,16 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		heroAttributes.getShurikens().refill();
 	}
 
-	public void getHitByProjectile(float damage, FixtureSensorID fixtureSensorID, PlayableGameHero owner)
+	public void getHitByProjectile(Projectile projectile, FixtureSensorID fixtureSensorID, PlayableGameHero owner)
 	{
+		float damage = projectile.getProperties().damage;
 		if (!invincible)
 		{
 			if (!playerIsDead)
 			{
 				System.out.println(fixtureSensorID);
-				EventCentralMessenger.getInstance().fireEvent(new ShootOnTargetFragEventWrapper(owner, this));
-				EventCentralMessenger.getInstance().fireEvent(new HitAsTargetFragEventWrapper(this, owner));
+				EventCentralMessenger.getInstance().fireEvent(new ShootOnTargetFragEventWrapper(owner, this, projectile));
+				EventCentralMessenger.getInstance().fireEvent(new HitAsTargetFragEventWrapper(this, owner, projectile));
 				if (fixtureSensorID == FixtureSensorID.HEAD)
 				{
 					damage *= 3;
@@ -306,8 +305,8 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 				heroAttributes.getLife().decrement(damage);
 				if (playerIsDead)
 				{
-					EventCentralMessenger.getInstance().fireEvent(new KillFragEventWrapper(owner, this));
-					EventCentralMessenger.getInstance().fireEvent(new DiedFragEventWrapper(this, owner));
+					EventCentralMessenger.getInstance().fireEvent(new KillFragEventWrapper(owner, this, projectile));
+					EventCentralMessenger.getInstance().fireEvent(new DiedFragEventWrapper(this, owner, projectile));
 				}
 			}
 
@@ -386,21 +385,21 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		return collidableHero.getBody().getWorldCenter();
 	}
 
-	@Override
-	public void receiveTimeEvent(Object value)
-	{
-		TimeEvent event = (TimeEvent) value;
-		switch (event)
-		{
-			case SPAWN_INVINCIBILITY_OVER:
-				System.out.println("Spawn timer is over");
-				break;
-			case SPAWN:
-				spawn(new Vec2(0, 0));
-			default:
-				break;
-		}
-	}
+//	@Override
+//	public void receiveTimeEvent(Object value)
+//	{
+//		TimeEvent event = (TimeEvent) value;
+//		switch (event)
+//		{
+//			case SPAWN_INVINCIBILITY_OVER:
+//				System.out.println("Spawn timer is over");
+//				break;
+//			case SPAWN:
+//				spawn(new Vec2(0, 0));
+//			default:
+//				break;
+//		}
+//	}
 
 	public void spawn(Vec2 position)
 	{

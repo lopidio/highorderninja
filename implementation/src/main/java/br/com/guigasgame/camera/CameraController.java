@@ -178,9 +178,9 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		addObjectToFollow((Followable)(spawnEventWrapper.getSender()));
 	}
 
-	@Subscribe public void onDiedEvent(DiedFragEventWrapper spawnEventWrapper) 
+	@Subscribe public void onDiedEvent(DiedFragEventWrapper diedEventWrapper) 
 	{
-		removeObjectToFollow((Followable)(spawnEventWrapper.getSender()));
+		removeObjectToFollow((Followable)(diedEventWrapper.getSender()));
 	}
 
 }

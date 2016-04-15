@@ -50,11 +50,11 @@ public class HeroAttributesArcBellowHud extends HeroAttributeMovingHud
 		final double angle = 2*Math.PI/totalPoints;
 		innerShape.clear();
 		
-		innerShape.add(new Vertex(center, innerColor.getCurrentColor().getSfmlColor()));
+		innerShape.add(new Vertex(center, innerColor.getCurrentColor().lighten(2).getSfmlColor()));
 		for (int i = 0; i <= totalPoints*ratio; ++i)
 		{
 			final Vector2f circlePerimeter = new Vector2f((float)(radius*Math.cos(i*angle) + center.x), (float)(radius*Math.sin(i*angle) + center.y));
-			innerShape.add(new Vertex(circlePerimeter, innerColor.getCurrentColor().getSfmlColor()));
+			innerShape.add(new Vertex(circlePerimeter, innerColor.getCurrentColor().makeTranslucid(1.2f).getSfmlColor()));
 		}
 	}
 

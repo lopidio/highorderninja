@@ -56,7 +56,7 @@ public class GameMachine
 		SceneryInitialize scenery = new SceneryInitialize(SceneryFile.loadFromFile(FilenameConstants.getSceneryFilename()));
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
-		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teamsController, scenery, 20, new RoundHudTopSkin(), new DeathMatchRoundType(5));
+		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teamsController, scenery, 10, new RoundHudTopSkin(), new DeathMatchRoundType(5));
 		RoundGameState roundGameState = new RoundGameState(roundProperties);
 		return roundGameState;
 	}

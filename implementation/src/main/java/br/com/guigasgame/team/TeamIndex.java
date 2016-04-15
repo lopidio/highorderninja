@@ -12,7 +12,7 @@ public enum TeamIndex
 	DELTA(getNextId(),		"Persebi"),
 	ECHO(getNextId(),		"TtitoChase"),
 	FOXTROT(getNextId(),	"XuxuLover"),
-	GOLF(getNextId(),		"RuyCost"),
+	GOLF(getNextId(),		"Boramans"),
 	HOTEL(getNextId(),		"BroqenDors");
 
 	private static int idsUsed = 0;

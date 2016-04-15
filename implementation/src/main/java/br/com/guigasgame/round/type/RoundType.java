@@ -1,9 +1,8 @@
 package br.com.guigasgame.round.type;
 
-import br.com.guigasgame.frag.FragStatisticListener;
-import br.com.guigasgame.time.TimerEventsController;
+import br.com.guigasgame.gamemachine.RoundGameState;
 
-public interface RoundType extends FragStatisticListener
+public interface RoundType
 {
-	void setupTimeEvents(TimerEventsController timerEventsController);
+	void setRoundState(RoundGameState roundGameState);
 }

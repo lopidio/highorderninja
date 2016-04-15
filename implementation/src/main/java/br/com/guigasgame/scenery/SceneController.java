@@ -107,8 +107,7 @@ public class SceneController extends GameObject
 	{
 		if (remainingSpawnPoints.size() == 0)
 			fillRemaingSpawnPoints();
-		int randIndex = Randomizer.getRandomIntInInterval(0, remainingSpawnPoints.size()
-				- 1);
+		int randIndex = Randomizer.getRandomIntInInterval(0, remainingSpawnPoints.size() - 1);
 		Vector2f retorno = remainingSpawnPoints.get(randIndex);
 		remainingSpawnPoints.remove(randIndex);
 		return retorno;

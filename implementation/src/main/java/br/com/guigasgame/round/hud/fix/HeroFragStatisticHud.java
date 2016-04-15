@@ -44,7 +44,7 @@ public class HeroFragStatisticHud extends HudObject implements FragStatisticList
 	}
  
 	@Override
- 	public void onChange(FragStatistic statistic)
+ 	public void onFragChange(FragStatistic statistic)
  	{
 		kills = statistic.getKills();
 		deaths = statistic.getDeaths();

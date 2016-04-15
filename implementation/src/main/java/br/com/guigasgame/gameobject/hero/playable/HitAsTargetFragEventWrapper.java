@@ -1,13 +1,14 @@
 package br.com.guigasgame.gameobject.hero.playable;
 
 import br.com.guigasgame.frag.HeroFragEventWrapper;
+import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.frag.FragStatistic;
 
 
 public class HitAsTargetFragEventWrapper extends HeroFragEventWrapper
 {
 
-	public HitAsTargetFragEventWrapper(PlayableGameHero me, PlayableGameHero other)
+	public HitAsTargetFragEventWrapper(PlayableGameHero me, PlayableGameHero other, Projectile projectile)
 	{
 		super(me, other);
 	}
@@ -15,7 +16,8 @@ public class HitAsTargetFragEventWrapper extends HeroFragEventWrapper
 	@Override
 	protected void adjustFragStatistic(FragStatistic fragStatistic)
 	{
-		fragStatistic.incrementHitAsTarget();
+		if (getMyTeamId() != getOtherTeamId())
+			fragStatistic.incrementHitAsTarget();
 	}
 
 }

@@ -6,27 +6,19 @@ import java.util.List;
 import org.jsfml.graphics.RenderWindow;
 
 import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.round.RoundProperties;
 import br.com.guigasgame.round.hud.controller.HudObject;
-import br.com.guigasgame.time.TimerEventsController;
-import br.com.guigasgame.time.TimerEventsController.TimeListener;
 
 
-public abstract class TimerStaticHud extends HudObject implements TimeListener
+public abstract class TimerStaticHud extends HudObject
 {
-	public enum TimerEvents
-	{
-		HALF_TIME,
-		FULL_TIME,
-		DECIMAL_CHANGE
-	}
-
-	private int totalTime;
+	private final int totalTime;
+	private float currentTime;
 	private List<Drawable> drawablesList;
 	
 	public TimerStaticHud(int totalTime)
 	{
 		this.totalTime = totalTime;
+		this.currentTime = totalTime;
 		drawablesList = new ArrayList<>();
 	}
 	
@@ -47,38 +39,27 @@ public abstract class TimerStaticHud extends HudObject implements TimeListener
 	@Override
 	public void update(float deltaTime)
 	{
-		//do nothing
+		if (checkDecimalChange(deltaTime))
+		{
+			final int intCurrentTime = (int) currentTime;
+			onDecimalChange(intCurrentTime);
+			if ((float)intCurrentTime/totalTime == 0.5f)
+				halfTime();
+			else if (intCurrentTime == 0)
+				timeOut();
+		}
+		currentTime -= deltaTime;
 	}
 	
-	@Override
-	public final void receiveTimeEvent(Object value)
+	private boolean checkDecimalChange(float deltaTime)
 	{
-		TimerEvents event = (TimerEvents) value;
-		switch (event)
-		{
-			case HALF_TIME:
-				halfTime();
-				break;
-			case FULL_TIME:
-				timeOut();
-				break;
-			case DECIMAL_CHANGE:
-				onDecimalChange(--totalTime);
-				break;
-			default:
-				break;
-		}
+		final int decimal = ((int) Math.floor(currentTime))%10;
+		final int newDecimal = ((int) Math.floor((currentTime - deltaTime)))%10;
+		return decimal != newDecimal;
 	}
 	
 	protected abstract void halfTime();
 	protected abstract void timeOut();
 	protected abstract void onDecimalChange(int currentValue);
-
-	public void setupTimerEvent(TimerEventsController timerEventsController, RoundProperties roundAttributes)
-	{
-		timerEventsController.addEventListener(this, roundAttributes.getTotalTime()/2, TimerEvents.HALF_TIME);
-		timerEventsController.addEventListener(this, roundAttributes.getTotalTime(), TimerEvents.FULL_TIME);
-		timerEventsController.addPeriodicEventListener(this, 1, TimerEvents.DECIMAL_CHANGE);
-	}
 
 }

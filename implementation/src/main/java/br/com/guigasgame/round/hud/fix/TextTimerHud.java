@@ -55,5 +55,4 @@ public class TextTimerHud extends TimerStaticHud
 		text.setString(newString);
 	}
 
-
 }

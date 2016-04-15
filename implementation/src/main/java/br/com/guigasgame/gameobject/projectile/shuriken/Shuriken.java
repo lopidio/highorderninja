@@ -1,9 +1,11 @@
 package br.com.guigasgame.gameobject.projectile.shuriken;
 
+import org.jbox2d.collision.WorldManifold;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.contacts.Contact;
 
+import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollidableFilterBox2dAdapter;
 import br.com.guigasgame.gameobject.hero.action.HitByProjectileAction;
@@ -34,8 +36,16 @@ public class Shuriken extends Projectile
 	@Override
 	public void beginContact(Object me, Object other, Contact contact)
 	{
+		WorldManifold worldManifold = new WorldManifold();
+		contact.getWorldManifold(worldManifold);
+//		double angle = WorldConstants.getSmallestAngleBetweenVectorsInRadians(collidable.getBody().getLinearVelocity(), worldManifold.normal) - Math.PI/2;
+		double angle = WorldConstants.radiansToDegrees(WorldConstants.calculateAngleInRadians(worldManifold.normal));
+		System.out.println(angle);
 		super.beginContact(me, other, contact);
-		initializeAutoDestruction();
+		if (Math.abs(angle) > 20)
+			initializeAutoDestruction();
+		else
+			System.out.println("Ricochet");
 		// ++collisionCounter;
 		// if (collisionCounter >= properties.numBounces)
 		// {

@@ -2,7 +2,7 @@ package br.com.guigasgame.frag;
 
 public class EventWrapper
 {
-	protected Object sender;
+	protected final Object sender;
 
 	public EventWrapper(Object sender)
 	{
