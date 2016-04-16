@@ -83,7 +83,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	public void onEnter()
 	{
 		collidableHero.loadAndAttachFixturesToBody();
-		setState(new StandingHeroState(this));
 	}
 
 	@Override
@@ -105,7 +104,10 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 			heroAttributes.update(deltaTime);
 		}
-		adjustSpritePosition();
+
+		final Vector2f position = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
+		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
+		adjustAnimationPosition(position, angleInDegrees);
 	}
 
 	private void updateItemsList()
@@ -117,17 +119,13 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		gameItems.clear();
 	}
 
-	private void adjustSpritePosition()
+	private void adjustAnimationPosition(final Vector2f position, final float angleInDegrees)
 	{
-		final Vector2f vector2f = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
-		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
-
 		for( Animation animation : animationList )
 		{
-			animation.setPosition(vector2f);
+			animation.setPosition(position);
 			animation.setRotation(angleInDegrees);
 		}
-
 	}
 
 	private void updateActionList()
@@ -345,7 +343,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void die()
 	{
-		System.out.println("Got dead");
 		collidableHero.die();
 		playerIsDead = true;
 	}
@@ -380,8 +377,11 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	@Override
 	protected void gotOutOfScenery()
 	{
-		EventCentralMessenger.getInstance().fireEvent(new DiedFragEventWrapper(this));
-		die();
+		if (!playerIsDead)
+		{
+			EventCentralMessenger.getInstance().fireEvent(new DiedFragEventWrapper(this));
+			die();
+		}
 	}
 
 	@Override
@@ -392,10 +392,15 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void spawn(Vec2 position)
 	{
+		setState(new StandingHeroState(this));
 		playerIsDead = false;
 		heroAttributes.reset();
-		collidableHero.spawnAt(position);
-		setState(new StandingHeroState(this));
+		collidableHero.moveTo(position);
+		collidableHero.reset();
+		if (collidableHero.getBody() != null)
+		{
+			adjustAnimationPosition(WorldConstants.physicsToSfmlCoordinates(position), 0);
+		}
 		EventCentralMessenger.getInstance().fireEvent(new SpawnEventWrapper(this));
 	}
 

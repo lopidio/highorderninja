@@ -122,7 +122,6 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 			{
 				System.out.println("Game object out of scenery: " + WorldConstants.physicsToSfmlCoordinates(collidable.getPosition()));
 				gotOutOfScenery();
-				markToDestroy();
 				return;
 			}
 		}
@@ -131,5 +130,6 @@ public abstract class GameObject implements CollidableContactListener, Updatable
 	protected void gotOutOfScenery()
 	{
 		//hook method
+		markToDestroy();
 	}
 }

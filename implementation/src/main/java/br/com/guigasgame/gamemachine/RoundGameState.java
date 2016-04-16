@@ -111,7 +111,6 @@ public class RoundGameState implements GameState
 				HeroMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
 				
 				hudController.addDynamicHud(attributesMovingHudController);
-				gameHeroSpawner.addHeroToSpawnImediatly(gameHero);
 				spawnHero(gameHero);
 				teamFragStatisticHud.addHeroFragHud(heroFragStatisticHud);
 				initializeGameObject(Arrays.asList(gameHero));
@@ -179,22 +178,10 @@ public class RoundGameState implements GameState
 
 		if (event.type == Type.KEY_PRESSED)
 		{
-			if (event.asKeyEvent().key == Key.U)
-			{
-				timeFactor = 0.01f;
-			}
-			if (event.asKeyEvent().key == Key.I)
-			{
-				timeFactor = 0.3f;
-			}
-			if (event.asKeyEvent().key == Key.O)
-			{
-				timeFactor = 1f;
-			}
-			if (event.asKeyEvent().key == Key.P)
-			{
-				timeFactor = 2;
-			}
+			if (event.asKeyEvent().key == Key.U) timeFactor = 0.01f;
+			if (event.asKeyEvent().key == Key.I) timeFactor = 0.3f;
+			if (event.asKeyEvent().key == Key.O) timeFactor = 1f;
+			if (event.asKeyEvent().key == Key.P) timeFactor = 3;
 		}
 		
 		// catch the resize events

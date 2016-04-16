@@ -211,6 +211,10 @@ public class CollidableHero extends Collidable
 	{
 		for( Fixture fixture : fixtureMap.values() )
 		{
+			if (!fixture.isSensor())
+			{
+				fixture.setFilterData(new CollidableFilterBox2dAdapter(filter).toBox2dFilter());
+			}
 			fixture.setFriction(1f);
 			fixture.setRestitution(0);
 		}
@@ -235,7 +239,7 @@ public class CollidableHero extends Collidable
 		}
 	}
 	
-	public void spawnAt(Vec2 position)
+	public void moveTo(Vec2 position)
 	{
 		if (body != null)
 		{
@@ -244,14 +248,6 @@ public class CollidableHero extends Collidable
 		}
 		else
 			bodyDef.position = position;
-		for( Fixture fixture : fixtureMap.values() )
-		{
-			if (!fixture.isSensor())
-			{
-				fixture.setFilterData(new CollidableFilterBox2dAdapter(filter).toBox2dFilter());
-			}
-		}
-		resetFixtureProperties();
 	}
 
 
@@ -268,6 +264,16 @@ public class CollidableHero extends Collidable
 	{
 		return sensorsController.getController(FixtureSensorID.RIGHT_TOP_SENSOR).isTouching() &&
 				sensorsController.getController(FixtureSensorID.LEFT_TOP_SENSOR).isTouching();
+	}
+
+	public void reset()
+	{
+		resetFixtureProperties();
+		if (body != null)
+		{
+			body.setLinearVelocity(new Vec2());
+		}
+		
 	}
 
 }
