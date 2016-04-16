@@ -18,13 +18,13 @@ import br.com.guigasgame.round.hud.controller.HudObject;
 public abstract class HeroMovingHudController extends HudObject
 {
 	protected Followable followable;
-	protected List<HeroAttributeMovingHud> barsList;
+	protected List<HeroAttributeMoveableHud> heroAttributesList;
 	private boolean enabled;
 	
 	public HeroMovingHudController(Followable gameHero)
 	{
 		this.followable = gameHero;
-		barsList = new ArrayList<>();
+		heroAttributesList = new ArrayList<>();
 		enabled = true;
 		EventCentralMessenger.getInstance().subscribe(this);
 	}
@@ -32,7 +32,10 @@ public abstract class HeroMovingHudController extends HudObject
 	@Subscribe public void onSpawnEvent(SpawnEventWrapper spawnEventWrapper) 
 	{
 		if ((Followable)(spawnEventWrapper.getSender()) == followable)
+		{
 			enabled = true;
+			updatePosition();
+		}
 	}
 
 	@Subscribe public void onDiedEvent(DiedFragEventWrapper spawnEventWrapper) 
@@ -41,17 +44,28 @@ public abstract class HeroMovingHudController extends HudObject
 			enabled = false;
 	}
 
+	private void updatePosition()
+	{
+		if (enabled)
+		{
+			final Vector2f position = WorldConstants.physicsToSfmlCoordinates(followable.getPosition());
+			for( HeroAttributeMoveableHud moveableHud : heroAttributesList )
+			{
+				moveableHud.updatePosition(position);
+			}
+		}
+	}
+	
 	
 	@Override
 	public void update(float deltaTime)
 	{
 		if (enabled)
 		{
-			final Vector2f position = WorldConstants.physicsToSfmlCoordinates(followable.getPosition());
-			for( HeroAttributeMovingHud attributeBarBellowHud : barsList )
+			updatePosition();
+			for( HeroAttributeMoveableHud moveableHud : heroAttributesList )
 			{
-				attributeBarBellowHud.updatePosition(position);
-				attributeBarBellowHud.update(deltaTime);
+				moveableHud.update(deltaTime);
 			}
 		}
 	}
@@ -59,7 +73,7 @@ public abstract class HeroMovingHudController extends HudObject
 	@Override
 	public void destroy()
 	{
-		barsList.clear();
+		heroAttributesList.clear();
 	}
 
 	@Override
@@ -67,7 +81,7 @@ public abstract class HeroMovingHudController extends HudObject
 	{
 		if (enabled)
 		{
-			for( HeroAttributeMovingHud attributeBarBellowHud : barsList )
+			for( HeroAttributeMoveableHud attributeBarBellowHud : heroAttributesList )
 			{
 				attributeBarBellowHud.draw(renderWindow);
 			}

@@ -8,9 +8,9 @@ import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.color.ColorInterpolator;
 import br.com.guigasgame.color.ColorLinearInterpolator;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMovingHud;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMoveableHud;
 
-abstract class HeroAttributeBarBellowHud extends HeroAttributeMovingHud
+abstract class HeroAttributeBarBellowHud implements HeroAttributeMoveableHud
 {
 	protected Vector2f size;
 	protected ColorInterpolator innerColor;

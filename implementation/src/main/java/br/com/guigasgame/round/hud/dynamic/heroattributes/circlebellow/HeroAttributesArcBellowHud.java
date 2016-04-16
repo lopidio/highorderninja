@@ -11,9 +11,9 @@ import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.color.ColorInterpolator;
 import br.com.guigasgame.color.ColorLinearInterpolator;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMovingHud;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMoveableHud;
 
-public class HeroAttributesArcBellowHud extends HeroAttributeMovingHud
+public class HeroAttributesArcBellowHud implements HeroAttributeMoveableHud
 {
 
 	protected float radius;

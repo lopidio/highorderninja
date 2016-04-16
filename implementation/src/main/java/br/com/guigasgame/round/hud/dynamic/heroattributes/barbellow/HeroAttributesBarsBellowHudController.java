@@ -5,7 +5,7 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMovingHud;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMoveableHud;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroMovingHudController;
 
 public class HeroAttributesBarsBellowHudController extends HeroMovingHudController
@@ -22,12 +22,12 @@ public class HeroAttributesBarsBellowHudController extends HeroMovingHudControll
 		super(gameHero);
 		
 		final RoundHeroAttributes roundHeroAttributes = gameHero.getHeroProperties().getRoundHeroAttributes();
-		HeroAttributeMovingHud shuriken = new ShootingAttributeBarBellowHud(SHURIKEN_BAR_COLOR, new Vector2f(0, VERTICAL_OFFSET), SIZE);
-		barsList.add(shuriken);
-		HeroAttributeMovingHud smokeBomb = new ShootingAttributeBarBellowHud(SMOKE_BOMB_BAR_COLOR, new Vector2f(0, VERTICAL_OFFSET + SEPARATOR + SIZE.y), SIZE);
-		barsList.add(smokeBomb);
-		HeroAttributeMovingHud life = new LifeAttributeBarBellowHud(LIFE_BAR_COLOR, new Vector2f(0, VERTICAL_OFFSET + 2*(SEPARATOR + SIZE.y)), SIZE);
-		barsList.add(life);
+		HeroAttributeMoveableHud shuriken = new ShootingAttributeBarBellowHud(SHURIKEN_BAR_COLOR, new Vector2f(0, VERTICAL_OFFSET), SIZE);
+		heroAttributesList.add(shuriken);
+		HeroAttributeMoveableHud smokeBomb = new ShootingAttributeBarBellowHud(SMOKE_BOMB_BAR_COLOR, new Vector2f(0, VERTICAL_OFFSET + SEPARATOR + SIZE.y), SIZE);
+		heroAttributesList.add(smokeBomb);
+		HeroAttributeMoveableHud life = new LifeAttributeBarBellowHud(LIFE_BAR_COLOR, new Vector2f(0, VERTICAL_OFFSET + 2*(SEPARATOR + SIZE.y)), SIZE);
+		heroAttributesList.add(life);
 		
 		roundHeroAttributes.getShurikens().addListener(shuriken);
 		roundHeroAttributes.getSmokeBomb().addListener(smokeBomb);
