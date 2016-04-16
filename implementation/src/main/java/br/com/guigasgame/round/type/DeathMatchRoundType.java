@@ -27,6 +27,7 @@ public class DeathMatchRoundType implements RoundMode
 	@Subscribe public void onDiedEvent(DiedFragEventWrapper diedEventWrapper) 
 	{
 		PlayableGameHero deadHero = ((PlayableGameHero)(diedEventWrapper.getSender()));
+		roundGameState.addHeroToSpawn(deadHero);
 //		if (deadHero.getHeroProperties().getFragCounter().getFrag().getKills() > deaths)
 		{
 //			EventCentralMessenger.getInstance().fireEvent(new EventWrapper(null));
@@ -35,7 +36,7 @@ public class DeathMatchRoundType implements RoundMode
 //			timerEventsController.addEventListener(roundGameState, 5.0, value);
 		}
 	}
-	
+
 	@Override
 	public void setRoundState(RoundGameState roundGameState)
 	{

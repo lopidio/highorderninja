@@ -57,7 +57,7 @@ public class GameMachine
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
 //		teamsController.setRoundConfigurationsUp();
-		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teamsController, scenery, 10, new RoundHudTopSkin(), new DeathMatchRoundType(5));
+		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teamsController, scenery, 10, new RoundHudTopSkin(), new DeathMatchRoundType(5), 3);
 		RoundGameState roundGameState = new RoundGameState(roundProperties);
 		return roundGameState;
 	}

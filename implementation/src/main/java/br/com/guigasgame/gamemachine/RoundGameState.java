@@ -36,6 +36,7 @@ import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroMovingHudControlle
 import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TeamFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TimerStaticHud;
+import br.com.guigasgame.round.type.GameHeroSpawner;
 import br.com.guigasgame.round.type.RoundMode;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.team.HeroTeam;
@@ -51,11 +52,15 @@ public class RoundGameState implements GameState
 	private final CameraController cameraController;
 	private final RoundHudController hudController;
 	private RoundMode roundType;
-
+	private GameHeroSpawner gameHeroSpawner;
+	private RoundProperties roundAttributes;
+	
 	public RoundGameState(RoundProperties roundAttributes)
 	{
 		CollidableCategory.display();
+		this.roundAttributes = roundAttributes;
 		gameObjectsList = new ArrayList<>();
+		gameHeroSpawner = new GameHeroSpawner(this);
 		roundType = roundAttributes.getRoundType();
 		roundType.setRoundState(this);
 		EventCentralMessenger.getInstance().subscribe(roundType);
@@ -79,13 +84,13 @@ public class RoundGameState implements GameState
 		hudController.addStaticHud(timerStaticHud);
 
 		cameraController = new CameraController(scenery.getCenter());
-		initializeHeros(roundAttributes);
+		initializeHeros();
 	}
 	
-	private void initializeHeros(RoundProperties roundProperties)
+	private void initializeHeros()
 	{
-		final RoundHudSkin hudSkin = roundProperties.getHudSkin();
-		for( HeroTeam team : roundProperties.getTeams().getTeamList() )
+		final RoundHudSkin hudSkin = roundAttributes.getHudSkin();
+		for( HeroTeam team : roundAttributes.getTeams().getTeamList() )
 		{
 			team.setFriendlyFire(true);
 			final List<PlayableHeroDefinition> heros = team.getHerosList();
@@ -99,18 +104,24 @@ public class RoundGameState implements GameState
 			}
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
-				gameHeroProperties.setHeroAttributes(roundProperties.getHeroAttributes().clone());
+				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());
 				final PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
 				final HeroFragStatisticHud heroFragStatisticHud = hudSkin.createHeroFragHud(gameHero);
 
 				HeroMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
 				
 				hudController.addDynamicHud(attributesMovingHudController);
+				gameHeroSpawner.addHeroToSpawnImediatly(gameHero);
 				spawnHero(gameHero);
 				teamFragStatisticHud.addHeroFragHud(heroFragStatisticHud);
 				initializeGameObject(Arrays.asList(gameHero));
 			}
 		}
+	}
+	
+	public void addHeroToSpawn(PlayableGameHero hero)
+	{
+		gameHeroSpawner.addHeroToSpawn(hero, roundAttributes.getSpawnTime());
 	}
 	
 	public void spawnHero(final PlayableGameHero gameHero)
@@ -235,6 +246,7 @@ public class RoundGameState implements GameState
 		{
 			gameObject.update(updateTime);
 		}
+		gameHeroSpawner.update(updateTime);
 		gameItemCreator.update(updateTime);
 		cameraController.update(updateTime);
 		hudController.update(updateTime);
@@ -279,6 +291,5 @@ public class RoundGameState implements GameState
 	{
 		return scenery.getBackgroundColor();
 	}
-	
-	
+
 }

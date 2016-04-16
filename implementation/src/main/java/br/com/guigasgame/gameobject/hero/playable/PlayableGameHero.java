@@ -394,8 +394,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		playerIsDead = false;
 		heroAttributes.reset();
-		collidableHero.setNextPosition(position);
-//		collidableHero.respawn();
+		collidableHero.spawnAt(position);
 		setState(new StandingHeroState(this));
 		EventCentralMessenger.getInstance().fireEvent(new SpawnEventWrapper(this));
 	}

@@ -30,10 +30,10 @@ public class CollidableHero extends Collidable
 	public CollidableHero(PlayableGameHero playableGameHero)
 	{
 		super(new Vec2());
+		fixtureMap = new HashMap<>();
 		this.playableHero = playableGameHero;
 		bodyDef.fixedRotation = true;
 		bodyDef.type = BodyType.DYNAMIC;
-		
 		sensorsController = new HeroSensorsController();
 		filter = CollidableCategory.getPlayerFilter(playableGameHero.getHeroProperties().getPlayerId());
 	}
@@ -42,7 +42,7 @@ public class CollidableHero extends Collidable
 	{
 		// HeroFixtures gameHeroFixtures = HeroFixtures.loadFromFile(FilenameConstants.getHeroFixturesFilename());
 		HeroFixturesCreator gameHeroFixtures = new HeroFixturesCreator();
-		fixtureMap = new HashMap<>();
+
 		Map<FixtureSensorID, FixtureDef> fixtureDefMap = gameHeroFixtures.getFixturesMap();
 		for( Map.Entry<FixtureSensorID, FixtureDef> entry : fixtureDefMap.entrySet() )
 		{
@@ -207,7 +207,7 @@ public class CollidableHero extends Collidable
 
 	}
 
-	public void takeOutRopeSwingingProperties()
+	public void resetFixtureProperties()
 	{
 		for( Fixture fixture : fixtureMap.values() )
 		{
@@ -226,15 +226,32 @@ public class CollidableHero extends Collidable
 		final Filter deadFilter = new CollidableFilterBox2dAdapter(CollidableCategory.DEAD_HERO.getFilter()).toBox2dFilter();
 		for( Fixture fixture : fixtureMap.values() )
 		{
-			fixture.setFilterData(deadFilter);
-			fixture.setFriction(2f);
-			fixture.setRestitution(0.1f);
+			if (!fixture.isSensor())
+			{
+				fixture.setFilterData(deadFilter);
+				fixture.setFriction(2f);
+				fixture.setRestitution(0.1f);
+			}
 		}
 	}
 	
-	public void respawn()
+	public void spawnAt(Vec2 position)
 	{
-		loadAndAttachFixturesToBody();
+		if (body != null)
+		{
+			body.setTransform(position, 0);
+			body.applyLinearImpulse(new Vec2(0, 0), body.getWorldCenter()); //Gambs to wake body up
+		}
+		else
+			bodyDef.position = position;
+		for( Fixture fixture : fixtureMap.values() )
+		{
+			if (!fixture.isSensor())
+			{
+				fixture.setFilterData(new CollidableFilterBox2dAdapter(filter).toBox2dFilter());
+			}
+		}
+		resetFixtureProperties();
 	}
 
 
@@ -251,11 +268,6 @@ public class CollidableHero extends Collidable
 	{
 		return sensorsController.getController(FixtureSensorID.RIGHT_TOP_SENSOR).isTouching() &&
 				sensorsController.getController(FixtureSensorID.LEFT_TOP_SENSOR).isTouching();
-	}
-
-	public void setNextPosition(Vec2 position)
-	{
-		bodyDef.position = position;
 	}
 
 }

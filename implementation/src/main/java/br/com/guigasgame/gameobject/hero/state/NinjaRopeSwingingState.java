@@ -29,7 +29,7 @@ public class NinjaRopeSwingingState extends HeroState
 	@Override
 	protected void stateOnQuit()
 	{
-		gameHero.getCollidableHero().takeOutRopeSwingingProperties();
+		gameHero.getCollidableHero().resetFixtureProperties();
 		releaseRope();
 	}
 	
