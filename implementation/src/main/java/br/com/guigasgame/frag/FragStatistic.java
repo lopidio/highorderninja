@@ -1,92 +1,72 @@
 package br.com.guigasgame.frag;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FragStatistic
 {
-	private int shoots;
-	private int shootsOnTarget;
-	private int hitAsTarget;
-	private int deaths;
-	private int kills;
-	private int suicide;
+	private List<Integer> shootsOnTarget;
+	private List<Integer> hitAsTarget;
+	private List<Integer> deaths;
+	private List<Integer> kills;
 
 	public FragStatistic()
 	{
-		 shoots = 0;
-		 shootsOnTarget = 0;
-		 hitAsTarget = 0;
-		 deaths = 0;
-		 kills = 0;
-		 suicide = 0;
+		 shootsOnTarget = new ArrayList<>();
+		 hitAsTarget = new ArrayList<>();
+		 deaths = new ArrayList<>();
+		 kills = new ArrayList<>();
 	}
 	
 	public void incrementShoots()
 	{
-		++shoots;
+		shootsOnTarget.add(new Integer(-1));
 	}
 	
-	public void incrementShootsOnTarget()
+	public void incrementShootsOnTarget(Integer targetId)
 	{
-		++shootsOnTarget;
+		shootsOnTarget.add(targetId);
 	}
 	
-	public void incrementDeaths()
+	public void incrementDeaths(Integer killerId)
 	{
-		++deaths;
+		deaths.add(killerId);
 	}
 
-	public void incrementKills()
+	public void incrementKills(Integer targetId)
 	{
-		++kills;
+		kills.add(targetId);
 	}
 	
 	public void incrementSuicides()
 	{
-		++suicide;
+		incrementDeaths(-1);
 	}
 	
-	public void incrementHitAsTarget()
+	public void incrementHitAsTarget(Integer shooterId)
 	{
-		++hitAsTarget;
+		hitAsTarget.add(shooterId);
 	}	
-	public int getShoots()
-	{
-		return shoots;
-	}
-	
-	public int getShootsOnTarget()
-	{
-		return shootsOnTarget;
-	}
 	
 	public int getDeaths()
 	{
-		return deaths;
+		return deaths.size();
 	}
 
 	public int getKills()
 	{
-		return kills;
+		return kills.size();
 	}
 	
-	public int getSuicide()
-	{
-		return suicide;
-	}
-	
-	public int getHitAsTarget()
-	{
-		return hitAsTarget;
-	}
-
-	public FragStatistic incorporate(FragStatistic other)
-	{
-		 this.shoots += other.shoots;
-		 this.shootsOnTarget += other.shootsOnTarget;
-		 this.hitAsTarget += other.hitAsTarget;
-		 this.deaths += other.deaths;
-		 this.kills += other.kills;
-		 this.suicide += other.suicide;
-		 return this;
-	}
+//	public FragStatistic incorporate(FragStatistic other)
+//	{
+//		 this.shoots += other.shoots;
+//		 this.shootsOnTarget += other.shootsOnTarget;
+//		 this.hitAsTarget += other.hitAsTarget;
+//		 this.deaths += other.deaths;
+//		 this.kills += other.kills;
+//		 this.suicide += other.suicide;
+//		 return this;
+//	}
 
 }

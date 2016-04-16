@@ -1,6 +1,7 @@
-package br.com.guigasgame.gameobject.hero.playable;
+package br.com.guigasgame.frag;
 
-import br.com.guigasgame.frag.EventWrapper;
+import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
+import br.com.guigasgame.round.event.EventWrapper;
 
 
 public class SpawnEventWrapper extends EventWrapper

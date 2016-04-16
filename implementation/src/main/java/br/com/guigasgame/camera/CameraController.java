@@ -17,11 +17,11 @@ import com.google.common.eventbus.Subscribe;
 
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.frag.EventCentralMessenger;
-import br.com.guigasgame.gameobject.hero.playable.DiedFragEventWrapper;
-import br.com.guigasgame.gameobject.hero.playable.SpawnEventWrapper;
+import br.com.guigasgame.frag.DiedFragEventWrapper;
+import br.com.guigasgame.frag.SpawnEventWrapper;
 import br.com.guigasgame.interpolator.InterpolatorFromTime;
 import br.com.guigasgame.interpolator.VectorLinearInterpolator;
+import br.com.guigasgame.round.event.EventCentralMessenger;
 import br.com.guigasgame.round.hud.controller.ResizableByView;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 

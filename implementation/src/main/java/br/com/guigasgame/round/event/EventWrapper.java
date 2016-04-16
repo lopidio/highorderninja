@@ -1,4 +1,4 @@
-package br.com.guigasgame.frag;
+package br.com.guigasgame.round.event;
 
 public class EventWrapper
 {

@@ -1,7 +1,9 @@
-package br.com.guigasgame.frag;
+package br.com.guigasgame.round.event;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 import com.google.common.eventbus.EventBus;
 
@@ -15,18 +17,20 @@ public class EventCentralMessenger
 		return eventMessenger;
 	}
 	
-	private List<EventWrapper> eventsQueue;
+	private Queue<EventWrapper> eventsQueue;
+	private List<Object> listeners;
 	private EventBus eventBus;
 
 	private EventCentralMessenger()
 	{
-		eventsQueue = new ArrayList<>();
+		eventsQueue = new ConcurrentLinkedDeque<EventWrapper>();
 		eventBus = new EventBus();
 	}
 	
 	public void subscribe(Object obj)
 	{
 		eventBus.register(obj);
+		listeners = new ArrayList<>();
 	}	
 
 	public void fireEvent(EventWrapper event)
@@ -36,11 +40,23 @@ public class EventCentralMessenger
 
 	public void update()
 	{
-		for (EventWrapper event : eventsQueue) 
+		synchronized (eventsQueue)
 		{
-			eventBus.post(event);
+			for (EventWrapper event : eventsQueue) 
+			{
+				eventBus.post(event);
+			}
+			eventsQueue.clear();
 		}
-		eventsQueue.clear();
+	}
+	
+	public void clearListeners()
+	{
+		for( Object listener : listeners )
+		{
+			eventBus.unregister(listener);
+		}
+		listeners.clear();
 	}
 
 }

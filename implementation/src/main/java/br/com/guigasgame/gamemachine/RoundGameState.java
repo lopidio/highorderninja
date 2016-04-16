@@ -24,19 +24,19 @@ import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.CollisionManager;
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.destroyable.Destroyable;
-import br.com.guigasgame.frag.EventCentralMessenger;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.gameobject.item.GameItemCreationController;
 import br.com.guigasgame.round.RoundProperties;
+import br.com.guigasgame.round.event.EventCentralMessenger;
 import br.com.guigasgame.round.hud.RoundHudSkin;
 import br.com.guigasgame.round.hud.controller.RoundHudController;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroMovingHudController;
 import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TeamFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TimerStaticHud;
-import br.com.guigasgame.round.type.RoundType;
+import br.com.guigasgame.round.type.RoundMode;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.team.HeroTeam;
 
@@ -50,7 +50,7 @@ public class RoundGameState implements GameState
 	private final SceneController scenery;
 	private final CameraController cameraController;
 	private final RoundHudController hudController;
-	private RoundType roundType;
+	private RoundMode roundType;
 
 	public RoundGameState(RoundProperties roundAttributes)
 	{
@@ -92,6 +92,8 @@ public class RoundGameState implements GameState
 			TeamFragStatisticHud teamFragStatisticHud = null;
 //			if (heros.size() > 0)
 			{
+//				team.getFragCounter().addListener();
+
 				teamFragStatisticHud = hudSkin.createTeamFragHud(team);
 				hudController.addStaticHud(teamFragStatisticHud);
 			}

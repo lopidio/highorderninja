@@ -2,14 +2,13 @@ package br.com.guigasgame.round.type;
 
 import com.google.common.eventbus.Subscribe;
 
-import br.com.guigasgame.frag.EventCentralMessenger;
+import br.com.guigasgame.frag.DiedFragEventWrapper;
+import br.com.guigasgame.frag.SpawnEventWrapper;
 import br.com.guigasgame.gamemachine.RoundGameState;
-import br.com.guigasgame.gameobject.hero.playable.DiedFragEventWrapper;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
-import br.com.guigasgame.gameobject.hero.playable.SpawnEventWrapper;
 
 
-public class DeathMatchRoundType implements RoundType
+public class DeathMatchRoundType implements RoundMode
 {
 
 	private final int deaths;
@@ -30,7 +29,7 @@ public class DeathMatchRoundType implements RoundType
 		PlayableGameHero deadHero = ((PlayableGameHero)(diedEventWrapper.getSender()));
 //		if (deadHero.getHeroProperties().getFragCounter().getFrag().getKills() > deaths)
 		{
-//			EventCentralMessenger.getInstance().fireEvent(new HeroSpawner(this, deadHero));
+//			EventCentralMessenger.getInstance().fireEvent(new EventWrapper(null));
 			System.out.println("Arrá!!! CHUPA!");
 //			roundGameState.spawnHero(deadHero);
 //			timerEventsController.addEventListener(roundGameState, 5.0, value);

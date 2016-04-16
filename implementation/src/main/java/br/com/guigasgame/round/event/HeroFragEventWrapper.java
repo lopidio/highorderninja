@@ -1,10 +1,11 @@
-package br.com.guigasgame.frag;
+package br.com.guigasgame.round.event;
 
+import br.com.guigasgame.frag.FragStatistic;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 
 public abstract class HeroFragEventWrapper extends EventWrapper
 {
-	private final PlayableGameHero other;
+	protected final PlayableGameHero other;
 	
 	public HeroFragEventWrapper(PlayableGameHero me, PlayableGameHero other)
 	{
@@ -41,6 +42,6 @@ public abstract class HeroFragEventWrapper extends EventWrapper
 		return other.getHeroProperties().getHeroTeam().getTeamId();
 	}
 	
-	protected abstract void adjustFragStatistic(FragStatistic fragStatistic);
+	public abstract void adjustFragStatistic(FragStatistic fragStatistic);
 
 }

@@ -2,7 +2,7 @@ package br.com.guigasgame.round.type;
 
 import br.com.guigasgame.gamemachine.RoundGameState;
 
-public interface RoundType
+public interface RoundMode
 {
 	void setRoundState(RoundGameState roundGameState);
 }

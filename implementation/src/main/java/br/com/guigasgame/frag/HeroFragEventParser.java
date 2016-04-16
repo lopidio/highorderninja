@@ -1,5 +1,8 @@
 package br.com.guigasgame.frag;
 
+import br.com.guigasgame.round.event.FragEventParser;
+import br.com.guigasgame.round.event.HeroFragEventWrapper;
+
 public class HeroFragEventParser extends FragEventParser
 {
 	private final int heroId;

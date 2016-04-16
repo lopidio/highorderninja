@@ -2,7 +2,7 @@ package br.com.guigasgame.round;
 
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.round.hud.RoundHudSkin;
-import br.com.guigasgame.round.type.RoundType;
+import br.com.guigasgame.round.type.RoundMode;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.team.TeamsController;
 
@@ -15,9 +15,9 @@ public class RoundProperties
 	private final SceneryInitialize sceneryInitialize;
 	private final int totalTime;
 	private final RoundHudSkin hudSkin;
-	private final RoundType roundType;
+	private final RoundMode roundType;
 
-	public RoundProperties(RoundHeroAttributes heroAttributes, TeamsController teamsController, SceneryInitialize sceneryInitialize, int totalTime, RoundHudSkin hudPositioner, RoundType roundType)
+	public RoundProperties(RoundHeroAttributes heroAttributes, TeamsController teamsController, SceneryInitialize sceneryInitialize, int totalTime, RoundHudSkin hudPositioner, RoundMode roundType)
 	{
 		this.heroAttributes = heroAttributes;
 		this.teams = teamsController;
@@ -27,7 +27,7 @@ public class RoundProperties
 		this.roundType = roundType;
 	}
 	
-	public RoundType getRoundType()
+	public RoundMode getRoundType()
 	{
 		return roundType;
 	}

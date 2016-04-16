@@ -2,10 +2,10 @@ package br.com.guigasgame.gameobject.hero.playable;
 
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.color.ColorBlender;
-import br.com.guigasgame.frag.FragEventParser;
 import br.com.guigasgame.frag.HeroFragEventParser;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
+import br.com.guigasgame.round.event.FragEventParser;
 import br.com.guigasgame.team.HeroTeam;
 
 public class PlayableHeroDefinition

@@ -1,9 +1,12 @@
-package br.com.guigasgame.frag;
+package br.com.guigasgame.round.event;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.eventbus.Subscribe;
+
+import br.com.guigasgame.frag.FragStatistic;
+import br.com.guigasgame.frag.FragStatisticListener;
 
 public abstract class FragEventParser
 {

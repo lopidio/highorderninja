@@ -10,8 +10,12 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.Followable;
-import br.com.guigasgame.frag.EventCentralMessenger;
-import br.com.guigasgame.frag.SuicideFragEventWrapper;
+import br.com.guigasgame.frag.DiedFragEventWrapper;
+import br.com.guigasgame.frag.HitAsTargetFragEventWrapper;
+import br.com.guigasgame.frag.KillFragEventWrapper;
+import br.com.guigasgame.frag.ShootFragEventWrapper;
+import br.com.guigasgame.frag.ShootOnTargetFragEventWrapper;
+import br.com.guigasgame.frag.SpawnEventWrapper;
 import br.com.guigasgame.gameobject.GameObject;
 import br.com.guigasgame.gameobject.hero.action.GameHeroAction;
 import br.com.guigasgame.gameobject.hero.attributes.HeroAttribute;
@@ -26,6 +30,8 @@ import br.com.guigasgame.gameobject.projectile.Projectile;
 import br.com.guigasgame.gameobject.projectile.rope.NinjaHookProjectile;
 import br.com.guigasgame.gameobject.projectile.shuriken.Shuriken;
 import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
+import br.com.guigasgame.round.event.EventCentralMessenger;
+import br.com.guigasgame.round.event.SuicideFragEventWrapper;
 import br.com.guigasgame.side.Side;
 
 
@@ -384,22 +390,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		return collidableHero.getBody().getWorldCenter();
 	}
-
-//	@Override
-//	public void receiveTimeEvent(Object value)
-//	{
-//		TimeEvent event = (TimeEvent) value;
-//		switch (event)
-//		{
-//			case SPAWN_INVINCIBILITY_OVER:
-//				System.out.println("Spawn timer is over");
-//				break;
-//			case SPAWN:
-//				spawn(new Vec2(0, 0));
-//			default:
-//				break;
-//		}
-//	}
 
 	public void spawn(Vec2 position)
 	{

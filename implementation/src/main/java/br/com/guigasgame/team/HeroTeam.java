@@ -6,9 +6,9 @@ import java.util.List;
 import br.com.guigasgame.collision.CollidableCategory;
 import br.com.guigasgame.collision.IntegerMask;
 import br.com.guigasgame.color.ColorBlender;
-import br.com.guigasgame.frag.FragEventParser;
 import br.com.guigasgame.frag.TeamFragEventParser;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
+import br.com.guigasgame.round.event.FragEventParser;
 
 
 public class HeroTeam
