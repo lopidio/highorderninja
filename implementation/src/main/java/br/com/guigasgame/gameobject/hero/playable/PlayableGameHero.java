@@ -31,7 +31,6 @@ import br.com.guigasgame.gameobject.projectile.rope.NinjaHookProjectile;
 import br.com.guigasgame.gameobject.projectile.shuriken.Shuriken;
 import br.com.guigasgame.gameobject.projectile.smokebomb.SmokeBombProjectile;
 import br.com.guigasgame.round.event.EventCentralMessenger;
-import br.com.guigasgame.round.event.SuicideFragEventWrapper;
 import br.com.guigasgame.side.Side;
 
 
@@ -373,7 +372,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			heroAttributes.getLife().decrement(damage);
 			if (heroAttributes.getLife().getCurrentValue() <= 0)
 			{
-				EventCentralMessenger.getInstance().fireEvent(new SuicideFragEventWrapper(this));
+				EventCentralMessenger.getInstance().fireEvent(new DiedFragEventWrapper(this, null, null));
 			}
 		}
 	}
@@ -381,7 +380,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	@Override
 	protected void gotOutOfScenery()
 	{
-		EventCentralMessenger.getInstance().fireEvent(new SuicideFragEventWrapper(this));
+		EventCentralMessenger.getInstance().fireEvent(new DiedFragEventWrapper(this));
 		die();
 	}
 

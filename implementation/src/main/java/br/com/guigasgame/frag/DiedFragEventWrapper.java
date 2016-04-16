@@ -12,10 +12,18 @@ public class DiedFragEventWrapper extends HeroFragEventWrapper
 		super(me, other);
 	}
 
+	public DiedFragEventWrapper(PlayableGameHero me)
+	{
+		super(me, null);
+	}
+
 	@Override
 	public void adjustFragStatistic(FragStatistic fragStatistic)
 	{
-		fragStatistic.incrementDeaths(other.getHeroProperties().getPlayerId());
+		if (other != null)
+			fragStatistic.incrementDeaths(other.getHeroProperties().getPlayerId());
+		else
+			fragStatistic.incrementDeaths(-1);
 	}
 
 

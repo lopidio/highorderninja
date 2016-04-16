@@ -54,7 +54,7 @@
                 <y>0.0</y>
             </pointC>
         </triangles>
-        <rectangles damagePerSecond="10.0" textureName="fire-textures.jpg"> <!-- 2 -->
+<!--         <rectangles damagePerSecond="10.0" textureName="fire-textures.jpg"> 2
             <center>
                 <x>15.0</x>
                 <y>610.0</y>
@@ -64,7 +64,7 @@
                 <y>220</y>
             </halfDimension>
         </rectangles>		
-        <triangles damagePerSecond="10.0" textureName="fire-textures.jpg"> <!-- 3 -->
+ -->        <triangles damagePerSecond="10.0" textureName="fire-textures.jpg"> <!-- 3 -->
             <pointA>
                 <x>0.0</x>
                 <y>800.0</y>
@@ -171,14 +171,14 @@
             </center>
             <radius>80.0</radius>
         </circles> -->
-        <circles damagePerSecond="10.0" textureName="fire-textures.jpg">  <!-- 14 -->
+<!--    <circles damagePerSecond="10.0" textureName="fire-textures.jpg">  14
             <center>
                 <x>1000.0</x>
                 <y>950.0</y>
             </center>
             <radius>50.0</radius>
         </circles>
-		<triangles damagePerSecond="10.0" textureName="fire-textures.jpg"> <!-- 15 -->
+		<triangles damagePerSecond="10.0" textureName="fire-textures.jpg"> 15
             <pointA>
                 <x>1000.0</x>
                 <y>1000</y>
@@ -192,7 +192,7 @@
                 <y>1000</y>
             </pointC>
         </triangles>
-		<triangles damagePerSecond="10.0" textureName="fire-textures.jpg"> <!-- 16 -->
+		<triangles damagePerSecond="10.0" textureName="fire-textures.jpg"> 16
             <pointA>
                 <x>1000.0</x>
                 <y>1000</y>
@@ -206,7 +206,7 @@
                 <y>900</y>
             </pointC>
         </triangles>
-        <rectangles textureName="darkStoneTexture.jpg"> <!-- 17 -->
+ -->        <rectangles textureName="darkStoneTexture.jpg"> <!-- 17 -->
             <center>
                 <x>1000.0</x>
                 <y>1000.0</y>
