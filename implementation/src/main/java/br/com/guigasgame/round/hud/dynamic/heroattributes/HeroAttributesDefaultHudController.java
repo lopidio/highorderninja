@@ -1,12 +1,12 @@
-package br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow;
+package br.com.guigasgame.round.hud.dynamic.heroattributes;
 
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.gameobject.hero.attributes.playable.RoundHeroAttributes;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMoveableHud;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroMovingHudController;
+import br.com.guigasgame.round.hud.controller.HeroMovingHudController;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.ShootingAttributeBarBellowHud;
 import br.com.guigasgame.round.hud.dynamic.heroattributes.circlebellow.HeroAttributesArcBellowHud;
 
 public class HeroAttributesDefaultHudController extends HeroMovingHudController

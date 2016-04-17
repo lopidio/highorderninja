@@ -4,8 +4,8 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroMovingHudController;
-import br.com.guigasgame.round.hud.dynamic.heroattributes.barbellow.HeroAttributesDefaultHudController;
+import br.com.guigasgame.round.hud.controller.HeroMovingHudController;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributesDefaultHudController;
 import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TeamFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TextTimerHud;

@@ -1,4 +1,4 @@
-package br.com.guigasgame.round.hud.dynamic.heroattributes;
+package br.com.guigasgame.round.hud.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import br.com.guigasgame.camera.Followable;
 import br.com.guigasgame.frag.DiedFragEventWrapper;
 import br.com.guigasgame.frag.SpawnEventWrapper;
 import br.com.guigasgame.round.event.EventCentralMessenger;
-import br.com.guigasgame.round.hud.controller.HudObject;
+import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMoveableHud;
 
 public abstract class HeroMovingHudController extends HudObject
 {
