@@ -398,6 +398,14 @@
             <y>160.0</y>
         </point>
         <point>
+            <x>650.0</x>
+            <y>30</y>
+        </point>
+        <point>
+            <x>1000.0</x>
+            <y>160.0</y>
+        </point>
+        <point>
             <x>400.0</x>
             <y>1060.0</y>
         </point>
@@ -406,7 +414,23 @@
             <y>550.0</y>
         </point>
         <point>
-            <x>1550.0</x>
+            <x>1570.0</x>
+            <y>160.0</y>
+        </point>
+        <point>
+            <x>1200.0</x>
+            <y>550.0</y>
+        </point>
+        <point>
+            <x>1100.0</x>
+            <y>950.0</y>
+        </point>
+        <point>
+            <x>900.0</x>
+            <y>950.0</y>
+        </point>
+        <point>
+            <x>1450.0</x>
             <y>160.0</y>
         </point>
         <point>

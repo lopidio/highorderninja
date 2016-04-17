@@ -283,11 +283,27 @@
 			<y>70</y>
 		</point>
 		<point>
+			<x>100.0</x>
+			<y>70</y>
+		</point>
+		<point>
+			<x>-100.0</x>
+			<y>70</y>
+		</point>
+		<point>
 			<x>0.0</x>
 			<y>-270</y>
 		</point>
 		<point>
 			<x>200.0</x>
+			<y>-270</y>
+		</point>
+		<point>
+			<x>-280.0</x>
+			<y>-270</y>
+		</point>
+		<point>
+			<x>280.0</x>
 			<y>-270</y>
 		</point>
 		<point>
