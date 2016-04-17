@@ -3,6 +3,7 @@ package br.com.guigasgame.round.type;
 import com.google.common.eventbus.Subscribe;
 
 import br.com.guigasgame.frag.DiedFragEventWrapper;
+import br.com.guigasgame.frag.FragStatistic;
 import br.com.guigasgame.frag.SpawnEventWrapper;
 import br.com.guigasgame.gamemachine.RoundGameState;
 import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
@@ -11,12 +12,12 @@ import br.com.guigasgame.gameobject.hero.playable.PlayableGameHero;
 public class DeathMatchRoundType implements RoundMode
 {
 
-	private final int deaths;
+	private final int maxDeaths;
 	private RoundGameState roundGameState;
 
 	public DeathMatchRoundType(int deaths)
 	{
-		this.deaths = deaths;
+		this.maxDeaths = deaths;
 	}
 
 	@Subscribe public void onSpawnEvent(SpawnEventWrapper spawnEventWrapper) 
@@ -27,9 +28,9 @@ public class DeathMatchRoundType implements RoundMode
 	@Subscribe public void onDiedEvent(DiedFragEventWrapper diedEventWrapper) 
 	{
 		PlayableGameHero deadHero = ((PlayableGameHero)(diedEventWrapper.getSender()));
-		roundGameState.addHeroToSpawn(deadHero);
-//		if (deadHero.getHeroProperties().getFragCounter().getFrag().getKills() > deaths)
+		if (deadHero.getHeroProperties().getFragCounter().getFrag().getDeaths() <= maxDeaths)
 		{
+			roundGameState.addHeroToSpawn(deadHero);
 //			EventCentralMessenger.getInstance().fireEvent(new EventWrapper(null));
 			System.out.println("Arrá!!! CHUPA!");
 //			roundGameState.spawnHero(deadHero);
@@ -41,5 +42,11 @@ public class DeathMatchRoundType implements RoundMode
 	public void setRoundState(RoundGameState roundGameState)
 	{
 		this.roundGameState = roundGameState;
+	}
+
+	@Override
+	public void onFragChange(FragStatistic statistic)
+	{
+		
 	}
 }

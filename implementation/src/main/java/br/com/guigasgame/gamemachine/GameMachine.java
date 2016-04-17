@@ -57,7 +57,7 @@ public class GameMachine
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
 //		teamsController.setRoundConfigurationsUp();
-		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teamsController, scenery, 10, new RoundHudTopSkin(), new DeathMatchRoundType(5), 3);
+		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teamsController, scenery, 10, new RoundHudTopSkin(), new DeathMatchRoundType(2), 3);
 		RoundGameState roundGameState = new RoundGameState(roundProperties);
 		return roundGameState;
 	}
@@ -84,12 +84,10 @@ public class GameMachine
 		{
 			TeamsController teamsController = new TeamsController();
 			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 0), TeamIndex.ALPHA);
-
-			
-			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 1), TeamIndex.ALPHA);
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 1), TeamIndex.BRAVO);
 			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2), TeamIndex.CHARLIE);
 			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 3), TeamIndex.DELTA);
-			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4), TeamIndex.CHARLIE);
+			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4), TeamIndex.ECHO);
 			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 5), TeamIndex.FOXTROT);
 			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 6), TeamIndex.GOLF);
 			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 7), TeamIndex.HOTEL);

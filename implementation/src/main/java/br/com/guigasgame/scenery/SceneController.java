@@ -164,8 +164,8 @@ public class SceneController extends GameObject
 
 	public Vector2f getCenter()
 	{
-		return new Vector2f((boundaries.width - boundaries.left)/2,
-							(boundaries.top - boundaries.height)/2);
+		return new Vector2f(boundaries.width/2 + boundaries.left,
+							boundaries.height/2 + boundaries.top);
 	}
 
 }

@@ -12,6 +12,7 @@ import org.jbox2d.dynamics.World;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
+import org.jsfml.system.Vector2f;
 import org.jsfml.window.Joystick;
 import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
@@ -39,6 +40,7 @@ import br.com.guigasgame.round.hud.fix.TimerStaticHud;
 import br.com.guigasgame.round.type.GameHeroSpawner;
 import br.com.guigasgame.round.type.RoundMode;
 import br.com.guigasgame.scenery.SceneController;
+import br.com.guigasgame.side.Side;
 import br.com.guigasgame.team.HeroTeam;
 
 
@@ -51,9 +53,9 @@ public class RoundGameState implements GameState
 	private final SceneController scenery;
 	private final CameraController cameraController;
 	private final RoundHudController hudController;
-	private RoundMode roundType;
-	private GameHeroSpawner gameHeroSpawner;
-	private RoundProperties roundAttributes;
+	private final RoundMode roundMode;
+	private final GameHeroSpawner gameHeroSpawner;
+	private final RoundProperties roundAttributes;
 	
 	public RoundGameState(RoundProperties roundAttributes)
 	{
@@ -61,9 +63,9 @@ public class RoundGameState implements GameState
 		this.roundAttributes = roundAttributes;
 		gameObjectsList = new ArrayList<>();
 		gameHeroSpawner = new GameHeroSpawner(this);
-		roundType = roundAttributes.getRoundType();
-		roundType.setRoundState(this);
-		EventCentralMessenger.getInstance().subscribe(roundType);
+		roundMode = roundAttributes.getRoundType();
+		roundMode.setRoundState(this);
+		EventCentralMessenger.getInstance().subscribe(roundMode);
 		EventCentralMessenger.getInstance().subscribe(this);
 
 		this.scenery = new SceneController(roundAttributes.getSceneryInitializer());
@@ -83,22 +85,22 @@ public class RoundGameState implements GameState
 		TimerStaticHud timerStaticHud = hudSkin.createTimerStaticHud(roundAttributes.getTotalTime());
 		hudController.addStaticHud(timerStaticHud);
 
-		cameraController = new CameraController(scenery.getCenter());
-		initializeHeros();
+		final Vector2f heroesCenter = initializeHeroes();
+		cameraController = new CameraController(heroesCenter);
 	}
 	
-	private void initializeHeros()
+	private Vector2f initializeHeroes()
 	{
+		List<Vector2f> heroesPosition = new ArrayList<>();
 		final RoundHudSkin hudSkin = roundAttributes.getHudSkin();
 		for( HeroTeam team : roundAttributes.getTeams().getTeamList() )
 		{
 			team.setFriendlyFire(true);
 			final List<PlayableHeroDefinition> heros = team.getHerosList();
 			TeamFragStatisticHud teamFragStatisticHud = null;
-//			if (heros.size() > 0)
+			if (heros.size() > 0)
 			{
-//				team.getFragCounter().addListener();
-
+				team.getFragCounter().addListener(roundMode);
 				teamFragStatisticHud = hudSkin.createTeamFragHud(team);
 				hudController.addStaticHud(teamFragStatisticHud);
 			}
@@ -111,11 +113,17 @@ public class RoundGameState implements GameState
 				HeroMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
 				
 				hudController.addDynamicHud(attributesMovingHudController);
-				spawnHero(gameHero);
+				heroesPosition.add(spawnHero(gameHero));
 				teamFragStatisticHud.addHeroFragHud(heroFragStatisticHud);
 				initializeGameObject(Arrays.asList(gameHero));
 			}
 		}
+		Vector2f sum = new Vector2f(0, 0);
+		for( Vector2f vector2f : heroesPosition )
+		{
+			sum = Vector2f.add(sum, vector2f);
+		}
+		return Vector2f.div(sum, heroesPosition.size());
 	}
 	
 	public void addHeroToSpawn(PlayableGameHero hero)
@@ -123,9 +131,11 @@ public class RoundGameState implements GameState
 		gameHeroSpawner.addHeroToSpawn(hero, roundAttributes.getSpawnTime());
 	}
 	
-	public void spawnHero(final PlayableGameHero gameHero)
+	public Vector2f spawnHero(final PlayableGameHero gameHero)
 	{
-		gameHero.spawn(WorldConstants.sfmlToPhysicsCoordinates(scenery.popRandomSpawnPoint()));
+		final Vector2f heroPosition = scenery.popRandomSpawnPoint();
+		gameHero.spawn(WorldConstants.sfmlToPhysicsCoordinates(heroPosition), Side.fromHorizontalValue(Vector2f.sub(scenery.getCenter(), heroPosition).x));
+		return heroPosition;
 	}
 
 	@Override

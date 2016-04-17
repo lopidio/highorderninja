@@ -36,12 +36,6 @@ import br.com.guigasgame.side.Side;
 
 public class PlayableGameHero extends GameObject implements HeroAttributeListener, Followable
 {
-	public enum TimeEvent
-	{
-		SPAWN_INVINCIBILITY_OVER,
-		SPAWN
-	}
-	
 	private Side forwardSide;
 	private final List<GameHeroAction> actionList;
 	private final CollidableHero collidableHero;
@@ -390,8 +384,9 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		return collidableHero.getBody().getWorldCenter();
 	}
 
-	public void spawn(Vec2 position)
+	public void spawn(Vec2 position, Side side)
 	{
+		setForwardSide(side);
 		setState(new StandingHeroState(this));
 		playerIsDead = false;
 		heroAttributes.reset();

@@ -43,4 +43,11 @@ public enum Side
 			return RIGHT;
 		return Side.LEFT;
 	}
+
+	public static Side fromHorizontalValue(float x)
+	{
+		if (x > 0)
+			return RIGHT;
+		return Side.LEFT;
+	}
 }

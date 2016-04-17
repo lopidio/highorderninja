@@ -2,10 +2,10 @@
 <sceneryFile>
 	<backgroundColor r="250.0" g="205.0" b="150.0" a="255.0" />
 	<boundariesTollerance>
-		<left>500.0</left>
-		<top>500.0</top>
-		<width>500.0</width>
-		<height>500.0</height>
+		<left>00.0</left>
+		<top>00.0</top>
+		<width>00.0</width>
+		<height>00.0</height>
 	</boundariesTollerance>
 	<sceneryShapes>
 		<!--        <circles damagePerSecond="10.0" textureName="lime.jpg">

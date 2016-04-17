@@ -46,6 +46,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		objectsToFollow = new ArrayList<>();
 		centerFrame = new CameraCenterFrame(center);
 		EventCentralMessenger.getInstance().subscribe(this);
+		centerInterpolator = new VectorLinearInterpolator(center, CENTER_MOVING_DURING);
 	}
 	
 	public void addObjectToFollow(Followable followable)
@@ -143,7 +144,6 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		outterFrame.setOutlineThickness(1.0f);
 		
 		view = new View(new FloatRect(0, 0, size.x, size.y));
-		centerInterpolator = new VectorLinearInterpolator(view.getCenter(), CENTER_MOVING_DURING);
 	}
 	
 	private Shape createSfmlRectangle(Vector2f dimension, Vector2i size)
