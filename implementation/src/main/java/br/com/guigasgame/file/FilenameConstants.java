@@ -105,4 +105,9 @@ public class FilenameConstants
 		return "ropePiece.png";
 	}
 
+	public static String getLogoFilename()
+	{
+		return "guilogo.png";
+	}
+
 }

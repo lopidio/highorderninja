@@ -42,4 +42,5 @@ public interface GameState
 	{
 		return null;
 	}
+
 }

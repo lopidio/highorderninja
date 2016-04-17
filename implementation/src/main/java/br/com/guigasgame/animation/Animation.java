@@ -8,11 +8,13 @@ import org.jsfml.graphics.ConstTexture;
 import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Sprite;
+import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
 import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.drawable.Drawable;
 import br.com.guigasgame.moveable.Moveable;
+import br.com.guigasgame.resourcemanager.TextureResourceManager;
 import br.com.guigasgame.side.Side;
 import br.com.guigasgame.updatable.UpdatableFromTime;
 
@@ -61,6 +63,14 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	{
 		try
 		{
+			Texture texture = animationDefinition.getTexture();
+			if (texture == null)
+			{
+				texture = TextureResourceManager.getInstance().getResource(animationDefinition.textureFilename);
+				texture.setSmooth(true);
+				animationDefinition.setTexture(texture);
+			}
+
 			return new Animation(animationDefinition);
 		}
 		catch (IOException e)
