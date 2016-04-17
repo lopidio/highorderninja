@@ -18,6 +18,8 @@ import org.jsfml.window.Keyboard.Key;
 import org.jsfml.window.event.Event;
 import org.jsfml.window.event.Event.Type;
 
+import com.google.common.eventbus.Subscribe;
+
 import br.com.guigasgame.box2d.debug.SFMLDebugDraw;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.CameraController;
@@ -38,6 +40,7 @@ import br.com.guigasgame.round.hud.fix.HeroFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TeamFragStatisticHud;
 import br.com.guigasgame.round.hud.fix.TimerStaticHud;
 import br.com.guigasgame.round.type.GameHeroSpawner;
+import br.com.guigasgame.round.type.RegisterHeroToRespawnEvent;
 import br.com.guigasgame.round.type.RoundMode;
 import br.com.guigasgame.scenery.SceneController;
 import br.com.guigasgame.side.Side;
@@ -63,8 +66,7 @@ public class RoundGameState implements GameState
 		this.roundAttributes = roundAttributes;
 		gameObjectsList = new ArrayList<>();
 		gameHeroSpawner = new GameHeroSpawner(this);
-		roundMode = roundAttributes.getRoundType();
-		roundMode.setRoundState(this);
+		roundMode = roundAttributes.getRoundMode();
 		EventCentralMessenger.getInstance().subscribe(roundMode);
 		EventCentralMessenger.getInstance().subscribe(this);
 
@@ -91,7 +93,7 @@ public class RoundGameState implements GameState
 	
 	private Vector2f initializeHeroes()
 	{
-		List<Vector2f> heroesPosition = new ArrayList<>();
+		final List<Vector2f> heroesPosition = new ArrayList<>();
 		final RoundHudSkin hudSkin = roundAttributes.getHudSkin();
 		for( HeroTeam team : roundAttributes.getTeams().getTeamList() )
 		{
@@ -100,9 +102,9 @@ public class RoundGameState implements GameState
 			TeamFragStatisticHud teamFragStatisticHud = null;
 			if (heros.size() > 0)
 			{
-				team.getFragCounter().addListener(roundMode);
 				teamFragStatisticHud = hudSkin.createTeamFragHud(team);
 				hudController.addStaticHud(teamFragStatisticHud);
+				team.getFragCounter().addListener(roundMode);
 			}
 			for (PlayableHeroDefinition gameHeroProperties : heros) 
 			{
@@ -118,6 +120,11 @@ public class RoundGameState implements GameState
 				initializeGameObject(Arrays.asList(gameHero));
 			}
 		}
+		return calculateHeroesCenter(heroesPosition);
+	}
+
+	private Vector2f calculateHeroesCenter(List<Vector2f> heroesPosition)
+	{
 		Vector2f sum = new Vector2f(0, 0);
 		for( Vector2f vector2f : heroesPosition )
 		{
@@ -126,9 +133,14 @@ public class RoundGameState implements GameState
 		return Vector2f.div(sum, heroesPosition.size());
 	}
 	
-	public void addHeroToSpawn(PlayableGameHero hero)
+	@Subscribe public void onRoundOverEvent(RoundOverEventWrapper roundOverWrapper)
 	{
-		gameHeroSpawner.addHeroToSpawn(hero, roundAttributes.getSpawnTime());
+		System.out.println("Gameover player win!");
+	}
+
+	@Subscribe public void registerHeroToRespawn(RegisterHeroToRespawnEvent respawnEvent)
+	{
+		gameHeroSpawner.addHeroToSpawn(respawnEvent.getHeroToRespawn(), respawnEvent.getTimeToRespawn());
 	}
 	
 	public Vector2f spawnHero(final PlayableGameHero gameHero)

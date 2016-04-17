@@ -1,6 +1,7 @@
 package br.com.guigasgame.round.event;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -42,11 +43,13 @@ public class EventCentralMessenger
 	{
 		synchronized (eventsQueue)
 		{
-			for (EventWrapper event : eventsQueue) 
+			final Iterator<EventWrapper> iterator = eventsQueue.iterator();
+			while (iterator.hasNext())
 			{
-				eventBus.post(event);
+				final EventWrapper toRemove = iterator.next(); // must be called before you can call iterator.remove()
+				eventBus.post(toRemove);
+				iterator.remove();
 			}
-			eventsQueue.clear();
 		}
 	}
 	

@@ -15,23 +15,21 @@ public class RoundProperties
 	private final SceneryInitialize sceneryInitialize;
 	private final int totalTime;
 	private final RoundHudSkin hudSkin;
-	private final RoundMode roundType;
-	private float spawnTime;
+	private final RoundMode roundMode;
 
-	public RoundProperties(RoundHeroAttributes heroAttributes, TeamsController teamsController, SceneryInitialize sceneryInitialize, int totalTime, RoundHudSkin hudPositioner, RoundMode roundType, float spawnTime)
+	public RoundProperties(RoundHeroAttributes heroAttributes, TeamsController teamsController, SceneryInitialize sceneryInitialize, int totalTime, RoundHudSkin hudPositioner, RoundMode roundMode)
 	{
 		this.heroAttributes = heroAttributes;
 		this.teams = teamsController;
 		this.sceneryInitialize = sceneryInitialize;
 		this.totalTime = totalTime;
 		this.hudSkin = hudPositioner;
-		this.roundType = roundType;
-		this.spawnTime = spawnTime;
+		this.roundMode = roundMode;
 	}
 	
-	public RoundMode getRoundType()
+	public RoundMode getRoundMode()
 	{
-		return roundType;
+		return roundMode;
 	}
 
 	public RoundHeroAttributes getHeroAttributes()
@@ -57,11 +55,6 @@ public class RoundProperties
 	public RoundHudSkin getHudSkin()
 	{
 		return hudSkin;
-	}
-
-	public float getSpawnTime()
-	{
-		return spawnTime;
 	}
 
 }

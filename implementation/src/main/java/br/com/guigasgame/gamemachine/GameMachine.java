@@ -22,7 +22,7 @@ import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
 import br.com.guigasgame.gameobject.hero.playable.PlayableHeroDefinition;
 import br.com.guigasgame.round.RoundProperties;
 import br.com.guigasgame.round.hud.RoundHudTopSkin;
-import br.com.guigasgame.round.type.DeathMatchRoundType;
+import br.com.guigasgame.round.type.DeathMatchRoundMode;
 import br.com.guigasgame.scenery.creation.SceneryInitialize;
 import br.com.guigasgame.scenery.file.SceneryFile;
 import br.com.guigasgame.team.TeamIndex;
@@ -31,7 +31,15 @@ import br.com.guigasgame.team.TeamsController;
 
 public class GameMachine
 {
-
+	private static GameMachine gameMachine;
+	
+	public static GameMachine getInstance()
+	{
+		if (gameMachine == null)
+			gameMachine = new GameMachine();
+		return gameMachine;
+	}
+	
 	public final int FRAME_RATE = 60;
 	private boolean isRunning;
 	private RenderWindow renderWindow;
@@ -40,7 +48,7 @@ public class GameMachine
 
 	public static void main(String[] args) throws Exception
 	{
-		GameMachine gameMachine = new GameMachine();
+		GameMachine gameMachine = getInstance();
 
 		RoundGameState roundGameState = gameMachine.setupRoundState();
 
@@ -57,7 +65,7 @@ public class GameMachine
 
 		RoundHeroAttributes roundHeroAttributes = setupAttributes();
 //		teamsController.setRoundConfigurationsUp();
-		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teamsController, scenery, 10, new RoundHudTopSkin(), new DeathMatchRoundType(2), 3);
+		RoundProperties roundProperties = new RoundProperties(roundHeroAttributes, teamsController, scenery, 10, new RoundHudTopSkin(), new DeathMatchRoundMode(2, 3, 3));
 		RoundGameState roundGameState = new RoundGameState(roundProperties);
 		return roundGameState;
 	}
