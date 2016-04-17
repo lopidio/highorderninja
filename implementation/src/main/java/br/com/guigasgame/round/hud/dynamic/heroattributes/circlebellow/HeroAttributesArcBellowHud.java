@@ -15,7 +15,7 @@ import br.com.guigasgame.round.hud.dynamic.heroattributes.HeroAttributeMoveableH
 
 public class HeroAttributesArcBellowHud implements HeroAttributeMoveableHud
 {
-
+	private final float TOTAL_POINTS = 20;
 	protected float radius;
 	protected ColorInterpolator innerColor;
 	protected ColorInterpolator outterColor;
@@ -46,12 +46,11 @@ public class HeroAttributesArcBellowHud implements HeroAttributeMoveableHud
 
 	private void updateVertices(Vector2f center, float ratio)
 	{
-		final float totalPoints = 100;
-		final double angle = 2*Math.PI/totalPoints;
+		final double angle = 2*Math.PI/TOTAL_POINTS;
 		innerShape.clear();
 		
 		innerShape.add(new Vertex(center, innerColor.getCurrentColor().lighten(2).getSfmlColor()));
-		for (int i = 0; i <= totalPoints*ratio; ++i)
+		for (int i = 0; i <= TOTAL_POINTS*ratio; ++i)
 		{
 			final Vector2f circlePerimeter = new Vector2f((float)(radius*Math.cos(i*angle) + center.x), (float)(radius*Math.sin(i*angle) + center.y));
 			innerShape.add(new Vertex(circlePerimeter, innerColor.getCurrentColor().makeTranslucid(1.2f).getSfmlColor()));

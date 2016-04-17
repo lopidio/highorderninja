@@ -26,7 +26,7 @@ abstract class HeroAttributeBarBellowHud implements HeroAttributeMoveableHud
 		this.size = size;
 		
 		innerColor = new ColorLinearInterpolator(color);
-		outterColor = new ColorLinearInterpolator(color.darken(2.5f));
+		outterColor = new ColorLinearInterpolator(color.makeTranslucid(4).darken(2.5f));
 		
 		innerShape = new RectangleShape(size);
 		innerShape.setOrigin(0, innerShape.getSize().y / 2);
@@ -35,7 +35,7 @@ abstract class HeroAttributeBarBellowHud implements HeroAttributeMoveableHud
 		outterShape = new RectangleShape(new Vector2f(size.x + 2, size.y + 2));
 		outterShape.setOrigin(Vector2f.mul(outterShape.getSize(), 0.5f));
 		outterShape.setFillColor(outterColor.getCurrentColor().getSfmlColor());
-		outterShape.setOutlineColor(outterColor.getCurrentColor().darken(3).getSfmlColor());
+		outterShape.setOutlineColor(innerColor.getCurrentColor().darken(3).getSfmlColor());
 		outterShape.setOutlineThickness(1f);
 	}
 	

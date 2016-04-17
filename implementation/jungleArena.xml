@@ -31,6 +31,17 @@
 			</halfDimension>
 		</rectangles>		
 		<rectangles textureName="grassTexture.jpg">
+			<!-- 2up -->
+			<center>
+				<x>0.0</x>
+				<y>185.0</y>
+			</center>
+			<halfDimension>
+				<x>400</x>
+				<y>15</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="grassTexture.jpg">
 			<!-- 3 -->
 			<center>
 				<x>0.0</x>
@@ -152,18 +163,7 @@
 				<y>-135.0</y>
 			</center>
 			<halfDimension>
-				<x>130</x>
-				<y>15</y>
-			</halfDimension>
-		</rectangles>		
-		<rectangles textureName="grassTexture.jpg">
-			<!-- 13 -->
-			<center>
-				<x>-280.0</x>
-				<y>185.0</y>
-			</center>
-			<halfDimension>
-				<x>90</x>
+				<x>110</x>
 				<y>15</y>
 			</halfDimension>
 		</rectangles>		
@@ -279,18 +279,7 @@
 				<y>-135.0</y>
 			</center>
 			<halfDimension>
-				<x>130</x>
-				<y>15</y>
-			</halfDimension>
-		</rectangles>		
-		<rectangles textureName="grassTexture.jpg">
-			<!-- 13 -->
-			<center>
-				<x>280.0</x>
-				<y>185.0</y>
-			</center>
-			<halfDimension>
-				<x>90</x>
+				<x>110</x>
 				<y>15</y>
 			</halfDimension>
 		</rectangles>		
@@ -298,7 +287,7 @@
 	</sceneryShapes>
 	<spawnPoints>
 		<point>
-			<x>-880.0</x>
+			<x>-900.0</x>
 			<y>-200</y>
 		</point>
 		<point>
@@ -334,7 +323,7 @@
 			<y>-370</y>
 		</point>
 		<point>
-			<x>-480.0</x>
+			<x>-500.0</x>
 			<y>-470</y>
 		</point>
 		<point>
@@ -342,7 +331,7 @@
 			<y>-320</y>
 		</point>
 		<point>
-			<x>-200.0</x>
+			<x>-250.0</x>
 			<y>-400</y>
 		</point>
 
@@ -450,7 +439,7 @@
 			</animationProperties>
 			<origin>
 				<x>-130.0</x>
-				<y>220.0</y>
+				<y>112.0</y>
 			</origin>
 			<distanceFromCamera>-100.0</distanceFromCamera>
 		</backgroundItems>
@@ -504,7 +493,7 @@
 			</animationProperties>
 			<origin>
 				<x>-50.0</x>
-				<y>195.0</y>
+				<y>85.0</y>
 			</origin>
 			<distanceFromCamera>100.0</distanceFromCamera>
 		</backgroundItems>

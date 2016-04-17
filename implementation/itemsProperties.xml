@@ -22,10 +22,10 @@
                 <friction>1.0</friction>
                 <mass>3.0</mass>
                 <size>
-                    <x>10</x>
-                    <y>10</y>
+                    <x>15</x>
+                    <y>15</y>
                 </size>
-                <period>10.0</period>
+                <period>8.0</period>
                 <lifeTime>60.0</lifeTime>
             </value>
         </entry>

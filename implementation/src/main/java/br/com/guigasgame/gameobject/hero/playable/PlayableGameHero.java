@@ -297,7 +297,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 				EventCentralMessenger.getInstance().fireEvent(new HitAsTargetFragEventWrapper(this, owner, projectile));
 				if (fixtureSensorID == FixtureSensorID.HEAD)
 				{
-					damage *= 3;
+					damage *= 4;
 				}
 				heroAttributes.getLife().decrement(damage);
 				if (playerIsDead)
