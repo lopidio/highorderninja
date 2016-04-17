@@ -30,7 +30,7 @@ public class SceneryViewer
 
 	public SceneryViewer() throws Exception
 	{
-		String scenePropertiesFile = "alternativeScene.xml";
+		String scenePropertiesFile = "arenaScene.xml";
 		SceneryInitialize creator = new SceneryInitialize(SceneryFile.loadFromFile(scenePropertiesFile));
 		scenery = new SceneController(creator);
 		pointsShapes = new ArrayList<>();

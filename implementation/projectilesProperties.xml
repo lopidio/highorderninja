@@ -10,7 +10,7 @@
                 <radius>0.1</radius>
                 <restitution>0.8</restitution>
                 <friction>0.8</friction>
-                <damage>12</damage>
+                <damage>20</damage>
                 <maxDistance>50.0</maxDistance>
                 <rangeAngle>1.0471966</rangeAngle> <!-- 36° = PI/10 -->
             </value>

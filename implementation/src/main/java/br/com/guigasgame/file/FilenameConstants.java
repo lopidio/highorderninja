@@ -64,9 +64,15 @@ public class FilenameConstants
 
 	public static String getSceneryFilename()
 	{
-		if (Randomizer.getRandomIntInInterval(0, 1)%2 == 0)
-			return "alternativeScene.xml";
-		return "proScene.xml";
+		switch(Randomizer.getRandomIntInInterval(0, 2))
+		{
+			case 0:
+				return "alternativeScene.xml";
+			case 1:
+				return "proScene.xml";
+			default: //case 2:
+				return "jungleArena.xml";
+		}
 	}
 
 	public static String getItemsPropertiesFilename()

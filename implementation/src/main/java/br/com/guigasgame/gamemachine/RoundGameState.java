@@ -288,9 +288,9 @@ public class RoundGameState implements GameState
 			gameObject.draw(renderWindow);
 		}
 		
+		hudController.drawDynamicHud(renderWindow);
 		scenery.drawForegroundItems(renderWindow);
 		
-		hudController.drawDynamicHud(renderWindow);
 		renderWindow.setView(hudController.getStaticView());
 		hudController.drawStaticHud(renderWindow);
 	}

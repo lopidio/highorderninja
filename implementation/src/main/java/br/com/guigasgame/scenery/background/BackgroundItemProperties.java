@@ -73,6 +73,8 @@ public class BackgroundItemProperties
 	
 	public Point getSpeed()
 	{
+		if (speed == null)
+			speed = new Point();
 		return speed;
 	}
 
