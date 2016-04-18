@@ -6,14 +6,15 @@ import java.util.List;
 import br.com.guigasgame.interpolator.InterpolatorFromTime;
 import br.com.guigasgame.interpolator.LinearInterpolatorFromTime;
 
-public class ColorLinearInterpolator extends ColorInterpolator
+public class ColorLinearInterpolator implements ColorInterpolator
 {
-	private List<InterpolatorFromTime<Float>> interpolators;
+	private final ColorBlender sourceColor;
+	private final List<InterpolatorFromTime<Float>> interpolators;
 	private ColorBlender currentColor;
 	
 	public ColorLinearInterpolator(ColorBlender sourceColor)
 	{
-		super(sourceColor);
+		this.sourceColor = sourceColor;
 		currentColor = sourceColor.clone();
 		interpolators = new ArrayList<>();
 	}
@@ -31,7 +32,7 @@ public class ColorLinearInterpolator extends ColorInterpolator
 		
 		updateColor();
 
-		verifyFinish();
+		checkEnd();
 	}
 
 	private void updateColor()
@@ -45,7 +46,7 @@ public class ColorLinearInterpolator extends ColorInterpolator
 		}
 	}
 	
-	private void verifyFinish()
+	private void checkEnd()
 	{
 		if (hasFinished())
 		{
@@ -73,11 +74,14 @@ public class ColorLinearInterpolator extends ColorInterpolator
 	@Override
 	public void interpolateToColor(ColorBlender color, float duration)
 	{
-		this.duration = duration;
+		if (!hasFinished())
+		{
+			forceFinalize();
+		}
 		interpolators.add(new LinearInterpolatorFromTime(sourceColor.getR(), duration).interpolateTo(color.getR()));
-		interpolators.add(new LinearInterpolatorFromTime(sourceColor.getR(), duration).interpolateTo(color.getG()));
-		interpolators.add(new LinearInterpolatorFromTime(sourceColor.getR(), duration).interpolateTo(color.getB()));
-		interpolators.add(new LinearInterpolatorFromTime(sourceColor.getR(), duration).interpolateTo(color.getA()));
+		interpolators.add(new LinearInterpolatorFromTime(sourceColor.getG(), duration).interpolateTo(color.getG()));
+		interpolators.add(new LinearInterpolatorFromTime(sourceColor.getB(), duration).interpolateTo(color.getB()));
+		interpolators.add(new LinearInterpolatorFromTime(sourceColor.getA(), duration).interpolateTo(color.getA()));
 	}
 
 	@Override
@@ -88,11 +92,10 @@ public class ColorLinearInterpolator extends ColorInterpolator
 			forceFinalize();
 		}
 			
-		this.duration = duration;
 		interpolators.add(new LinearInterpolatorFromTime(color.getR(), duration).interpolateTo(sourceColor.getR()));
-		interpolators.add(new LinearInterpolatorFromTime(color.getR(), duration).interpolateTo(sourceColor.getG()));
-		interpolators.add(new LinearInterpolatorFromTime(color.getR(), duration).interpolateTo(sourceColor.getB()));
-		interpolators.add(new LinearInterpolatorFromTime(color.getR(), duration).interpolateTo(sourceColor.getA()));
+		interpolators.add(new LinearInterpolatorFromTime(color.getG(), duration).interpolateTo(sourceColor.getG()));
+		interpolators.add(new LinearInterpolatorFromTime(color.getB(), duration).interpolateTo(sourceColor.getB()));
+		interpolators.add(new LinearInterpolatorFromTime(color.getA(), duration).interpolateTo(sourceColor.getA()));
 	}
 
 	private void forceFinalize()

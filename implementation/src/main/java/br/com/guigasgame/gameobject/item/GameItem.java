@@ -103,12 +103,12 @@ public abstract class GameItem extends GameObject
 	private void checkAlpha()
 	{
 		final float ratio = lifeTime / properties.lifeTime;
-		if (ratio < .4) // Less than 40% of lifeTime left
+		if (ratio < .6) // Less than x% of lifeTime left
 		{
 			for( Drawable drawable : drawableList )
 			{
 				Animation animation = (Animation) drawable;
-				animation.setAlpha((int) (ratio*255.0));
+				animation.setAlpha((int) (ratio*255.0) + 20);
 			}
 		}
 	}

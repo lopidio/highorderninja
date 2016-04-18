@@ -10,6 +10,7 @@ import org.jsfml.system.Vector2f;
 import br.com.guigasgame.animation.Animation;
 import br.com.guigasgame.box2d.debug.WorldConstants;
 import br.com.guigasgame.camera.Followable;
+import br.com.guigasgame.color.ColorBlender;
 import br.com.guigasgame.frag.DiedFragEventWrapper;
 import br.com.guigasgame.frag.HitAsTargetFragEventWrapper;
 import br.com.guigasgame.frag.KillFragEventWrapper;
@@ -49,9 +50,11 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	private final RoundHeroAttributes heroAttributes;
 	private boolean invincible;
 	private boolean playerIsDead;
+	private SpawnBlinkerDelay spawnBlinkerDelay;
 
 	public PlayableGameHero(PlayableHeroDefinition properties)
 	{
+		spawnBlinkerDelay = new SpawnBlinkerDelay(this, properties.getColor());
 		this.heroProperties = properties;
 		playerIsDead = false;
 		forwardSide = Side.RIGHT;
@@ -86,10 +89,11 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		{
 			animation.update(deltaTime);
 		}
-
+		spawnBlinkerDelay.update(deltaTime);
 		state.update(deltaTime);
 		updateActionList();
 		collidableHero.checkSpeedLimits(state.getMaxSpeed());
+		checkSpawnColor(deltaTime);
 		if (!playerIsDead)
 		{
 			gameHeroInput.update(deltaTime);
@@ -102,6 +106,24 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		final Vector2f position = WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
 		final float angleInDegrees = (float) WorldConstants.radiansToDegrees(collidableHero.getAngleRadians());
 		adjustAnimationPosition(position, angleInDegrees);
+	}
+
+	private void checkSpawnColor(float deltaTime)
+	{
+		if (spawnBlinkerDelay.isActive())
+		{
+			adjustAnimationsColor(spawnBlinkerDelay.getColor());
+		}
+	}
+
+	private void adjustAnimationsColor(ColorBlender colorBlender)
+	{
+		if (heroProperties.getPlayerId() == 0)
+			System.out.println(colorBlender.getA());
+		for( Animation animation : animationList )
+		{
+			animation.setColor(colorBlender);
+		}
 	}
 
 	private void updateItemsList()
@@ -174,9 +196,9 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		drawableList.clear();
 		for( Animation animation : animationList )
 		{
-			animation.setColor(heroProperties.getColor());
 			drawableList.add(animation);
 		}
+		adjustAnimationsColor(heroProperties.getColor());
 	}
 
 	public Side getForwardSide()
@@ -228,7 +250,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public Projectile createShuriken(Vec2 pointingDirection)
 	{
-		if (heroAttributes.getShurikens().isAbleToShoot())
+		if (heroAttributes.getShurikens().isAbleToShoot() && !spawnBlinkerDelay.isActive())
 		{
 			Projectile retorno = new Shuriken(pointingDirection, this); 
 			EventCentralMessenger.getInstance().fireEvent(new ShootFragEventWrapper(this, retorno));
@@ -245,7 +267,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public Projectile getSmokeBomb(Vec2 pointingDirection)
 	{
-		if (heroAttributes.getSmokeBomb().isAbleToShoot())
+		if (heroAttributes.getSmokeBomb().isAbleToShoot() && !spawnBlinkerDelay.isActive())
 		{
 			heroAttributes.getSmokeBomb().decrement(1);
 			return new SmokeBombProjectile(pointingDirection, this);
@@ -288,7 +310,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	public void getHitByProjectile(Projectile projectile, FixtureSensorID fixtureSensorID, PlayableGameHero owner)
 	{
 		float damage = projectile.getProperties().damage;
-		if (!invincible)
+		if (!invincible && !spawnBlinkerDelay.isActive())
 		{
 			if (!playerIsDead)
 			{
@@ -320,21 +342,6 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 		return WorldConstants.physicsToSfmlCoordinates(collidableHero.getBody().getWorldCenter());
 	}
 
-	public boolean canShootShuriken()
-	{
-		return heroAttributes.getShurikens().isAbleToShoot();
-	}
-
-	public boolean canUseItem()
-	{
-		return heroAttributes.getSmokeBomb().isAbleToShoot();
-	}
-
-	public boolean isInvincible()
-	{
-		return invincible;
-	}
-
 	public void die()
 	{
 		collidableHero.die();
@@ -358,7 +365,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void deadlySceneryHit(float damage)
 	{
-		if (!playerIsDead)
+		if (!playerIsDead && !spawnBlinkerDelay.isActive())
 		{
 			heroAttributes.getLife().decrement(damage);
 			if (heroAttributes.getLife().getCurrentValue() <= 0)
@@ -386,6 +393,8 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 
 	public void spawn(Vec2 position, Side side)
 	{
+		enableInvincibility();
+		spawnBlinkerDelay.resetCounter();
 		setForwardSide(side);
 		setState(new StandingHeroState(this));
 		playerIsDead = false;

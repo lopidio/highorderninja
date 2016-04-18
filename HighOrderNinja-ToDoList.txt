@@ -64,10 +64,10 @@ t	HudView zoom
 x	HeroFrag becomes FragStatistics and has a vector of frags
 t	FragStatistics: totalShoots, deaths, kills, suicides
 t	Deacoplate FragStatistic from interface FragEventListener
+v	Respawn after 5 seconds of death
+v	Blink when has just spawned
 	Rope hook gameItem's collision (grab item?)
 	Rope hook other hero collision?
-	Respawn after 5 seconds of death
-	Blink when has just spawned
 	Projectile direction through right analogic stick
 	
 

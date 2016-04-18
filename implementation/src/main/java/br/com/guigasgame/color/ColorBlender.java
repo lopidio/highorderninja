@@ -147,5 +147,15 @@ public class ColorBlender
 		}
 		return clone().setA(a/factor);
 	}
+
+	public ColorBlender makeOpaque()
+	{
+		return clone().setA(255);
+	}
+
+	public ColorBlender makeTranslucid()
+	{
+		return clone().setA(0);
+	}
 	
 }
