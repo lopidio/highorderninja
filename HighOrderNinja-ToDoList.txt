@@ -69,7 +69,11 @@ v	Blink when has just spawned
 	Rope hook gameItem's collision (grab item?)
 	Rope hook other hero collision?
 	Projectile direction through right analogic stick
-	
+	Equip Hero
+		Masks (cloth, guy Fawkes, helmet, ...)
+		Chest (armor?, color)
+		Arms   (armor?, color)
+		Legs	(armor?, color)
 
 ShurikenBomb
 RayCastAnythingBut....

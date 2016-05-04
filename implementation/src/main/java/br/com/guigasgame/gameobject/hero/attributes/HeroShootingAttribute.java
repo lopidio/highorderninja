@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class HeroShootingAttribute extends HeroAttribute
 {
 	@XmlAttribute(required=true)
-	private float intervalBetweenShots;
+	private final float intervalBetweenShots;
 	private float currentIntervalBetweenShots;
 
 	public HeroShootingAttribute(float maxValue, float intervalBetweenShoot, float regeneratesPerSecond)
@@ -38,7 +38,7 @@ public class HeroShootingAttribute extends HeroAttribute
 		super.update(deltaTime);
 		if (currentIntervalBetweenShots <= intervalBetweenShots)
 		{
-			incrementShootingInterval(deltaTime*intervalBetweenShots);
+			incrementShootingInterval(deltaTime);
 		}
 
 	}
