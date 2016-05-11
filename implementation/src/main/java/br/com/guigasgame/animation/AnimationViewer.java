@@ -5,12 +5,18 @@ import java.util.List;
 
 import javax.xml.bind.JAXBException;
 
+import org.jsfml.graphics.Color;
+import org.jsfml.graphics.Font;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.Text;
 import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
+
+import br.com.guigasgame.file.FilenameConstants;
+import br.com.guigasgame.resourcemanager.FontResourceManager;
 
 
 class AnimationViewer
@@ -24,15 +30,17 @@ class AnimationViewer
 		renderWindow = new RenderWindow(new VideoMode(1000, 600, 32), "Animation Viewer");
 		renderWindow.setFramerateLimit(60);
 
-		AnimationPropertiesFile<?> fromFile = ((AnimationPropertiesFile<?>) AnimationPropertiesFile
+		AnimationPropertiesFile<Enum> fromFile = ((AnimationPropertiesFile<Enum>) AnimationPropertiesFile
 				.loadFromFile(animationPropertiesFile));
 		
+		List<Text> textList = createTexts(fromFile.getAnimationsEnum());
 		List<Animation> animationList = new ArrayList<Animation>();
 		
-		short positionX = 50;
+		short positionX = 100;
 		short positionY = 50;
 		int maxHeight = 0;
-		
+
+		int i = 0;
 		for( AnimationProperties properties : fromFile.getAnimationsMap() )
 		{
 			Animation novaAnimacao = Animation.createAnimation(properties);
@@ -41,18 +49,19 @@ class AnimationViewer
 			//Desloca verticalmente
 			if (positionX + novaAnimacao.getWidth() > renderWindow.getSize().x)
 			{
-				positionX = 50;
+				positionX = 100;
 				positionY += maxHeight;
 				maxHeight = 0;
 			}
 			
 			novaAnimacao.move(new Vector2f(positionX, positionY));
+			textList.get(i++).setPosition(new Vector2f(positionX, positionY + 50));
 			
 			//Desloca horizontalmente
-			positionX += novaAnimacao.getWidth() + 20;
+			positionX += novaAnimacao.getWidth() + 150;
 			if (novaAnimacao.getHeight() > maxHeight)
 			{
-				maxHeight = novaAnimacao.getHeight();
+				maxHeight = novaAnimacao.getHeight() + 50;
 			}
 			
 			animationList.add(novaAnimacao);
@@ -67,14 +76,35 @@ class AnimationViewer
 			renderWindow.clear();
 			handleEvents();
 
+			i = 0;
 			for( Animation animation : animationList )
 			{
+				renderWindow.draw(textList.get(i++));
 				animation.update(deltaTime);
 				animation.draw(renderWindow);
 			}
 			
 			renderWindow.display();
 		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	private static List<Text> createTexts(List<Enum> list)
+	{
+		List<Text> textList = new ArrayList<>();
+		for(  Enum value : list )
+		{
+			Font font = FontResourceManager.getInstance().getResource(FilenameConstants.getFragStatistcsFontFilename());
+			Text text = new Text();
+			text.setFont(font);
+			text.setCharacterSize(10);
+			text.setColor(Color.GREEN);
+			text.setFont(font);
+			text.setString(value.name());
+			text.setOrigin(text.getLocalBounds().width/2, text.getLocalBounds().height/2);
+			textList.add(text);
+		}
+		return textList;
 	}
 	
 	private static void handleEvents()

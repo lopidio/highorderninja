@@ -1,9 +1,12 @@
 package br.com.guigasgame.animation;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -67,6 +70,16 @@ public class AnimationPropertiesFile<Enum>
 	public AnimationProperties getAnimationsProperties(Enum index)
 	{
 		return animationsMap.get(index);
+	}
+
+	public List<Enum> getAnimationsEnum()
+	{
+		List<Enum> retorno = new ArrayList<>();
+		for( Entry<Enum, AnimationProperties> entry : animationsMap.entrySet() )
+		{
+			retorno.add(entry.getKey());
+		}
+		return retorno;
 	}
 
 	public Collection<AnimationProperties> getAnimationsMap()

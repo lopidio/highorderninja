@@ -28,7 +28,7 @@ public class BackFlipAction extends GameHeroAction
 	public void childExecute(PlayableGameHero gameHero)
 	{
 		float impulse = heroStateProperties.property.get("impulse");
-		Vec2 impulseDirection = new Vec2(side.getHorizontalValue(), -1); //?
+		Vec2 impulseDirection = new Vec2(side.getHorizontalValue(), -2); // 30°
 		impulseDirection.normalize();
 		impulseDirection.mulLocal(impulse);
 		gameHero.getCollidableHero().applyImpulse(impulseDirection);
