@@ -3,15 +3,29 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.com.guigasgame</groupId>
-	<artifactId>box2d</artifactId>
+	<artifactId>high-order-ninja</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <packaging>jar</packaging>
 
-	<name>box2d</name>
+	<name>High Order Ninja</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -39,6 +53,12 @@
 			<artifactId>guava</artifactId>
 			<version>19.0</version>
 		</dependency>
-
+        <dependency>
+            <groupId>jsfml</groupId>
+            <artifactId>jsml</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../dependencies/jsfml-2013-07-MacOS/jsfml.jar</systemPath>
+        </dependency>
 	</dependencies>
 </project>

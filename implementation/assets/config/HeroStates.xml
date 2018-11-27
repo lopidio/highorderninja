@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<heroStatePropertiesFile>
+	<statesMap>
+		<entry>
+			<key>HERO_SLIDING</key>
+			<value>
+				<jump impulse="10.0" />
+				<invincible />
+				<move acceleration="80.0" />
+				<maxSpeed>
+					<x>50</x>
+					<y>20</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>duration</key>
+						<value>0.75</value>
+					</entry>
+				</property>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_WALLGRABBING</key>
+			<value>
+				<jump impulse="12.0" />
+				<maxSpeed>
+					<x>5</x> <!-- NEEDED TO IMPROVE WALL GLUE -->
+					<y>3</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_STANDING</key>
+			<value>
+				<rope />
+				<shoot />
+				<move acceleration="40" />
+				<jump impulse="10.0" />
+				<maxSpeed>
+					<x>20</x>
+					<y>20</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_RUNNING</key>
+			<value>
+				<rope />
+				<shoot />
+				<move acceleration="60.0" />
+				<jump impulse="10.0" />
+				<maxSpeed>
+					<x>10</x>
+					<y>10</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_SUPER_RUNNING</key>
+			<value>
+				<move acceleration="80.0" />
+				<jump impulse="12.0" />
+				<maxSpeed>
+					<x>20</x>
+					<y>20</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>minHorizontalSpeed</key>
+						<value>9</value>
+					</entry>
+					<entry>
+						<key>minDuration</key>
+						<value>0.75</value>
+					</entry>
+				</property>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_WALLRIDING</key>
+			<value>
+				<jump impulse="10.0" />
+				<maxSpeed>
+					<x>0</x>
+					<y>20</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_DEAD</key>
+			<value>
+				<maxSpeed>
+					<x>30</x>
+					<y>30</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_ASCENDING</key>
+			<value>
+				<rope />
+				<shoot />
+				<jump impulse="3.0" />
+				<move acceleration="0.2" />
+				<maxSpeed>
+					<x>20</x>
+					<y>20</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>jumpPressingHelp</key>
+						<value>3.0</value>
+					</entry>
+				</property>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_FALLING</key>
+			<value>
+				<rope />
+				<shoot />
+				<move acceleration="0.0" />
+				<maxSpeed>
+					<x>20</x>
+					<y>40</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_DIVING</key>
+			<value>
+				<invincible />			
+				<maxSpeed>
+					<x>20</x>
+					<y>100</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>diveImpulse</key>
+						<value>30</value>
+					</entry>
+				</property>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_STOP</key>
+			<value>
+				<invincible />			
+				<shoot />
+				<rope />
+				<maxSpeed>
+					<x>20</x>
+					<y>100</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>diveImpulse</key>
+						<value>30</value>
+					</entry>
+				</property>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_DUCKING</key>
+			<value>
+				<jump impulse="15.0" />
+				<move acceleration="10" />
+				<maxSpeed>
+					<x>20</x>
+					<y>20</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_ROPE</key>
+			<value>
+				<move acceleration="10" />
+				<maxSpeed>
+					<x>100</x>
+					<y>100</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_ROPE_SHOOTING</key>
+			<value>
+				<rope />
+				<maxSpeed>
+					<x>100</x>
+					<y>100</y>
+				</maxSpeed>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_BACKFLIPPING</key>
+			<value>
+				<maxSpeed>
+					<x>10</x>
+					<y>10</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>impulse</key>
+						<value>8</value>
+					</entry>
+				</property>
+			</value>
+		</entry>
+		<entry>
+			<key>HERO_AIR_SPIN</key>
+			<value>
+				<invincible />			
+				<maxSpeed>
+					<x>40</x>
+					<y>5</y>
+				</maxSpeed>
+				<property>
+					<entry>
+						<key>duration</key>
+						<value>0.5</value>
+					</entry>
+					<entry>
+						<key>minHorizontalSpeed</key>
+						<value>12</value>
+					</entry>
+					<entry>
+						<key>spinImpulse</key>
+						<value>15</value>
+					</entry>
+				</property>
+			</value>
+		</entry>
+	</statesMap>
+</heroStatePropertiesFile>

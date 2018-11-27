@@ -7,11 +7,6 @@ import br.com.guigasgame.math.Randomizer;
 public class FilenameConstants
 {
 
-	private static String inputPlayerConfigFile1 = "InputConfigFile1.xml";
-	private static String inputPlayerConfigFile2 = "InputConfigFile2.xml";
-
-	private static String inputPlayerKeyboard = "defaultKeyboardInputConfig.xml";
-	private static String inputPlayerJoystick = "defaultJoystickInputConfig.xml";
 	private static String heroFixturesFilename = "HeroFixtures.xml";
 	private static String heroStatesFilename = "HeroStates.xml";
 	private static String projectilePropertiesFilename = "projectilesProperties.xml";
@@ -24,9 +19,9 @@ public class FilenameConstants
 	public static String getInputPlayerConfigFilename(int playerID)
 	{
 		if (playerID == 1)
-			return inputPlayerConfigFile1;
+			return "assets/config/InputConfigFile1.xml";
 		else // if (playerID == 0)
-			return inputPlayerConfigFile2;
+			return "assets/config/InputConfigFile2.xml";
 	}
 
 	public static String getHeroAnimationFilename()
@@ -54,9 +49,9 @@ public class FilenameConstants
 		switch (device)
 		{
 			case JOYSTICK:
-				return inputPlayerJoystick;
+				return "assets/config/defaultJoystickInputConfig.xml";
 			case KEYBOARD:
-				return inputPlayerKeyboard;
+				return "assets/config/defaultKeyboardInputConfig.xml";
 			default:
 				return "";
 		}
@@ -67,11 +62,11 @@ public class FilenameConstants
 		switch(Randomizer.getRandomIntInInterval(0, 2))
 		{
 			case 0:
-				return "alternativeScene.xml";
+				return "assets/config/alternativeScene.xml";
 			case 1:
-				return "proScene.xml";
+				return "assets/config/proScene.xml";
 			default: //case 2:
-				return "jungleArena.xml";
+				return "assets/config/jungleArena.xml";
 		}
 	}
 
@@ -107,7 +102,7 @@ public class FilenameConstants
 
 	public static String getLogoFilename()
 	{
-		return "guilogo.png";
+		return "assets/graphics/guilogo.png";
 	}
 
 }

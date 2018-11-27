@@ -1,10 +1,10 @@
 package br.com.guigasgame.gamemachine;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Stack;
 import java.util.Vector;
 
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
@@ -17,14 +17,14 @@ import br.com.guigasgame.color.ColorBlender;
 public class GameMachine
 {
 	private static GameMachine gameMachine;
-	
+
 	public static GameMachine getInstance()
 	{
 		if (gameMachine == null)
 			gameMachine = new GameMachine();
 		return gameMachine;
 	}
-	
+
 	public final int FRAME_RATE = 60;
 	private boolean isRunning;
 	private RenderWindow renderWindow;
@@ -57,27 +57,21 @@ public class GameMachine
 
 	public GameMachine()
 	{
+        backgroundColor = new ColorBlender(200, 200, 250, 200);
 
 		VideoMode[] modes = VideoMode.getFullscreenModes();
-		Arrays.sort(modes, new Comparator<VideoMode>()
+		Arrays.sort(modes, (firstMode, secondMode) -> {
+            int retorno = firstMode.height * firstMode.width - secondMode.height * secondMode.width;
+            if (retorno == 0)
+                return firstMode.bitsPerPixel - secondMode.bitsPerPixel;
+            return retorno;
+        });
+		for( VideoMode videoMode : modes )
 		{
-
-			@Override
-			public int compare(VideoMode o1, VideoMode o2)
-			{
-				int retorno = o1.height * o1.width - o2.height * o2.width;
-				if (retorno == 0)
-					return o1.bitsPerPixel - o2.bitsPerPixel;
-				return retorno;
-			}
-
-		});
-//		for( VideoMode videoMode : modes )
-//		{
-//			System.out.println(videoMode);
-//		}
+			System.out.println(videoMode);
+		}
 		final VideoMode best = modes[modes.length - 1];
-//		final VideoMode worst = modes[4];
+//		final VideoMode worst = modes[0];
 
 		renderWindow = new RenderWindow(best, "High Order Ninja");//, Window.FULLSCREEN);  //Window.TRANSPARENT
 //		renderWindow = new RenderWindow(worst, "High Order Ninja");//, Window.FULLSCREEN);  //Window.TRANSPARENT
@@ -86,12 +80,12 @@ public class GameMachine
 		renderWindow.setMouseCursorVisible(false);
 
 		isRunning = true;
-		gameStates = new Stack<GameState>();
+		gameStates = new Stack<>();
 	}
 
 	private void execute()
 	{
-		gameStates.lastElement().load();
+//		gameStates.lastElement().load();
 		gameLoop();
 		gameStates.lastElement().unload();
 		gameStates.lastElement().exitState();

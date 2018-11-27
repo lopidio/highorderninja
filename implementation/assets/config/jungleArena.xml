@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sceneryFile>
+	<backgroundColor r="150.0" g="205.0" b="150.0" a="255.0" />
+	<boundariesTollerance>
+		<left>00.0</left>
+		<top>00.0</top>
+		<width>00.0</width>
+		<height>00.0</height>
+	</boundariesTollerance>
+	<sceneryShapes>
+		<rectangles  damagePerSecond="200.0" textureName="assets/graphics/greenTexture.jpg">
+			<!-- 1 -->
+			<center>
+				<x>0.0</x>
+				<y>-630.0</y>
+			</center>
+			<halfDimension>
+				<x>1000</x>
+				<y>20</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 2 -->
+			<center>
+				<x>0.0</x>
+				<y>300.0</y>
+			</center>
+			<halfDimension>
+				<x>500</x>
+				<y>20</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 2up -->
+			<center>
+				<x>0.0</x>
+				<y>185.0</y>
+			</center>
+			<halfDimension>
+				<x>400</x>
+				<y>15</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 3 -->
+			<center>
+				<x>0.0</x>
+				<y>600.0</y>
+			</center>
+			<halfDimension>
+				<x>500</x>
+				<y>50</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 4 -->
+			<center>
+				<x>-1030.0</x>
+				<y>-100.0</y>
+			</center>
+			<halfDimension>
+				<x>50</x>
+				<y>550</y>
+			</halfDimension>
+		</rectangles>		
+        <triangles textureName="assets/graphics/darkStoneTexture.jpg">
+			<!-- 5 -->
+            <pointA>
+                <x>-980.0</x>
+                <y>450.0</y>
+            </pointA>
+            <pointB>
+                <x>-1080.0</x>
+                <y>450.0</y>
+            </pointB>
+            <pointC>
+                <x>-500.0</x>
+                <y>550.0</y>
+            </pointC>
+        </triangles>
+        <triangles textureName="assets/graphics/darkStoneTexture.jpg">
+			<!-- 6 -->
+            <pointA>
+                <x>-500.0</x>
+                <y>550.0</y>
+            </pointA>
+            <pointB>
+                <x>-500.0</x>
+                <y>650.0</y>
+            </pointB>
+            <pointC>
+                <x>-1080.0</x>
+                <y>450.0</y>
+            </pointC>
+        </triangles>
+        <triangles textureName="assets/graphics/darkStoneTexture.jpg">
+			<!-- 7 -->
+            <pointA>
+                <x>-500.0</x>
+                <y>320.0</y>
+            </pointA>
+            <pointB>
+                <x>-500.0</x>
+                <y>280.0</y>
+            </pointB>
+            <pointC>
+                <x>-700.0</x>
+                <y>250.0</y>
+            </pointC>
+        </triangles>
+        <triangles textureName="assets/graphics/darkStoneTexture.jpg">
+			<!-- 8 -->
+            <pointA>
+                <x>-700.0</x>
+                <y>250.0</y>
+            </pointA>
+            <pointB>
+                <x>-710.0</x>
+                <y>280.0</y>
+            </pointB>
+            <pointC>
+                <x>-500.0</x>
+                <y>320.0</y>
+            </pointC>
+        </triangles>
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 9 -->
+			<center>
+				<x>-550.0</x>
+				<y>-50.0</y>
+			</center>
+			<halfDimension>
+				<x>15</x>
+				<y>200</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 10 -->
+			<center>
+				<x>-385.0</x>
+				<y>-265.0</y>
+			</center>
+			<halfDimension>
+				<x>180</x>
+				<y>15</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 11 -->
+			<center>
+				<x>-280.0</x>
+				<y>30.0</y>
+			</center>
+			<halfDimension>
+				<x>15</x>
+				<y>170</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 12 -->
+			<center>
+				<x>-280.0</x>
+				<y>-135.0</y>
+			</center>
+			<halfDimension>
+				<x>110</x>
+				<y>15</y>
+			</halfDimension>
+		</rectangles>		
+<!-- invert -->
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- -4 -->
+			<center>
+				<x>1030.0</x>
+				<y>-100.0</y>
+			</center>
+			<halfDimension>
+				<x>50</x>
+				<y>550</y>
+			</halfDimension>
+		</rectangles>		
+        <triangles textureName="assets/graphics/darkStoneTexture.jpg">
+			<!-- -5 -->
+            <pointA>
+                <x>980.0</x>
+                <y>450.0</y>
+            </pointA>
+            <pointB>
+                <x>1080.0</x>
+                <y>450.0</y>
+            </pointB>
+            <pointC>
+                <x>500.0</x>
+                <y>550.0</y>
+            </pointC>
+        </triangles>
+        <triangles textureName="assets/graphics/darkStoneTexture.jpg">
+			<!-- -6 -->
+            <pointA>
+                <x>500.0</x>
+                <y>550.0</y>
+            </pointA>
+            <pointB>
+                <x>500.0</x>
+                <y>650.0</y>
+            </pointB>
+            <pointC>
+                <x>1080.0</x>
+                <y>450.0</y>
+            </pointC>
+        </triangles>
+        <triangles textureName="assets/graphics/darkStoneTexture.jpg">
+			<!-- -7 -->
+            <pointA>
+                <x>500.0</x>
+                <y>320.0</y>
+            </pointA>
+            <pointB>
+                <x>500.0</x>
+                <y>280.0</y>
+            </pointB>
+            <pointC>
+                <x>700.0</x>
+                <y>250.0</y>
+            </pointC>
+        </triangles>
+        <triangles textureName="assets/graphics/darkStoneTexture.jpg">
+			<!-- -8 -->
+            <pointA>
+                <x>700.0</x>
+                <y>250.0</y>
+            </pointA>
+            <pointB>
+                <x>710.0</x>
+                <y>280.0</y>
+            </pointB>
+            <pointC>
+                <x>500.0</x>
+                <y>320.0</y>
+            </pointC>
+        </triangles>
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- -9 -->
+			<center>
+				<x>550.0</x>
+				<y>-50.0</y>
+			</center>
+			<halfDimension>
+				<x>15</x>
+				<y>200</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- -10 -->
+			<center>
+				<x>385.0</x>
+				<y>-265.0</y>
+			</center>
+			<halfDimension>
+				<x>180</x>
+				<y>15</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 11 -->
+			<center>
+				<x>280.0</x>
+				<y>30.0</y>
+			</center>
+			<halfDimension>
+				<x>15</x>
+				<y>170</y>
+			</halfDimension>
+		</rectangles>		
+		<rectangles textureName="assets/graphics/grassTexture.jpg">
+			<!-- 12 -->
+			<center>
+				<x>280.0</x>
+				<y>-135.0</y>
+			</center>
+			<halfDimension>
+				<x>110</x>
+				<y>15</y>
+			</halfDimension>
+		</rectangles>		
+
+	</sceneryShapes>
+	<spawnPoints>
+		<point>
+			<x>-900.0</x>
+			<y>-200</y>
+		</point>
+		<point>
+			<x>880.0</x>
+			<y>-170</y>
+		</point>
+		<point>
+			<x>0.0</x>
+			<y>470</y>
+		</point>
+		<point>
+			<x>200.0</x>
+			<y>520</y>
+		</point>
+		<point>
+			<x>-300.0</x>
+			<y>270</y>
+		</point>
+		<point>
+			<x>200.0</x>
+			<y>170</y>
+		</point>
+		<point>
+			<x>-100.0</x>
+			<y>70</y>
+		</point>
+		<point>
+			<x>100.0</x>
+			<y>-370</y>
+		</point>
+		<point>
+			<x>700.0</x>
+			<y>-370</y>
+		</point>
+		<point>
+			<x>-500.0</x>
+			<y>-470</y>
+		</point>
+		<point>
+			<x>380.0</x>
+			<y>-320</y>
+		</point>
+		<point>
+			<x>-250.0</x>
+			<y>-400</y>
+		</point>
+
+	</spawnPoints>
+	<itemSpots>
+		<spot>
+			<x>00.0</x>
+			<y>-500.0</y>
+		</spot>
+		<spot>
+			<x>-700.0</x>
+			<y>-20.0</y>
+		</spot>
+		<spot>
+			<x>300.0</x>
+			<y>20.0</y>
+		</spot>
+		<spot>
+			<x>-100.0</x>
+			<y>180.0</y>
+		</spot>
+		<spot>
+			<x>350.0</x>
+			<y>280.0</y>
+		</spot>
+		<spot>
+			<x>50.0</x>
+			<y>480.0</y>
+		</spot>
+		<spot>
+			<x>-150.0</x>
+			<y>480.0</y>
+		</spot>
+		<spot>
+			<x>150.0</x>
+			<y>480.0</y>
+		</spot>
+	</itemSpots>
+	<backgroundFile>
+		<backgroundItems regenerate="false" textureFilename="assets/graphics/petitsArbres.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>136</left>
+					<top>30</top>
+					<width>300</width>
+					<height>190</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>500.0</x>
+				<y>-350.0</y>
+			</origin>
+			<distanceFromCamera>100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="assets/graphics/petitsArbres.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>136</left>
+					<top>30</top>
+					<width>300</width>
+					<height>190</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>-480.0</x>
+				<y>480.0</y>
+			</origin>
+			<distanceFromCamera>100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="assets/graphics/petitsArbres.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>415</left>
+					<top>60</top>
+					<width>500</width>
+					<height>190</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>-400.0</x>
+				<y>495.0</y>
+			</origin>
+			<distanceFromCamera>-100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="assets/graphics/petitsArbres.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>415</left>
+					<top>60</top>
+					<width>500</width>
+					<height>190</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>-130.0</x>
+				<y>112.0</y>
+			</origin>
+			<distanceFromCamera>-100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="assets/graphics/petitsArbres.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>306</left>
+					<top>40</top>
+					<width>415</width>
+					<height>190</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>-400.0</x>
+				<y>-345.0</y>
+			</origin>
+			<distanceFromCamera>-100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="assets/graphics/petitsArbres.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>306</left>
+					<top>40</top>
+					<width>415</width>
+					<height>190</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>-300.0</x>
+				<y>495.0</y>
+			</origin>
+			<distanceFromCamera>100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="assets/graphics/petitsArbres.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>0</top>
+					<width>120</width>
+					<height>190</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>-50.0</x>
+				<y>85.0</y>
+			</origin>
+			<distanceFromCamera>100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="lianas.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>0</top>
+					<width>120</width>
+					<height>309</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>950.0</x>
+				<y>-498</y>
+			</origin>
+			<distanceFromCamera>-100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="lianas.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>0</top>
+					<width>120</width>
+					<height>309</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>900.0</x>
+				<y>-498</y>
+			</origin>
+			<distanceFromCamera>-100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="lianas.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>0</top>
+					<width>120</width>
+					<height>309</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>820.0</x>
+				<y>-498</y>
+			</origin>
+			<distanceFromCamera>-100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="lianaPoor.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>0</top>
+					<width>236</width>
+					<height>236</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>-220.0</x>
+				<y>-535</y>
+			</origin>
+			<distanceFromCamera>-100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="lianaPoor.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>0</top>
+					<width>236</width>
+					<height>236</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>-420.0</x>
+				<y>-535</y>
+			</origin>
+			<distanceFromCamera>-100.0</distanceFromCamera>
+		</backgroundItems>
+		<backgroundItems regenerate="false" textureFilename="thinLiana.png">
+			<animationProperties horizontal="true">
+				<numFrames>1</numFrames>
+				<numEntranceFrames>0</numEntranceFrames>
+				<secondsPerFrame>12.0</secondsPerFrame>
+				<textureSpriteRect>
+					<left>0</left>
+					<top>0</top>
+					<width>650</width>
+					<height>800</height>
+				</textureSpriteRect>
+			</animationProperties>
+			<origin>
+				<x>-720.0</x>
+				<y>-255</y>
+			</origin>
+			<distanceFromCamera>-100.0</distanceFromCamera>
+		</backgroundItems>
+
+	</backgroundFile>
+</sceneryFile>

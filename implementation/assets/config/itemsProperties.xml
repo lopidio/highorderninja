@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gameItemPropertiesFile>
+    <itemMap>
+        <entry>
+            <key>LIFE</key>
+            <value>
+                <restitution>0.3</restitution>
+                <friction>0.2</friction>
+                <mass>1.0</mass>
+                <size>
+                    <x>20</x>
+                    <y>20</y>
+                </size>
+                <period>20.0</period>
+                <lifeTime>40.0</lifeTime>
+            </value>
+        </entry>
+        <entry>
+            <key>SHURIKEN_PACK</key>
+            <value>
+                <restitution>0.2</restitution>
+                <friction>1.0</friction>
+                <mass>3.0</mass>
+                <size>
+                    <x>15</x>
+                    <y>15</y>
+                </size>
+                <period>8.0</period>
+                <lifeTime>60.0</lifeTime>
+            </value>
+        </entry>
+    </itemMap>
+</gameItemPropertiesFile>
