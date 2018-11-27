@@ -49,7 +49,7 @@ v	Invencibility during some states (sliding, diving, spining) as a xml property
 v	Jump towards collision's normal
 v	HeroAttributes configuration in xml file
 v	AnimationFile to have more than one texture. One texture per animation
-v	Rescale gameItemImages according with gameItemBoxes	
+v	Rescale gameItemImages according with gameItemBoxes
 v	Player dies (DeadState/AirDeadState/ DieAction) when has no life
 v	Die: Increase friction
 v	Deadly scene blocks handle it's own collisions (refactor!)
@@ -57,7 +57,7 @@ v	ProjectileAimer works with priority queue (shurikens aim at player>items?)(aim
 v	Create static HUD
 t	Improve camera's algorithm (zoom in/out)
 t	Identify body part hit by shuriken
-t	NinjaRope (REFACTOR add draw texture)	
+t	NinjaRope (REFACTOR add draw texture)
 t	Timer registering event (warnInSeconds(float seconds, Object value) (enumeration?)
 t	FragMessageEvent (mediator)
 t	HudView zoom
@@ -75,6 +75,8 @@ v	Blink when has just spawned
 		Arms   (armor?, color)
 		Legs	(armor?, color)
 
+    Remove unused assets
+
 ShurikenBomb
 RayCastAnythingBut....
 
@@ -88,4 +90,3 @@ Think about what to do: action+wallgrab; action+ducking
 SmokeBomb as shader (that's harder than what I thought)
 
 Start playing with GUI (http://www.programcreek.com/java-api-examples/index.php?source_dir=java-jumpandrun-dev-master/core/src/main/java/de/secondsystem/game01/impl/game/entities/GameEntity.java)
-	

@@ -1,8 +1,12 @@
 package br.com.guigasgame.animation;
 
-import java.awt.Rectangle;
-import java.io.IOException;
-
+import br.com.guigasgame.color.ColorBlender;
+import br.com.guigasgame.drawable.Drawable;
+import br.com.guigasgame.math.Rect;
+import br.com.guigasgame.moveable.Moveable;
+import br.com.guigasgame.resourcemanager.TextureResourceManager;
+import br.com.guigasgame.side.Side;
+import br.com.guigasgame.updatable.UpdatableFromTime;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.ConstTexture;
 import org.jsfml.graphics.IntRect;
@@ -11,12 +15,7 @@ import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
-import br.com.guigasgame.color.ColorBlender;
-import br.com.guigasgame.drawable.Drawable;
-import br.com.guigasgame.moveable.Moveable;
-import br.com.guigasgame.resourcemanager.TextureResourceManager;
-import br.com.guigasgame.side.Side;
-import br.com.guigasgame.updatable.UpdatableFromTime;
+import java.io.IOException;
 
 
 public class Animation implements UpdatableFromTime, Drawable, Moveable
@@ -25,7 +24,7 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	private final AnimationProperties animationProperties;
 	private short currentFrameNumber;
 	private float secondsSinceLastUpdate;
-	private Rectangle frameRect;
+	private Rect frameRect;
 	private Sprite sprite;
 	private boolean finished;
 
@@ -36,24 +35,24 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 		this.animationProperties = animationProperties;
 		if (animationProperties.horizontal)
 		{
-			frameRect = new Rectangle(
+			frameRect = new Rect(0, 0,
 					(animationProperties.textureSpriteRect.width - animationProperties.textureSpriteRect.left)
 							/ animationProperties.numFrames,
 					(animationProperties.textureSpriteRect.height - animationProperties.textureSpriteRect.top));
 		}
 		else // if (animationProperties.vertical)
 		{
-			frameRect = new Rectangle(
+			frameRect = new Rect(0, 0,
 					animationProperties.textureSpriteRect.width - animationProperties.textureSpriteRect.left,
 					(animationProperties.textureSpriteRect.height - animationProperties.textureSpriteRect.top)
 							/ animationProperties.numFrames);
 		}
-		frameRect.x = animationProperties.textureSpriteRect.left;
-		frameRect.y = animationProperties.textureSpriteRect.top;	
+		frameRect.left = animationProperties.textureSpriteRect.left;
+		frameRect.top = animationProperties.textureSpriteRect.top;
 
 		sprite = new Sprite(animationProperties.texture);
 		sprite.setOrigin(frameRect.width / 2, frameRect.height / 2);
-		
+
 		secondsSinceLastUpdate = 0;
 		currentFrameNumber = 0;
 		updateFrameRect();
@@ -105,19 +104,19 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 		// mudo a posição do rect
 		if (animationProperties.horizontal)
 		{
-			frameRect.x = animationProperties.textureSpriteRect.left
+			frameRect.left = animationProperties.textureSpriteRect.left
 					+ frameRect.width * currentFrameNumber;
 		}
 		else
 		// if (animationDefinition.vertical)
 		{
-			frameRect.y = animationProperties.textureSpriteRect.top
+			frameRect.top = animationProperties.textureSpriteRect.top
 					+ frameRect.height * currentFrameNumber;
 		}
-		sprite.setTextureRect(new IntRect(frameRect.x, frameRect.y, frameRect.width, frameRect.height));
+		sprite.setTextureRect(new IntRect(frameRect.left, frameRect.top, frameRect.width, frameRect.height));
 	}
 
-	
+
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
@@ -137,8 +136,8 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 			sprite.setScale(1, 1);
 		}
 	}
-	
-	
+
+
 	public void setRotation(double angle)
 	{
 		sprite.setRotation((float) angle);
@@ -163,7 +162,7 @@ public class Animation implements UpdatableFromTime, Drawable, Moveable
 	{
 		sprite.setColor(color.getSfmlColor());
 	}
-	
+
 	public int getAlpha()
 	{
 		return sprite.getColor().a;

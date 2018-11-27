@@ -59,7 +59,7 @@ public class RoundGameState implements GameState
 	private final RoundMode roundMode;
 	private final GameHeroSpawner gameHeroSpawner;
 	private final RoundProperties roundAttributes;
-	
+
 	public RoundGameState(RoundProperties roundAttributes)
 	{
 		CollidableCategory.display();
@@ -77,11 +77,11 @@ public class RoundGameState implements GameState
 		world = new World(gravity);
 		world.setContactListener(new CollisionManager());
 		gameItemCreator = new GameItemCreationController(scenery);
-		
+
 		scenery.attachToWorld(world);
 		scenery.onEnter();
-		
-		
+
+
 		RoundHudSkin hudSkin = roundAttributes.getHudSkin();
 		hudController = new RoundHudController(hudSkin.getIdealView());
 		TimerStaticHud timerStaticHud = hudSkin.createTimerStaticHud(roundAttributes.getTotalTime());
@@ -90,7 +90,7 @@ public class RoundGameState implements GameState
 		final Vector2f heroesCenter = initializeHeroes();
 		cameraController = new CameraController(heroesCenter);
 	}
-	
+
 	private Vector2f initializeHeroes()
 	{
 		final List<Vector2f> heroesPosition = new ArrayList<>();
@@ -106,14 +106,14 @@ public class RoundGameState implements GameState
 				hudController.addStaticHud(teamFragStatisticHud);
 				team.getFragCounter().addListener(roundMode);
 			}
-			for (PlayableHeroDefinition gameHeroProperties : heros) 
+			for (PlayableHeroDefinition gameHeroProperties : heros)
 			{
 				gameHeroProperties.setHeroAttributes(roundAttributes.getHeroAttributes().clone());
 				final PlayableGameHero gameHero = new PlayableGameHero(gameHeroProperties);
 				final HeroFragStatisticHud heroFragStatisticHud = hudSkin.createHeroFragHud(gameHero);
 
 				HeroMovingHudController attributesMovingHudController = hudSkin.createHeroAttributesHud(gameHero);
-				
+
 				hudController.addDynamicHud(attributesMovingHudController);
 				heroesPosition.add(spawnHero(gameHero));
 				teamFragStatisticHud.addHeroFragHud(heroFragStatisticHud);
@@ -132,7 +132,7 @@ public class RoundGameState implements GameState
 		}
 		return Vector2f.div(sum, heroesPosition.size());
 	}
-	
+
 	@Subscribe public void onRoundOverEvent(RoundOverEventWrapper roundOverWrapper)
 	{
 		System.out.println("Gameover player win!");
@@ -142,7 +142,7 @@ public class RoundGameState implements GameState
 	{
 		gameHeroSpawner.addHeroToSpawn(respawnEvent.getHeroToRespawn(), respawnEvent.getTimeToRespawn());
 	}
-	
+
 	public Vector2f spawnHero(final PlayableGameHero gameHero)
 	{
 		final Vector2f heroPosition = scenery.popRandomSpawnPoint();
@@ -160,7 +160,7 @@ public class RoundGameState implements GameState
 	{
 		for ( int i = 0; i < 4; ++i)
 			System.out.println("Joystick ("+i+") is conected: " +Joystick.isConnected(i));
-		
+
 		SFMLDebugDraw sfmlDebugDraw = new SFMLDebugDraw(new OBBViewportTransform(), renderWindow);
 		world.setDebugDraw(sfmlDebugDraw);
 //		sfmlDebugDraw.appendFlags(DebugDraw.e_aabbBit);
@@ -172,7 +172,7 @@ public class RoundGameState implements GameState
         cameraController.setViewSize(renderWindow.getSize());
 //        hudController.setViewSize(renderWindow.getSize());
 	}
-	
+
 
 	@Override
 	public void handleEvent(Event event, RenderWindow renderWindow)
@@ -192,9 +192,9 @@ public class RoundGameState implements GameState
 //						if (axis != Axis.V)
 //							System.out.println("Joys(" + i + "): " + axis.toString() + " -> " + (Joystick.getAxisPosition(i, axis) > 0 ? 1 : -1));
 //					}
-//					
+//
 //				}
-//				
+//
 //			}
 //		}
 
@@ -205,7 +205,7 @@ public class RoundGameState implements GameState
 			if (event.asKeyEvent().key == Key.O) timeFactor = 1f;
 			if (event.asKeyEvent().key == Key.P) timeFactor = 3;
 		}
-		
+
 		// catch the resize events
 	    if (event.type == Type.RESIZED)
 	    {
@@ -249,7 +249,7 @@ public class RoundGameState implements GameState
 	{
 		world.step(updateTime, 8, 3);
 		world.clearForces();
-		
+
 		scenery.update(updateTime);
 		for( GameObject gameObject : gameObjectsList )
 		{
@@ -287,10 +287,10 @@ public class RoundGameState implements GameState
 		{
 			gameObject.draw(renderWindow);
 		}
-		
+
 		hudController.drawDynamicHud(renderWindow);
 		scenery.drawForegroundItems(renderWindow);
-		
+
 		renderWindow.setView(hudController.getStaticView());
 		hudController.drawStaticHud(renderWindow);
 	}

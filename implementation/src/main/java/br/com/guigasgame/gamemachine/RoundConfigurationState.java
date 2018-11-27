@@ -21,7 +21,7 @@ import br.com.guigasgame.team.TeamsController;
 public class RoundConfigurationState implements GameState
 {
 	private RoundGameState roundGameState;
-	
+
 	public RoundConfigurationState()
 	{
 		 try
@@ -30,11 +30,10 @@ public class RoundConfigurationState implements GameState
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public RoundGameState setupRoundState() throws Exception, JAXBException
 	{
 		TeamsController teamsController = setupTeams();
@@ -73,10 +72,10 @@ public class RoundConfigurationState implements GameState
 			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 1), TeamIndex.BRAVO);
 			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 2), TeamIndex.CHARLIE);
 			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.KEYBOARD), 3), TeamIndex.DELTA);
-			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4), TeamIndex.ECHO);
-			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 5), TeamIndex.FOXTROT);
-			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 6), TeamIndex.GOLF);
-			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 7), TeamIndex.HOTEL);
+//			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 4), TeamIndex.ECHO);
+//			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 5), TeamIndex.FOXTROT);
+//			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 6), TeamIndex.GOLF);
+//			teamsController.addHeroDefinition(new PlayableHeroDefinition(GameHeroInputMap.loadConfigFileFromDevice(HeroInputDevice.JOYSTICK), 7), TeamIndex.HOTEL);
 			teamsController.setTeamsUp();
 			return teamsController;
 		}
@@ -97,6 +96,6 @@ public class RoundConfigurationState implements GameState
 	@Override
 	public void draw(RenderWindow renderWindow)
 	{
-		
+
 	}
 }

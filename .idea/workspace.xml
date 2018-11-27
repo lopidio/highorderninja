@@ -2,114 +2,214 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0cebf484-76e8-4b4c-b998-9ed237043294" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/GOUDYSTO.TTF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/HeroFixtures.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/HeroStates.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/InputConfigFile1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/InputConfigFile2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/Model.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/alternativeScene.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/backGroundItems.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/backGroundTexture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/backgroundFile.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/biggerShuriken.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/darkStoneTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/defaultJoystickInputConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/defaultJoystickInputConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/defaultKeyboardInputConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/defaultKeyboardInputConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/fire-textures.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/gameItemsAnimation.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/grassTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/greenTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/guilogo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/heroAnimationProperties.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/heroAttributes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/itemsAnimations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/itemsProperties.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/joystickInput.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/jungleArena.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/lianaPoor.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/lianas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/lime.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/metal_textures.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/ninja.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/ninjaProperties.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/petitsArbres.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/proScene.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/projectilesAlphaTransparency.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/projectilesAnimation.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/projectilesProperties.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/ropeHook.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/ropePiece.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/sand-texture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/sceneryFile.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/shuriken.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/unnamed.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HighOrderNinja-ToDoList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/HighOrderNinja-ToDoList.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/config/alternativeScene.xml" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/config/alternativeScene.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/config/heroAnimationProperties.xml" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/config/heroAnimationProperties.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/config/itemsAnimations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/config/itemsAnimations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/config/jungleArena.xml" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/config/jungleArena.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/config/proScene.xml" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/config/proScene.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/config/projectilesAnimation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/config/projectilesAnimation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/GOUDYSTO.TTF" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/GOUDYSTO.TTF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/Model.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/Model.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/backGroundTexture.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/backGroundTexture.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/biggerShuriken.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/biggerShuriken.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/gameItemsAnimation.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/gameItemsAnimation.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/lianaPoor.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/lianaPoor.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/lianas.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/lianas.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/metal_textures.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/metal_textures.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/ninja.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/ninja.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/projectilesAlphaTransparency.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/projectilesAlphaTransparency.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/ropeHook.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/ropeHook.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/ropePiece.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/ropePiece.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/shuriken.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/shuriken.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/thinLiana.png" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/thinLiana.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/assets/oldgrahics/treesConcept.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/assets/graphics/treesConcept.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/Animation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/camera/CameraController.java" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/camera/CameraController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/file/FilenameConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/file/FilenameConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/GameMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/GameMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/target/test-classes/br/com/guigasgame/box2d/AppTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/target/test-classes/br/com/guigasgame/box2d/AppTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/thinLiana.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/implementation/treesConcept.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundConfigurationState.java" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundConfigurationState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundGameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gameobject/hero/playable/PlayableGameHero.java" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gameobject/hero/playable/PlayableGameHero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/SceneryViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/SceneryViewer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/implementation/target/" />
+    <ignored path="$PROJECT_DIR$/.idea/shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-471944404">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="2" />
+          <entry key="class" value="17" />
+          <entry key="java" value="38" />
+          <entry key="txt" value="1" />
+          <entry key="xml" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="2" />
+          <entry key="CLASS" value="17" />
+          <entry key="JAVA" value="38" />
+          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="XML" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1" />
+          <entry key="java" value="361" />
+          <entry key="txt" value="25" />
+          <entry key="xml" value="82" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1" />
+          <entry key="JAVA" value="361" />
+          <entry key="PLAIN_TEXT" value="25" />
+          <entry key="XML" value="82" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/file/FilenameConstants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1260">
+              <caret line="93" column="47" selection-start-line="93" selection-start-column="47" selection-end-line="93" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#961#962#0" expanded="true" />
+                <element signature="e#1003#1004#0" expanded="true" />
+                <element signature="e#1717#1718#0" expanded="true" />
+                <element signature="e#1752#1753#0" expanded="true" />
+                <element signature="e#1905#1906#0" expanded="true" />
+                <element signature="e#1939#1940#0" expanded="true" />
+                <element signature="e#1995#1996#0" expanded="true" />
+                <element signature="e#2054#2055#0" expanded="true" />
+                <element signature="e#2228#2229#0" expanded="true" />
+                <element signature="e#2257#2258#0" expanded="true" />
+                <element signature="e#2301#2302#0" expanded="true" />
+                <element signature="e#2344#2345#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/GameMachine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="39" selection-start-line="39" selection-end-line="39" />
+            <state relative-caret-position="371">
+              <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/assets/config/heroAnimationProperties.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="85" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="85" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/SceneryViewer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="40">
+              <caret line="56" column="60" lean-forward="true" selection-start-line="56" selection-start-column="60" selection-end-line="56" selection-end-column="60" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/resourcemanager/TextureResourceManager.java">
+        <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundGameState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            <state relative-caret-position="327">
+              <caret line="282" column="20" lean-forward="true" selection-start-line="282" selection-start-column="20" selection-end-line="282" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>sand-tex</find>
+      <find>fire-</find>
+      <find>assets/graphics/sand-texture.jpg</find>
+      <find>assets/graphics/fire-textures.jpg</find>
+      <find>backGroundItems</find>
+      <find>darkStoneTexture</find>
+      <find>assets/graphics/backGroundItems.png</find>
+      <find>heroAttributes.</find>
+      <find>itemsProperties.xm</find>
+      <find>greenTexture.</find>
+      <find>HeroStates.x</find>
+      <find>itemsAnimation.</find>
+      <find>projectilesAnimation</find>
+      <find>itemsA</find>
+      <find>projectilesAlphaTransparency</find>
+      <find>new Rectangle</find>
+      <find>assets/graphics/darkStoneTexture.jpg</find>
+      <find>heroFixturesFilename</find>
+      <find>projectilePropertiesFilename</find>
+      <find>System.out.pr</find>
+      <find>projectilesProperties</find>
+      <find>ropePiece.pn</find>
+      <find>pointsShapes</find>
+      <find>clock</find>
+      <find>main(</find>
+      <find>view</find>
+      <find>addObjectToFollow</find>
+      <find>cameraController</find>
+      <find>debug</find>
+      <find>draw</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>implementation/assets/graphics/ninja.png</replace>
+      <replace>frameRect.top</replace>
+      <replace>implementation/assets/graphics/lime.jpg</replace>
+      <replace>implementation/assets/graphics/sand-texture.jpg</replace>
+      <replace>implementation/assets/graphics/fire-textures.jpg</replace>
+      <replace>implementation/assets/graphics/backGroundItems.png</replace>
+      <replace>implementation/assets/graphics/darkStoneTexture.jpg</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -124,7 +224,22 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/Animation.java" />
+        <option value="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java" />
+        <option value="$PROJECT_DIR$/HighOrderNinja-ToDoList.txt" />
+        <option value="$PROJECT_DIR$/implementation/assets/config/alternativeScene.xml" />
+        <option value="$PROJECT_DIR$/implementation/assets/config/proScene.xml" />
+        <option value="$PROJECT_DIR$/implementation/assets/config/jungleArena.xml" />
+        <option value="$PROJECT_DIR$/implementation/assets/config/itemsAnimations.xml" />
+        <option value="$PROJECT_DIR$/implementation/assets/config/projectilesAnimation.xml" />
         <option value="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/GameMachine.java" />
+        <option value="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundConfigurationState.java" />
+        <option value="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gameobject/hero/playable/PlayableGameHero.java" />
+        <option value="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/file/FilenameConstants.java" />
+        <option value="$PROJECT_DIR$/implementation/assets/config/heroAnimationProperties.xml" />
+        <option value="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/SceneryViewer.java" />
+        <option value="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/camera/CameraController.java" />
+        <option value="$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundGameState.java" />
       </list>
     </option>
   </component>
@@ -152,6 +267,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -162,7 +278,64 @@
             <path>
               <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
               <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="graphics" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="guigasgame" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="guigasgame" type="462c0819:PsiDirectoryNode" />
+              <item name="scenery" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
+              <item name="implementation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="guigasgame" type="462c0819:PsiDirectoryNode" />
+              <item name="scenery" type="462c0819:PsiDirectoryNode" />
+              <item name="SceneryViewer" type="1a9f42e2:ClassTreeNode" />
             </path>
             <path>
               <item name="high-order-ninja" type="b2602c69:ProjectViewProjectNode" />
@@ -172,7 +345,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -182,7 +354,15 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="/usr/local/bin/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.31264368" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/implementation/assets/graphics" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -196,12 +376,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.GameMachine">
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AnimationViewer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.guigasgame.animation.AnimationViewer" />
+      <module name="high-order-ninja" />
+      <option name="VM_PARAMETERS" value="-XstartOnFirstThread" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.guigasgame.animation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -215,6 +409,20 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="br.com.guigasgame.gamemachine.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SceneryViewer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.guigasgame.scenery.SceneryViewer" />
+      <module name="high-order-ninja" />
+      <option name="VM_PARAMETERS" value="-XstartOnFirstThread" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.guigasgame.scenery.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -265,6 +473,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.GameMachine" />
+      <item itemvalue="Application.AnimationViewer" />
+      <item itemvalue="Application.SceneryViewer" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.SceneryViewer" />
+        <item itemvalue="Application.AnimationViewer" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -277,11 +496,13 @@
       <option name="presentableId" value="Default" />
       <updated>1543328365406</updated>
       <workItem from="1543328367265" duration="831000" />
+      <workItem from="1543332356472" duration="952000" />
+      <workItem from="1543335680390" duration="4544000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="831000" />
+    <option name="totallyTimeSpent" value="7653000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -294,31 +515,32 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Designer" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24969475" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25579977" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="SonarLint" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" visible="true" weight="0.32959184" />
-      <window_info anchor="bottom" id="Messages" />
-      <window_info anchor="bottom" id="Terminal" weight="0.32959184" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32959184" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993895" visible="true" weight="0.32959184" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32959184" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32959184" />
+      <window_info anchor="bottom" id="SonarLint" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32959184" />
+      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50061053" side_tool="true" weight="0.32959184" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32959184" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,24 +549,527 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java</url>
+          <line>67</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java</url>
+          <line>50</line>
+          <properties />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java</url>
+          <line>54</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java</url>
+          <line>61</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java</url>
+          <line>64</line>
+          <properties />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java</url>
+          <line>43</line>
+          <properties />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java</url>
+          <line>47</line>
+          <properties />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/Animation.java</url>
+          <line>39</line>
+          <properties />
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/SceneryViewer.java</url>
+          <line>32</line>
+          <properties />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/SceneryViewer.java</url>
+          <line>55</line>
+          <properties />
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/camera/CameraController.java</url>
+          <line>85</line>
+          <properties />
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundGameState.java</url>
+          <line>171</line>
+          <properties />
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/camera/CameraController.java</url>
+          <line>146</line>
+          <properties />
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>new FloatRect(new Vector2f(0,0), renderWindow.getView().getSize())</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>renderWindow.getView().getSize().x</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>renderWindow.getView().getSize()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>renderWindow.getView()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>new Rectangle(
+        (animationProperties.textureSpriteRect.width - animationProperties.textureSpriteRect.left)
+                / animationProperties.numFrames,
+        (animationProperties.textureSpriteRect.height - animationProperties.textureSpriteRect.top))</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>animationProperties.textureSpriteRect.height - animationProperties.textureSpriteRect.top</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>(animationProperties.textureSpriteRect.width - animationProperties.textureSpriteRect.left)
+							/ animationProperties.numFrames</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/GameMachine.java">
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/resourcemanager/TextureResourceManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
+        <state relative-caret-position="405">
+          <caret line="30" column="23" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/resourcemanager/TextureResourceManager.java">
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/color/ColorBlender.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        <state relative-caret-position="118">
+          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/src.zip!/java/util/Vector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="82" column="13" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/assets/graphics/ninja.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/shape/RectangleShape.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-449" />
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/src.zip!/java/awt/Rectangle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="118" column="13" selection-start-line="118" selection-start-column="13" selection-end-line="118" selection-end-column="13" />
+          <folding>
+            <element signature="e#7761#7762#0" expanded="true" />
+            <element signature="e#7802#7803#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/dependencies/jsfml-2013-07-MacOS/jsfml.jar!/org/jsfml/graphics/IntRect.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="e#0#2974#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/math/Rect.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/dependencies/jsfml-2013-07-MacOS/jsfml.jar!/org/jsfml/graphics/Text.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="15" column="24" lean-forward="true" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HighOrderNinja-ToDoList.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="84" column="75" lean-forward="true" selection-start-line="84" selection-start-column="75" selection-end-line="84" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/assets/config/proScene.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="156" column="84" selection-start-line="156" selection-start-column="68" selection-end-line="156" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/assets/config/alternativeScene.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="389" column="28" lean-forward="true" selection-start-line="389" selection-start-column="28" selection-end-line="389" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/resourcemanager/ResourceManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/AnimationViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="95" column="29" selection-start-line="95" selection-start-column="29" selection-end-line="95" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gameobject/hero/input/GameHeroInputMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/file/SceneryFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="111" column="36" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/assets/config/projectilesAnimation.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/assets/config/itemsAnimations.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="85" selection-start-line="19" selection-start-column="85" selection-end-line="19" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/assets/config/jungleArena.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="603" column="27" lean-forward="true" selection-start-line="603" selection-start-column="27" selection-end-line="603" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gameobject/hero/playable/PlayableGameHero.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="127" lean-forward="true" selection-start-line="127" selection-end-line="127" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundConfigurationState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="85" column="20" lean-forward="true" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/SplashScreenGameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="30" column="59" lean-forward="true" selection-start-line="30" selection-start-column="59" selection-end-line="30" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gameobject/projectile/ProjectilesPropertiesPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/file/FilenameConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="93" column="47" selection-start-line="93" selection-start-column="47" selection-end-line="93" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#961#962#0" expanded="true" />
+            <element signature="e#1003#1004#0" expanded="true" />
+            <element signature="e#1717#1718#0" expanded="true" />
+            <element signature="e#1752#1753#0" expanded="true" />
+            <element signature="e#1905#1906#0" expanded="true" />
+            <element signature="e#1939#1940#0" expanded="true" />
+            <element signature="e#1995#1996#0" expanded="true" />
+            <element signature="e#2054#2055#0" expanded="true" />
+            <element signature="e#2228#2229#0" expanded="true" />
+            <element signature="e#2257#2258#0" expanded="true" />
+            <element signature="e#2301#2302#0" expanded="true" />
+            <element signature="e#2344#2345#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/assets/config/heroAnimationProperties.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="85" selection-start-line="6" selection-start-column="54" selection-end-line="6" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/dependencies/jsfml-2013-07-MacOS/jsfml.jar!/org/jsfml/system/Clock.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/creation/SceneryInitialize.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/drawable/DrawableShape.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#338#339#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gameobject/GameObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/animation/Animation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/dependencies/jsfml-2013-07-MacOS/jsfml.jar!/org/jsfml/graphics/FloatRect.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-32">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/dependencies/jsfml-2013-07-MacOS/jsfml.jar!/org/jsfml/graphics/RenderWindow.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="96" column="21" selection-start-line="96" selection-start-column="21" selection-end-line="96" selection-end-column="21" />
+          <folding>
+            <element signature="e#2551#2552#0" expanded="true" />
+            <element signature="e#2583#2584#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/dependencies/jsfml-2013-07-MacOS/jsfml.jar!/org/jsfml/system/Vector2f.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/dependencies/jsfml-2013-07-MacOS/jsfml.jar!/org/jsfml/graphics/ConstView.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/GameMachine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/dependencies/jsfml-2013-07-MacOS/jsfml.jar!/org/jsfml/graphics/View.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="45" column="16" lean-forward="true" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/SceneController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+          <folding>
+            <element signature="e#2047#2073#0" expanded="true" />
+            <element signature="e#4791#4792#0" expanded="true" />
+            <element signature="e#4820#4821#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/camera/CameraController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="138" column="38" lean-forward="true" selection-start-line="138" selection-start-column="38" selection-end-line="138" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2772#2773#0" expanded="true" />
+            <element signature="e#2790#2791#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/scenery/SceneryViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="56" column="60" lean-forward="true" selection-start-line="56" selection-start-column="60" selection-end-line="56" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/src/main/java/br/com/guigasgame/gamemachine/RoundGameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="282" column="20" lean-forward="true" selection-start-line="282" selection-start-column="20" selection-end-line="282" selection-end-column="20" />
         </state>
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
     <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.31264368" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>bootstrap</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>high-order-ninja</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.31264368" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
       <state key="ProjectJDKs.UI">
         <settings>
           <last-edited>1.8</last-edited>
@@ -352,6 +1077,18 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: com.google.guava:guava:19.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.31264368" />
               </list>
             </option>
           </splitter-proportions>

@@ -8,14 +8,14 @@
 		<height>500.0</height>
 	</boundariesTollerance>
     <sceneryShapes>
-<!--        <circles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg">
+<!--        <circles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg">
             <center>
                 <x>1100.0</x>
                 <y>200.0</y>
             </center>
             <radius>50.0</radius>
         </circles>
-        <triangles textureName="assets/graphics/darkStoneTexture.jpg">
+        <triangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">
             <pointA>
                 <x>500.0</x>
                 <y>120.0</y>
@@ -29,7 +29,7 @@
                 <y>150.0</y>
             </pointC>
         </triangles>
-        <rectangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg">
+        <rectangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg">
             <center>
                 <x>480.0</x>
                 <y>760.0</y>
@@ -40,7 +40,7 @@
             </halfDimension>
         </rectangles>
 		-->
-        <triangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> <!-- 1 -->
+        <triangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> <!-- 1 -->
             <pointA>
                 <x>0.0</x>
                 <y>0.0</y>
@@ -54,7 +54,7 @@
                 <y>0.0</y>
             </pointC>
         </triangles>
-<!--         <rectangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> 2
+<!--         <rectangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> 2
             <center>
                 <x>15.0</x>
                 <y>610.0</y>
@@ -63,8 +63,8 @@
                 <x>15</x>
                 <y>220</y>
             </halfDimension>
-        </rectangles>		
- -->        <triangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> <!-- 3 -->
+        </rectangles>
+ -->        <triangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> <!-- 3 -->
             <pointA>
                 <x>0.0</x>
                 <y>800.0</y>
@@ -78,7 +78,7 @@
                 <y>1000.0</y>
             </pointC>
         </triangles>
-        <rectangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> <!-- 4 -->
+        <rectangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> <!-- 4 -->
             <center>
                 <x>175.0</x>
                 <y>1090.0</y>
@@ -87,8 +87,8 @@
                 <x>175.0</x>
                 <y>100.0</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg"> <!-- 5 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg"> <!-- 5 -->
             <center>
                 <x>250.0</x>
                 <y>1200.0</y>
@@ -97,8 +97,8 @@
                 <x>250.0</x>
                 <y>30</y>
             </halfDimension>
-        </rectangles>		
-		<triangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> <!-- 6 -->
+        </rectangles>
+		<triangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> <!-- 6 -->
             <pointA>
                 <x>175.0</x>
                 <y>530</y>
@@ -112,7 +112,7 @@
                 <y>530</y>
             </pointC>
         </triangles>
-		<triangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> <!-- 7 -->
+		<triangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> <!-- 7 -->
             <pointA>
                 <x>420.0</x>
                 <y>300</y>
@@ -126,7 +126,7 @@
                 <y>530</y>
             </pointC>
         </triangles>
-		<triangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> <!-- 8 -->
+		<triangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> <!-- 8 -->
             <pointA>
                 <x>420.0</x>
                 <y>630</y>
@@ -140,7 +140,7 @@
                 <y>730</y>
             </pointC>
         </triangles>
-		<triangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> <!-- 9 -->
+		<triangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> <!-- 9 -->
             <pointA>
                 <x>350.0</x>
                 <y>630</y>
@@ -154,7 +154,7 @@
                 <y>630</y>
             </pointC>
         </triangles>
-<!--        <rectangles textureName="assets/graphics/darkStoneTexture.jpg"> // 12 
+<!--        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg"> // 12
             <center>
                 <x>700.0</x>
                 <y>270.0</y>
@@ -164,21 +164,21 @@
                 <y>10</y>
             </halfDimension>
         </rectangles>		-->
-<!--        <circles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg">  //13
+<!--        <circles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg">  //13
             <center>
                 <x>1100.0</x>
                 <y>200.0</y>
             </center>
             <radius>80.0</radius>
         </circles> -->
-<!--    <circles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg">  14
+<!--    <circles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg">  14
             <center>
                 <x>1000.0</x>
                 <y>950.0</y>
             </center>
             <radius>50.0</radius>
         </circles>
-		<triangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> 15
+		<triangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> 15
             <pointA>
                 <x>1000.0</x>
                 <y>1000</y>
@@ -192,7 +192,7 @@
                 <y>1000</y>
             </pointC>
         </triangles>
-		<triangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> 16
+		<triangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> 16
             <pointA>
                 <x>1000.0</x>
                 <y>1000</y>
@@ -206,7 +206,7 @@
                 <y>900</y>
             </pointC>
         </triangles>
- -->        <rectangles textureName="assets/graphics/darkStoneTexture.jpg"> <!-- 17 -->
+ -->        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg"> <!-- 17 -->
             <center>
                 <x>1000.0</x>
                 <y>1000.0</y>
@@ -215,8 +215,8 @@
                 <x>370.0</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> <!-- 18 -->
+        </rectangles>
+        <rectangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> <!-- 18 -->
             <center>
                 <x>1000.0</x>
                 <y>1200.0</y>
@@ -225,8 +225,8 @@
                 <x>50.0</x>
                 <y>30</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 19 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 19 -->
             <center>
                 <x>1720.0</x>
                 <y>1200.0</y>
@@ -235,8 +235,8 @@
                 <x>80.0</x>
                 <y>30</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg">> <!-- 20 -->
+        </rectangles>
+        <rectangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg">> <!-- 20 -->
             <center>
                 <x>1790</x>
                 <y>700</y>
@@ -245,8 +245,8 @@
                 <x>10</x>
                 <y>500</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 21 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 21 -->
             <center>
                 <x>1590</x>
                 <y>800</y>
@@ -255,8 +255,8 @@
                 <x>120</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 22 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 22 -->
             <center>
                 <x>1490</x>
                 <y>800</y>
@@ -265,8 +265,8 @@
                 <x>120</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 23 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 23 -->
             <center>
                 <x>1630</x>
                 <y>700</y>
@@ -275,8 +275,8 @@
                 <x>150</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles damagePerSecond="10.0" textureName="assets/graphics/fire-textures.jpg"> <!-- 24TopLimit -->
+        </rectangles>
+        <rectangles damagePerSecond="10.0" textureName="implementation/assets/graphics/fire-textures.jpg"> <!-- 24TopLimit -->
             <center>
                 <x>1000.0</x>
                 <y>20.0</y>
@@ -285,8 +285,8 @@
                 <x>250.0</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg"> <!-- 24TopBellow -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg"> <!-- 24TopBellow -->
             <center>
                 <x>1000.0</x>
                 <y>90.0</y>
@@ -295,8 +295,8 @@
                 <x>500.0</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg"> <!-- 24MiddleTop -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg"> <!-- 24MiddleTop -->
             <center>
                 <x>1100.0</x>
                 <y>500.0</y>
@@ -305,8 +305,8 @@
                 <x>200.0</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg"> <!-- 24Middle -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg"> <!-- 24Middle -->
             <center>
                 <x>1100.0</x>
                 <y>600.0</y>
@@ -315,8 +315,8 @@
                 <x>280.0</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg"> <!-- 24Middle -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg"> <!-- 24Middle -->
             <center>
                 <x>1340.0</x>
                 <y>700.0</y>
@@ -325,8 +325,8 @@
                 <x>50.0</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 25 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 25 -->
             <center>
                 <x>1530</x>
                 <y>600</y>
@@ -335,8 +335,8 @@
                 <x>160</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 26 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 26 -->
             <center>
                 <x>1630</x>
                 <y>500</y>
@@ -345,8 +345,8 @@
                 <x>170</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 27 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 27 -->
             <center>
                 <x>1530</x>
                 <y>400</y>
@@ -355,8 +355,8 @@
                 <x>160</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 28 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 28 -->
             <center>
                 <x>1630</x>
                 <y>900</y>
@@ -365,8 +365,8 @@
                 <x>150</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 28B -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 28B -->
             <center>
                 <x>1630</x>
                 <y>300</y>
@@ -375,8 +375,8 @@
                 <x>150</x>
                 <y>15</y>
             </halfDimension>
-        </rectangles>		
-        <rectangles textureName="assets/graphics/darkStoneTexture.jpg">> <!-- 29 -->
+        </rectangles>
+        <rectangles textureName="implementation/assets/graphics/darkStoneTexture.jpg">> <!-- 29 -->
             <center>
                 <x>1380</x>
                 <y>600</y>
@@ -385,8 +385,8 @@
                 <x>10</x>
                 <y>200</y>
             </halfDimension>
-        </rectangles>		
-		
+        </rectangles>
+
     </sceneryShapes>
     <spawnPoints>
         <point>
@@ -519,7 +519,7 @@
             </origin>
             <distanceFromCamera>1000.0</distanceFromCamera>
         </backgroundItems> -->
-        <backgroundItems regenerate="false" textureFilename="assets/graphics/backGroundItems.png">
+        <backgroundItems regenerate="false" textureFilename="implementation/assets/graphics/backGroundItems.png">
             <animationProperties horizontal="true">
                 <numFrames>1</numFrames>
                 <numEntranceFrames>0</numEntranceFrames>
@@ -541,7 +541,7 @@
             </origin>
             <distanceFromCamera>100.0</distanceFromCamera>
         </backgroundItems>
-        <backgroundItems regenerate="true" textureFilename="assets/graphics/backGroundItems.png">
+        <backgroundItems regenerate="true" textureFilename="implementation/assets/graphics/backGroundItems.png">
             <animationProperties horizontal="true">
                 <numFrames>1</numFrames>
                 <numEntranceFrames>0</numEntranceFrames>
@@ -563,7 +563,7 @@
             </origin>
             <distanceFromCamera>90.0</distanceFromCamera>
         </backgroundItems>
-        <backgroundItems regenerate="true" textureFilename="assets/graphics/backGroundItems.png">
+        <backgroundItems regenerate="true" textureFilename="implementation/assets/graphics/backGroundItems.png">
             <animationProperties horizontal="true">
                 <numFrames>1</numFrames>
                 <numEntranceFrames>0</numEntranceFrames>

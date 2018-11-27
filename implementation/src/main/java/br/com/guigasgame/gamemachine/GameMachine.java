@@ -1,17 +1,15 @@
 package br.com.guigasgame.gamemachine;
 
-import java.util.Arrays;
-import java.util.Stack;
-import java.util.Vector;
-
-import org.jsfml.graphics.Color;
+import br.com.guigasgame.color.ColorBlender;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Clock;
 import org.jsfml.window.Keyboard;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.event.Event;
 
-import br.com.guigasgame.color.ColorBlender;
+import java.util.Arrays;
+import java.util.Stack;
+import java.util.Vector;
 
 
 public class GameMachine
@@ -25,7 +23,7 @@ public class GameMachine
 		return gameMachine;
 	}
 
-	public final int FRAME_RATE = 60;
+	private final int FRAME_RATE = 60;
 	private boolean isRunning;
 	private RenderWindow renderWindow;
 	private Vector<GameState> gameStates;
@@ -40,13 +38,13 @@ public class GameMachine
 		gameMachine.execute();
 	}
 
-	public void popState()
+	private void popState()
 	{
 		if (gameStates.size() > 0)
 			gameStates.remove(gameStates.lastElement());
 	}
 
-	public void addState(GameState gameState)
+	private void addState(GameState gameState)
 	{
 		gameState.enterState(renderWindow);
 		gameStates.add(gameState);
@@ -55,7 +53,7 @@ public class GameMachine
 			backgroundColor = new ColorBlender(200, 200, 250, 200);
 	}
 
-	public GameMachine()
+	private GameMachine()
 	{
         backgroundColor = new ColorBlender(200, 200, 250, 200);
 
@@ -66,10 +64,10 @@ public class GameMachine
                 return firstMode.bitsPerPixel - secondMode.bitsPerPixel;
             return retorno;
         });
-		for( VideoMode videoMode : modes )
-		{
-			System.out.println(videoMode);
-		}
+//		for( VideoMode videoMode : modes )
+//		{
+//			System.out.println(videoMode);
+//		}
 		final VideoMode best = modes[modes.length - 1];
 //		final VideoMode worst = modes[0];
 
@@ -96,7 +94,7 @@ public class GameMachine
 	{
 		// http://gafferongames.com/game-physics/fix-your-timestep/
 		Clock clock = new Clock();
-		float remainingAcumulator = 0f;
+		float remainingAccumulator = 0f;
 		final float updateDelta = (float) 1 / FRAME_RATE;
 		while (isRunning)
 		{
@@ -109,11 +107,11 @@ public class GameMachine
 			renderWindow.clear(backgroundColor.getSfmlColor());
 			handleEvents();
 
-			remainingAcumulator += iterationTime;
-			while (remainingAcumulator >= iterationTime)
+			remainingAccumulator += iterationTime;
+			while (remainingAccumulator >= iterationTime)
 			{
 				gameStates.lastElement().update(updateDelta);
-				remainingAcumulator -= updateDelta;
+				remainingAccumulator -= updateDelta;
 			}
 
 			gameStates.lastElement().draw(renderWindow);
@@ -142,7 +140,7 @@ public class GameMachine
 		}
 	}
 
-	public void switchState(GameState gameState)
+	void switchState(GameState gameState)
 	{
 		popState();
 		addState(gameState);

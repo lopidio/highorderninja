@@ -30,7 +30,7 @@ public class SceneryViewer
 
 	public SceneryViewer() throws Exception
 	{
-		String scenePropertiesFile = "arenaScene.xml";
+		String scenePropertiesFile = "implementation/assets/config/alternativeScene.xml";
 		SceneryInitialize creator = new SceneryInitialize(SceneryFile.loadFromFile(scenePropertiesFile));
 		scenery = new SceneController(creator);
 		pointsShapes = new ArrayList<>();
@@ -53,9 +53,10 @@ public class SceneryViewer
 
 		renderWindow = new RenderWindow(best, "Scene Viewer");
 		renderWindow.setFramerateLimit(60);
-		view = new View(new FloatRect(0, 0, renderWindow.getSize().x, renderWindow.getSize().y));		
+		Vector2f viewSize = renderWindow.getView().getSize();
+		view = new View(Vector2f.div(viewSize, 2), viewSize);
 	}
-	
+
 	private void initializePoints(SceneryInitialize creator)
 	{
 		for( Vector2f itemSpots : creator.getItemsSpots() )
@@ -80,17 +81,15 @@ public class SceneryViewer
 	{
 		new SceneryViewer().play();
 	}
-	
+
 
 	private void play()
 	{
-		Clock clock = new Clock();
 		while (isRunning)
 		{
-			clock.restart();
 			renderWindow.clear();
 			handleEvents();
-			
+
 			scenery.draw(renderWindow);
 			renderWindow.setView(view);
 			for( Shape shape : pointsShapes )
@@ -100,7 +99,7 @@ public class SceneryViewer
 			renderWindow.display();
 		}
 	}
-	
+
 	private void handleEvents()
 	{
 		Iterable<Event> events = renderWindow.pollEvents();
@@ -121,7 +120,7 @@ public class SceneryViewer
 					view.move(10, 0);
 				if (event.asKeyEvent().key == Keyboard.Key.DOWN)
 					view.move(0, 10);
-					
+
 			}
 			if (event.type == Event.Type.MOUSE_WHEEL_MOVED)
 			{

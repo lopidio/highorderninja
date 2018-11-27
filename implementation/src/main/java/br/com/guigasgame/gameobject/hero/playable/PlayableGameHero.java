@@ -119,7 +119,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	private void adjustAnimationsColor(ColorBlender colorBlender)
 	{
 		if (heroProperties.getPlayerId() == 0)
-			System.out.println(colorBlender.getA());
+//			System.out.println(colorBlender.getA());
 		for( Animation animation : animationList )
 		{
 			animation.setColor(colorBlender);
@@ -242,7 +242,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		return collidableHero;
 	}
-	
+
 	public NinjaHookProjectile createNinjaRopeProjectile(Vec2 pointingDirection)
 	{
 		return new NinjaHookProjectile(pointingDirection, this); //poiting direction doesn't work at constructor;
@@ -252,7 +252,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 	{
 		if (heroAttributes.getShurikens().isAbleToShoot() && !spawnBlinkerDelay.isActive())
 		{
-			Projectile retorno = new Shuriken(pointingDirection, this); 
+			Projectile retorno = new Shuriken(pointingDirection, this);
 			EventCentralMessenger.getInstance().fireEvent(new ShootFragEventWrapper(this, retorno));
 			heroAttributes.getShurikens().decrement(1);
 			return retorno;
@@ -335,7 +335,7 @@ public class PlayableGameHero extends GameObject implements HeroAttributeListene
 			System.out.println("Absorved projectile");
 		}
 	}
-	
+
 
 	public Vector2f getMassCenter()
 	{

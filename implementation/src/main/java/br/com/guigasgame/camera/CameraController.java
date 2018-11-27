@@ -33,14 +33,14 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	private static final float ZOOM_IN_FACTOR = 0.99f;
 	private static final float CENTER_MOVING_DURING = 0.2f;
 	private static final Vector2f CENTER_OFFSET = new Vector2f(0, -30);
-	
+
 	private final List<Followable> objectsToFollow;
 	private View view;
 	private Shape outterFrame;
 	private Shape innerFrame;
 	private final CameraCenterFrame centerFrame;
 	private InterpolatorFromTime<Vector2f> centerInterpolator;
-	
+
 	public CameraController(Vector2f center)
 	{
 		objectsToFollow = new ArrayList<>();
@@ -48,7 +48,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		EventCentralMessenger.getInstance().subscribe(this);
 		centerInterpolator = new VectorLinearInterpolator(center, CENTER_MOVING_DURING);
 	}
-	
+
 	public void addObjectToFollow(Followable followable)
 	{
 		centerFrame.addObject(followable);
@@ -66,21 +66,21 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	{
 		if (objectsToFollow.size() <= 0)
 			return;
-		
+
 		centerFrame.update(deltaTime);
 		checkZoomOut();
 		checkZoomIn();
-		
+
 
 		final Vector2f focusCenter = centerFrame.getCenter();
 		innerFrame.setPosition(Vector2f.add(focusCenter, CENTER_OFFSET));
 		outterFrame.setPosition(Vector2f.add(focusCenter, CENTER_OFFSET));
 		centerInterpolator.interpolateTo(Vector2f.add(focusCenter, CENTER_OFFSET));
 		centerInterpolator.update(deltaTime);
-		view.setCenter(Vector2f.add(centerInterpolator.getCurrent(), CENTER_OFFSET));		
+		view.setCenter(Vector2f.add(centerInterpolator.getCurrent(), CENTER_OFFSET));
 
 	}
-	
+
 	public View getCameraView()
 	{
 		return view;
@@ -106,7 +106,7 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 
 		}
 	}
-	
+
 	private boolean isEveryPlayerInsideInnerFrame()
 	{
 		for( Followable cameraFollowable : objectsToFollow )
@@ -132,26 +132,26 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	{
 		Vector2f innerSize = Vector2f.mul(new Vector2f(size), INNER_FRAME_SCALE);
 		Vector2f outterSize = Vector2f.mul(new Vector2f(size), OUTTER_FRAME_SCALE);
-		
+
 		innerFrame = createSfmlRectangle(innerSize, size);
 		innerFrame.setOutlineColor(new Color(200, 0, 0, 100));
 		innerFrame.setFillColor(new Color(200, 200, 0, 100));
 		innerFrame.setOutlineThickness(1.0f);
-		
+
 		outterFrame = createSfmlRectangle(outterSize, size);
 		outterFrame.setOutlineColor(new Color(0, 0, 200, 100));
 		outterFrame.setFillColor(new Color(0, 200, 200, 100));
 		outterFrame.setOutlineThickness(1.0f);
-		
-		view = new View(new FloatRect(0, 0, size.x, size.y));
+
+		view = new View(new Vector2f(Vector2i.div(size, 2)), new Vector2f(size));
 	}
-	
+
 	private Shape createSfmlRectangle(Vector2f dimension, Vector2i size)
 	{
 		Shape shape = new RectangleShape(dimension);
 		shape.setPosition(Vector2f.div(new Vector2f(size), 2));
 		shape.setOrigin(dimension.x/2, dimension.y/2);
-		
+
 		return shape;
 	}
 
@@ -160,11 +160,11 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 	{
 		renderWindow.draw(innerFrame);
 		renderWindow.draw(outterFrame);
-		
+
 		Shape circle = new CircleShape(3);
 		circle.setPosition(centerFrame.getCenter());
 		renderWindow.draw(circle);
-		
+
 		Shape smallest = new RectangleShape(centerFrame.getSize());
 		smallest.setFillColor(new Color(200, 200, 0, 100));
 		smallest.setOutlineThickness(1.0f);
@@ -172,13 +172,13 @@ public class CameraController implements UpdatableFromTime, Drawable, ResizableB
 		renderWindow.draw(smallest);
 
 	}
-	
-	@Subscribe public void onSpawnEvent(SpawnEventWrapper spawnEventWrapper) 
+
+	@Subscribe public void onSpawnEvent(SpawnEventWrapper spawnEventWrapper)
 	{
 		addObjectToFollow((Followable)(spawnEventWrapper.getSender()));
 	}
 
-	@Subscribe public void onDiedEvent(DiedFragEventWrapper diedEventWrapper) 
+	@Subscribe public void onDiedEvent(DiedFragEventWrapper diedEventWrapper)
 	{
 		removeObjectToFollow((Followable)(diedEventWrapper.getSender()));
 	}

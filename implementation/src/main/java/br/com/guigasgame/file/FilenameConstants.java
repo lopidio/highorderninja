@@ -1,19 +1,18 @@
 package br.com.guigasgame.file;
 
-import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap.HeroInputDevice;
+import br.com.guigasgame.gameobject.hero.input.GameHeroInputMap;
 import br.com.guigasgame.math.Randomizer;
 
 
 public class FilenameConstants
 {
 
-	private static String heroFixturesFilename = "HeroFixtures.xml";
-	private static String heroStatesFilename = "HeroStates.xml";
-	private static String projectilePropertiesFilename = "projectilesProperties.xml";
+	private static String heroStatesFilename = "implementation/assets/config/HeroStates.xml";
+	private static String projectilePropertiesFilename = "implementation/assets/config/projectilesProperties.xml";
 
 	public static String getProjectileAnimationFilename()
 	{
-		return "projectilesAnimation.xml";
+		return "implementation/assets/config/projectilesAnimation.xml";
 	}
 
 	public static String getInputPlayerConfigFilename(int playerID)
@@ -26,12 +25,7 @@ public class FilenameConstants
 
 	public static String getHeroAnimationFilename()
 	{
-		return "heroAnimationProperties.xml";
-	}
-
-	public static String getHeroFixturesFilename()
-	{
-		return heroFixturesFilename;
+		return "implementation/assets/config/heroAnimationProperties.xml";
 	}
 
 	public static String getHeroStatesFilename()
@@ -44,14 +38,14 @@ public class FilenameConstants
 		return projectilePropertiesFilename;
 	}
 
-	public static String getInputPlayerConfigFromDevice(HeroInputDevice device)
+	public static String getInputPlayerConfigFromDevice(GameHeroInputMap.HeroInputDevice device)
 	{
 		switch (device)
 		{
 			case JOYSTICK:
-				return "assets/config/defaultJoystickInputConfig.xml";
+				return "implementation/assets/config/defaultJoystickInputConfig.xml";
 			case KEYBOARD:
-				return "assets/config/defaultKeyboardInputConfig.xml";
+				return "implementation/assets/config/defaultKeyboardInputConfig.xml";
 			default:
 				return "";
 		}
@@ -62,47 +56,47 @@ public class FilenameConstants
 		switch(Randomizer.getRandomIntInInterval(0, 2))
 		{
 			case 0:
-				return "assets/config/alternativeScene.xml";
+				return "implementation/assets/config/alternativeScene.xml";
 			case 1:
-				return "assets/config/proScene.xml";
+				return "implementation/assets/config/proScene.xml";
 			default: //case 2:
-				return "assets/config/jungleArena.xml";
+				return "implementation/assets/config/jungleArena.xml";
 		}
 	}
 
 	public static String getItemsPropertiesFilename()
 	{
-		return "itemsProperties.xml";
+		return "implementation/assets/config/itemsProperties.xml";
 	}
 
 	public static String getItemsAnimationPropertiesFilename()
 	{
-		return "itemsAnimations.xml";
+		return "implementation/assets/config/itemsAnimations.xml";
 	}
 
 	public static String getHeroAttributesFilename()
 	{
-		return "heroAttributes.xml";
+		return "implementation/assets/config/heroAttributes.xml";
 	}
 
 	public static String getTimerCounterFontFilename()
 	{
-		return "GOUDYSTO.TTF";
+		return "implementation/assets/graphics/GOUDYSTO.TTF";
 	}
 
 	public static String getFragStatistcsFontFilename()
 	{
-		return "GOUDYSTO.TTF";
+		return "implementation/assets/graphics/GOUDYSTO.TTF";
 	}
 
 	public static String getRopePieceAnimationFilename()
 	{
-		return "ropePiece.png";
+		return "implementation/assets/graphics/ropePiece.png";
 	}
 
 	public static String getLogoFilename()
 	{
-		return "assets/graphics/guilogo.png";
+		return "implementation/assets/graphics/guilogo.png";
 	}
 
 }
